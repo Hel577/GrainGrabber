@@ -21,12 +21,11 @@
 #include "can.h"
 
 /* USER CODE BEGIN 0 */
-
-/* USER CODE END 0 */
-
 CAN_HandleTypeDef hcan1;
 CAN_TxHeaderTypeDef TXHeader;//
 CAN_RxHeaderTypeDef RXHeader;//????
+
+/* USER CODE END 0 */
 
 /* CAN1 init function */
 void MX_CAN1_Init(void)
@@ -135,9 +134,9 @@ void CAN_Config(void)
   sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;
   sFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT;
   sFilterConfig.FilterIdHigh = 0x0000;              //32佝ID
-  sFilterConfig.FilterIdLow = 0x0000;
-  sFilterConfig.FilterMaskIdHigh = 0x0000;          //32佝MASK
-  sFilterConfig.FilterMaskIdLow = 0x0000;
+  sFilterConfig.FilterIdLow = 0x07FC;
+  sFilterConfig.FilterMaskIdHigh = 0x6007;          //32佝MASK
+  sFilterConfig.FilterMaskIdLow = 0xC7FD;
   sFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0;//过滤�?0关蝔到FIFO0
   sFilterConfig.FilterActivation = ENABLE;          //**滤波�?0
   sFilterConfig.SlaveStartFilterBank = 14;
@@ -157,11 +156,10 @@ void CAN_Config(void)
  }
  
    /*酝置传输过程*/
-  TXHeader.StdId = 0x321;
-  TXHeader.ExtId = 0x01;
+  TXHeader.StdId = 0x00;//CANID
+  TXHeader.ExtId = 0x00;//???
   TXHeader.RTR = CAN_RTR_DATA;
-  TXHeader.IDE = CAN_ID_STD;
-  TXHeader.DLC = 2;
-  TXHeader.TransmitGlobalTime = DISABLE;
+  TXHeader.IDE = CAN_ID_EXT;
+  TXHeader.DLC = 8;//TODO: ?????8
 }
 /* USER CODE END 1 */
