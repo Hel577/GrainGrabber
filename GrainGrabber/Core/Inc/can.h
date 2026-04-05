@@ -35,6 +35,63 @@ extern "C" {
 extern CAN_HandleTypeDef hcan1;
 
 /* USER CODE BEGIN Private defines */
+typedef  struct
+{
+  uint8_t category;
+  uint16_t message;
+  uint8_t target_id;
+}TXID;
+
+typedef struct 
+{
+  uint8_t category;
+  uint8_t message;
+  uint8_t source_id;
+  uint8_t target_id;
+}RXID;
+
+typedef struct 
+{
+  /* data */
+  uint8_t id;
+  uint8_t MCU[8]; 
+}DEVICE;
+
+typedef enum {
+    RESET0,
+    CALI,
+    MOTOR
+}MODE;
+
+typedef struct 
+{
+  /* data */
+  MODE mode;
+  uint8_t error;
+  float angle;
+  float ange_vel;
+  float torque;
+  float temp;
+}STATE;
+
+typedef struct
+{
+  /* data */
+  uint16_t index;
+  uint32_t data;
+}para;
+
+
+
+
+#define MASTER_CAN_ID 0xFF
+#define GET_DEVICE_ID 0x00
+#define GET_STATE_ID 0x02
+#define ENABLE_ID 0x03
+#define STOP_ID 0x04
+#define SET_ZERO_ID 0x06
+#define GET_PARA_ID 0x11
+#define WRITE_PARA_ID 0x12
 
 /* USER CODE END Private defines */
 
