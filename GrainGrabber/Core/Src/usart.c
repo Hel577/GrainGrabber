@@ -237,9 +237,9 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 /* USER CODE BEGIN 1 */
 
 
-uint8_t camdata[8];//树莓派接收内�?
-uint8_t uartdata[8];//串口接收内容
-// extern osSemaphoreId_t myBinarySem01Handle; // 信号量句柄，�?????在freertos.c中定�?????
+extern uint8_t camdata[8];//鏍戣帗娲炬帴鏀跺唴锟�?
+uint8_t uartdata[8];//涓插彛鎺ユ敹鍐呭
+// extern osSemaphoreId_t myBinarySem01Handle; // 淇″彿閲忓彞鏌勶紝锟�?????鍦╢reertos.c涓畾锟�?????
 // extern osSemaphoreId_t myBinarySem02Handle;
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
@@ -247,35 +247,35 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
   if (huart->Instance == huart1.Instance)
   {
     HAL_UART_Transmit_IT(&huart1, camdata, 8);
-    // HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin); // 接收完成后点亮LED
+    // HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin); // 鎺ユ敹瀹屾垚鍚庣偣浜甃ED
     }
 
-//接收树莓派串口消息    
-//接收包格式：{FF,AA,color_id,area,x,y,AA,EE}
+//鎺ユ敹鏍戣帗娲句覆鍙ｆ秷鎭�    
+//鎺ユ敹鍖呮牸寮忥細{FF,AA,color_id,area,x,y,AA,EE}
   else if (huart->Instance == huart2.Instance)
   {
     if (camdata[0] == 0xFF && camdata[1] == 0xAA 
             && camdata[6] == 0xAA && camdata[7] == 0xEE) 
     {
-      // osSemaphoreRelease(myBinarySem02Handle); // 释放信号量，通知任务处理数据
+      // osSemaphoreRelease(myBinarySem02Handle); // 閲婃斁淇″彿閲忥紝閫氱煡浠诲姟澶勭悊鏁版嵁
       }
     HAL_UART_Transmit_DMA(&huart2, camdata, 8);
-    // HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin); // 接收完成后点亮LED
+    // HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin); // 鎺ユ敹瀹屾垚鍚庣偣浜甃ED
     }
 }
 
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 {
-    // 发�?�完成回调：可以在此处理发�?�完成后的�?�辑
+    // 鍙戯拷?锟藉畬鎴愬洖璋冿細鍙互鍦ㄦ澶勭悊鍙戯拷?锟藉畬鎴愬悗鐨勶拷?锟借緫
     if (huart->Instance == USART1)
     {
-        // 发�?�完成后，重新启动接收（中断方式，接�?8字节�?
+        // 鍙戯拷?锟藉畬鎴愬悗锛岄噸鏂板惎鍔ㄦ帴鏀讹紙涓柇鏂瑰紡锛屾帴锟�?8瀛楄妭锟�?
         HAL_UART_Receive_IT(&huart1, uartdata, 8);
     }
 
     if (huart->Instance == USART2)
     {
-        // 发�?�完成后，重新启动接收（DMA方式，接�?8字节�?
+        // 鍙戯拷?锟藉畬鎴愬悗锛岄噸鏂板惎鍔ㄦ帴鏀讹紙DMA鏂瑰紡锛屾帴锟�?8瀛楄妭锟�?
         HAL_UART_Receive_DMA(&huart2, camdata, 8);
     }
 }
