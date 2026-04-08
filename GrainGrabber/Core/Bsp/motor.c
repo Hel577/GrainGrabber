@@ -3,7 +3,7 @@
 #include "motor.h"
 #include "math.h"
 
-const double pi;
+extern const double pi;
 
 uint32_t construct_txid(TXID* txid) {
     return (uint32_t)txid->category << 24 | (uint32_t)txid->message << 8 | (uint32_t)txid->target_id;
@@ -45,7 +45,7 @@ void read_message_from_motor(RXID* rxid, uint8_t* data){
     HAL_CAN_GetRxMessage(&hcan1, CAN_RX_FIFO0, &RXHeader, data);
     if(RXHeader.IDE == CAN_ID_EXT){
         uint32_t extid = RXHeader.ExtId;
-        if(extid&0xFF!= MASTER_CAN_ID){
+        if((extid&0xFF)!= MASTER_CAN_ID){
             //如果不是主控发来的消息，直接丢弃
             return;
         }
@@ -89,7 +89,7 @@ void read_state(RXID* rxid, uint8_t* data, STATE* state){
     }
 
     state->mode = MOTOR;
-    state->error = (uint8_t)(rxid->message & 0x3F != 0);
+    state->error = (uint8_t)((rxid->message & 0x3F)!= 0);
     state->angle = ((float)((data[0] << 8) | data[1])/65535.0f - 0.5)* 8 * pi;
     state->ange_vel = ((float)((data[2] << 8) | data[3])/65535.0f - 0.5)* 60;
     state->torque = ((float)((data[4] << 8) | data[5])/65535.0f - 0.5)* 24;
@@ -111,7 +111,4 @@ void read_parameter(RXID* rxid, uint8_t* data, para* parameter){
     parameter->index = (data[0] << 8) | data[1];
     parameter->data = (data[4] << 24) | (data[5] << 16) | (data[6] << 8) | data[7];
 }
-
-
-
 

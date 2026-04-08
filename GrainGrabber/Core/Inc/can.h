@@ -34,6 +34,8 @@ extern "C" {
 
 extern CAN_HandleTypeDef hcan1;
 
+extern CAN_HandleTypeDef hcan2;
+
 /* USER CODE BEGIN Private defines */
 typedef  struct
 {
@@ -96,9 +98,10 @@ typedef struct
 /* USER CODE END Private defines */
 
 void MX_CAN1_Init(void);
+void MX_CAN2_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-void CAN_Config(void);
+// void CAN_Config(void);
 extern CAN_TxHeaderTypeDef TXHeader;
 extern CAN_RxHeaderTypeDef RXHeader;
 /* USER CODE END Prototypes */

@@ -21,6 +21,7 @@
 #include "cmsis_os.h"
 #include "can.h"
 #include "dma.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -68,6 +69,7 @@ void MX_FREERTOS_Init(void);
   */
 int main(void)
 {
+
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -91,26 +93,32 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_DMA_Init();
-  MX_USART2_UART_Init();
   MX_CAN1_Init();
-  MX_USART1_UART_Init();
+  MX_CAN2_Init();
+  MX_TIM5_Init();
+  MX_TIM12_Init();
+  MX_UART7_Init();
+  MX_USART3_UART_Init();
+  MX_UART8_Init();
+  MX_USART6_UART_Init();
   /* USER CODE BEGIN 2 */
-  CAN_Config();
+  // CAN_Config();
 
-  HAL_UART_Receive_IT(&huart1, uartdata, 8);
-  HAL_UART_Receive_DMA(&huart2, camdata, 8);
+  HAL_UART_Receive_IT(&huart7, uartdata, 8);
+  HAL_UART_Receive_DMA(&huart3, camdata, 8);
   /* USER CODE END 2 */
 
   /* Init scheduler */
   osKernelInitialize();
 
-  /* Call init function for freertos objects (in freertos.c) */
+  /* Call init function for freertos objects (in cmsis_os2.c) */
   MX_FREERTOS_Init();
 
   /* Start scheduler */
   osKernelStart();
 
   /* We should never get here as control is now taken by the scheduler */
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -144,10 +152,17 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 6;
-  RCC_OscInitStruct.PLL.PLLN = 168;
+  RCC_OscInitStruct.PLL.PLLN = 180;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 4;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Activate the Over-Drive mode
+  */
+  if (HAL_PWREx_EnableOverDrive() != HAL_OK)
   {
     Error_Handler();
   }
@@ -172,12 +187,38 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
+{
+    CAN_RxHeaderTypeDef RxHeader;
+    uint8_t RxData[8];
+    // printf("\rCAN receive\r\n");
+    /* 获取接收到的消息 */
+    if (HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeader, RxData) == HAL_OK)
+    {
+        /* 判断是哪个CAN接口接收到数据 */
+        if (hcan->Instance == CAN1)
+        {
+            /* 处理CAN1接收到的数据 */
+            if (RxHeader.IDE == CAN_ID_EXT) /* 扩展帧 */
+            {
+                MIMotor_MotorDataDecode(RxHeader.ExtId, RxData);
+            }
+        }
+        else if (hcan->Instance == CAN2)
+        {
+            /* 处理CAN2接收到的数据 */
+            if (RxHeader.IDE == CAN_ID_EXT) /* 扩展帧 */
+            {
+                MIMotor_MotorDataDecode(RxHeader.ExtId, RxData);
+            }
+        }
+    }
+}
 /* USER CODE END 4 */
 
 /**
   * @brief  Period elapsed callback in non blocking mode
-  * @note   This function is called  when TIM1 interrupt took place, inside
+  * @note   This function is called  when TIM7 interrupt took place, inside
   * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
   * a global variable "uwTick" used as application time base.
   * @param  htim : TIM handle
@@ -188,7 +229,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   /* USER CODE BEGIN Callback 0 */
 
   /* USER CODE END Callback 0 */
-  if (htim->Instance == TIM1) {
+  if (htim->Instance == TIM7)
+  {
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
