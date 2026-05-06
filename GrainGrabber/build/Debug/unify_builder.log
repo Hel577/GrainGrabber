@@ -1,0 +1,914 @@
+[2026-04-13 19:01:49]	[info] incremental build: 51 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\app.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\car.c': source file has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\lift.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\raspi.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\scara.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\MI_motor_dev.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\filter.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\pid.c': source file has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\can.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\dma.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\gpio.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\main.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\my_task.c': source file has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\stm32f4xx_hal_msp.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\stm32f4xx_hal_timebase_tim.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\stm32f4xx_it.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\syscalls.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\sysmem.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\system_stm32f4xx.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\tim.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\usart.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_can.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma_ex.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_exti.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ex.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ramfunc.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_gpio.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr_ex.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_uart.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\croutine.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\event_groups.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\list.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\portable\GCC\ARM_CM4F\port.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang\heap_4.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\queue.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\stream_buffer.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\tasks.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\timers.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\startup_stm32f427xx.s': compiler options has been changed.
+
+[2026-04-13 19:01:52]	compilation failed at : "d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/Src/freertos.o -MMD ./Core/Src/freertos.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/Src/can.c: In function 'CAN_Send_Test':
+./Core/Src/can.c:274:9: error: implicit declaration of function 'Beep_On' [-Wimplicit-function-declaration]
+  274 |         Beep_On();
+      |         ^~~~~~~
+In file included from Core/APP/car.h:3,
+                 from Core/APP/app.h:4,
+                 from Core/Inc/my_task.h:16,
+                 from ./Core/Src/freertos.c:34:
+Core/BSP/bsp.h:10:9: warning: "CAR_S" redefined
+   10 | #define CAR_S 300.0f // 前后轮心距
+      |         ^~~~~
+Core/APP/car.h:2:9: note: this is the location of the previous definition
+    2 | #define CAR_S
+      |         ^~~~~
+./Core/Src/freertos.c: In function 'StartMainTask':
+./Core/Src/freertos.c:289:3: error: implicit declaration of function 'test_motor'; did you mean 'test_move'? [-Wimplicit-function-declaration]
+  289 |   test_motor();
+      |   ^~~~~~~~~~
+      |   test_move
+
+[2026-04-13 19:04:10]	[info] incremental build: 35 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\can.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\main.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Inc\my_task.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\my_task.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Inc\my_task.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\system_stm32f4xx.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\tim.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\usart.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_can.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma_ex.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_exti.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ex.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ramfunc.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_gpio.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr_ex.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_uart.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\croutine.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\event_groups.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\list.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\portable\GCC\ARM_CM4F\port.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang\heap_4.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\queue.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\stream_buffer.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\tasks.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\timers.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\startup_stm32f427xx.s': compiler options has been changed.
+
+[2026-04-13 19:04:11]	compilation failed at : "d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/Src/freertos.o -MMD ./Core/Src/freertos.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/Src/can.c: In function 'CAN_Send_Test':
+./Core/Src/can.c:274:9: error: implicit declaration of function 'Beep_On' [-Wimplicit-function-declaration]
+  274 |         Beep_On();
+      |         ^~~~~~~
+In file included from Core/APP/car.h:3,
+                 from Core/APP/app.h:4,
+                 from Core/Inc/my_task.h:16,
+                 from ./Core/Src/freertos.c:34:
+Core/BSP/bsp.h:10:9: warning: "CAR_S" redefined
+   10 | #define CAR_S 300.0f // 前后轮心�?      |         ^~~~~
+Core/APP/car.h:2:9: note: this is the location of the previous definition
+    2 | #define CAR_S
+      |         ^~~~~
+./Core/Src/freertos.c: In function 'StartMainTask':
+./Core/Src/freertos.c:290:3: error: implicit declaration of function 'test_motor'; did you mean 'test_move'? [-Wimplicit-function-declaration]
+  290 |   test_motor();
+      |   ^~~~~~~~~~
+      |   test_move
+
+[2026-04-13 19:07:13]	[info] incremental build: 23 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\can.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\main.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Inc\my_task.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\my_task.c': source file has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_gpio.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr_ex.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_uart.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\croutine.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\event_groups.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\list.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\portable\GCC\ARM_CM4F\port.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang\heap_4.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\queue.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\stream_buffer.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\tasks.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\timers.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\startup_stm32f427xx.s': compiler options has been changed.
+
+[2026-04-13 19:07:13]	compilation failed at : "d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\can.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/Src/can.o -MMD ./Core/Src/can.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/Src/can.c: In function 'CAN_Send_Test':
+./Core/Src/can.c:274:9: error: implicit declaration of function 'Beep_On' [-Wimplicit-function-declaration]
+  274 |         Beep_On();
+      |         ^~~~~~~
+
+[2026-04-13 19:07:30]	[info] incremental build: 21 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\app.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\car.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\car.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\car.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\can.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\car.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\main.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\car.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\my_task.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\car.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_uart.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\croutine.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\event_groups.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\list.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\portable\GCC\ARM_CM4F\port.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang\heap_4.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\queue.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\stream_buffer.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\tasks.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\timers.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\startup_stm32f427xx.s': compiler options has been changed.
+
+[2026-04-13 19:07:31]	compilation failed at : "d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\car.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/APP/car.o -MMD ./Core/APP/car.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/Src/can.c: In function 'CAN_Send_Test':
+./Core/Src/can.c:274:9: error: implicit declaration of function 'Beep_On' [-Wimplicit-function-declaration]
+  274 |         Beep_On();
+      |         ^~~~~~~
+In file included from Core/APP/app.h:4,
+                 from Core/Inc/my_task.h:16,
+                 from ./Core/Src/freertos.c:34:
+Core/APP/car.h:108:2: error: #endif without #if
+  108 | #endif
+      |  ^~~~~
+In file included from Core/APP/app.h:4,
+                 from Core/Inc/my_task.h:16,
+                 from ./Core/Src/my_task.c:1:
+Core/APP/car.h:108:2: error: #endif without #if
+  108 | #endif
+      |  ^~~~~
+./Core/Src/main.c:20:1: warning: "/*" within comment [-Wcomment]
+   20 | /* USER CODE END Header */
+In file included from Core/APP/app.h:4,
+                 from ./Core/Src/main.c:33:
+Core/APP/car.h:108:2: error: #endif without #if
+  108 | #endif
+      |  ^~~~~
+In file included from ./Core/APP/app.h:4,
+                 from ./Core/APP/app.c:1:
+./Core/APP/car.h:108:2: error: #endif without #if
+  108 | #endif
+      |  ^~~~~
+In file included from ./Core/APP/app.h:4,
+                 from ./Core/APP/car.h:15,
+                 from ./Core/APP/car.c:1:
+./Core/APP/car.h:108:2: error: #endif without #if
+  108 | #endif
+      |  ^~~~~
+./Core/APP/car.h:19:6: error: redeclaration of 'enum Car_Mode'
+   19 | enum Car_Mode
+      |      ^~~~~~~~
+./Core/APP/car.h:19:6: note: originally defined here
+   19 | enum Car_Mode
+      |      ^~~~~~~~
+./Core/APP/car.h:21:5: error: redeclaration of enumerator 'CAR_ACC'
+   21 |     CAR_ACC = 0,//加速过�?      |     ^~~~~~~
+./Core/APP/car.h:21:5: note: previous definition of 'CAR_ACC' with type 'enum Car_Mode'
+   21 |     CAR_ACC = 0,//加速过�?      |     ^~~~~~~
+./Core/APP/car.h:22:5: error: redeclaration of enumerator 'CAR_AVE'
+   22 |     CAR_AVE =1 ,//匀速过�?      |     ^~~~~~~
+./Core/APP/car.h:22:5: note: previous definition of 'CAR_AVE' with type 'enum Car_Mode'
+   22 |     CAR_AVE =1 ,//匀速过�?      |     ^~~~~~~
+./Core/APP/car.h:23:5: error: redeclaration of enumerator 'CAR_DEC'
+   23 |     CAR_DEC = 2,//减速过�?      |     ^~~~~~~
+./Core/APP/car.h:23:5: note: previous definition of 'CAR_DEC' with type 'enum Car_Mode'
+   23 |     CAR_DEC = 2,//减速过�?      |     ^~~~~~~
+./Core/APP/car.h:24:5: error: redeclaration of enumerator 'CAR_RUNNING'
+   24 |     CAR_RUNNING = 3,//运行�?      |     ^~~~~~~~~~~
+./Core/APP/car.h:24:5: note: previous definition of 'CAR_RUNNING' with type 'enum Car_Mode'
+   24 |     CAR_RUNNING = 3,//运行�?      |     ^~~~~~~~~~~
+./Core/APP/car.h:25:5: error: redeclaration of enumerator 'CAR_STOP'
+   25 |     CAR_STOP = 4,//停止
+      |     ^~~~~~~~
+./Core/APP/car.h:25:5: note: previous definition of 'CAR_STOP' with type 'enum Car_Mode'
+   25 |     CAR_STOP = 4,//停止
+      |     ^~~~~~~~
+./Core/APP/car.h:26:5: error: redeclaration of enumerator 'CAR_ERROR'
+   26 |     CAR_ERROR = 5//错误
+      |     ^~~~~~~~~
+./Core/APP/car.h:26:5: note: previous definition of 'CAR_ERROR' with type 'enum Car_Mode'
+   26 |     CAR_ERROR = 5//错误
+      |     ^~~~~~~~~
+./Core/APP/car.h:30:6: error: redeclaration of 'enum Car_Face'
+   30 | enum Car_Face
+      |      ^~~~~~~~
+./Core/APP/car.h:30:6: note: originally defined here
+   30 | enum Car_Face
+      |      ^~~~~~~~
+./Core/APP/car.h:32:3: error: redeclaration of enumerator 'Forward'
+   32 |   Forward = 0 ,
+      |   ^~~~~~~
+./Core/APP/car.h:32:3: note: previous definition of 'Forward' with type 'enum Car_Face'
+   32 |   Forward = 0 ,
+      |   ^~~~~~~
+./Core/APP/car.h:33:3: error: redeclaration of enumerator 'Left'
+   33 |   Left = 1 ,
+      |   ^~~~
+./Core/APP/car.h:33:3: note: previous definition of 'Left' with type 'enum Car_Face'
+   33 |   Left = 1 ,
+      |   ^~~~
+./Core/APP/car.h:34:3: error: redeclaration of enumerator 'Back'
+   34 |   Back = 2 ,
+      |   ^~~~
+./Core/APP/car.h:34:3: note: previous definition of 'Back' with type 'enum Car_Face'
+   34 |   Back = 2 ,
+      |   ^~~~
+./Core/APP/car.h:35:3: error: redeclaration of enumerator 'Right'
+   35 |   Right = 3
+      |   ^~~~~
+./Core/APP/car.h:35:3: note: previous definition of 'Right' with type 'enum Car_Face'
+   35 |   Right = 3
+      |   ^~~~~
+./Core/APP/car.h:79:5: error: conflicting types for 'Car_Status'; have 'struct <anonymous>'
+   79 |   } Car_Status;
+      |     ^~~~~~~~~~
+./Core/APP/car.h:79:5: note: previous declaration of 'Car_Status' with type 'Car_Status'
+   79 |   } Car_Status;
+      |     ^~~~~~~~~~
+./Core/APP/car.h:83:20: error: conflicting types for 'car'; have 'Car_Status *'
+   83 | extern Car_Status *car;
+      |                    ^~~
+./Core/APP/car.h:83:20: note: previous declaration of 'car' with type 'Car_Status *'
+   83 | extern Car_Status *car;
+      |                    ^~~
+./Core/APP/car.h:108:2: error: #endif without #if
+  108 | #endif
+      |  ^~~~~
+./Core/APP/car.c:140:13: error: conflicting types for 'car'; have 'Car_Status *'
+  140 | Car_Status *car = NULL;
+      |             ^~~
+./Core/APP/car.h:83:20: note: previous declaration of 'car' with type 'Car_Status *'
+   83 | extern Car_Status *car;
+      |                    ^~~
+
+[2026-04-13 19:08:31]	[info] incremental build: 19 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\app.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\car.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\car.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\car.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\can.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\car.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\main.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\car.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\my_task.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\car.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_uart.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\croutine.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\event_groups.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\list.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\portable\GCC\ARM_CM4F\port.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang\heap_4.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\queue.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\stream_buffer.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\tasks.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\timers.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\startup_stm32f427xx.s': compiler options has been changed.
+
+[2026-04-13 19:08:32]	compilation failed at : "d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\can.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/Src/can.o -MMD ./Core/Src/can.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/Src/can.c: In function 'CAN_Send_Test':
+./Core/Src/can.c:274:9: error: implicit declaration of function 'Beep_On' [-Wimplicit-function-declaration]
+  274 |         Beep_On();
+      |         ^~~~~~~
+
+[2026-04-13 19:13:13]	[info] incremental build: 21 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\app.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\car.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\car.c': source file has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\lift.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\raspi.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\scara.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\can.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\car.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\main.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\car.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\my_task.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\car.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\croutine.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\event_groups.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\list.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\portable\GCC\ARM_CM4F\port.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang\heap_4.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\queue.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\stream_buffer.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\tasks.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\timers.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\startup_stm32f427xx.s': compiler options has been changed.
+
+[2026-04-13 19:13:14]	compilation failed at : "d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\can.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/Src/can.o -MMD ./Core/Src/can.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/Src/can.c: In function 'CAN_Send_Test':
+./Core/Src/can.c:274:9: error: implicit declaration of function 'Beep_On' [-Wimplicit-function-declaration]
+  274 |         Beep_On();
+      |         ^~~~~~~
+
+[2026-04-13 19:14:31]	[info] incremental build: 21 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\app.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Inc\can.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\car.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Inc\can.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\lift.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Inc\can.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\raspi.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Inc\can.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\scara.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Inc\can.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\MI_motor_dev.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Inc\can.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Inc\can.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\can.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Inc\can.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\main.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Inc\can.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\my_task.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Inc\can.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\croutine.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\event_groups.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\list.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\portable\GCC\ARM_CM4F\port.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang\heap_4.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\queue.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\stream_buffer.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\tasks.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Middlewares\Third_Party\FreeRTOS\Source\timers.c': compiler options has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\startup_stm32f427xx.s': compiler options has been changed.
+
+[2026-04-13 19:14:35]	[done]
+	build successfully !
+
+[2026-04-14 21:50:09]	[done]
+	build successfully !
+
+[2026-04-14 22:00:24]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\my_task.c': source file has been changed.
+
+[2026-04-14 22:00:27]	[done]
+	build successfully !
+
+[2026-04-14 22:04:00]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\my_task.c': source file has been changed.
+
+[2026-04-14 22:04:01]	[done]
+	build successfully !
+
+[2026-04-14 22:11:27]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\my_task.c': source file has been changed.
+
+[2026-04-14 22:11:28]	[done]
+	build successfully !
+
+[2026-04-14 22:25:32]	[done]
+	build successfully !
+
+[2026-04-14 22:30:21]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\my_task.c': source file has been changed.
+
+[2026-04-14 22:30:22]	[done]
+	build successfully !
+
+[2026-04-14 22:34:33]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\my_task.c': source file has been changed.
+
+[2026-04-14 22:34:34]	[done]
+	build successfully !
+
+[2026-04-15 18:13:12]	[done]
+	build successfully !
+
+[2026-04-15 18:14:28]	[done]
+	build successfully !
+
+[2026-04-15 18:17:56]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\my_task.c': source file has been changed.
+
+[2026-04-15 18:18:00]	[done]
+	build successfully !
+
+[2026-04-15 18:21:59]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\my_task.c': source file has been changed.
+
+[2026-04-15 18:22:00]	[done]
+	build successfully !
+
+[2026-04-15 18:23:05]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\my_task.c': source file has been changed.
+
+[2026-04-15 18:23:05]	[done]
+	build successfully !
+
+[2026-04-15 18:24:32]	[done]
+	build successfully !
+
+[2026-04-15 18:34:16]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\app.c': source file has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\my_task.c': source file has been changed.
+
+[2026-04-15 18:34:17]	[done]
+	build successfully !
+
+[2026-04-15 18:34:44]	[done]
+	build successfully !
+
+[2026-04-15 18:39:56]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\my_task.c': source file has been changed.
+
+[2026-04-15 18:39:56]	[done]
+	build successfully !
+
+[2026-04-15 18:42:21]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\app.c': source file has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\my_task.c': source file has been changed.
+
+[2026-04-15 18:42:23]	[done]
+	build successfully !
+
+[2026-04-15 18:42:27]	[done]
+	build successfully !
+
+[2026-04-15 18:42:42]	[done]
+	build successfully !
+
+[2026-04-25 15:57:26]	[info] incremental build: 10 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\app.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\car.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\lift.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\raspi.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\scara.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\MI_motor_dev.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\MI_motor_dev.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\main.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\my_task.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+
+[2026-04-25 15:57:36]	[done]
+	build successfully !
+
+[2026-04-25 16:00:13]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+
+[2026-04-25 16:00:14]	[done]
+	build successfully !
+
+[2026-04-25 16:00:55]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+
+[2026-04-25 16:00:55]	[done]
+	build successfully !
+
+[2026-04-25 16:04:02]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+
+[2026-04-25 16:04:02]	[done]
+	build successfully !
+
+[2026-04-25 16:05:29]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+
+[2026-04-25 16:05:29]	[done]
+	build successfully !
+
+[2026-04-25 16:08:27]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+
+[2026-04-25 16:08:28]	[done]
+	build successfully !
+
+[2026-04-25 16:11:42]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+
+[2026-04-25 16:11:42]	[done]
+	build successfully !
+
+[2026-04-25 16:11:46]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+
+[2026-04-25 16:11:47]	[done]
+	build successfully !
+
+[2026-04-25 16:13:46]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+
+[2026-04-25 16:13:46]	[done]
+	build successfully !
+
+[2026-04-25 16:16:25]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+
+[2026-04-25 16:16:25]	[done]
+	build successfully !
+
+[2026-04-25 16:18:29]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+
+[2026-04-25 16:18:38]	[done]
+	build successfully !
+
+[2026-04-25 16:22:44]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+
+[2026-04-25 16:22:45]	[done]
+	build successfully !
+
+[2026-04-25 16:27:01]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+
+[2026-04-25 16:27:02]	[done]
+	build successfully !
+
+[2026-04-25 16:28:57]	[done]
+	build successfully !
+
+[2026-04-25 16:29:15]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+
+[2026-04-25 16:29:16]	[done]
+	build successfully !
+
+[2026-04-25 16:33:27]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+
+[2026-04-25 16:33:28]	[done]
+	build successfully !
+
+[2026-04-25 16:35:53]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+
+[2026-04-25 16:35:54]	[done]
+	build successfully !
+
+[2026-04-25 16:41:02]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+
+[2026-04-25 16:41:03]	[done]
+	build successfully !
+
+[2026-04-25 17:00:13]	[info] incremental build: 9 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\app.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\car.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\lift.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\raspi.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\scara.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\main.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\my_task.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+
+[2026-04-25 17:00:15]	[done]
+	build successfully !
+
+[2026-04-25 17:00:24]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+
+[2026-04-25 17:00:25]	[done]
+	build successfully !
+
+[2026-04-25 17:08:49]	[done]
+	build successfully !
+
+[2026-04-25 17:09:28]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+
+[2026-04-25 17:09:30]	[done]
+	build successfully !
+
+[2026-04-25 17:11:56]	[info] incremental build: 9 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\app.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\car.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\lift.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\raspi.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\APP\scara.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\main.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\my_task.c': dependence 'd:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\bsp.h' has been changed.
+
+[2026-04-25 17:11:58]	[done]
+	build successfully !
+
+[2026-04-25 17:55:06]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+
+[2026-04-25 17:55:12]	[done]
+	build successfully !
+
+[2026-04-25 18:00:39]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+
+[2026-04-25 18:00:40]	[done]
+	build successfully !
+
+[2026-04-25 18:08:56]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+
+[2026-04-25 18:08:57]	[done]
+	build successfully !
+
+[2026-04-25 18:15:43]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+
+[2026-04-25 18:15:45]	[done]
+	build successfully !
+
+[2026-05-04 21:58:20]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\BSP\MI_motor_dev.c': source file has been changed.
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+
+[2026-05-04 21:58:29]	[done]
+	build successfully !
+
+[2026-05-04 22:03:30]	[done]
+	build successfully !
+
+[2026-05-04 22:04:26]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\Motor\Scara-X\Scara-X\lifting-machine-rtos\lifting\Core\Src\freertos.c': source file has been changed.
+
+[2026-05-04 22:04:27]	[done]
+	build successfully !
+
+[2026-05-06 15:55:24]	[info] incremental build: 51 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\lift.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\raspi.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\MI_motor_dev.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\bsp.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\pid.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\can.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\dma.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\gpio.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_hal_msp.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_hal_timebase_tim.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_it.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\syscalls.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\sysmem.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\system_stm32f4xx.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\tim.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\usart.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_can.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma_ex.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_exti.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ex.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ramfunc.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_gpio.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr_ex.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_uart.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Middlewares\Third_Party\FreeRTOS\Source\croutine.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Middlewares\Third_Party\FreeRTOS\Source\event_groups.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Middlewares\Third_Party\FreeRTOS\Source\list.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Middlewares\Third_Party\FreeRTOS\Source\portable\GCC\ARM_CM4F\port.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang\heap_4.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Middlewares\Third_Party\FreeRTOS\Source\queue.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Middlewares\Third_Party\FreeRTOS\Source\stream_buffer.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Middlewares\Third_Party\FreeRTOS\Source\tasks.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Middlewares\Third_Party\FreeRTOS\Source\timers.c': compiler options has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\startup_stm32f427xx.s': compiler options has been changed.
+
+[2026-05-06 15:55:29]	[done]
+	build successfully !
+
+[2026-05-06 15:57:20]	[done]
+	build successfully !
+
+[2026-05-06 16:02:18]	[info] incremental build: 48 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\lift.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\raspi.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\MI_motor_dev.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\bsp.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\pid.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\can.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\dma.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\gpio.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_hal_msp.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_hal_timebase_tim.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_it.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\system_stm32f4xx.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\tim.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\usart.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_can.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma_ex.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_exti.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ex.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ramfunc.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_gpio.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr_ex.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_uart.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Middlewares\Third_Party\FreeRTOS\Source\croutine.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Middlewares\Third_Party\FreeRTOS\Source\event_groups.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Middlewares\Third_Party\FreeRTOS\Source\list.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Middlewares\Third_Party\FreeRTOS\Source\portable\GCC\ARM_CM4F\port.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang\heap_4.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Middlewares\Third_Party\FreeRTOS\Source\queue.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Middlewares\Third_Party\FreeRTOS\Source\stream_buffer.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Middlewares\Third_Party\FreeRTOS\Source\tasks.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Middlewares\Third_Party\FreeRTOS\Source\timers.c': source file has been changed.
+
+[2026-05-06 16:02:22]	[done]
+	build successfully !
+

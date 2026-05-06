@@ -6,26 +6,33 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2026 STMicroelectronics.
+  * Copyright (c) 2025 STMicroelectronics.
   * All rights reserved.
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
+void Put_Box(uint8_t box_id ,uint8_t dir);
+void Move_To_Shelf(void);
+void Move_To_Paper(void);
+void Move_point_to_point(uint8_t point_1, uint8_t point_2);
+void Move_Shelf_Left(void);
+void Move_Shelf_Right(void);
+
+
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
 #include "can.h"
 #include "dma.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+// #include "car.h"
+#include "app.h"
+#include "bsp.h"
+#include "my_task.h"
 
 /* USER CODE END Includes */
 
@@ -47,6 +54,28 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+/// 远程调试串口
+uint8_t rxcmd7[16];       // 接收远程串口的数据
+uint8_t uart7_rx_flag = 0; // 串口接收标志
+char rx_buffer[16];       // 接收缓冲区
+uint8_t rx_index = 0;     // 接收索引
+float target_speed = 0;    // 目标速度
+
+// 陀螺仪串口
+uint8_t rxcmd6_dma[RXCMD6_DMA_SIZE];      // DMA 写入的缓冲区
+uint8_t rxcmd6_app[RXCMD6_DMA_SIZE];      // 应用程序读取的缓冲区
+
+
+//树莓派串口
+uint8_t rxcmd3_dma[RXCMD3_DMA_SIZE];
+uint8_t move_flag = 0;//是否进行了点到点之间的移动，进行了就需要精调
+
+
+// 用于检测跳变的omega
+volatile float omega_1 = 0;
+volatile float omega = 0;                      // 陀螺仪反馈的角度，单位：°
+volatile float current_angle_speed = 0;        // 陀螺仪反馈的角速度，单位：°/s
+uint32_t last_receive_hwt_time = 0;   // 上一次接收陀螺仪数据的时间
 
 /* USER CODE END PV */
 
@@ -60,6 +89,7 @@ void MX_FREERTOS_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+
 /* USER CODE END 0 */
 
 /**
@@ -68,6 +98,7 @@ void MX_FREERTOS_Init(void);
   */
 int main(void)
 {
+
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -91,26 +122,44 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_DMA_Init();
-  MX_USART2_UART_Init();
+  MX_UART7_Init();
+  MX_UART8_Init();
+  MX_USART6_UART_Init();
   MX_CAN1_Init();
-  MX_USART1_UART_Init();
+  MX_TIM12_Init();
+  MX_TIM5_Init();
+  MX_CAN2_Init();
+  MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
-  CAN_Config();
+  HAL_UART_Receive_DMA(&huart3, rxcmd3_dma, RXCMD3_DMA_SIZE);
+  memset(rxcmd3_dma, 0, RXCMD3_DMA_SIZE);  
 
-  HAL_UART_Receive_IT(&huart1, uartdata, 8);
-  HAL_UART_Receive_DMA(&huart2, camdata, 8);
+  
+  
+  // 初始化CAN1
+  CAN_Filter_Config();
+  HAL_CAN_Start(&hcan1);
+  HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
+  /* 初始化CAN2 */
+  HAL_CAN_Start(&hcan2);
+  HAL_CAN_ActivateNotification(&hcan2, CAN_IT_RX_FIFO0_MSG_PENDING);
+
+
+  // HAL_TIM_Base_Start_IT(&htim5);
+
   /* USER CODE END 2 */
 
   /* Init scheduler */
   osKernelInitialize();
 
-  /* Call init function for freertos objects (in freertos.c) */
+  /* Call init function for freertos objects (in cmsis_os2.c) */
   MX_FREERTOS_Init();
 
   /* Start scheduler */
   osKernelStart();
 
   /* We should never get here as control is now taken by the scheduler */
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -144,10 +193,17 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 6;
-  RCC_OscInitStruct.PLL.PLLN = 168;
+  RCC_OscInitStruct.PLL.PLLN = 180;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 4;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Activate the Over-Drive mode
+  */
+  if (HAL_PWREx_EnableOverDrive() != HAL_OK)
   {
     Error_Handler();
   }
@@ -165,19 +221,134 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-
-  /** Enables the Clock Security System
-  */
-  HAL_RCC_EnableCSS();
 }
 
 /* USER CODE BEGIN 4 */
 
+/* CAN接收中断回调函数 */
+void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
+{
+    CAN_RxHeaderTypeDef RxHeader;
+    uint8_t RxData[8];
+    // printf("\rCAN receive\r\n");
+    /* 获取接收到的消息 */
+    if (HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeader, RxData) == HAL_OK)
+    {
+        /* 判断是哪个CAN接口接收到数据 */
+        if (hcan->Instance == CAN1)
+        {
+            /* 处理CAN1接收到的数据 */
+            if (RxHeader.IDE == CAN_ID_EXT) /* 扩展帧 */
+            {
+                MIMotor_MotorDataDecode(RxHeader.ExtId, RxData);
+            }
+        }
+        else if (hcan->Instance == CAN2)
+        {
+            /* 处理CAN2接收到的数据 */
+            if (RxHeader.IDE == CAN_ID_EXT) /* 扩展帧 */
+            {
+                MIMotor_MotorDataDecode(RxHeader.ExtId, RxData);
+            }
+        }
+    }
+}
+
+/**
+ * @brief  Rx Transfer completed callback
+ * @param  huart: UART handle
+ * @retval None
+ */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+    //陀螺仪串口
+    if (huart == &huart6)
+    {
+        static int wrap_count = 0;   // 静态本地变量，记录圈数
+        static float prev_omega = 0; // 静态本地变量，记录上一次的角度
+        // 记录接收时间戳
+        last_receive_hwt_time = HAL_GetTick();
+
+        // 将DMA缓冲区数据复制到应用缓冲区
+        memcpy(rxcmd6_app, rxcmd6_dma, RXCMD6_DMA_SIZE);
+        //  清空DMA缓冲区
+        memset(rxcmd6_dma, 0, RXCMD6_DMA_SIZE);
+
+        // 数据帧检测和解析
+        for (int i = 0; i < RXCMD6_DMA_SIZE - 7; i++)
+        {
+          // 检测角度数据帧头(0x55 0x53)
+          if (rxcmd6_app[i] == 0x55 && rxcmd6_app[i + 1] == 0x53)
+          {
+            // 解算角度数据(-180到180度)
+            omega_1 = -((float)((int16_t)(rxcmd6_app[i + 7] << 8) | rxcmd6_app[i + 6])) / 32768 * 180;
+
+            // 处理角度跳变，实现多圈角度计算
+            if (prev_omega < 180 && prev_omega > 90 && omega_1 < -90 && omega_1 > -180)
+            {
+              wrap_count++; // 正向跳变
+            }
+            else if (prev_omega < -90 && prev_omega > -180 && omega_1 > 90 && omega_1 < 180)
+            {
+              wrap_count--; // 负向跳变
+            }
+            else
+            {
+              wrap_count = wrap_count;
+            }
+
+            if (omega_1 != 180 && omega_1 != -180)
+            {
+              // 计算实际角度
+              omega = omega_1 + wrap_count * 360.0f;
+              prev_omega = omega_1;
+              // printf("omega: %f\r\n", omega);
+            }
+          }
+
+          // 检测角速度数据帧头(0x55 0x52)
+          if (rxcmd6_app[i] == 0x55 && rxcmd6_app[i + 1] == 0x52)
+          {
+            // 解算角速度数据
+            current_angle_speed = -((float)((int16_t)(rxcmd6_app[i + 7] << 8) | rxcmd6_app[i + 6])) / 32768 * 2000;
+          }
+        }
+
+        // 重新启动DMA接收
+        HAL_UART_Receive_DMA(&huart6, rxcmd6_dma, RXCMD6_DMA_SIZE);
+    }
+
+    //远程调试串口
+    else if (huart == &huart7)
+    {
+      uart7_rx_flag = 1;  // 设置接收标志
+    }
+
+    // filter servo
+    else if (huart == &huart8)
+    {
+
+    }
+    //raspi5
+    else if (huart == &huart3)
+    {
+      
+      // 处理接收到的数据
+      Raspi_Process_Data(rxcmd3_dma, RXCMD3_DMA_SIZE);
+      
+      // 清空DMA缓冲区
+      memset(rxcmd3_dma, 0, RXCMD3_DMA_SIZE);
+      
+      // 重新启动DMA接收
+      HAL_UART_Receive_DMA(&huart3, rxcmd3_dma, RXCMD3_DMA_SIZE); 
+
+    }
+}
 /* USER CODE END 4 */
 
 /**
   * @brief  Period elapsed callback in non blocking mode
-  * @note   This function is called  when TIM1 interrupt took place, inside
+  * @note   This function is called  when TIM7 interrupt took place, inside
   * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
   * a global variable "uwTick" used as application time base.
   * @param  htim : TIM handle
@@ -188,11 +359,36 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   /* USER CODE BEGIN Callback 0 */
 
   /* USER CODE END Callback 0 */
-  if (htim->Instance == TIM1) {
+  if (htim->Instance == TIM7)
+  {
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
+  else if (htim->Instance == TIM5)
+  {
+    // Update_Scara_Status();  
+    // add_scara_ctrl();
+    // Maintain_End_Rotation(); 
+    static uint8_t state = 0;
+       
+       switch(state)
+       {
+           case 0:
+               Update_Scara_Status();
+                Maintain_End_Rotation(); 
+               state = 1;
+               break;
+           case 1:
+               add_scara_ctrl();
+               state = 0;
+               break;
+      //      case 2:
+      //         Maintain_End_Rotation(); 
+      //          state = 0;
+      //          break;
+       }
 
+  }
   /* USER CODE END Callback 1 */
 }
 

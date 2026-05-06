@@ -1,0 +1,2157 @@
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"bsp.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Core/BSP/bsp.c"
+  20              		.section	.text.SendMultiFloat2Vofa,"ax",%progbits
+  21              		.align	1
+  22              		.global	SendMultiFloat2Vofa
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	SendMultiFloat2Vofa:
+  28              	.LVL0:
+  29              	.LFB138:
+   1:Core/BSP/bsp.c **** #include "bsp.h"
+   2:Core/BSP/bsp.c **** 
+   3:Core/BSP/bsp.c **** void bsp_init(void)
+   4:Core/BSP/bsp.c **** {
+   5:Core/BSP/bsp.c ****     HAL_Delay(3000);
+   6:Core/BSP/bsp.c ****     Init_Chassis_Motor();
+   7:Core/BSP/bsp.c ****     Init_Scara_Motor();
+   8:Core/BSP/bsp.c ****     Init_Lifting_Motor();
+   9:Core/BSP/bsp.c **** }
+  10:Core/BSP/bsp.c **** 
+  11:Core/BSP/bsp.c **** void SendMultiFloat2Vofa(float *values, uint8_t num)
+  12:Core/BSP/bsp.c **** {
+  30              		.loc 1 12 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 1, uses_anonymous_args = 0
+  34              		.loc 1 12 1 is_stmt 0 view .LVU1
+  35 0000 80B5     		push	{r7, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 8
+  38              		.cfi_offset 7, -8
+  39              		.cfi_offset 14, -4
+  40 0002 00AF     		add	r7, sp, #0
+  41              	.LCFI1:
+  42              		.cfi_def_cfa_register 7
+  43 0004 8E46     		mov	lr, r1
+  13:Core/BSP/bsp.c ****     uint8_t buffer[4 * num + 4];
+  44              		.loc 1 13 5 is_stmt 1 view .LVU2
+  45              		.loc 1 13 28 is_stmt 0 view .LVU3
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 2
+
+
+  46 0006 4A1C     		adds	r2, r1, #1
+  47 0008 9300     		lsls	r3, r2, #2
+  48              	.LVL1:
+  49              		.loc 1 13 13 view .LVU4
+  50 000a 0733     		adds	r3, r3, #7
+  51              	.LVL2:
+  52              		.loc 1 13 13 view .LVU5
+  53 000c DB08     		lsrs	r3, r3, #3
+  54              	.LVL3:
+  55              		.loc 1 13 13 view .LVU6
+  56 000e 6946     		mov	r1, sp
+  57              	.LVL4:
+  58              		.loc 1 13 13 view .LVU7
+  59 0010 A1EBC303 		sub	r3, r1, r3, lsl #3
+  60 0014 9D46     		mov	sp, r3
+  61 0016 6946     		mov	r1, sp
+  62              	.LVL5:
+  14:Core/BSP/bsp.c **** 
+  15:Core/BSP/bsp.c ****     // 复制所有浮点数据到缓冲区
+  16:Core/BSP/bsp.c ****     for (uint8_t i = 0; i < num; i++)
+  63              		.loc 1 16 5 is_stmt 1 view .LVU8
+  64              	.LBB2:
+  65              		.loc 1 16 10 view .LVU9
+  66              		.loc 1 16 18 is_stmt 0 view .LVU10
+  67 0018 0023     		movs	r3, #0
+  68              		.loc 1 16 5 view .LVU11
+  69 001a 05E0     		b	.L2
+  70              	.LVL6:
+  71              	.L3:
+  17:Core/BSP/bsp.c ****     {
+  18:Core/BSP/bsp.c ****         memcpy(buffer + 4 * i, &values[i], 4);
+  72              		.loc 1 18 9 is_stmt 1 view .LVU12
+  73 001c 50F823C0 		ldr	ip, [r0, r3, lsl #2]	@ unaligned
+  74 0020 41F823C0 		str	ip, [r1, r3, lsl #2]	@ unaligned
+  16:Core/BSP/bsp.c ****     {
+  75              		.loc 1 16 35 discriminator 3 view .LVU13
+  76 0024 0133     		adds	r3, r3, #1
+  77              	.LVL7:
+  16:Core/BSP/bsp.c ****     {
+  78              		.loc 1 16 35 is_stmt 0 discriminator 3 view .LVU14
+  79 0026 DBB2     		uxtb	r3, r3
+  80              	.LVL8:
+  81              	.L2:
+  16:Core/BSP/bsp.c ****     {
+  82              		.loc 1 16 27 is_stmt 1 discriminator 1 view .LVU15
+  83 0028 7345     		cmp	r3, lr
+  84 002a F7D3     		bcc	.L3
+  85              	.LBE2:
+  19:Core/BSP/bsp.c ****     }
+  20:Core/BSP/bsp.c **** 
+  21:Core/BSP/bsp.c ****     // FireWater协议的帧尾
+  22:Core/BSP/bsp.c ****     buffer[4 * num] = 0x00;
+  86              		.loc 1 22 5 view .LVU16
+  87              		.loc 1 22 14 is_stmt 0 view .LVU17
+  88 002c 4FEA8E03 		lsl	r3, lr, #2
+  89              	.LVL9:
+  90              		.loc 1 22 21 view .LVU18
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 3
+
+
+  91 0030 0020     		movs	r0, #0
+  92              	.LVL10:
+  93              		.loc 1 22 21 view .LVU19
+  94 0032 01F82E00 		strb	r0, [r1, lr, lsl #2]
+  23:Core/BSP/bsp.c ****     buffer[4 * num + 1] = 0x00;
+  95              		.loc 1 23 5 is_stmt 1 view .LVU20
+  96              		.loc 1 23 20 is_stmt 0 view .LVU21
+  97 0036 03F1010C 		add	ip, r3, #1
+  98              		.loc 1 23 25 view .LVU22
+  99 003a 01F80C00 		strb	r0, [r1, ip]
+  24:Core/BSP/bsp.c ****     buffer[4 * num + 2] = 0x80;
+ 100              		.loc 1 24 5 is_stmt 1 view .LVU23
+ 101              		.loc 1 24 20 is_stmt 0 view .LVU24
+ 102 003e 981C     		adds	r0, r3, #2
+ 103              		.loc 1 24 25 view .LVU25
+ 104 0040 4FF0800C 		mov	ip, #128
+ 105 0044 01F800C0 		strb	ip, [r1, r0]
+  25:Core/BSP/bsp.c ****     buffer[4 * num + 3] = 0x7f;
+ 106              		.loc 1 25 5 is_stmt 1 view .LVU26
+ 107              		.loc 1 25 20 is_stmt 0 view .LVU27
+ 108 0048 0333     		adds	r3, r3, #3
+ 109              		.loc 1 25 25 view .LVU28
+ 110 004a 7F20     		movs	r0, #127
+ 111 004c C854     		strb	r0, [r1, r3]
+  26:Core/BSP/bsp.c **** 
+  27:Core/BSP/bsp.c ****     // 通过UART7发送
+  28:Core/BSP/bsp.c ****     HAL_UART_Transmit(&huart7, buffer, 4 * num + 4, 0xFFFF);
+ 112              		.loc 1 28 5 is_stmt 1 view .LVU29
+ 113 004e 4FF6FF73 		movw	r3, #65535
+ 114 0052 9200     		lsls	r2, r2, #2
+ 115              	.LVL11:
+ 116              		.loc 1 28 5 is_stmt 0 view .LVU30
+ 117 0054 0248     		ldr	r0, .L5
+ 118 0056 FFF7FEFF 		bl	HAL_UART_Transmit
+ 119              	.LVL12:
+  29:Core/BSP/bsp.c **** }
+ 120              		.loc 1 29 1 view .LVU31
+ 121 005a BD46     		mov	sp, r7
+ 122              	.LCFI2:
+ 123              		.cfi_def_cfa_register 13
+ 124              	.LVL13:
+ 125              		.loc 1 29 1 view .LVU32
+ 126              		@ sp needed
+ 127 005c 80BD     		pop	{r7, pc}
+ 128              	.L6:
+ 129 005e 00BF     		.align	2
+ 130              	.L5:
+ 131 0060 00000000 		.word	huart7
+ 132              		.cfi_endproc
+ 133              	.LFE138:
+ 135              		.section	.text.Change_Chassis_Motor_Mode,"ax",%progbits
+ 136              		.align	1
+ 137              		.global	Change_Chassis_Motor_Mode
+ 138              		.syntax unified
+ 139              		.thumb
+ 140              		.thumb_func
+ 142              	Change_Chassis_Motor_Mode:
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 4
+
+
+ 143              	.LVL14:
+ 144              	.LFB140:
+  30:Core/BSP/bsp.c **** 
+  31:Core/BSP/bsp.c **** //******************************************************底盘电机*******************************
+  32:Core/BSP/bsp.c **** 
+  33:Core/BSP/bsp.c **** /**
+  34:Core/BSP/bsp.c ****   * @brief  初始化底盘电机  //默认进入运控模式
+  35:Core/BSP/bsp.c ****   * @retval null
+  36:Core/BSP/bsp.c ****   */
+  37:Core/BSP/bsp.c ****  void Init_Chassis_Motor(void)
+  38:Core/BSP/bsp.c ****  {
+  39:Core/BSP/bsp.c ****     motors[1] = &chassis_motor[0];
+  40:Core/BSP/bsp.c **** 	motors[2] = &chassis_motor[1];
+  41:Core/BSP/bsp.c **** 	motors[3] = &chassis_motor[2];
+  42:Core/BSP/bsp.c **** 	motors[4] = &chassis_motor[3];
+  43:Core/BSP/bsp.c ****     for (uint8_t id = 1; id < 5; id++)
+  44:Core/BSP/bsp.c **** 	{
+  45:Core/BSP/bsp.c **** 		MI_motor_init(motors[id],&hcan1,id);
+  46:Core/BSP/bsp.c **** 	}
+  47:Core/BSP/bsp.c ****     Reset_Chassis_Motor_MechPosition();
+  48:Core/BSP/bsp.c ****     //设置位置模式限速和速度模式电流限制
+  49:Core/BSP/bsp.c ****     for (uint8_t id = 1; id < 5; id++)
+  50:Core/BSP/bsp.c **** 	{
+  51:Core/BSP/bsp.c **** 		MI_motor_SetSpdLim(motors[id], 12);//位置模式限速
+  52:Core/BSP/bsp.c ****         MI_motor_SetCurrLim(motors[id], 10);//速度模式电流限制
+  53:Core/BSP/bsp.c **** 	}
+  54:Core/BSP/bsp.c ****  }
+  55:Core/BSP/bsp.c **** /**
+  56:Core/BSP/bsp.c ****   * @brief  切换底盘电机模式
+  57:Core/BSP/bsp.c ****   * @param1  mode 模式
+  58:Core/BSP/bsp.c ****   * @retval null
+  59:Core/BSP/bsp.c ****   */
+  60:Core/BSP/bsp.c ****  void Change_Chassis_Motor_Mode(uint8_t mode)
+  61:Core/BSP/bsp.c ****  {
+ 145              		.loc 1 61 2 is_stmt 1 view -0
+ 146              		.cfi_startproc
+ 147              		@ args = 0, pretend = 0, frame = 0
+ 148              		@ frame_needed = 0, uses_anonymous_args = 0
+ 149              		.loc 1 61 2 is_stmt 0 view .LVU34
+ 150 0000 38B5     		push	{r3, r4, r5, lr}
+ 151              	.LCFI3:
+ 152              		.cfi_def_cfa_offset 16
+ 153              		.cfi_offset 3, -16
+ 154              		.cfi_offset 4, -12
+ 155              		.cfi_offset 5, -8
+ 156              		.cfi_offset 14, -4
+ 157 0002 0546     		mov	r5, r0
+  62:Core/BSP/bsp.c ****     for (uint8_t id = 1; id < 5; id++)
+ 158              		.loc 1 62 5 is_stmt 1 view .LVU35
+ 159              	.LBB3:
+ 160              		.loc 1 62 10 view .LVU36
+ 161              	.LVL15:
+ 162              		.loc 1 62 18 is_stmt 0 view .LVU37
+ 163 0004 0124     		movs	r4, #1
+ 164              		.loc 1 62 5 view .LVU38
+ 165 0006 07E0     		b	.L8
+ 166              	.LVL16:
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 5
+
+
+ 167              	.L9:
+  63:Core/BSP/bsp.c **** 	{
+  64:Core/BSP/bsp.c **** 		MI_motor_setMode(motors[id], mode);
+ 168              		.loc 1 64 3 is_stmt 1 view .LVU39
+ 169 0008 2946     		mov	r1, r5
+ 170 000a 054B     		ldr	r3, .L11
+ 171 000c 53F82400 		ldr	r0, [r3, r4, lsl #2]
+ 172 0010 FFF7FEFF 		bl	MI_motor_setMode
+ 173              	.LVL17:
+  62:Core/BSP/bsp.c ****     for (uint8_t id = 1; id < 5; id++)
+ 174              		.loc 1 62 36 discriminator 3 view .LVU40
+ 175 0014 0134     		adds	r4, r4, #1
+ 176              	.LVL18:
+  62:Core/BSP/bsp.c ****     for (uint8_t id = 1; id < 5; id++)
+ 177              		.loc 1 62 36 is_stmt 0 discriminator 3 view .LVU41
+ 178 0016 E4B2     		uxtb	r4, r4
+ 179              	.LVL19:
+ 180              	.L8:
+  62:Core/BSP/bsp.c ****     for (uint8_t id = 1; id < 5; id++)
+ 181              		.loc 1 62 29 is_stmt 1 discriminator 1 view .LVU42
+ 182 0018 042C     		cmp	r4, #4
+ 183 001a F5D9     		bls	.L9
+ 184              	.LBE3:
+  65:Core/BSP/bsp.c **** 	}
+  66:Core/BSP/bsp.c ****  }
+ 185              		.loc 1 66 2 is_stmt 0 view .LVU43
+ 186 001c 38BD     		pop	{r3, r4, r5, pc}
+ 187              	.LVL20:
+ 188              	.L12:
+ 189              		.loc 1 66 2 view .LVU44
+ 190 001e 00BF     		.align	2
+ 191              	.L11:
+ 192 0020 00000000 		.word	motors
+ 193              		.cfi_endproc
+ 194              	.LFE140:
+ 196              		.section	.text.Set_Chassis_Motor_SpdLim,"ax",%progbits
+ 197              		.align	1
+ 198              		.global	Set_Chassis_Motor_SpdLim
+ 199              		.syntax unified
+ 200              		.thumb
+ 201              		.thumb_func
+ 203              	Set_Chassis_Motor_SpdLim:
+ 204              	.LVL21:
+ 205              	.LFB141:
+  67:Core/BSP/bsp.c ****  /**
+  68:Core/BSP/bsp.c ****   * @brief  设置底盘位置模式限速
+  69:Core/BSP/bsp.c ****   * @param1  spd_lim 限速
+  70:Core/BSP/bsp.c ****   * @retval null
+  71:Core/BSP/bsp.c ****   */
+  72:Core/BSP/bsp.c ****  void Set_Chassis_Motor_SpdLim(float spd_lim)
+  73:Core/BSP/bsp.c ****  {
+ 206              		.loc 1 73 2 is_stmt 1 view -0
+ 207              		.cfi_startproc
+ 208              		@ args = 0, pretend = 0, frame = 0
+ 209              		@ frame_needed = 0, uses_anonymous_args = 0
+ 210              		.loc 1 73 2 is_stmt 0 view .LVU46
+ 211 0000 10B5     		push	{r4, lr}
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 6
+
+
+ 212              	.LCFI4:
+ 213              		.cfi_def_cfa_offset 8
+ 214              		.cfi_offset 4, -8
+ 215              		.cfi_offset 14, -4
+ 216 0002 2DED028B 		vpush.64	{d8}
+ 217              	.LCFI5:
+ 218              		.cfi_def_cfa_offset 16
+ 219              		.cfi_offset 80, -16
+ 220              		.cfi_offset 81, -12
+ 221 0006 B0EE408A 		vmov.f32	s16, s0
+  74:Core/BSP/bsp.c ****     for (uint8_t id = 1; id < 5; id++)
+ 222              		.loc 1 74 5 is_stmt 1 view .LVU47
+ 223              	.LBB4:
+ 224              		.loc 1 74 10 view .LVU48
+ 225              	.LVL22:
+ 226              		.loc 1 74 18 is_stmt 0 view .LVU49
+ 227 000a 0124     		movs	r4, #1
+ 228              		.loc 1 74 5 view .LVU50
+ 229 000c 08E0     		b	.L14
+ 230              	.LVL23:
+ 231              	.L15:
+  75:Core/BSP/bsp.c **** 	{
+  76:Core/BSP/bsp.c **** 		MI_motor_SetSpdLim(motors[id], spd_lim);
+ 232              		.loc 1 76 3 is_stmt 1 view .LVU51
+ 233 000e B0EE480A 		vmov.f32	s0, s16
+ 234 0012 064B     		ldr	r3, .L17
+ 235 0014 53F82400 		ldr	r0, [r3, r4, lsl #2]
+ 236 0018 FFF7FEFF 		bl	MI_motor_SetSpdLim
+ 237              	.LVL24:
+  74:Core/BSP/bsp.c ****     for (uint8_t id = 1; id < 5; id++)
+ 238              		.loc 1 74 36 discriminator 3 view .LVU52
+ 239 001c 0134     		adds	r4, r4, #1
+ 240              	.LVL25:
+  74:Core/BSP/bsp.c ****     for (uint8_t id = 1; id < 5; id++)
+ 241              		.loc 1 74 36 is_stmt 0 discriminator 3 view .LVU53
+ 242 001e E4B2     		uxtb	r4, r4
+ 243              	.LVL26:
+ 244              	.L14:
+  74:Core/BSP/bsp.c ****     for (uint8_t id = 1; id < 5; id++)
+ 245              		.loc 1 74 29 is_stmt 1 discriminator 1 view .LVU54
+ 246 0020 042C     		cmp	r4, #4
+ 247 0022 F4D9     		bls	.L15
+ 248              	.LBE4:
+  77:Core/BSP/bsp.c **** 	}
+  78:Core/BSP/bsp.c ****  }
+ 249              		.loc 1 78 2 is_stmt 0 view .LVU55
+ 250 0024 BDEC028B 		vldm	sp!, {d8}
+ 251              	.LCFI6:
+ 252              		.cfi_restore 80
+ 253              		.cfi_restore 81
+ 254              		.cfi_def_cfa_offset 8
+ 255              	.LVL27:
+ 256              		.loc 1 78 2 view .LVU56
+ 257 0028 10BD     		pop	{r4, pc}
+ 258              	.LVL28:
+ 259              	.L18:
+ 260              		.loc 1 78 2 view .LVU57
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 7
+
+
+ 261 002a 00BF     		.align	2
+ 262              	.L17:
+ 263 002c 00000000 		.word	motors
+ 264              		.cfi_endproc
+ 265              	.LFE141:
+ 267              		.section	.text.Set_Chassis_Motor_CurrLim,"ax",%progbits
+ 268              		.align	1
+ 269              		.global	Set_Chassis_Motor_CurrLim
+ 270              		.syntax unified
+ 271              		.thumb
+ 272              		.thumb_func
+ 274              	Set_Chassis_Motor_CurrLim:
+ 275              	.LVL29:
+ 276              	.LFB142:
+  79:Core/BSP/bsp.c ****  /**
+  80:Core/BSP/bsp.c ****   * @brief  设置底盘速度模式电流限制
+  81:Core/BSP/bsp.c ****   * @param1  current_lim 电流限制
+  82:Core/BSP/bsp.c ****   * @retval null
+  83:Core/BSP/bsp.c ****   */
+  84:Core/BSP/bsp.c ****  void Set_Chassis_Motor_CurrLim(float current_lim)
+  85:Core/BSP/bsp.c ****  {
+ 277              		.loc 1 85 2 is_stmt 1 view -0
+ 278              		.cfi_startproc
+ 279              		@ args = 0, pretend = 0, frame = 0
+ 280              		@ frame_needed = 0, uses_anonymous_args = 0
+ 281              		.loc 1 85 2 is_stmt 0 view .LVU59
+ 282 0000 10B5     		push	{r4, lr}
+ 283              	.LCFI7:
+ 284              		.cfi_def_cfa_offset 8
+ 285              		.cfi_offset 4, -8
+ 286              		.cfi_offset 14, -4
+ 287 0002 2DED028B 		vpush.64	{d8}
+ 288              	.LCFI8:
+ 289              		.cfi_def_cfa_offset 16
+ 290              		.cfi_offset 80, -16
+ 291              		.cfi_offset 81, -12
+ 292 0006 B0EE408A 		vmov.f32	s16, s0
+  86:Core/BSP/bsp.c ****     for (uint8_t id = 1; id < 5; id++)
+ 293              		.loc 1 86 5 is_stmt 1 view .LVU60
+ 294              	.LBB5:
+ 295              		.loc 1 86 10 view .LVU61
+ 296              	.LVL30:
+ 297              		.loc 1 86 18 is_stmt 0 view .LVU62
+ 298 000a 0124     		movs	r4, #1
+ 299              		.loc 1 86 5 view .LVU63
+ 300 000c 08E0     		b	.L20
+ 301              	.LVL31:
+ 302              	.L21:
+  87:Core/BSP/bsp.c **** 	{
+  88:Core/BSP/bsp.c **** 		MI_motor_SetCurrLim(motors[id], current_lim);
+ 303              		.loc 1 88 3 is_stmt 1 view .LVU64
+ 304 000e B0EE480A 		vmov.f32	s0, s16
+ 305 0012 064B     		ldr	r3, .L23
+ 306 0014 53F82400 		ldr	r0, [r3, r4, lsl #2]
+ 307 0018 FFF7FEFF 		bl	MI_motor_SetCurrLim
+ 308              	.LVL32:
+  86:Core/BSP/bsp.c ****     for (uint8_t id = 1; id < 5; id++)
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 8
+
+
+ 309              		.loc 1 86 36 discriminator 3 view .LVU65
+ 310 001c 0134     		adds	r4, r4, #1
+ 311              	.LVL33:
+  86:Core/BSP/bsp.c ****     for (uint8_t id = 1; id < 5; id++)
+ 312              		.loc 1 86 36 is_stmt 0 discriminator 3 view .LVU66
+ 313 001e E4B2     		uxtb	r4, r4
+ 314              	.LVL34:
+ 315              	.L20:
+  86:Core/BSP/bsp.c ****     for (uint8_t id = 1; id < 5; id++)
+ 316              		.loc 1 86 29 is_stmt 1 discriminator 1 view .LVU67
+ 317 0020 042C     		cmp	r4, #4
+ 318 0022 F4D9     		bls	.L21
+ 319              	.LBE5:
+  89:Core/BSP/bsp.c **** 	}
+  90:Core/BSP/bsp.c ****  }
+ 320              		.loc 1 90 2 is_stmt 0 view .LVU68
+ 321 0024 BDEC028B 		vldm	sp!, {d8}
+ 322              	.LCFI9:
+ 323              		.cfi_restore 80
+ 324              		.cfi_restore 81
+ 325              		.cfi_def_cfa_offset 8
+ 326              	.LVL35:
+ 327              		.loc 1 90 2 view .LVU69
+ 328 0028 10BD     		pop	{r4, pc}
+ 329              	.LVL36:
+ 330              	.L24:
+ 331              		.loc 1 90 2 view .LVU70
+ 332 002a 00BF     		.align	2
+ 333              	.L23:
+ 334 002c 00000000 		.word	motors
+ 335              		.cfi_endproc
+ 336              	.LFE142:
+ 338              		.section	.text.En_Chassis_Motor,"ax",%progbits
+ 339              		.align	1
+ 340              		.global	En_Chassis_Motor
+ 341              		.syntax unified
+ 342              		.thumb
+ 343              		.thumb_func
+ 345              	En_Chassis_Motor:
+ 346              	.LFB144:
+  91:Core/BSP/bsp.c ****  /**
+  92:Core/BSP/bsp.c ****   * @brief  重置底盘电机机械零位
+  93:Core/BSP/bsp.c ****   * @retval null
+  94:Core/BSP/bsp.c ****   */
+  95:Core/BSP/bsp.c ****  void Reset_Chassis_Motor_MechPosition(void)
+  96:Core/BSP/bsp.c ****  {
+  97:Core/BSP/bsp.c ****     Dis_Chassis_Motor();
+  98:Core/BSP/bsp.c ****     //重置机械零位	
+  99:Core/BSP/bsp.c **** 	MI_motor_setMechPosition2Zero(&chassis_motor[0]);
+ 100:Core/BSP/bsp.c **** 	MI_motor_setMechPosition2Zero(&chassis_motor[1]);
+ 101:Core/BSP/bsp.c **** 	MI_motor_setMechPosition2Zero(&chassis_motor[2]);
+ 102:Core/BSP/bsp.c **** 	MI_motor_setMechPosition2Zero(&chassis_motor[3]);
+ 103:Core/BSP/bsp.c ****     En_Chassis_Motor();
+ 104:Core/BSP/bsp.c ****  }
+ 105:Core/BSP/bsp.c ****  /**
+ 106:Core/BSP/bsp.c ****   * @brief  使能底盘电机
+ 107:Core/BSP/bsp.c ****   * @retval null
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 9
+
+
+ 108:Core/BSP/bsp.c ****   */
+ 109:Core/BSP/bsp.c **** void En_Chassis_Motor(void)
+ 110:Core/BSP/bsp.c **** {
+ 347              		.loc 1 110 1 is_stmt 1 view -0
+ 348              		.cfi_startproc
+ 349              		@ args = 0, pretend = 0, frame = 0
+ 350              		@ frame_needed = 0, uses_anonymous_args = 0
+ 351 0000 10B5     		push	{r4, lr}
+ 352              	.LCFI10:
+ 353              		.cfi_def_cfa_offset 8
+ 354              		.cfi_offset 4, -8
+ 355              		.cfi_offset 14, -4
+ 111:Core/BSP/bsp.c ****     for (uint8_t id = 1; id < 5; id++)
+ 356              		.loc 1 111 5 view .LVU72
+ 357              	.LBB6:
+ 358              		.loc 1 111 10 view .LVU73
+ 359              	.LVL37:
+ 360              		.loc 1 111 18 is_stmt 0 view .LVU74
+ 361 0002 0124     		movs	r4, #1
+ 362              		.loc 1 111 5 view .LVU75
+ 363 0004 06E0     		b	.L26
+ 364              	.LVL38:
+ 365              	.L27:
+ 112:Core/BSP/bsp.c **** 	{
+ 113:Core/BSP/bsp.c **** 		MI_motor_enable(motors[id]);
+ 366              		.loc 1 113 3 is_stmt 1 view .LVU76
+ 367 0006 054B     		ldr	r3, .L29
+ 368 0008 53F82400 		ldr	r0, [r3, r4, lsl #2]
+ 369 000c FFF7FEFF 		bl	MI_motor_enable
+ 370              	.LVL39:
+ 111:Core/BSP/bsp.c ****     for (uint8_t id = 1; id < 5; id++)
+ 371              		.loc 1 111 36 discriminator 3 view .LVU77
+ 372 0010 0134     		adds	r4, r4, #1
+ 373              	.LVL40:
+ 111:Core/BSP/bsp.c ****     for (uint8_t id = 1; id < 5; id++)
+ 374              		.loc 1 111 36 is_stmt 0 discriminator 3 view .LVU78
+ 375 0012 E4B2     		uxtb	r4, r4
+ 376              	.LVL41:
+ 377              	.L26:
+ 111:Core/BSP/bsp.c ****     for (uint8_t id = 1; id < 5; id++)
+ 378              		.loc 1 111 29 is_stmt 1 discriminator 1 view .LVU79
+ 379 0014 042C     		cmp	r4, #4
+ 380 0016 F6D9     		bls	.L27
+ 381              	.LBE6:
+ 114:Core/BSP/bsp.c **** 	}
+ 115:Core/BSP/bsp.c **** }
+ 382              		.loc 1 115 1 is_stmt 0 view .LVU80
+ 383 0018 10BD     		pop	{r4, pc}
+ 384              	.LVL42:
+ 385              	.L30:
+ 386              		.loc 1 115 1 view .LVU81
+ 387 001a 00BF     		.align	2
+ 388              	.L29:
+ 389 001c 00000000 		.word	motors
+ 390              		.cfi_endproc
+ 391              	.LFE144:
+ 393              		.section	.text.Dis_Chassis_Motor,"ax",%progbits
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 10
+
+
+ 394              		.align	1
+ 395              		.global	Dis_Chassis_Motor
+ 396              		.syntax unified
+ 397              		.thumb
+ 398              		.thumb_func
+ 400              	Dis_Chassis_Motor:
+ 401              	.LFB145:
+ 116:Core/BSP/bsp.c **** /**
+ 117:Core/BSP/bsp.c ****   * @brief  失能底盘电机
+ 118:Core/BSP/bsp.c ****   * @retval null
+ 119:Core/BSP/bsp.c ****   */
+ 120:Core/BSP/bsp.c **** void Dis_Chassis_Motor(void)
+ 121:Core/BSP/bsp.c **** {
+ 402              		.loc 1 121 1 is_stmt 1 view -0
+ 403              		.cfi_startproc
+ 404              		@ args = 0, pretend = 0, frame = 0
+ 405              		@ frame_needed = 0, uses_anonymous_args = 0
+ 406 0000 10B5     		push	{r4, lr}
+ 407              	.LCFI11:
+ 408              		.cfi_def_cfa_offset 8
+ 409              		.cfi_offset 4, -8
+ 410              		.cfi_offset 14, -4
+ 122:Core/BSP/bsp.c ****     for (uint8_t id = 1; id < 5; id++)
+ 411              		.loc 1 122 5 view .LVU83
+ 412              	.LBB7:
+ 413              		.loc 1 122 10 view .LVU84
+ 414              	.LVL43:
+ 415              		.loc 1 122 18 is_stmt 0 view .LVU85
+ 416 0002 0124     		movs	r4, #1
+ 417              		.loc 1 122 5 view .LVU86
+ 418 0004 06E0     		b	.L32
+ 419              	.LVL44:
+ 420              	.L33:
+ 123:Core/BSP/bsp.c **** 	{
+ 124:Core/BSP/bsp.c **** 		MI_motor_stop(motors[id]);
+ 421              		.loc 1 124 3 is_stmt 1 view .LVU87
+ 422 0006 054B     		ldr	r3, .L35
+ 423 0008 53F82400 		ldr	r0, [r3, r4, lsl #2]
+ 424 000c FFF7FEFF 		bl	MI_motor_stop
+ 425              	.LVL45:
+ 122:Core/BSP/bsp.c ****     for (uint8_t id = 1; id < 5; id++)
+ 426              		.loc 1 122 36 discriminator 3 view .LVU88
+ 427 0010 0134     		adds	r4, r4, #1
+ 428              	.LVL46:
+ 122:Core/BSP/bsp.c ****     for (uint8_t id = 1; id < 5; id++)
+ 429              		.loc 1 122 36 is_stmt 0 discriminator 3 view .LVU89
+ 430 0012 E4B2     		uxtb	r4, r4
+ 431              	.LVL47:
+ 432              	.L32:
+ 122:Core/BSP/bsp.c ****     for (uint8_t id = 1; id < 5; id++)
+ 433              		.loc 1 122 29 is_stmt 1 discriminator 1 view .LVU90
+ 434 0014 042C     		cmp	r4, #4
+ 435 0016 F6D9     		bls	.L33
+ 436              	.LBE7:
+ 125:Core/BSP/bsp.c **** 	}
+ 126:Core/BSP/bsp.c **** }
+ 437              		.loc 1 126 1 is_stmt 0 view .LVU91
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 11
+
+
+ 438 0018 10BD     		pop	{r4, pc}
+ 439              	.LVL48:
+ 440              	.L36:
+ 441              		.loc 1 126 1 view .LVU92
+ 442 001a 00BF     		.align	2
+ 443              	.L35:
+ 444 001c 00000000 		.word	motors
+ 445              		.cfi_endproc
+ 446              	.LFE145:
+ 448              		.section	.text.Reset_Chassis_Motor_MechPosition,"ax",%progbits
+ 449              		.align	1
+ 450              		.global	Reset_Chassis_Motor_MechPosition
+ 451              		.syntax unified
+ 452              		.thumb
+ 453              		.thumb_func
+ 455              	Reset_Chassis_Motor_MechPosition:
+ 456              	.LFB143:
+  96:Core/BSP/bsp.c ****     Dis_Chassis_Motor();
+ 457              		.loc 1 96 2 is_stmt 1 view -0
+ 458              		.cfi_startproc
+ 459              		@ args = 0, pretend = 0, frame = 0
+ 460              		@ frame_needed = 0, uses_anonymous_args = 0
+ 461 0000 10B5     		push	{r4, lr}
+ 462              	.LCFI12:
+ 463              		.cfi_def_cfa_offset 8
+ 464              		.cfi_offset 4, -8
+ 465              		.cfi_offset 14, -4
+  97:Core/BSP/bsp.c ****     //重置机械零位	
+ 466              		.loc 1 97 5 view .LVU94
+ 467 0002 FFF7FEFF 		bl	Dis_Chassis_Motor
+ 468              	.LVL49:
+  99:Core/BSP/bsp.c **** 	MI_motor_setMechPosition2Zero(&chassis_motor[1]);
+ 469              		.loc 1 99 2 view .LVU95
+ 470 0006 094C     		ldr	r4, .L39
+ 471 0008 2046     		mov	r0, r4
+ 472 000a FFF7FEFF 		bl	MI_motor_setMechPosition2Zero
+ 473              	.LVL50:
+ 100:Core/BSP/bsp.c **** 	MI_motor_setMechPosition2Zero(&chassis_motor[2]);
+ 474              		.loc 1 100 2 view .LVU96
+ 475 000e 04F15800 		add	r0, r4, #88
+ 476 0012 FFF7FEFF 		bl	MI_motor_setMechPosition2Zero
+ 477              	.LVL51:
+ 101:Core/BSP/bsp.c **** 	MI_motor_setMechPosition2Zero(&chassis_motor[3]);
+ 478              		.loc 1 101 2 view .LVU97
+ 479 0016 04F1B000 		add	r0, r4, #176
+ 480 001a FFF7FEFF 		bl	MI_motor_setMechPosition2Zero
+ 481              	.LVL52:
+ 102:Core/BSP/bsp.c ****     En_Chassis_Motor();
+ 482              		.loc 1 102 2 view .LVU98
+ 483 001e 04F58470 		add	r0, r4, #264
+ 484 0022 FFF7FEFF 		bl	MI_motor_setMechPosition2Zero
+ 485              	.LVL53:
+ 103:Core/BSP/bsp.c ****  }
+ 486              		.loc 1 103 5 view .LVU99
+ 487 0026 FFF7FEFF 		bl	En_Chassis_Motor
+ 488              	.LVL54:
+ 104:Core/BSP/bsp.c ****  /**
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 12
+
+
+ 489              		.loc 1 104 2 is_stmt 0 view .LVU100
+ 490 002a 10BD     		pop	{r4, pc}
+ 491              	.L40:
+ 492              		.align	2
+ 493              	.L39:
+ 494 002c 00000000 		.word	chassis_motor
+ 495              		.cfi_endproc
+ 496              	.LFE143:
+ 498              		.section	.text.Init_Chassis_Motor,"ax",%progbits
+ 499              		.align	1
+ 500              		.global	Init_Chassis_Motor
+ 501              		.syntax unified
+ 502              		.thumb
+ 503              		.thumb_func
+ 505              	Init_Chassis_Motor:
+ 506              	.LFB139:
+  38:Core/BSP/bsp.c ****     motors[1] = &chassis_motor[0];
+ 507              		.loc 1 38 2 is_stmt 1 view -0
+ 508              		.cfi_startproc
+ 509              		@ args = 0, pretend = 0, frame = 0
+ 510              		@ frame_needed = 0, uses_anonymous_args = 0
+ 511 0000 38B5     		push	{r3, r4, r5, lr}
+ 512              	.LCFI13:
+ 513              		.cfi_def_cfa_offset 16
+ 514              		.cfi_offset 3, -16
+ 515              		.cfi_offset 4, -12
+ 516              		.cfi_offset 5, -8
+ 517              		.cfi_offset 14, -4
+  39:Core/BSP/bsp.c **** 	motors[2] = &chassis_motor[1];
+ 518              		.loc 1 39 5 view .LVU102
+  39:Core/BSP/bsp.c **** 	motors[2] = &chassis_motor[1];
+ 519              		.loc 1 39 15 is_stmt 0 view .LVU103
+ 520 0002 174A     		ldr	r2, .L47
+ 521 0004 174B     		ldr	r3, .L47+4
+ 522 0006 5360     		str	r3, [r2, #4]
+  40:Core/BSP/bsp.c **** 	motors[3] = &chassis_motor[2];
+ 523              		.loc 1 40 2 is_stmt 1 view .LVU104
+  40:Core/BSP/bsp.c **** 	motors[3] = &chassis_motor[2];
+ 524              		.loc 1 40 12 is_stmt 0 view .LVU105
+ 525 0008 03F15801 		add	r1, r3, #88
+ 526 000c 9160     		str	r1, [r2, #8]
+  41:Core/BSP/bsp.c **** 	motors[4] = &chassis_motor[3];
+ 527              		.loc 1 41 2 is_stmt 1 view .LVU106
+  41:Core/BSP/bsp.c **** 	motors[4] = &chassis_motor[3];
+ 528              		.loc 1 41 12 is_stmt 0 view .LVU107
+ 529 000e 03F1B001 		add	r1, r3, #176
+ 530 0012 D160     		str	r1, [r2, #12]
+  42:Core/BSP/bsp.c ****     for (uint8_t id = 1; id < 5; id++)
+ 531              		.loc 1 42 2 is_stmt 1 view .LVU108
+  42:Core/BSP/bsp.c ****     for (uint8_t id = 1; id < 5; id++)
+ 532              		.loc 1 42 12 is_stmt 0 view .LVU109
+ 533 0014 03F58473 		add	r3, r3, #264
+ 534 0018 1361     		str	r3, [r2, #16]
+  43:Core/BSP/bsp.c **** 	{
+ 535              		.loc 1 43 5 is_stmt 1 view .LVU110
+ 536              	.LBB8:
+  43:Core/BSP/bsp.c **** 	{
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 13
+
+
+ 537              		.loc 1 43 10 view .LVU111
+ 538              	.LVL55:
+  43:Core/BSP/bsp.c **** 	{
+ 539              		.loc 1 43 18 is_stmt 0 view .LVU112
+ 540 001a 0124     		movs	r4, #1
+  43:Core/BSP/bsp.c **** 	{
+ 541              		.loc 1 43 5 view .LVU113
+ 542 001c 08E0     		b	.L42
+ 543              	.LVL56:
+ 544              	.L43:
+  45:Core/BSP/bsp.c **** 	}
+ 545              		.loc 1 45 3 is_stmt 1 view .LVU114
+ 546 001e 2246     		mov	r2, r4
+ 547 0020 1149     		ldr	r1, .L47+8
+ 548 0022 0F4B     		ldr	r3, .L47
+ 549 0024 53F82400 		ldr	r0, [r3, r4, lsl #2]
+ 550 0028 FFF7FEFF 		bl	MI_motor_init
+ 551              	.LVL57:
+  43:Core/BSP/bsp.c **** 	{
+ 552              		.loc 1 43 36 discriminator 3 view .LVU115
+ 553 002c 0134     		adds	r4, r4, #1
+ 554              	.LVL58:
+  43:Core/BSP/bsp.c **** 	{
+ 555              		.loc 1 43 36 is_stmt 0 discriminator 3 view .LVU116
+ 556 002e E4B2     		uxtb	r4, r4
+ 557              	.LVL59:
+ 558              	.L42:
+  43:Core/BSP/bsp.c **** 	{
+ 559              		.loc 1 43 29 is_stmt 1 discriminator 1 view .LVU117
+ 560 0030 042C     		cmp	r4, #4
+ 561 0032 F4D9     		bls	.L43
+ 562              	.LBE8:
+  47:Core/BSP/bsp.c ****     //设置位置模式限速和速度模式电流限制
+ 563              		.loc 1 47 5 view .LVU118
+ 564 0034 FFF7FEFF 		bl	Reset_Chassis_Motor_MechPosition
+ 565              	.LVL60:
+  49:Core/BSP/bsp.c **** 	{
+ 566              		.loc 1 49 5 view .LVU119
+ 567              	.LBB9:
+  49:Core/BSP/bsp.c **** 	{
+ 568              		.loc 1 49 10 view .LVU120
+  49:Core/BSP/bsp.c **** 	{
+ 569              		.loc 1 49 18 is_stmt 0 view .LVU121
+ 570 0038 0124     		movs	r4, #1
+ 571              	.LVL61:
+  49:Core/BSP/bsp.c **** 	{
+ 572              		.loc 1 49 5 view .LVU122
+ 573 003a 0EE0     		b	.L44
+ 574              	.LVL62:
+ 575              	.L45:
+  51:Core/BSP/bsp.c ****         MI_motor_SetCurrLim(motors[id], 10);//速度模式电流限制
+ 576              		.loc 1 51 3 is_stmt 1 view .LVU123
+ 577 003c 084D     		ldr	r5, .L47
+ 578 003e B2EE080A 		vmov.f32	s0, #1.2e+1
+ 579 0042 55F82400 		ldr	r0, [r5, r4, lsl #2]
+ 580 0046 FFF7FEFF 		bl	MI_motor_SetSpdLim
+ 581              	.LVL63:
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 14
+
+
+  52:Core/BSP/bsp.c **** 	}
+ 582              		.loc 1 52 9 view .LVU124
+ 583 004a B2EE040A 		vmov.f32	s0, #1.0e+1
+ 584 004e 55F82400 		ldr	r0, [r5, r4, lsl #2]
+ 585 0052 FFF7FEFF 		bl	MI_motor_SetCurrLim
+ 586              	.LVL64:
+  49:Core/BSP/bsp.c **** 	{
+ 587              		.loc 1 49 36 discriminator 3 view .LVU125
+ 588 0056 0134     		adds	r4, r4, #1
+ 589              	.LVL65:
+  49:Core/BSP/bsp.c **** 	{
+ 590              		.loc 1 49 36 is_stmt 0 discriminator 3 view .LVU126
+ 591 0058 E4B2     		uxtb	r4, r4
+ 592              	.LVL66:
+ 593              	.L44:
+  49:Core/BSP/bsp.c **** 	{
+ 594              		.loc 1 49 29 is_stmt 1 discriminator 1 view .LVU127
+ 595 005a 042C     		cmp	r4, #4
+ 596 005c EED9     		bls	.L45
+ 597              	.LBE9:
+  54:Core/BSP/bsp.c **** /**
+ 598              		.loc 1 54 2 is_stmt 0 view .LVU128
+ 599 005e 38BD     		pop	{r3, r4, r5, pc}
+ 600              	.LVL67:
+ 601              	.L48:
+  54:Core/BSP/bsp.c **** /**
+ 602              		.loc 1 54 2 view .LVU129
+ 603              		.align	2
+ 604              	.L47:
+ 605 0060 00000000 		.word	motors
+ 606 0064 00000000 		.word	chassis_motor
+ 607 0068 00000000 		.word	hcan1
+ 608              		.cfi_endproc
+ 609              	.LFE139:
+ 611              		.section	.text.Publish_Chassis_Motor_Speed,"ax",%progbits
+ 612              		.align	1
+ 613              		.global	Publish_Chassis_Motor_Speed
+ 614              		.syntax unified
+ 615              		.thumb
+ 616              		.thumb_func
+ 618              	Publish_Chassis_Motor_Speed:
+ 619              	.LVL68:
+ 620              	.LFB146:
+ 127:Core/BSP/bsp.c **** 
+ 128:Core/BSP/bsp.c **** /**
+ 129:Core/BSP/bsp.c ****   * @brief  发布底盘电机速度
+ 130:Core/BSP/bsp.c ****   * @param1  Vel1 麦轮1速度 单位：mm/s
+ 131:Core/BSP/bsp.c ****   * @param2  Vel2 麦轮2速度 单位：mm/s
+ 132:Core/BSP/bsp.c ****   * @param3  Vel3 麦轮3速度 单位：mm/s
+ 133:Core/BSP/bsp.c ****   * @param4  Vel4 麦轮4速度 单位：mm/s
+ 134:Core/BSP/bsp.c ****   * @retval null
+ 135:Core/BSP/bsp.c ****   */
+ 136:Core/BSP/bsp.c **** void Publish_Chassis_Motor_Speed(float Vel1, float Vel2, float Vel3, float Vel4)
+ 137:Core/BSP/bsp.c **** {
+ 621              		.loc 1 137 1 is_stmt 1 view -0
+ 622              		.cfi_startproc
+ 623              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 15
+
+
+ 624              		@ frame_needed = 0, uses_anonymous_args = 0
+ 625              		.loc 1 137 1 is_stmt 0 view .LVU131
+ 626 0000 10B5     		push	{r4, lr}
+ 627              	.LCFI14:
+ 628              		.cfi_def_cfa_offset 8
+ 629              		.cfi_offset 4, -8
+ 630              		.cfi_offset 14, -4
+ 631 0002 2DED048B 		vpush.64	{d8, d9}
+ 632              	.LCFI15:
+ 633              		.cfi_def_cfa_offset 24
+ 634              		.cfi_offset 80, -24
+ 635              		.cfi_offset 81, -20
+ 636              		.cfi_offset 82, -16
+ 637              		.cfi_offset 83, -12
+ 138:Core/BSP/bsp.c ****     //将轮子线速度转换为电机角速度
+ 139:Core/BSP/bsp.c ****     Vel1 = -Vel1 / WHEEL_RADIUS ;
+ 638              		.loc 1 139 5 is_stmt 1 view .LVU132
+ 639              		.loc 1 139 12 is_stmt 0 view .LVU133
+ 640 0006 B1EE400A 		vneg.f32	s0, s0
+ 641              	.LVL69:
+ 642              		.loc 1 139 10 view .LVU134
+ 643 000a DFED117A 		vldr.32	s15, .L51
+ 644              	.LVL70:
+ 140:Core/BSP/bsp.c ****     Vel2 = Vel2 / WHEEL_RADIUS ;
+ 645              		.loc 1 140 5 is_stmt 1 view .LVU135
+ 646              		.loc 1 140 10 is_stmt 0 view .LVU136
+ 647 000e 80EEA79A 		vdiv.f32	s18, s1, s15
+ 648              	.LVL71:
+ 141:Core/BSP/bsp.c ****     Vel3 = -Vel3 / WHEEL_RADIUS ;
+ 649              		.loc 1 141 5 is_stmt 1 view .LVU137
+ 650              		.loc 1 141 12 is_stmt 0 view .LVU138
+ 651 0012 B1EE411A 		vneg.f32	s2, s2
+ 652              	.LVL72:
+ 653              		.loc 1 141 10 view .LVU139
+ 654 0016 C1EE278A 		vdiv.f32	s17, s2, s15
+ 655              	.LVL73:
+ 142:Core/BSP/bsp.c ****     Vel4 = Vel4 / WHEEL_RADIUS ;
+ 656              		.loc 1 142 5 is_stmt 1 view .LVU140
+ 657              		.loc 1 142 10 is_stmt 0 view .LVU141
+ 658 001a 81EEA78A 		vdiv.f32	s16, s3, s15
+ 659              	.LVL74:
+ 143:Core/BSP/bsp.c ****     //发布电机速度
+ 144:Core/BSP/bsp.c ****     MI_motor_SpdCtrl(motors[1], Vel1);
+ 660              		.loc 1 144 5 is_stmt 1 view .LVU142
+ 661 001e 0D4C     		ldr	r4, .L51+4
+ 662 0020 80EE270A 		vdiv.f32	s0, s0, s15
+ 663              	.LVL75:
+ 664              		.loc 1 144 5 is_stmt 0 view .LVU143
+ 665 0024 6068     		ldr	r0, [r4, #4]
+ 666 0026 FFF7FEFF 		bl	MI_motor_SpdCtrl
+ 667              	.LVL76:
+ 145:Core/BSP/bsp.c ****     MI_motor_SpdCtrl(motors[2], Vel2);
+ 668              		.loc 1 145 5 is_stmt 1 view .LVU144
+ 669 002a B0EE490A 		vmov.f32	s0, s18
+ 670 002e A068     		ldr	r0, [r4, #8]
+ 671 0030 FFF7FEFF 		bl	MI_motor_SpdCtrl
+ 672              	.LVL77:
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 16
+
+
+ 146:Core/BSP/bsp.c ****     MI_motor_SpdCtrl(motors[3], Vel3);
+ 673              		.loc 1 146 5 view .LVU145
+ 674 0034 B0EE680A 		vmov.f32	s0, s17
+ 675 0038 E068     		ldr	r0, [r4, #12]
+ 676 003a FFF7FEFF 		bl	MI_motor_SpdCtrl
+ 677              	.LVL78:
+ 147:Core/BSP/bsp.c ****     MI_motor_SpdCtrl(motors[4], Vel4);
+ 678              		.loc 1 147 5 view .LVU146
+ 679 003e B0EE480A 		vmov.f32	s0, s16
+ 680 0042 2069     		ldr	r0, [r4, #16]
+ 681 0044 FFF7FEFF 		bl	MI_motor_SpdCtrl
+ 682              	.LVL79:
+ 148:Core/BSP/bsp.c **** }
+ 683              		.loc 1 148 1 is_stmt 0 view .LVU147
+ 684 0048 BDEC048B 		vldm	sp!, {d8-d9}
+ 685              	.LCFI16:
+ 686              		.cfi_restore 82
+ 687              		.cfi_restore 83
+ 688              		.cfi_restore 80
+ 689              		.cfi_restore 81
+ 690              		.cfi_def_cfa_offset 8
+ 691              	.LVL80:
+ 692              		.loc 1 148 1 view .LVU148
+ 693 004c 10BD     		pop	{r4, pc}
+ 694              	.L52:
+ 695 004e 00BF     		.align	2
+ 696              	.L51:
+ 697 0050 00009842 		.word	1117257728
+ 698 0054 00000000 		.word	motors
+ 699              		.cfi_endproc
+ 700              	.LFE146:
+ 702              		.section	.text.Disable_IMU_Interrupts,"ax",%progbits
+ 703              		.align	1
+ 704              		.global	Disable_IMU_Interrupts
+ 705              		.syntax unified
+ 706              		.thumb
+ 707              		.thumb_func
+ 709              	Disable_IMU_Interrupts:
+ 710              	.LFB147:
+ 149:Core/BSP/bsp.c **** void Disable_IMU_Interrupts(void)
+ 150:Core/BSP/bsp.c **** {
+ 711              		.loc 1 150 1 is_stmt 1 view -0
+ 712              		.cfi_startproc
+ 713              		@ args = 0, pretend = 0, frame = 0
+ 714              		@ frame_needed = 0, uses_anonymous_args = 0
+ 715 0000 08B5     		push	{r3, lr}
+ 716              	.LCFI17:
+ 717              		.cfi_def_cfa_offset 8
+ 718              		.cfi_offset 3, -8
+ 719              		.cfi_offset 14, -4
+ 151:Core/BSP/bsp.c ****     HAL_NVIC_DisableIRQ(DMA2_Stream1_IRQn);  // USART6 RX DMA
+ 720              		.loc 1 151 5 view .LVU150
+ 721 0002 3920     		movs	r0, #57
+ 722 0004 FFF7FEFF 		bl	HAL_NVIC_DisableIRQ
+ 723              	.LVL81:
+ 152:Core/BSP/bsp.c ****     __HAL_UART_DISABLE_IT(&huart6, UART_IT_IDLE);
+ 724              		.loc 1 152 5 view .LVU151
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 17
+
+
+ 725 0008 034B     		ldr	r3, .L55
+ 726 000a 1A68     		ldr	r2, [r3]
+ 727 000c D368     		ldr	r3, [r2, #12]
+ 728 000e 23F01003 		bic	r3, r3, #16
+ 729 0012 D360     		str	r3, [r2, #12]
+ 153:Core/BSP/bsp.c **** }
+ 730              		.loc 1 153 1 is_stmt 0 view .LVU152
+ 731 0014 08BD     		pop	{r3, pc}
+ 732              	.L56:
+ 733 0016 00BF     		.align	2
+ 734              	.L55:
+ 735 0018 00000000 		.word	huart6
+ 736              		.cfi_endproc
+ 737              	.LFE147:
+ 739              		.section	.text.Enable_IMU_Interrupts,"ax",%progbits
+ 740              		.align	1
+ 741              		.global	Enable_IMU_Interrupts
+ 742              		.syntax unified
+ 743              		.thumb
+ 744              		.thumb_func
+ 746              	Enable_IMU_Interrupts:
+ 747              	.LFB148:
+ 154:Core/BSP/bsp.c **** 
+ 155:Core/BSP/bsp.c **** void Enable_IMU_Interrupts(void)
+ 156:Core/BSP/bsp.c **** {
+ 748              		.loc 1 156 1 is_stmt 1 view -0
+ 749              		.cfi_startproc
+ 750              		@ args = 0, pretend = 0, frame = 0
+ 751              		@ frame_needed = 0, uses_anonymous_args = 0
+ 752 0000 08B5     		push	{r3, lr}
+ 753              	.LCFI18:
+ 754              		.cfi_def_cfa_offset 8
+ 755              		.cfi_offset 3, -8
+ 756              		.cfi_offset 14, -4
+ 157:Core/BSP/bsp.c ****     __HAL_UART_ENABLE_IT(&huart6, UART_IT_IDLE);
+ 757              		.loc 1 157 5 view .LVU154
+ 758 0002 054B     		ldr	r3, .L59
+ 759 0004 1A68     		ldr	r2, [r3]
+ 760 0006 D368     		ldr	r3, [r2, #12]
+ 761 0008 43F01003 		orr	r3, r3, #16
+ 762 000c D360     		str	r3, [r2, #12]
+ 158:Core/BSP/bsp.c ****     HAL_NVIC_EnableIRQ(DMA2_Stream1_IRQn);
+ 763              		.loc 1 158 5 view .LVU155
+ 764 000e 3920     		movs	r0, #57
+ 765 0010 FFF7FEFF 		bl	HAL_NVIC_EnableIRQ
+ 766              	.LVL82:
+ 159:Core/BSP/bsp.c **** }
+ 767              		.loc 1 159 1 is_stmt 0 view .LVU156
+ 768 0014 08BD     		pop	{r3, pc}
+ 769              	.L60:
+ 770 0016 00BF     		.align	2
+ 771              	.L59:
+ 772 0018 00000000 		.word	huart6
+ 773              		.cfi_endproc
+ 774              	.LFE148:
+ 776              		.section	.text.Change_Scara_Motor_Mode,"ax",%progbits
+ 777              		.align	1
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 18
+
+
+ 778              		.global	Change_Scara_Motor_Mode
+ 779              		.syntax unified
+ 780              		.thumb
+ 781              		.thumb_func
+ 783              	Change_Scara_Motor_Mode:
+ 784              	.LVL83:
+ 785              	.LFB150:
+ 160:Core/BSP/bsp.c **** 
+ 161:Core/BSP/bsp.c **** //******************************************************SCARA机械臂电机***********************
+ 162:Core/BSP/bsp.c **** /**
+ 163:Core/BSP/bsp.c ****   * @brief  初始化SCARA机械臂电机  默认进入运控模式
+ 164:Core/BSP/bsp.c ****   * @retval null
+ 165:Core/BSP/bsp.c ****   */
+ 166:Core/BSP/bsp.c **** void Init_Scara_Motor(void)
+ 167:Core/BSP/bsp.c **** {
+ 168:Core/BSP/bsp.c ****     motors[5] = &scara_motor[0];
+ 169:Core/BSP/bsp.c ****     motors[6] = &scara_motor[1];
+ 170:Core/BSP/bsp.c ****     for (uint8_t id = 5; id < 7; id++)
+ 171:Core/BSP/bsp.c ****     {
+ 172:Core/BSP/bsp.c ****         MI_motor_init(motors[id],&hcan1,id);
+ 173:Core/BSP/bsp.c ****     }
+ 174:Core/BSP/bsp.c ****     Reset_Scara_Motor_MechPosition();
+ 175:Core/BSP/bsp.c **** 
+ 176:Core/BSP/bsp.c ****     //设置位置模式限速和速度模式电流限制
+ 177:Core/BSP/bsp.c ****     for (uint8_t id = 5; id < 7; id++)
+ 178:Core/BSP/bsp.c ****     {
+ 179:Core/BSP/bsp.c ****         MI_motor_SetSpdLim(motors[id], 4);//位置模式限速
+ 180:Core/BSP/bsp.c ****         MI_motor_SetCurrLim(motors[id], 12);//速度模式电流限制
+ 181:Core/BSP/bsp.c ****     }
+ 182:Core/BSP/bsp.c ****     Change_Scara_Motor_Mode(MODE_POS);
+ 183:Core/BSP/bsp.c **** 
+ 184:Core/BSP/bsp.c **** }
+ 185:Core/BSP/bsp.c **** /**
+ 186:Core/BSP/bsp.c ****   * @brief  切换SCARA机械臂电机模式
+ 187:Core/BSP/bsp.c ****   * @param1  mode 模式
+ 188:Core/BSP/bsp.c ****   * @retval null
+ 189:Core/BSP/bsp.c ****   */
+ 190:Core/BSP/bsp.c **** void Change_Scara_Motor_Mode(uint8_t mode)
+ 191:Core/BSP/bsp.c **** {
+ 786              		.loc 1 191 1 is_stmt 1 view -0
+ 787              		.cfi_startproc
+ 788              		@ args = 0, pretend = 0, frame = 0
+ 789              		@ frame_needed = 0, uses_anonymous_args = 0
+ 790              		.loc 1 191 1 is_stmt 0 view .LVU158
+ 791 0000 38B5     		push	{r3, r4, r5, lr}
+ 792              	.LCFI19:
+ 793              		.cfi_def_cfa_offset 16
+ 794              		.cfi_offset 3, -16
+ 795              		.cfi_offset 4, -12
+ 796              		.cfi_offset 5, -8
+ 797              		.cfi_offset 14, -4
+ 798 0002 0546     		mov	r5, r0
+ 192:Core/BSP/bsp.c ****     for (uint8_t id = 5; id < 7; id++)
+ 799              		.loc 1 192 5 is_stmt 1 view .LVU159
+ 800              	.LBB10:
+ 801              		.loc 1 192 10 view .LVU160
+ 802              	.LVL84:
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 19
+
+
+ 803              		.loc 1 192 18 is_stmt 0 view .LVU161
+ 804 0004 0524     		movs	r4, #5
+ 805              		.loc 1 192 5 view .LVU162
+ 806 0006 07E0     		b	.L62
+ 807              	.LVL85:
+ 808              	.L63:
+ 193:Core/BSP/bsp.c ****     {
+ 194:Core/BSP/bsp.c ****         MI_motor_setMode(motors[id], mode);
+ 809              		.loc 1 194 9 is_stmt 1 view .LVU163
+ 810 0008 2946     		mov	r1, r5
+ 811 000a 054B     		ldr	r3, .L65
+ 812 000c 53F82400 		ldr	r0, [r3, r4, lsl #2]
+ 813 0010 FFF7FEFF 		bl	MI_motor_setMode
+ 814              	.LVL86:
+ 192:Core/BSP/bsp.c ****     for (uint8_t id = 5; id < 7; id++)
+ 815              		.loc 1 192 36 discriminator 3 view .LVU164
+ 816 0014 0134     		adds	r4, r4, #1
+ 817              	.LVL87:
+ 192:Core/BSP/bsp.c ****     for (uint8_t id = 5; id < 7; id++)
+ 818              		.loc 1 192 36 is_stmt 0 discriminator 3 view .LVU165
+ 819 0016 E4B2     		uxtb	r4, r4
+ 820              	.LVL88:
+ 821              	.L62:
+ 192:Core/BSP/bsp.c ****     for (uint8_t id = 5; id < 7; id++)
+ 822              		.loc 1 192 29 is_stmt 1 discriminator 1 view .LVU166
+ 823 0018 062C     		cmp	r4, #6
+ 824 001a F5D9     		bls	.L63
+ 825              	.LBE10:
+ 195:Core/BSP/bsp.c ****     }
+ 196:Core/BSP/bsp.c **** }
+ 826              		.loc 1 196 1 is_stmt 0 view .LVU167
+ 827 001c 38BD     		pop	{r3, r4, r5, pc}
+ 828              	.LVL89:
+ 829              	.L66:
+ 830              		.loc 1 196 1 view .LVU168
+ 831 001e 00BF     		.align	2
+ 832              	.L65:
+ 833 0020 00000000 		.word	motors
+ 834              		.cfi_endproc
+ 835              	.LFE150:
+ 837              		.section	.text.Set_Scara_Motor_SpdLim,"ax",%progbits
+ 838              		.align	1
+ 839              		.global	Set_Scara_Motor_SpdLim
+ 840              		.syntax unified
+ 841              		.thumb
+ 842              		.thumb_func
+ 844              	Set_Scara_Motor_SpdLim:
+ 845              	.LVL90:
+ 846              	.LFB151:
+ 197:Core/BSP/bsp.c **** /**
+ 198:Core/BSP/bsp.c ****   * @brief  设置SCARA机械臂电机位置模式限速
+ 199:Core/BSP/bsp.c ****   * @param1  spd_lim 限速
+ 200:Core/BSP/bsp.c ****   * @retval null
+ 201:Core/BSP/bsp.c ****   */
+ 202:Core/BSP/bsp.c **** void Set_Scara_Motor_SpdLim(uint8_t spd_lim)
+ 203:Core/BSP/bsp.c **** {
+ 847              		.loc 1 203 1 is_stmt 1 view -0
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 20
+
+
+ 848              		.cfi_startproc
+ 849              		@ args = 0, pretend = 0, frame = 0
+ 850              		@ frame_needed = 0, uses_anonymous_args = 0
+ 851              		.loc 1 203 1 is_stmt 0 view .LVU170
+ 852 0000 10B5     		push	{r4, lr}
+ 853              	.LCFI20:
+ 854              		.cfi_def_cfa_offset 8
+ 855              		.cfi_offset 4, -8
+ 856              		.cfi_offset 14, -4
+ 857 0002 2DED028B 		vpush.64	{d8}
+ 858              	.LCFI21:
+ 859              		.cfi_def_cfa_offset 16
+ 860              		.cfi_offset 80, -16
+ 861              		.cfi_offset 81, -12
+ 862 0006 08EE100A 		vmov	s16, r0	@ int
+ 204:Core/BSP/bsp.c ****     for (uint8_t id = 5; id < 7; id++)
+ 863              		.loc 1 204 5 is_stmt 1 view .LVU171
+ 864              	.LBB11:
+ 865              		.loc 1 204 10 view .LVU172
+ 866              	.LVL91:
+ 867              		.loc 1 204 18 is_stmt 0 view .LVU173
+ 868 000a 0524     		movs	r4, #5
+ 869              		.loc 1 204 5 view .LVU174
+ 870 000c 08E0     		b	.L68
+ 871              	.LVL92:
+ 872              	.L69:
+ 205:Core/BSP/bsp.c ****     {
+ 206:Core/BSP/bsp.c ****         MI_motor_SetSpdLim(motors[id], spd_lim);
+ 873              		.loc 1 206 9 is_stmt 1 view .LVU175
+ 874 000e B8EE480A 		vcvt.f32.u32	s0, s16
+ 875 0012 064B     		ldr	r3, .L71
+ 876 0014 53F82400 		ldr	r0, [r3, r4, lsl #2]
+ 877 0018 FFF7FEFF 		bl	MI_motor_SetSpdLim
+ 878              	.LVL93:
+ 204:Core/BSP/bsp.c ****     for (uint8_t id = 5; id < 7; id++)
+ 879              		.loc 1 204 36 discriminator 3 view .LVU176
+ 880 001c 0134     		adds	r4, r4, #1
+ 881              	.LVL94:
+ 204:Core/BSP/bsp.c ****     for (uint8_t id = 5; id < 7; id++)
+ 882              		.loc 1 204 36 is_stmt 0 discriminator 3 view .LVU177
+ 883 001e E4B2     		uxtb	r4, r4
+ 884              	.LVL95:
+ 885              	.L68:
+ 204:Core/BSP/bsp.c ****     for (uint8_t id = 5; id < 7; id++)
+ 886              		.loc 1 204 29 is_stmt 1 discriminator 1 view .LVU178
+ 887 0020 062C     		cmp	r4, #6
+ 888 0022 F4D9     		bls	.L69
+ 889              	.LBE11:
+ 207:Core/BSP/bsp.c ****     }
+ 208:Core/BSP/bsp.c **** }
+ 890              		.loc 1 208 1 is_stmt 0 view .LVU179
+ 891 0024 BDEC028B 		vldm	sp!, {d8}
+ 892              	.LCFI22:
+ 893              		.cfi_restore 80
+ 894              		.cfi_restore 81
+ 895              		.cfi_def_cfa_offset 8
+ 896              	.LVL96:
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 21
+
+
+ 897              		.loc 1 208 1 view .LVU180
+ 898 0028 10BD     		pop	{r4, pc}
+ 899              	.LVL97:
+ 900              	.L72:
+ 901              		.loc 1 208 1 view .LVU181
+ 902 002a 00BF     		.align	2
+ 903              	.L71:
+ 904 002c 00000000 		.word	motors
+ 905              		.cfi_endproc
+ 906              	.LFE151:
+ 908              		.section	.text.Set_Scara_Motor_CurrLim,"ax",%progbits
+ 909              		.align	1
+ 910              		.global	Set_Scara_Motor_CurrLim
+ 911              		.syntax unified
+ 912              		.thumb
+ 913              		.thumb_func
+ 915              	Set_Scara_Motor_CurrLim:
+ 916              	.LVL98:
+ 917              	.LFB152:
+ 209:Core/BSP/bsp.c ****  /**
+ 210:Core/BSP/bsp.c ****   * @brief  设置SCARA机械臂速度模式电流限制
+ 211:Core/BSP/bsp.c ****   * @param1  current_lim 电流限制
+ 212:Core/BSP/bsp.c ****   * @retval null
+ 213:Core/BSP/bsp.c ****   */
+ 214:Core/BSP/bsp.c **** void Set_Scara_Motor_CurrLim(uint8_t current_lim)
+ 215:Core/BSP/bsp.c **** {
+ 918              		.loc 1 215 1 is_stmt 1 view -0
+ 919              		.cfi_startproc
+ 920              		@ args = 0, pretend = 0, frame = 0
+ 921              		@ frame_needed = 0, uses_anonymous_args = 0
+ 922              		.loc 1 215 1 is_stmt 0 view .LVU183
+ 923 0000 10B5     		push	{r4, lr}
+ 924              	.LCFI23:
+ 925              		.cfi_def_cfa_offset 8
+ 926              		.cfi_offset 4, -8
+ 927              		.cfi_offset 14, -4
+ 928 0002 2DED028B 		vpush.64	{d8}
+ 929              	.LCFI24:
+ 930              		.cfi_def_cfa_offset 16
+ 931              		.cfi_offset 80, -16
+ 932              		.cfi_offset 81, -12
+ 933 0006 08EE100A 		vmov	s16, r0	@ int
+ 216:Core/BSP/bsp.c ****     for (uint8_t id = 5; id < 7; id++)
+ 934              		.loc 1 216 5 is_stmt 1 view .LVU184
+ 935              	.LBB12:
+ 936              		.loc 1 216 10 view .LVU185
+ 937              	.LVL99:
+ 938              		.loc 1 216 18 is_stmt 0 view .LVU186
+ 939 000a 0524     		movs	r4, #5
+ 940              		.loc 1 216 5 view .LVU187
+ 941 000c 08E0     		b	.L74
+ 942              	.LVL100:
+ 943              	.L75:
+ 217:Core/BSP/bsp.c ****     {
+ 218:Core/BSP/bsp.c ****         MI_motor_SetCurrLim(motors[id], current_lim);
+ 944              		.loc 1 218 9 is_stmt 1 view .LVU188
+ 945 000e B8EE480A 		vcvt.f32.u32	s0, s16
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 22
+
+
+ 946 0012 064B     		ldr	r3, .L77
+ 947 0014 53F82400 		ldr	r0, [r3, r4, lsl #2]
+ 948 0018 FFF7FEFF 		bl	MI_motor_SetCurrLim
+ 949              	.LVL101:
+ 216:Core/BSP/bsp.c ****     for (uint8_t id = 5; id < 7; id++)
+ 950              		.loc 1 216 36 discriminator 3 view .LVU189
+ 951 001c 0134     		adds	r4, r4, #1
+ 952              	.LVL102:
+ 216:Core/BSP/bsp.c ****     for (uint8_t id = 5; id < 7; id++)
+ 953              		.loc 1 216 36 is_stmt 0 discriminator 3 view .LVU190
+ 954 001e E4B2     		uxtb	r4, r4
+ 955              	.LVL103:
+ 956              	.L74:
+ 216:Core/BSP/bsp.c ****     for (uint8_t id = 5; id < 7; id++)
+ 957              		.loc 1 216 29 is_stmt 1 discriminator 1 view .LVU191
+ 958 0020 062C     		cmp	r4, #6
+ 959 0022 F4D9     		bls	.L75
+ 960              	.LBE12:
+ 219:Core/BSP/bsp.c ****     }
+ 220:Core/BSP/bsp.c **** }
+ 961              		.loc 1 220 1 is_stmt 0 view .LVU192
+ 962 0024 BDEC028B 		vldm	sp!, {d8}
+ 963              	.LCFI25:
+ 964              		.cfi_restore 80
+ 965              		.cfi_restore 81
+ 966              		.cfi_def_cfa_offset 8
+ 967              	.LVL104:
+ 968              		.loc 1 220 1 view .LVU193
+ 969 0028 10BD     		pop	{r4, pc}
+ 970              	.LVL105:
+ 971              	.L78:
+ 972              		.loc 1 220 1 view .LVU194
+ 973 002a 00BF     		.align	2
+ 974              	.L77:
+ 975 002c 00000000 		.word	motors
+ 976              		.cfi_endproc
+ 977              	.LFE152:
+ 979              		.section	.text.En_Scara_Motor,"ax",%progbits
+ 980              		.align	1
+ 981              		.global	En_Scara_Motor
+ 982              		.syntax unified
+ 983              		.thumb
+ 984              		.thumb_func
+ 986              	En_Scara_Motor:
+ 987              	.LFB154:
+ 221:Core/BSP/bsp.c **** /**
+ 222:Core/BSP/bsp.c ****   * @brief  重置SCARA机械臂电机机械零位
+ 223:Core/BSP/bsp.c ****   * @retval null
+ 224:Core/BSP/bsp.c ****   */
+ 225:Core/BSP/bsp.c **** void Reset_Scara_Motor_MechPosition(void)
+ 226:Core/BSP/bsp.c **** {
+ 227:Core/BSP/bsp.c ****     Dis_Scara_Motor();
+ 228:Core/BSP/bsp.c ****     //重置机械零位
+ 229:Core/BSP/bsp.c ****     MI_motor_setMechPosition2Zero(&scara_motor[0]);
+ 230:Core/BSP/bsp.c ****     MI_motor_setMechPosition2Zero(&scara_motor[1]);
+ 231:Core/BSP/bsp.c ****     En_Scara_Motor();
+ 232:Core/BSP/bsp.c **** }
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 23
+
+
+ 233:Core/BSP/bsp.c **** /**
+ 234:Core/BSP/bsp.c ****   * @brief  使能SCARA机械臂电机
+ 235:Core/BSP/bsp.c ****   * @retval null
+ 236:Core/BSP/bsp.c ****   */
+ 237:Core/BSP/bsp.c **** void En_Scara_Motor(void)
+ 238:Core/BSP/bsp.c **** {
+ 988              		.loc 1 238 1 is_stmt 1 view -0
+ 989              		.cfi_startproc
+ 990              		@ args = 0, pretend = 0, frame = 0
+ 991              		@ frame_needed = 0, uses_anonymous_args = 0
+ 992 0000 10B5     		push	{r4, lr}
+ 993              	.LCFI26:
+ 994              		.cfi_def_cfa_offset 8
+ 995              		.cfi_offset 4, -8
+ 996              		.cfi_offset 14, -4
+ 239:Core/BSP/bsp.c ****     for (uint8_t id = 5; id < 7; id++)
+ 997              		.loc 1 239 5 view .LVU196
+ 998              	.LBB13:
+ 999              		.loc 1 239 10 view .LVU197
+ 1000              	.LVL106:
+ 1001              		.loc 1 239 18 is_stmt 0 view .LVU198
+ 1002 0002 0524     		movs	r4, #5
+ 1003              		.loc 1 239 5 view .LVU199
+ 1004 0004 06E0     		b	.L80
+ 1005              	.LVL107:
+ 1006              	.L81:
+ 240:Core/BSP/bsp.c ****     {
+ 241:Core/BSP/bsp.c ****         MI_motor_enable(motors[id]);
+ 1007              		.loc 1 241 9 is_stmt 1 view .LVU200
+ 1008 0006 054B     		ldr	r3, .L83
+ 1009 0008 53F82400 		ldr	r0, [r3, r4, lsl #2]
+ 1010 000c FFF7FEFF 		bl	MI_motor_enable
+ 1011              	.LVL108:
+ 239:Core/BSP/bsp.c ****     for (uint8_t id = 5; id < 7; id++)
+ 1012              		.loc 1 239 36 discriminator 3 view .LVU201
+ 1013 0010 0134     		adds	r4, r4, #1
+ 1014              	.LVL109:
+ 239:Core/BSP/bsp.c ****     for (uint8_t id = 5; id < 7; id++)
+ 1015              		.loc 1 239 36 is_stmt 0 discriminator 3 view .LVU202
+ 1016 0012 E4B2     		uxtb	r4, r4
+ 1017              	.LVL110:
+ 1018              	.L80:
+ 239:Core/BSP/bsp.c ****     for (uint8_t id = 5; id < 7; id++)
+ 1019              		.loc 1 239 29 is_stmt 1 discriminator 1 view .LVU203
+ 1020 0014 062C     		cmp	r4, #6
+ 1021 0016 F6D9     		bls	.L81
+ 1022              	.LBE13:
+ 242:Core/BSP/bsp.c ****     }
+ 243:Core/BSP/bsp.c **** }   
+ 1023              		.loc 1 243 1 is_stmt 0 view .LVU204
+ 1024 0018 10BD     		pop	{r4, pc}
+ 1025              	.LVL111:
+ 1026              	.L84:
+ 1027              		.loc 1 243 1 view .LVU205
+ 1028 001a 00BF     		.align	2
+ 1029              	.L83:
+ 1030 001c 00000000 		.word	motors
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 24
+
+
+ 1031              		.cfi_endproc
+ 1032              	.LFE154:
+ 1034              		.section	.text.Dis_Scara_Motor,"ax",%progbits
+ 1035              		.align	1
+ 1036              		.global	Dis_Scara_Motor
+ 1037              		.syntax unified
+ 1038              		.thumb
+ 1039              		.thumb_func
+ 1041              	Dis_Scara_Motor:
+ 1042              	.LFB155:
+ 244:Core/BSP/bsp.c **** /**
+ 245:Core/BSP/bsp.c ****   * @brief  失能SCARA机械臂电机
+ 246:Core/BSP/bsp.c ****   * @retval null
+ 247:Core/BSP/bsp.c ****   */
+ 248:Core/BSP/bsp.c **** void Dis_Scara_Motor(void)
+ 249:Core/BSP/bsp.c **** {
+ 1043              		.loc 1 249 1 is_stmt 1 view -0
+ 1044              		.cfi_startproc
+ 1045              		@ args = 0, pretend = 0, frame = 0
+ 1046              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1047 0000 10B5     		push	{r4, lr}
+ 1048              	.LCFI27:
+ 1049              		.cfi_def_cfa_offset 8
+ 1050              		.cfi_offset 4, -8
+ 1051              		.cfi_offset 14, -4
+ 250:Core/BSP/bsp.c ****     for (uint8_t id = 5; id < 7; id++)
+ 1052              		.loc 1 250 5 view .LVU207
+ 1053              	.LBB14:
+ 1054              		.loc 1 250 10 view .LVU208
+ 1055              	.LVL112:
+ 1056              		.loc 1 250 18 is_stmt 0 view .LVU209
+ 1057 0002 0524     		movs	r4, #5
+ 1058              		.loc 1 250 5 view .LVU210
+ 1059 0004 06E0     		b	.L86
+ 1060              	.LVL113:
+ 1061              	.L87:
+ 251:Core/BSP/bsp.c ****     {
+ 252:Core/BSP/bsp.c ****         MI_motor_stop(motors[id]);
+ 1062              		.loc 1 252 9 is_stmt 1 view .LVU211
+ 1063 0006 054B     		ldr	r3, .L89
+ 1064 0008 53F82400 		ldr	r0, [r3, r4, lsl #2]
+ 1065 000c FFF7FEFF 		bl	MI_motor_stop
+ 1066              	.LVL114:
+ 250:Core/BSP/bsp.c ****     for (uint8_t id = 5; id < 7; id++)
+ 1067              		.loc 1 250 36 discriminator 3 view .LVU212
+ 1068 0010 0134     		adds	r4, r4, #1
+ 1069              	.LVL115:
+ 250:Core/BSP/bsp.c ****     for (uint8_t id = 5; id < 7; id++)
+ 1070              		.loc 1 250 36 is_stmt 0 discriminator 3 view .LVU213
+ 1071 0012 E4B2     		uxtb	r4, r4
+ 1072              	.LVL116:
+ 1073              	.L86:
+ 250:Core/BSP/bsp.c ****     for (uint8_t id = 5; id < 7; id++)
+ 1074              		.loc 1 250 29 is_stmt 1 discriminator 1 view .LVU214
+ 1075 0014 062C     		cmp	r4, #6
+ 1076 0016 F6D9     		bls	.L87
+ 1077              	.LBE14:
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 25
+
+
+ 253:Core/BSP/bsp.c ****     }
+ 254:Core/BSP/bsp.c **** }   
+ 1078              		.loc 1 254 1 is_stmt 0 view .LVU215
+ 1079 0018 10BD     		pop	{r4, pc}
+ 1080              	.LVL117:
+ 1081              	.L90:
+ 1082              		.loc 1 254 1 view .LVU216
+ 1083 001a 00BF     		.align	2
+ 1084              	.L89:
+ 1085 001c 00000000 		.word	motors
+ 1086              		.cfi_endproc
+ 1087              	.LFE155:
+ 1089              		.section	.text.Reset_Scara_Motor_MechPosition,"ax",%progbits
+ 1090              		.align	1
+ 1091              		.global	Reset_Scara_Motor_MechPosition
+ 1092              		.syntax unified
+ 1093              		.thumb
+ 1094              		.thumb_func
+ 1096              	Reset_Scara_Motor_MechPosition:
+ 1097              	.LFB153:
+ 226:Core/BSP/bsp.c ****     Dis_Scara_Motor();
+ 1098              		.loc 1 226 1 is_stmt 1 view -0
+ 1099              		.cfi_startproc
+ 1100              		@ args = 0, pretend = 0, frame = 0
+ 1101              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1102 0000 10B5     		push	{r4, lr}
+ 1103              	.LCFI28:
+ 1104              		.cfi_def_cfa_offset 8
+ 1105              		.cfi_offset 4, -8
+ 1106              		.cfi_offset 14, -4
+ 227:Core/BSP/bsp.c ****     //重置机械零位
+ 1107              		.loc 1 227 5 view .LVU218
+ 1108 0002 FFF7FEFF 		bl	Dis_Scara_Motor
+ 1109              	.LVL118:
+ 229:Core/BSP/bsp.c ****     MI_motor_setMechPosition2Zero(&scara_motor[1]);
+ 1110              		.loc 1 229 5 view .LVU219
+ 1111 0006 054C     		ldr	r4, .L93
+ 1112 0008 2046     		mov	r0, r4
+ 1113 000a FFF7FEFF 		bl	MI_motor_setMechPosition2Zero
+ 1114              	.LVL119:
+ 230:Core/BSP/bsp.c ****     En_Scara_Motor();
+ 1115              		.loc 1 230 5 view .LVU220
+ 1116 000e 04F15800 		add	r0, r4, #88
+ 1117 0012 FFF7FEFF 		bl	MI_motor_setMechPosition2Zero
+ 1118              	.LVL120:
+ 231:Core/BSP/bsp.c **** }
+ 1119              		.loc 1 231 5 view .LVU221
+ 1120 0016 FFF7FEFF 		bl	En_Scara_Motor
+ 1121              	.LVL121:
+ 232:Core/BSP/bsp.c **** /**
+ 1122              		.loc 1 232 1 is_stmt 0 view .LVU222
+ 1123 001a 10BD     		pop	{r4, pc}
+ 1124              	.L94:
+ 1125              		.align	2
+ 1126              	.L93:
+ 1127 001c 00000000 		.word	scara_motor
+ 1128              		.cfi_endproc
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 26
+
+
+ 1129              	.LFE153:
+ 1131              		.section	.text.Init_Scara_Motor,"ax",%progbits
+ 1132              		.align	1
+ 1133              		.global	Init_Scara_Motor
+ 1134              		.syntax unified
+ 1135              		.thumb
+ 1136              		.thumb_func
+ 1138              	Init_Scara_Motor:
+ 1139              	.LFB149:
+ 167:Core/BSP/bsp.c ****     motors[5] = &scara_motor[0];
+ 1140              		.loc 1 167 1 is_stmt 1 view -0
+ 1141              		.cfi_startproc
+ 1142              		@ args = 0, pretend = 0, frame = 0
+ 1143              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1144 0000 38B5     		push	{r3, r4, r5, lr}
+ 1145              	.LCFI29:
+ 1146              		.cfi_def_cfa_offset 16
+ 1147              		.cfi_offset 3, -16
+ 1148              		.cfi_offset 4, -12
+ 1149              		.cfi_offset 5, -8
+ 1150              		.cfi_offset 14, -4
+ 168:Core/BSP/bsp.c ****     motors[6] = &scara_motor[1];
+ 1151              		.loc 1 168 5 view .LVU224
+ 168:Core/BSP/bsp.c ****     motors[6] = &scara_motor[1];
+ 1152              		.loc 1 168 15 is_stmt 0 view .LVU225
+ 1153 0002 154A     		ldr	r2, .L101
+ 1154 0004 154B     		ldr	r3, .L101+4
+ 1155 0006 5361     		str	r3, [r2, #20]
+ 169:Core/BSP/bsp.c ****     for (uint8_t id = 5; id < 7; id++)
+ 1156              		.loc 1 169 5 is_stmt 1 view .LVU226
+ 169:Core/BSP/bsp.c ****     for (uint8_t id = 5; id < 7; id++)
+ 1157              		.loc 1 169 15 is_stmt 0 view .LVU227
+ 1158 0008 5833     		adds	r3, r3, #88
+ 1159 000a 9361     		str	r3, [r2, #24]
+ 170:Core/BSP/bsp.c ****     {
+ 1160              		.loc 1 170 5 is_stmt 1 view .LVU228
+ 1161              	.LBB15:
+ 170:Core/BSP/bsp.c ****     {
+ 1162              		.loc 1 170 10 view .LVU229
+ 1163              	.LVL122:
+ 170:Core/BSP/bsp.c ****     {
+ 1164              		.loc 1 170 18 is_stmt 0 view .LVU230
+ 1165 000c 0524     		movs	r4, #5
+ 170:Core/BSP/bsp.c ****     {
+ 1166              		.loc 1 170 5 view .LVU231
+ 1167 000e 08E0     		b	.L96
+ 1168              	.LVL123:
+ 1169              	.L97:
+ 172:Core/BSP/bsp.c ****     }
+ 1170              		.loc 1 172 9 is_stmt 1 view .LVU232
+ 1171 0010 2246     		mov	r2, r4
+ 1172 0012 1349     		ldr	r1, .L101+8
+ 1173 0014 104B     		ldr	r3, .L101
+ 1174 0016 53F82400 		ldr	r0, [r3, r4, lsl #2]
+ 1175 001a FFF7FEFF 		bl	MI_motor_init
+ 1176              	.LVL124:
+ 170:Core/BSP/bsp.c ****     {
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 27
+
+
+ 1177              		.loc 1 170 36 discriminator 3 view .LVU233
+ 1178 001e 0134     		adds	r4, r4, #1
+ 1179              	.LVL125:
+ 170:Core/BSP/bsp.c ****     {
+ 1180              		.loc 1 170 36 is_stmt 0 discriminator 3 view .LVU234
+ 1181 0020 E4B2     		uxtb	r4, r4
+ 1182              	.LVL126:
+ 1183              	.L96:
+ 170:Core/BSP/bsp.c ****     {
+ 1184              		.loc 1 170 29 is_stmt 1 discriminator 1 view .LVU235
+ 1185 0022 062C     		cmp	r4, #6
+ 1186 0024 F4D9     		bls	.L97
+ 1187              	.LBE15:
+ 174:Core/BSP/bsp.c **** 
+ 1188              		.loc 1 174 5 view .LVU236
+ 1189 0026 FFF7FEFF 		bl	Reset_Scara_Motor_MechPosition
+ 1190              	.LVL127:
+ 177:Core/BSP/bsp.c ****     {
+ 1191              		.loc 1 177 5 view .LVU237
+ 1192              	.LBB16:
+ 177:Core/BSP/bsp.c ****     {
+ 1193              		.loc 1 177 10 view .LVU238
+ 177:Core/BSP/bsp.c ****     {
+ 1194              		.loc 1 177 18 is_stmt 0 view .LVU239
+ 1195 002a 0524     		movs	r4, #5
+ 1196              	.LVL128:
+ 177:Core/BSP/bsp.c ****     {
+ 1197              		.loc 1 177 5 view .LVU240
+ 1198 002c 0EE0     		b	.L98
+ 1199              	.LVL129:
+ 1200              	.L99:
+ 179:Core/BSP/bsp.c ****         MI_motor_SetCurrLim(motors[id], 12);//速度模式电流限制
+ 1201              		.loc 1 179 9 is_stmt 1 view .LVU241
+ 1202 002e 0A4D     		ldr	r5, .L101
+ 1203 0030 B1EE000A 		vmov.f32	s0, #4.0e+0
+ 1204 0034 55F82400 		ldr	r0, [r5, r4, lsl #2]
+ 1205 0038 FFF7FEFF 		bl	MI_motor_SetSpdLim
+ 1206              	.LVL130:
+ 180:Core/BSP/bsp.c ****     }
+ 1207              		.loc 1 180 9 view .LVU242
+ 1208 003c B2EE080A 		vmov.f32	s0, #1.2e+1
+ 1209 0040 55F82400 		ldr	r0, [r5, r4, lsl #2]
+ 1210 0044 FFF7FEFF 		bl	MI_motor_SetCurrLim
+ 1211              	.LVL131:
+ 177:Core/BSP/bsp.c ****     {
+ 1212              		.loc 1 177 36 discriminator 3 view .LVU243
+ 1213 0048 0134     		adds	r4, r4, #1
+ 1214              	.LVL132:
+ 177:Core/BSP/bsp.c ****     {
+ 1215              		.loc 1 177 36 is_stmt 0 discriminator 3 view .LVU244
+ 1216 004a E4B2     		uxtb	r4, r4
+ 1217              	.LVL133:
+ 1218              	.L98:
+ 177:Core/BSP/bsp.c ****     {
+ 1219              		.loc 1 177 29 is_stmt 1 discriminator 1 view .LVU245
+ 1220 004c 062C     		cmp	r4, #6
+ 1221 004e EED9     		bls	.L99
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 28
+
+
+ 1222              	.LBE16:
+ 182:Core/BSP/bsp.c **** 
+ 1223              		.loc 1 182 5 view .LVU246
+ 1224 0050 0120     		movs	r0, #1
+ 1225 0052 FFF7FEFF 		bl	Change_Scara_Motor_Mode
+ 1226              	.LVL134:
+ 184:Core/BSP/bsp.c **** /**
+ 1227              		.loc 1 184 1 is_stmt 0 view .LVU247
+ 1228 0056 38BD     		pop	{r3, r4, r5, pc}
+ 1229              	.LVL135:
+ 1230              	.L102:
+ 184:Core/BSP/bsp.c **** /**
+ 1231              		.loc 1 184 1 view .LVU248
+ 1232              		.align	2
+ 1233              	.L101:
+ 1234 0058 00000000 		.word	motors
+ 1235 005c 00000000 		.word	scara_motor
+ 1236 0060 00000000 		.word	hcan1
+ 1237              		.cfi_endproc
+ 1238              	.LFE149:
+ 1240              		.section	.text.Change_Lifting_Motor_Mode,"ax",%progbits
+ 1241              		.align	1
+ 1242              		.global	Change_Lifting_Motor_Mode
+ 1243              		.syntax unified
+ 1244              		.thumb
+ 1245              		.thumb_func
+ 1247              	Change_Lifting_Motor_Mode:
+ 1248              	.LVL136:
+ 1249              	.LFB157:
+ 255:Core/BSP/bsp.c **** //******************************************************升降电机*******************************
+ 256:Core/BSP/bsp.c **** void Init_Lifting_Motor(void)
+ 257:Core/BSP/bsp.c **** {
+ 258:Core/BSP/bsp.c ****     motors[7] = &lifting_motor[0];
+ 259:Core/BSP/bsp.c ****     MI_motor_init(motors[7],&hcan1,7);
+ 260:Core/BSP/bsp.c ****     // Reset_Lifting_Motor_MechPosition();
+ 261:Core/BSP/bsp.c ****     //设置位置模式限速和速度模式电流限制
+ 262:Core/BSP/bsp.c ****     MI_motor_SetSpdLim(motors[7], 3);//位置模式限速
+ 263:Core/BSP/bsp.c ****     MI_motor_SetCurrLim(motors[7], 12);//速度模式电流限制
+ 264:Core/BSP/bsp.c ****     Change_Lifting_Motor_Mode(MODE_POS);
+ 265:Core/BSP/bsp.c **** }
+ 266:Core/BSP/bsp.c **** /**
+ 267:Core/BSP/bsp.c ****   * @brief  切换升降电机模式
+ 268:Core/BSP/bsp.c ****   * @param1  mode 模式
+ 269:Core/BSP/bsp.c ****   * @retval null
+ 270:Core/BSP/bsp.c ****   */
+ 271:Core/BSP/bsp.c **** void Change_Lifting_Motor_Mode(uint8_t mode)
+ 272:Core/BSP/bsp.c **** {
+ 1250              		.loc 1 272 1 is_stmt 1 view -0
+ 1251              		.cfi_startproc
+ 1252              		@ args = 0, pretend = 0, frame = 0
+ 1253              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1254              		.loc 1 272 1 is_stmt 0 view .LVU250
+ 1255 0000 08B5     		push	{r3, lr}
+ 1256              	.LCFI30:
+ 1257              		.cfi_def_cfa_offset 8
+ 1258              		.cfi_offset 3, -8
+ 1259              		.cfi_offset 14, -4
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 29
+
+
+ 1260 0002 0146     		mov	r1, r0
+ 273:Core/BSP/bsp.c ****     MI_motor_setMode(motors[7], mode);
+ 1261              		.loc 1 273 5 is_stmt 1 view .LVU251
+ 1262 0004 024B     		ldr	r3, .L105
+ 1263 0006 D869     		ldr	r0, [r3, #28]
+ 1264              	.LVL137:
+ 1265              		.loc 1 273 5 is_stmt 0 view .LVU252
+ 1266 0008 FFF7FEFF 		bl	MI_motor_setMode
+ 1267              	.LVL138:
+ 274:Core/BSP/bsp.c **** }
+ 1268              		.loc 1 274 1 view .LVU253
+ 1269 000c 08BD     		pop	{r3, pc}
+ 1270              	.L106:
+ 1271 000e 00BF     		.align	2
+ 1272              	.L105:
+ 1273 0010 00000000 		.word	motors
+ 1274              		.cfi_endproc
+ 1275              	.LFE157:
+ 1277              		.section	.text.Init_Lifting_Motor,"ax",%progbits
+ 1278              		.align	1
+ 1279              		.global	Init_Lifting_Motor
+ 1280              		.syntax unified
+ 1281              		.thumb
+ 1282              		.thumb_func
+ 1284              	Init_Lifting_Motor:
+ 1285              	.LFB156:
+ 257:Core/BSP/bsp.c ****     motors[7] = &lifting_motor[0];
+ 1286              		.loc 1 257 1 is_stmt 1 view -0
+ 1287              		.cfi_startproc
+ 1288              		@ args = 0, pretend = 0, frame = 0
+ 1289              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1290 0000 10B5     		push	{r4, lr}
+ 1291              	.LCFI31:
+ 1292              		.cfi_def_cfa_offset 8
+ 1293              		.cfi_offset 4, -8
+ 1294              		.cfi_offset 14, -4
+ 258:Core/BSP/bsp.c ****     MI_motor_init(motors[7],&hcan1,7);
+ 1295              		.loc 1 258 5 view .LVU255
+ 258:Core/BSP/bsp.c ****     MI_motor_init(motors[7],&hcan1,7);
+ 1296              		.loc 1 258 15 is_stmt 0 view .LVU256
+ 1297 0002 0A4C     		ldr	r4, .L109
+ 1298 0004 0A48     		ldr	r0, .L109+4
+ 1299 0006 E061     		str	r0, [r4, #28]
+ 259:Core/BSP/bsp.c ****     // Reset_Lifting_Motor_MechPosition();
+ 1300              		.loc 1 259 5 is_stmt 1 view .LVU257
+ 1301 0008 0722     		movs	r2, #7
+ 1302 000a 0A49     		ldr	r1, .L109+8
+ 1303 000c FFF7FEFF 		bl	MI_motor_init
+ 1304              	.LVL139:
+ 262:Core/BSP/bsp.c ****     MI_motor_SetCurrLim(motors[7], 12);//速度模式电流限制
+ 1305              		.loc 1 262 5 view .LVU258
+ 1306 0010 B0EE080A 		vmov.f32	s0, #3.0e+0
+ 1307 0014 E069     		ldr	r0, [r4, #28]
+ 1308 0016 FFF7FEFF 		bl	MI_motor_SetSpdLim
+ 1309              	.LVL140:
+ 263:Core/BSP/bsp.c ****     Change_Lifting_Motor_Mode(MODE_POS);
+ 1310              		.loc 1 263 5 view .LVU259
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 30
+
+
+ 1311 001a B2EE080A 		vmov.f32	s0, #1.2e+1
+ 1312 001e E069     		ldr	r0, [r4, #28]
+ 1313 0020 FFF7FEFF 		bl	MI_motor_SetCurrLim
+ 1314              	.LVL141:
+ 264:Core/BSP/bsp.c **** }
+ 1315              		.loc 1 264 5 view .LVU260
+ 1316 0024 0120     		movs	r0, #1
+ 1317 0026 FFF7FEFF 		bl	Change_Lifting_Motor_Mode
+ 1318              	.LVL142:
+ 265:Core/BSP/bsp.c **** /**
+ 1319              		.loc 1 265 1 is_stmt 0 view .LVU261
+ 1320 002a 10BD     		pop	{r4, pc}
+ 1321              	.L110:
+ 1322              		.align	2
+ 1323              	.L109:
+ 1324 002c 00000000 		.word	motors
+ 1325 0030 00000000 		.word	lifting_motor
+ 1326 0034 00000000 		.word	hcan1
+ 1327              		.cfi_endproc
+ 1328              	.LFE156:
+ 1330              		.section	.text.bsp_init,"ax",%progbits
+ 1331              		.align	1
+ 1332              		.global	bsp_init
+ 1333              		.syntax unified
+ 1334              		.thumb
+ 1335              		.thumb_func
+ 1337              	bsp_init:
+ 1338              	.LFB137:
+   4:Core/BSP/bsp.c ****     Init_Chassis_Motor();
+ 1339              		.loc 1 4 1 is_stmt 1 view -0
+ 1340              		.cfi_startproc
+ 1341              		@ args = 0, pretend = 0, frame = 0
+ 1342              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1343 0000 08B5     		push	{r3, lr}
+ 1344              	.LCFI32:
+ 1345              		.cfi_def_cfa_offset 8
+ 1346              		.cfi_offset 3, -8
+ 1347              		.cfi_offset 14, -4
+   5:Core/BSP/bsp.c ****     Init_Scara_Motor();
+ 1348              		.loc 1 5 5 view .LVU263
+ 1349 0002 40F6B830 		movw	r0, #3000
+ 1350 0006 FFF7FEFF 		bl	HAL_Delay
+ 1351              	.LVL143:
+   6:Core/BSP/bsp.c ****     Init_Scara_Motor();
+ 1352              		.loc 1 6 5 view .LVU264
+ 1353 000a FFF7FEFF 		bl	Init_Chassis_Motor
+ 1354              	.LVL144:
+   7:Core/BSP/bsp.c ****     Init_Lifting_Motor();
+ 1355              		.loc 1 7 5 view .LVU265
+ 1356 000e FFF7FEFF 		bl	Init_Scara_Motor
+ 1357              	.LVL145:
+   8:Core/BSP/bsp.c **** }
+ 1358              		.loc 1 8 5 view .LVU266
+ 1359 0012 FFF7FEFF 		bl	Init_Lifting_Motor
+ 1360              	.LVL146:
+   9:Core/BSP/bsp.c **** 
+ 1361              		.loc 1 9 1 is_stmt 0 view .LVU267
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 31
+
+
+ 1362 0016 08BD     		pop	{r3, pc}
+ 1363              		.cfi_endproc
+ 1364              	.LFE137:
+ 1366              		.section	.text.Set_Lifting_Motor_SpdLim,"ax",%progbits
+ 1367              		.align	1
+ 1368              		.global	Set_Lifting_Motor_SpdLim
+ 1369              		.syntax unified
+ 1370              		.thumb
+ 1371              		.thumb_func
+ 1373              	Set_Lifting_Motor_SpdLim:
+ 1374              	.LVL147:
+ 1375              	.LFB158:
+ 275:Core/BSP/bsp.c **** /**
+ 276:Core/BSP/bsp.c ****   * @brief  设置升降电机位置模式限速
+ 277:Core/BSP/bsp.c ****   * @param1  spd_lim 限速
+ 278:Core/BSP/bsp.c ****   * @retval null
+ 279:Core/BSP/bsp.c ****   */
+ 280:Core/BSP/bsp.c **** void Set_Lifting_Motor_SpdLim(uint8_t spd_lim)
+ 281:Core/BSP/bsp.c **** {
+ 1376              		.loc 1 281 1 is_stmt 1 view -0
+ 1377              		.cfi_startproc
+ 1378              		@ args = 0, pretend = 0, frame = 0
+ 1379              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1380              		.loc 1 281 1 is_stmt 0 view .LVU269
+ 1381 0000 08B5     		push	{r3, lr}
+ 1382              	.LCFI33:
+ 1383              		.cfi_def_cfa_offset 8
+ 1384              		.cfi_offset 3, -8
+ 1385              		.cfi_offset 14, -4
+ 1386 0002 00EE100A 		vmov	s0, r0	@ int
+ 282:Core/BSP/bsp.c ****     MI_motor_SetSpdLim(motors[7], spd_lim);
+ 1387              		.loc 1 282 5 is_stmt 1 view .LVU270
+ 1388 0006 B8EE400A 		vcvt.f32.u32	s0, s0
+ 1389 000a 024B     		ldr	r3, .L115
+ 1390 000c D869     		ldr	r0, [r3, #28]
+ 1391              	.LVL148:
+ 1392              		.loc 1 282 5 is_stmt 0 view .LVU271
+ 1393 000e FFF7FEFF 		bl	MI_motor_SetSpdLim
+ 1394              	.LVL149:
+ 283:Core/BSP/bsp.c **** }
+ 1395              		.loc 1 283 1 view .LVU272
+ 1396 0012 08BD     		pop	{r3, pc}
+ 1397              	.L116:
+ 1398              		.align	2
+ 1399              	.L115:
+ 1400 0014 00000000 		.word	motors
+ 1401              		.cfi_endproc
+ 1402              	.LFE158:
+ 1404              		.section	.text.Set_Lifting_Motor_CurrLim,"ax",%progbits
+ 1405              		.align	1
+ 1406              		.global	Set_Lifting_Motor_CurrLim
+ 1407              		.syntax unified
+ 1408              		.thumb
+ 1409              		.thumb_func
+ 1411              	Set_Lifting_Motor_CurrLim:
+ 1412              	.LVL150:
+ 1413              	.LFB159:
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 32
+
+
+ 284:Core/BSP/bsp.c **** /**
+ 285:Core/BSP/bsp.c ****   * @brief  设置升降电机速度模式电流限制
+ 286:Core/BSP/bsp.c ****   * @param1  current_lim 电流限制
+ 287:Core/BSP/bsp.c ****   * @retval null
+ 288:Core/BSP/bsp.c ****   */
+ 289:Core/BSP/bsp.c **** void Set_Lifting_Motor_CurrLim(uint8_t current_lim)
+ 290:Core/BSP/bsp.c **** {
+ 1414              		.loc 1 290 1 is_stmt 1 view -0
+ 1415              		.cfi_startproc
+ 1416              		@ args = 0, pretend = 0, frame = 0
+ 1417              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1418              		.loc 1 290 1 is_stmt 0 view .LVU274
+ 1419 0000 08B5     		push	{r3, lr}
+ 1420              	.LCFI34:
+ 1421              		.cfi_def_cfa_offset 8
+ 1422              		.cfi_offset 3, -8
+ 1423              		.cfi_offset 14, -4
+ 1424 0002 00EE100A 		vmov	s0, r0	@ int
+ 291:Core/BSP/bsp.c ****     MI_motor_SetCurrLim(motors[7], current_lim);
+ 1425              		.loc 1 291 5 is_stmt 1 view .LVU275
+ 1426 0006 B8EE400A 		vcvt.f32.u32	s0, s0
+ 1427 000a 024B     		ldr	r3, .L119
+ 1428 000c D869     		ldr	r0, [r3, #28]
+ 1429              	.LVL151:
+ 1430              		.loc 1 291 5 is_stmt 0 view .LVU276
+ 1431 000e FFF7FEFF 		bl	MI_motor_SetCurrLim
+ 1432              	.LVL152:
+ 292:Core/BSP/bsp.c **** }
+ 1433              		.loc 1 292 1 view .LVU277
+ 1434 0012 08BD     		pop	{r3, pc}
+ 1435              	.L120:
+ 1436              		.align	2
+ 1437              	.L119:
+ 1438 0014 00000000 		.word	motors
+ 1439              		.cfi_endproc
+ 1440              	.LFE159:
+ 1442              		.section	.text.En_Lifting_Motor,"ax",%progbits
+ 1443              		.align	1
+ 1444              		.global	En_Lifting_Motor
+ 1445              		.syntax unified
+ 1446              		.thumb
+ 1447              		.thumb_func
+ 1449              	En_Lifting_Motor:
+ 1450              	.LFB161:
+ 293:Core/BSP/bsp.c **** 
+ 294:Core/BSP/bsp.c **** /**
+ 295:Core/BSP/bsp.c ****   * @brief  重置升降电机机械零位
+ 296:Core/BSP/bsp.c ****   * @retval null
+ 297:Core/BSP/bsp.c ****   */
+ 298:Core/BSP/bsp.c **** void Reset_Lifting_Motor_MechPosition(void)
+ 299:Core/BSP/bsp.c **** {
+ 300:Core/BSP/bsp.c ****     Dis_Lifting_Motor();
+ 301:Core/BSP/bsp.c ****     MI_motor_setMechPosition2Zero(motors[7]);
+ 302:Core/BSP/bsp.c ****     En_Lifting_Motor();
+ 303:Core/BSP/bsp.c **** }
+ 304:Core/BSP/bsp.c **** /**
+ 305:Core/BSP/bsp.c ****   * @brief  使能升降电机
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 33
+
+
+ 306:Core/BSP/bsp.c ****   * @retval null
+ 307:Core/BSP/bsp.c ****   */
+ 308:Core/BSP/bsp.c **** void En_Lifting_Motor(void)
+ 309:Core/BSP/bsp.c **** {
+ 1451              		.loc 1 309 1 is_stmt 1 view -0
+ 1452              		.cfi_startproc
+ 1453              		@ args = 0, pretend = 0, frame = 0
+ 1454              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1455 0000 08B5     		push	{r3, lr}
+ 1456              	.LCFI35:
+ 1457              		.cfi_def_cfa_offset 8
+ 1458              		.cfi_offset 3, -8
+ 1459              		.cfi_offset 14, -4
+ 310:Core/BSP/bsp.c ****     MI_motor_enable(motors[7]);
+ 1460              		.loc 1 310 5 view .LVU279
+ 1461 0002 024B     		ldr	r3, .L123
+ 1462 0004 D869     		ldr	r0, [r3, #28]
+ 1463 0006 FFF7FEFF 		bl	MI_motor_enable
+ 1464              	.LVL153:
+ 311:Core/BSP/bsp.c **** }
+ 1465              		.loc 1 311 1 is_stmt 0 view .LVU280
+ 1466 000a 08BD     		pop	{r3, pc}
+ 1467              	.L124:
+ 1468              		.align	2
+ 1469              	.L123:
+ 1470 000c 00000000 		.word	motors
+ 1471              		.cfi_endproc
+ 1472              	.LFE161:
+ 1474              		.section	.text.Dis_Lifting_Motor,"ax",%progbits
+ 1475              		.align	1
+ 1476              		.global	Dis_Lifting_Motor
+ 1477              		.syntax unified
+ 1478              		.thumb
+ 1479              		.thumb_func
+ 1481              	Dis_Lifting_Motor:
+ 1482              	.LFB162:
+ 312:Core/BSP/bsp.c **** /**
+ 313:Core/BSP/bsp.c ****   * @brief  失能升降电机
+ 314:Core/BSP/bsp.c ****   * @retval null
+ 315:Core/BSP/bsp.c ****   */
+ 316:Core/BSP/bsp.c **** void Dis_Lifting_Motor(void)
+ 317:Core/BSP/bsp.c **** {
+ 1483              		.loc 1 317 1 is_stmt 1 view -0
+ 1484              		.cfi_startproc
+ 1485              		@ args = 0, pretend = 0, frame = 0
+ 1486              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1487 0000 08B5     		push	{r3, lr}
+ 1488              	.LCFI36:
+ 1489              		.cfi_def_cfa_offset 8
+ 1490              		.cfi_offset 3, -8
+ 1491              		.cfi_offset 14, -4
+ 318:Core/BSP/bsp.c ****     MI_motor_stop(motors[7]);
+ 1492              		.loc 1 318 5 view .LVU282
+ 1493 0002 024B     		ldr	r3, .L127
+ 1494 0004 D869     		ldr	r0, [r3, #28]
+ 1495 0006 FFF7FEFF 		bl	MI_motor_stop
+ 1496              	.LVL154:
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 34
+
+
+ 319:Core/BSP/bsp.c **** }
+ 1497              		.loc 1 319 1 is_stmt 0 view .LVU283
+ 1498 000a 08BD     		pop	{r3, pc}
+ 1499              	.L128:
+ 1500              		.align	2
+ 1501              	.L127:
+ 1502 000c 00000000 		.word	motors
+ 1503              		.cfi_endproc
+ 1504              	.LFE162:
+ 1506              		.section	.text.Reset_Lifting_Motor_MechPosition,"ax",%progbits
+ 1507              		.align	1
+ 1508              		.global	Reset_Lifting_Motor_MechPosition
+ 1509              		.syntax unified
+ 1510              		.thumb
+ 1511              		.thumb_func
+ 1513              	Reset_Lifting_Motor_MechPosition:
+ 1514              	.LFB160:
+ 299:Core/BSP/bsp.c ****     Dis_Lifting_Motor();
+ 1515              		.loc 1 299 1 is_stmt 1 view -0
+ 1516              		.cfi_startproc
+ 1517              		@ args = 0, pretend = 0, frame = 0
+ 1518              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1519 0000 08B5     		push	{r3, lr}
+ 1520              	.LCFI37:
+ 1521              		.cfi_def_cfa_offset 8
+ 1522              		.cfi_offset 3, -8
+ 1523              		.cfi_offset 14, -4
+ 300:Core/BSP/bsp.c ****     MI_motor_setMechPosition2Zero(motors[7]);
+ 1524              		.loc 1 300 5 view .LVU285
+ 1525 0002 FFF7FEFF 		bl	Dis_Lifting_Motor
+ 1526              	.LVL155:
+ 301:Core/BSP/bsp.c ****     En_Lifting_Motor();
+ 1527              		.loc 1 301 5 view .LVU286
+ 1528 0006 034B     		ldr	r3, .L131
+ 1529 0008 D869     		ldr	r0, [r3, #28]
+ 1530 000a FFF7FEFF 		bl	MI_motor_setMechPosition2Zero
+ 1531              	.LVL156:
+ 302:Core/BSP/bsp.c **** }
+ 1532              		.loc 1 302 5 view .LVU287
+ 1533 000e FFF7FEFF 		bl	En_Lifting_Motor
+ 1534              	.LVL157:
+ 303:Core/BSP/bsp.c **** /**
+ 1535              		.loc 1 303 1 is_stmt 0 view .LVU288
+ 1536 0012 08BD     		pop	{r3, pc}
+ 1537              	.L132:
+ 1538              		.align	2
+ 1539              	.L131:
+ 1540 0014 00000000 		.word	motors
+ 1541              		.cfi_endproc
+ 1542              	.LFE160:
+ 1544              		.text
+ 1545              	.Letext0:
+ 1546              		.file 2 "c:/Users/HZW/.eide/tools/13.2 Rel1/arm-none-eabi/include/machine/_default_types.h"
+ 1547              		.file 3 "c:/Users/HZW/.eide/tools/13.2 Rel1/arm-none-eabi/include/sys/_stdint.h"
+ 1548              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f427xx.h"
+ 1549              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h"
+ 1550              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 35
+
+
+ 1551              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 1552              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h"
+ 1553              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h"
+ 1554              		.file 10 "Core/Inc/usart.h"
+ 1555              		.file 11 "Core/BSP/MI_motor_dev.h"
+ 1556              		.file 12 "Core/Inc/can.h"
+ 1557              		.file 13 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h"
+ 1558              		.file 14 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 36
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 bsp.c
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:21     .text.SendMultiFloat2Vofa:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:27     .text.SendMultiFloat2Vofa:00000000 SendMultiFloat2Vofa
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:131    .text.SendMultiFloat2Vofa:00000060 $d
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:136    .text.Change_Chassis_Motor_Mode:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:142    .text.Change_Chassis_Motor_Mode:00000000 Change_Chassis_Motor_Mode
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:192    .text.Change_Chassis_Motor_Mode:00000020 $d
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:197    .text.Set_Chassis_Motor_SpdLim:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:203    .text.Set_Chassis_Motor_SpdLim:00000000 Set_Chassis_Motor_SpdLim
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:263    .text.Set_Chassis_Motor_SpdLim:0000002c $d
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:268    .text.Set_Chassis_Motor_CurrLim:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:274    .text.Set_Chassis_Motor_CurrLim:00000000 Set_Chassis_Motor_CurrLim
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:334    .text.Set_Chassis_Motor_CurrLim:0000002c $d
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:339    .text.En_Chassis_Motor:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:345    .text.En_Chassis_Motor:00000000 En_Chassis_Motor
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:389    .text.En_Chassis_Motor:0000001c $d
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:394    .text.Dis_Chassis_Motor:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:400    .text.Dis_Chassis_Motor:00000000 Dis_Chassis_Motor
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:444    .text.Dis_Chassis_Motor:0000001c $d
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:449    .text.Reset_Chassis_Motor_MechPosition:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:455    .text.Reset_Chassis_Motor_MechPosition:00000000 Reset_Chassis_Motor_MechPosition
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:494    .text.Reset_Chassis_Motor_MechPosition:0000002c $d
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:499    .text.Init_Chassis_Motor:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:505    .text.Init_Chassis_Motor:00000000 Init_Chassis_Motor
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:605    .text.Init_Chassis_Motor:00000060 $d
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:612    .text.Publish_Chassis_Motor_Speed:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:618    .text.Publish_Chassis_Motor_Speed:00000000 Publish_Chassis_Motor_Speed
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:697    .text.Publish_Chassis_Motor_Speed:00000050 $d
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:703    .text.Disable_IMU_Interrupts:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:709    .text.Disable_IMU_Interrupts:00000000 Disable_IMU_Interrupts
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:735    .text.Disable_IMU_Interrupts:00000018 $d
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:740    .text.Enable_IMU_Interrupts:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:746    .text.Enable_IMU_Interrupts:00000000 Enable_IMU_Interrupts
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:772    .text.Enable_IMU_Interrupts:00000018 $d
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:777    .text.Change_Scara_Motor_Mode:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:783    .text.Change_Scara_Motor_Mode:00000000 Change_Scara_Motor_Mode
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:833    .text.Change_Scara_Motor_Mode:00000020 $d
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:838    .text.Set_Scara_Motor_SpdLim:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:844    .text.Set_Scara_Motor_SpdLim:00000000 Set_Scara_Motor_SpdLim
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:904    .text.Set_Scara_Motor_SpdLim:0000002c $d
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:909    .text.Set_Scara_Motor_CurrLim:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:915    .text.Set_Scara_Motor_CurrLim:00000000 Set_Scara_Motor_CurrLim
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:975    .text.Set_Scara_Motor_CurrLim:0000002c $d
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:980    .text.En_Scara_Motor:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:986    .text.En_Scara_Motor:00000000 En_Scara_Motor
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1030   .text.En_Scara_Motor:0000001c $d
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1035   .text.Dis_Scara_Motor:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1041   .text.Dis_Scara_Motor:00000000 Dis_Scara_Motor
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1085   .text.Dis_Scara_Motor:0000001c $d
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1090   .text.Reset_Scara_Motor_MechPosition:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1096   .text.Reset_Scara_Motor_MechPosition:00000000 Reset_Scara_Motor_MechPosition
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1127   .text.Reset_Scara_Motor_MechPosition:0000001c $d
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1132   .text.Init_Scara_Motor:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1138   .text.Init_Scara_Motor:00000000 Init_Scara_Motor
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1234   .text.Init_Scara_Motor:00000058 $d
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1241   .text.Change_Lifting_Motor_Mode:00000000 $t
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s 			page 37
+
+
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1247   .text.Change_Lifting_Motor_Mode:00000000 Change_Lifting_Motor_Mode
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1273   .text.Change_Lifting_Motor_Mode:00000010 $d
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1278   .text.Init_Lifting_Motor:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1284   .text.Init_Lifting_Motor:00000000 Init_Lifting_Motor
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1324   .text.Init_Lifting_Motor:0000002c $d
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1331   .text.bsp_init:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1337   .text.bsp_init:00000000 bsp_init
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1367   .text.Set_Lifting_Motor_SpdLim:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1373   .text.Set_Lifting_Motor_SpdLim:00000000 Set_Lifting_Motor_SpdLim
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1400   .text.Set_Lifting_Motor_SpdLim:00000014 $d
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1405   .text.Set_Lifting_Motor_CurrLim:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1411   .text.Set_Lifting_Motor_CurrLim:00000000 Set_Lifting_Motor_CurrLim
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1438   .text.Set_Lifting_Motor_CurrLim:00000014 $d
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1443   .text.En_Lifting_Motor:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1449   .text.En_Lifting_Motor:00000000 En_Lifting_Motor
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1470   .text.En_Lifting_Motor:0000000c $d
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1475   .text.Dis_Lifting_Motor:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1481   .text.Dis_Lifting_Motor:00000000 Dis_Lifting_Motor
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1502   .text.Dis_Lifting_Motor:0000000c $d
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1507   .text.Reset_Lifting_Motor_MechPosition:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1513   .text.Reset_Lifting_Motor_MechPosition:00000000 Reset_Lifting_Motor_MechPosition
+C:\Users\HZW\AppData\Local\Temp\cccIeuqd.s:1540   .text.Reset_Lifting_Motor_MechPosition:00000014 $d
+
+UNDEFINED SYMBOLS
+HAL_UART_Transmit
+huart7
+MI_motor_setMode
+motors
+MI_motor_SetSpdLim
+MI_motor_SetCurrLim
+MI_motor_enable
+MI_motor_stop
+MI_motor_setMechPosition2Zero
+chassis_motor
+MI_motor_init
+hcan1
+MI_motor_SpdCtrl
+HAL_NVIC_DisableIRQ
+huart6
+HAL_NVIC_EnableIRQ
+scara_motor
+lifting_motor
+HAL_Delay

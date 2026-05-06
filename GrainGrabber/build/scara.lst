@@ -1,0 +1,1118 @@
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"scara.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Core/APP/scara.c"
+  20              		.section	.text.SCARA_ForwardKinematics,"ax",%progbits
+  21              		.align	1
+  22              		.global	SCARA_ForwardKinematics
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	SCARA_ForwardKinematics:
+  28              	.LVL0:
+  29              	.LFB138:
+   1:Core/APP/scara.c **** #include "scara.h"
+   2:Core/APP/scara.c **** #include "can.h"
+   3:Core/APP/scara.c **** 
+   4:Core/APP/scara.c **** /* 全局变量 */
+   5:Core/APP/scara.c **** // 定义SCARA使用的两个电机ID
+   6:Core/APP/scara.c **** #define SCARA_MOTOR1_ID 1
+   7:Core/APP/scara.c **** #define SCARA_MOTOR2_ID 2
+   8:Core/APP/scara.c **** 
+   9:Core/APP/scara.c **** // 电机指针
+  10:Core/APP/scara.c **** static MI_Motor_t *motor1;
+  11:Core/APP/scara.c **** static MI_Motor_t *motor2;
+  12:Core/APP/scara.c **** 
+  13:Core/APP/scara.c **** // 当前位置
+  14:Core/APP/scara.c **** static float current_x = 0.0f;
+  15:Core/APP/scara.c **** static float current_y = 0.0f;
+  16:Core/APP/scara.c **** 
+  17:Core/APP/scara.c **** /**
+  18:Core/APP/scara.c ****   * @brief  初始化SCARA机械臂
+  19:Core/APP/scara.c ****   * @retval 无
+  20:Core/APP/scara.c ****   */
+  21:Core/APP/scara.c **** void SCARA_Init(void)
+  22:Core/APP/scara.c **** {
+  23:Core/APP/scara.c ****     // 分配电机
+  24:Core/APP/scara.c ****     motor1 = &chassis_motor[SCARA_MOTOR1_ID - 1];
+  25:Core/APP/scara.c ****     motor2 = &chassis_motor[SCARA_MOTOR2_ID - 1];
+  26:Core/APP/scara.c ****     
+  27:Core/APP/scara.c ****     // 初始化电机
+  28:Core/APP/scara.c ****     MI_motor_init(motor1, &hcan1, SCARA_MOTOR1_ID);
+  29:Core/APP/scara.c ****     MI_motor_init(motor2, &hcan1, SCARA_MOTOR2_ID);
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s 			page 2
+
+
+  30:Core/APP/scara.c ****     
+  31:Core/APP/scara.c ****     // 停止电机
+  32:Core/APP/scara.c ****     MI_motor_stop(motor1);
+  33:Core/APP/scara.c ****     MI_motor_stop(motor2);
+  34:Core/APP/scara.c ****     
+  35:Core/APP/scara.c ****     // 设置机械零位
+  36:Core/APP/scara.c ****     MI_motor_setMechPosition2Zero(motor1);
+  37:Core/APP/scara.c ****     MI_motor_setMechPosition2Zero(motor2);
+  38:Core/APP/scara.c ****     
+  39:Core/APP/scara.c ****     // 使能电机
+  40:Core/APP/scara.c ****     MI_motor_enable(motor1);
+  41:Core/APP/scara.c ****     MI_motor_enable(motor2);
+  42:Core/APP/scara.c ****     
+  43:Core/APP/scara.c ****     // 设置为位置模式
+  44:Core/APP/scara.c ****     MI_motor_setMode(motor1, MODE_POS);
+  45:Core/APP/scara.c ****     MI_motor_setMode(motor2, MODE_POS);
+  46:Core/APP/scara.c ****     
+  47:Core/APP/scara.c ****     // 设置位置模式限速
+  48:Core/APP/scara.c ****     MI_motor_SetSpdLim(motor1, 5.0f);  // 根据实际需求调整
+  49:Core/APP/scara.c ****     MI_motor_SetSpdLim(motor2, 5.0f);
+  50:Core/APP/scara.c ****     
+  51:Core/APP/scara.c ****     // 初始位置为回零
+  52:Core/APP/scara.c ****     SCARA_Home();
+  53:Core/APP/scara.c **** }
+  54:Core/APP/scara.c **** 
+  55:Core/APP/scara.c **** /**
+  56:Core/APP/scara.c ****   * @brief  正运动学：根据电机角度计算末端位置
+  57:Core/APP/scara.c ****   * @param  motor1_angle 电机1角度(rad)
+  58:Core/APP/scara.c ****   * @param  motor2_angle 电机2角度(rad)
+  59:Core/APP/scara.c ****   * @param  x 末端X坐标指针
+  60:Core/APP/scara.c ****   * @param  y 末端Y坐标指针
+  61:Core/APP/scara.c ****   * @retval 无
+  62:Core/APP/scara.c ****   */
+  63:Core/APP/scara.c **** void SCARA_ForwardKinematics(float motor1_angle, float motor2_angle, float *x, float *y)
+  64:Core/APP/scara.c **** {
+  30              		.loc 1 64 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		.loc 1 64 1 is_stmt 0 view .LVU1
+  35 0000 38B5     		push	{r3, r4, r5, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 16
+  38              		.cfi_offset 3, -16
+  39              		.cfi_offset 4, -12
+  40              		.cfi_offset 5, -8
+  41              		.cfi_offset 14, -4
+  42 0002 2DED0A8B 		vpush.64	{d8, d9, d10, d11, d12}
+  43              	.LCFI1:
+  44              		.cfi_def_cfa_offset 56
+  45              		.cfi_offset 80, -56
+  46              		.cfi_offset 81, -52
+  47              		.cfi_offset 82, -48
+  48              		.cfi_offset 83, -44
+  49              		.cfi_offset 84, -40
+  50              		.cfi_offset 85, -36
+  51              		.cfi_offset 86, -32
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s 			page 3
+
+
+  52              		.cfi_offset 87, -28
+  53              		.cfi_offset 88, -24
+  54              		.cfi_offset 89, -20
+  55 0006 B0EE408A 		vmov.f32	s16, s0
+  56 000a F0EE609A 		vmov.f32	s19, s1
+  57 000e 0546     		mov	r5, r0
+  58 0010 0C46     		mov	r4, r1
+  65:Core/APP/scara.c ****     // 电机1位置（左侧）
+  66:Core/APP/scara.c ****     float m1_x = -MOTOR_DISTANCE/2;
+  59              		.loc 1 66 5 is_stmt 1 view .LVU2
+  60              	.LVL1:
+  67:Core/APP/scara.c ****     float m1_y = 0;
+  61              		.loc 1 67 5 view .LVU3
+  68:Core/APP/scara.c ****     
+  69:Core/APP/scara.c ****     // 电机2位置（右侧）
+  70:Core/APP/scara.c ****     float m2_x = MOTOR_DISTANCE/2;
+  62              		.loc 1 70 5 view .LVU4
+  71:Core/APP/scara.c ****     float m2_y = 0;
+  63              		.loc 1 71 5 view .LVU5
+  72:Core/APP/scara.c ****     
+  73:Core/APP/scara.c ****     // 大臂末端位置
+  74:Core/APP/scara.c ****     float p1_x = m1_x + LONG_ARM_LENGTH * cosf(motor1_angle);
+  64              		.loc 1 74 5 view .LVU6
+  65              		.loc 1 74 43 is_stmt 0 view .LVU7
+  66 0012 FFF7FEFF 		bl	cosf
+  67              	.LVL2:
+  68              		.loc 1 74 41 discriminator 1 view .LVU8
+  69 0016 9FED2F9A 		vldr.32	s18, .L3
+  70 001a 60EE098A 		vmul.f32	s17, s0, s18
+  71              		.loc 1 74 11 discriminator 1 view .LVU9
+  72 001e 9FED2EBA 		vldr.32	s22, .L3+4
+  73 0022 78EECB8A 		vsub.f32	s17, s17, s22
+  74              	.LVL3:
+  75:Core/APP/scara.c ****     float p1_y = m1_y + LONG_ARM_LENGTH * sinf(motor1_angle);
+  75              		.loc 1 75 5 is_stmt 1 view .LVU10
+  76              		.loc 1 75 43 is_stmt 0 view .LVU11
+  77 0026 B0EE480A 		vmov.f32	s0, s16
+  78 002a FFF7FEFF 		bl	sinf
+  79              	.LVL4:
+  80              		.loc 1 75 41 discriminator 1 view .LVU12
+  81 002e 20EE098A 		vmul.f32	s16, s0, s18
+  82              	.LVL5:
+  83              		.loc 1 75 11 discriminator 1 view .LVU13
+  84 0032 9FED2AAA 		vldr.32	s20, .L3+8
+  85 0036 38EE0A8A 		vadd.f32	s16, s16, s20
+  86              	.LVL6:
+  76:Core/APP/scara.c ****     
+  77:Core/APP/scara.c ****     float p2_x = m2_x + LONG_ARM_LENGTH * cosf(motor2_angle);
+  87              		.loc 1 77 5 is_stmt 1 view .LVU14
+  88              		.loc 1 77 43 is_stmt 0 view .LVU15
+  89 003a B0EE690A 		vmov.f32	s0, s19
+  90 003e FFF7FEFF 		bl	cosf
+  91              	.LVL7:
+  92              		.loc 1 77 41 discriminator 1 view .LVU16
+  93 0042 60EE09AA 		vmul.f32	s21, s0, s18
+  94              		.loc 1 77 11 discriminator 1 view .LVU17
+  95 0046 7AEE8BAA 		vadd.f32	s21, s21, s22
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s 			page 4
+
+
+  96              	.LVL8:
+  78:Core/APP/scara.c ****     float p2_y = m2_y + LONG_ARM_LENGTH * sinf(motor2_angle);
+  97              		.loc 1 78 5 is_stmt 1 view .LVU18
+  98              		.loc 1 78 43 is_stmt 0 view .LVU19
+  99 004a B0EE690A 		vmov.f32	s0, s19
+ 100 004e FFF7FEFF 		bl	sinf
+ 101              	.LVL9:
+ 102              		.loc 1 78 41 discriminator 1 view .LVU20
+ 103 0052 60EE099A 		vmul.f32	s19, s0, s18
+ 104              	.LVL10:
+ 105              		.loc 1 78 11 discriminator 1 view .LVU21
+ 106 0056 79EE8A9A 		vadd.f32	s19, s19, s20
+ 107              	.LVL11:
+  79:Core/APP/scara.c ****     
+  80:Core/APP/scara.c ****     // 计算两大臂末端间距离
+  81:Core/APP/scara.c ****     float p1p2_dist = sqrtf((p2_x - p1_x) * (p2_x - p1_x) + (p2_y - p1_y) * (p2_y - p1_y));
+ 108              		.loc 1 81 5 is_stmt 1 view .LVU22
+ 109              		.loc 1 81 35 is_stmt 0 view .LVU23
+ 110 005a 3AEEE8AA 		vsub.f32	s20, s21, s17
+ 111              		.loc 1 81 43 view .LVU24
+ 112 005e 6AEE0ABA 		vmul.f32	s23, s20, s20
+ 113              		.loc 1 81 67 view .LVU25
+ 114 0062 39EEC8BA 		vsub.f32	s22, s19, s16
+ 115              		.loc 1 81 75 view .LVU26
+ 116 0066 6BEE0B7A 		vmul.f32	s15, s22, s22
+ 117              		.loc 1 81 23 view .LVU27
+ 118 006a 7BEEA7BA 		vadd.f32	s23, s23, s15
+ 119 006e B0EE6B0A 		vmov.f32	s0, s23
+ 120 0072 FFF7FEFF 		bl	sqrtf
+ 121              	.LVL12:
+  82:Core/APP/scara.c ****     
+  83:Core/APP/scara.c ****     // 计算末端位置
+  84:Core/APP/scara.c ****     float h = sqrtf(SHORT_ARM_LENGTH * SHORT_ARM_LENGTH - (p1p2_dist / 2) * (p1p2_dist / 2));
+ 122              		.loc 1 84 5 is_stmt 1 view .LVU28
+ 123              		.loc 1 84 70 is_stmt 0 view .LVU29
+ 124 0076 B6EE00CA 		vmov.f32	s24, #5.0e-1
+ 125 007a 20EE0C0A 		vmul.f32	s0, s0, s24
+ 126              	.LVL13:
+ 127              		.loc 1 84 75 view .LVU30
+ 128 007e 20EE000A 		vmul.f32	s0, s0, s0
+ 129              		.loc 1 84 15 view .LVU31
+ 130 0082 DFED177A 		vldr.32	s15, .L3+12
+ 131 0086 37EEC00A 		vsub.f32	s0, s15, s0
+ 132 008a FFF7FEFF 		bl	sqrtf
+ 133              	.LVL14:
+ 134 008e B0EE409A 		vmov.f32	s18, s0
+ 135              	.LVL15:
+  85:Core/APP/scara.c ****     
+  86:Core/APP/scara.c ****     // 计算两大臂末端连线的中点
+  87:Core/APP/scara.c ****     float mid_x = (p1_x + p2_x) / 2;
+ 136              		.loc 1 87 5 is_stmt 1 view .LVU32
+ 137              		.loc 1 87 25 is_stmt 0 view .LVU33
+ 138 0092 78EEAA8A 		vadd.f32	s17, s17, s21
+ 139              	.LVL16:
+ 140              		.loc 1 87 11 view .LVU34
+ 141 0096 68EE8C8A 		vmul.f32	s17, s17, s24
+ 142              	.LVL17:
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s 			page 5
+
+
+  88:Core/APP/scara.c ****     float mid_y = (p1_y + p2_y) / 2;
+ 143              		.loc 1 88 5 is_stmt 1 view .LVU35
+ 144              		.loc 1 88 25 is_stmt 0 view .LVU36
+ 145 009a 38EE298A 		vadd.f32	s16, s16, s19
+ 146              	.LVL18:
+ 147              		.loc 1 88 11 view .LVU37
+ 148 009e 28EE0C8A 		vmul.f32	s16, s16, s24
+ 149              	.LVL19:
+  89:Core/APP/scara.c ****     
+  90:Core/APP/scara.c ****     // 计算垂直于两大臂末端连线的单位向量
+  91:Core/APP/scara.c ****     float dx = p2_x - p1_x;
+ 150              		.loc 1 91 5 is_stmt 1 view .LVU38
+  92:Core/APP/scara.c ****     float dy = p2_y - p1_y;
+ 151              		.loc 1 92 5 view .LVU39
+  93:Core/APP/scara.c ****     float norm = sqrtf(dx * dx + dy * dy);
+ 152              		.loc 1 93 5 view .LVU40
+ 153              		.loc 1 93 18 is_stmt 0 view .LVU41
+ 154 00a2 B0EE6B0A 		vmov.f32	s0, s23
+ 155              	.LVL20:
+ 156              		.loc 1 93 18 view .LVU42
+ 157 00a6 FFF7FEFF 		bl	sqrtf
+ 158              	.LVL21:
+  94:Core/APP/scara.c ****     
+  95:Core/APP/scara.c ****     // 垂直单位向量
+  96:Core/APP/scara.c ****     float ux = -dy / norm;
+ 159              		.loc 1 96 5 is_stmt 1 view .LVU43
+ 160              		.loc 1 96 16 is_stmt 0 view .LVU44
+ 161 00aa F1EE4B7A 		vneg.f32	s15, s22
+ 162              		.loc 1 96 11 view .LVU45
+ 163 00ae 87EE807A 		vdiv.f32	s14, s15, s0
+ 164              	.LVL22:
+  97:Core/APP/scara.c ****     float uy = dx / norm;
+ 165              		.loc 1 97 5 is_stmt 1 view .LVU46
+ 166              		.loc 1 97 11 is_stmt 0 view .LVU47
+ 167 00b2 CAEE006A 		vdiv.f32	s13, s20, s0
+ 168              	.LVL23:
+  98:Core/APP/scara.c ****     
+  99:Core/APP/scara.c ****     // 计算末端位置（取下方的解）
+ 100:Core/APP/scara.c ****     *x = mid_x - ux * h;
+ 169              		.loc 1 100 5 is_stmt 1 view .LVU48
+ 170              		.loc 1 100 21 is_stmt 0 view .LVU49
+ 171 00b6 69EE077A 		vmul.f32	s15, s18, s14
+ 172              		.loc 1 100 16 view .LVU50
+ 173 00ba 78EEE78A 		vsub.f32	s17, s17, s15
+ 174              	.LVL24:
+ 175              		.loc 1 100 8 view .LVU51
+ 176 00be C5ED008A 		vstr.32	s17, [r5]
+ 101:Core/APP/scara.c ****     *y = mid_y - uy * h;
+ 177              		.loc 1 101 5 is_stmt 1 view .LVU52
+ 178              		.loc 1 101 21 is_stmt 0 view .LVU53
+ 179 00c2 29EE269A 		vmul.f32	s18, s18, s13
+ 180              	.LVL25:
+ 181              		.loc 1 101 16 view .LVU54
+ 182 00c6 38EE498A 		vsub.f32	s16, s16, s18
+ 183              	.LVL26:
+ 184              		.loc 1 101 8 view .LVU55
+ 185 00ca 84ED008A 		vstr.32	s16, [r4]
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s 			page 6
+
+
+ 102:Core/APP/scara.c **** }
+ 186              		.loc 1 102 1 view .LVU56
+ 187 00ce BDEC0A8B 		vldm	sp!, {d8-d12}
+ 188              	.LCFI2:
+ 189              		.cfi_restore 88
+ 190              		.cfi_restore 89
+ 191              		.cfi_restore 86
+ 192              		.cfi_restore 87
+ 193              		.cfi_restore 84
+ 194              		.cfi_restore 85
+ 195              		.cfi_restore 82
+ 196              		.cfi_restore 83
+ 197              		.cfi_restore 80
+ 198              		.cfi_restore 81
+ 199              		.cfi_def_cfa_offset 16
+ 200              	.LVL27:
+ 201              		.loc 1 102 1 view .LVU57
+ 202 00d2 38BD     		pop	{r3, r4, r5, pc}
+ 203              	.LVL28:
+ 204              	.L4:
+ 205              		.loc 1 102 1 view .LVU58
+ 206              		.align	2
+ 207              	.L3:
+ 208 00d4 00006643 		.word	1130758144
+ 209 00d8 0000B442 		.word	1119092736
+ 210 00dc 00000000 		.word	0
+ 211 00e0 0000C846 		.word	1187512320
+ 212              		.cfi_endproc
+ 213              	.LFE138:
+ 215              		.section	.text.SCARA_InverseKinematics,"ax",%progbits
+ 216              		.align	1
+ 217              		.global	SCARA_InverseKinematics
+ 218              		.syntax unified
+ 219              		.thumb
+ 220              		.thumb_func
+ 222              	SCARA_InverseKinematics:
+ 223              	.LVL29:
+ 224              	.LFB139:
+ 103:Core/APP/scara.c **** 
+ 104:Core/APP/scara.c **** /**
+ 105:Core/APP/scara.c ****   * @brief  逆运动学：根据末端位置计算电机角度
+ 106:Core/APP/scara.c ****   * @param  x 末端X坐标
+ 107:Core/APP/scara.c ****   * @param  y 末端Y坐标
+ 108:Core/APP/scara.c ****   * @param  motor1_angle 电机1角度指针(rad)
+ 109:Core/APP/scara.c ****   * @param  motor2_angle 电机2角度指针(rad)
+ 110:Core/APP/scara.c ****   * @retval 1成功，0失败（无解）
+ 111:Core/APP/scara.c ****   */
+ 112:Core/APP/scara.c **** uint8_t SCARA_InverseKinematics(float x, float y, float *motor1_angle, float *motor2_angle)
+ 113:Core/APP/scara.c **** {
+ 225              		.loc 1 113 1 is_stmt 1 view -0
+ 226              		.cfi_startproc
+ 227              		@ args = 0, pretend = 0, frame = 0
+ 228              		@ frame_needed = 0, uses_anonymous_args = 0
+ 229              		.loc 1 113 1 is_stmt 0 view .LVU60
+ 230 0000 38B5     		push	{r3, r4, r5, lr}
+ 231              	.LCFI3:
+ 232              		.cfi_def_cfa_offset 16
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s 			page 7
+
+
+ 233              		.cfi_offset 3, -16
+ 234              		.cfi_offset 4, -12
+ 235              		.cfi_offset 5, -8
+ 236              		.cfi_offset 14, -4
+ 237 0002 2DED0A8B 		vpush.64	{d8, d9, d10, d11, d12}
+ 238              	.LCFI4:
+ 239              		.cfi_def_cfa_offset 56
+ 240              		.cfi_offset 80, -56
+ 241              		.cfi_offset 81, -52
+ 242              		.cfi_offset 82, -48
+ 243              		.cfi_offset 83, -44
+ 244              		.cfi_offset 84, -40
+ 245              		.cfi_offset 85, -36
+ 246              		.cfi_offset 86, -32
+ 247              		.cfi_offset 87, -28
+ 248              		.cfi_offset 88, -24
+ 249              		.cfi_offset 89, -20
+ 250 0006 B0EE408A 		vmov.f32	s16, s0
+ 251 000a B0EE609A 		vmov.f32	s18, s1
+ 252 000e 0546     		mov	r5, r0
+ 253 0010 0C46     		mov	r4, r1
+ 114:Core/APP/scara.c ****     // 电机1位置（左侧）
+ 115:Core/APP/scara.c ****     float m1_x = -MOTOR_DISTANCE/2;
+ 254              		.loc 1 115 5 is_stmt 1 view .LVU61
+ 255              	.LVL30:
+ 116:Core/APP/scara.c ****     float m1_y = 0;
+ 256              		.loc 1 116 5 view .LVU62
+ 117:Core/APP/scara.c ****     
+ 118:Core/APP/scara.c ****     // 电机2位置（右侧）
+ 119:Core/APP/scara.c ****     float m2_x = MOTOR_DISTANCE/2;
+ 257              		.loc 1 119 5 view .LVU63
+ 120:Core/APP/scara.c ****     float m2_y = 0;
+ 258              		.loc 1 120 5 view .LVU64
+ 121:Core/APP/scara.c ****     
+ 122:Core/APP/scara.c ****     // 计算末端到两电机的距离
+ 123:Core/APP/scara.c ****     float d1 = sqrtf((x - m1_x) * (x - m1_x) + (y - m1_y) * (y - m1_y));
+ 259              		.loc 1 123 5 view .LVU65
+ 260              		.loc 1 123 25 is_stmt 0 view .LVU66
+ 261 0012 9FED3AAA 		vldr.32	s20, .L13
+ 262 0016 70EE0AAA 		vadd.f32	s21, s0, s20
+ 263              		.loc 1 123 33 view .LVU67
+ 264 001a 2AEEAA0A 		vmul.f32	s0, s21, s21
+ 265              	.LVL31:
+ 266              		.loc 1 123 59 view .LVU68
+ 267 001e 60EEA09A 		vmul.f32	s19, s1, s1
+ 268              		.loc 1 123 16 view .LVU69
+ 269 0022 30EE290A 		vadd.f32	s0, s0, s19
+ 270 0026 FFF7FEFF 		bl	sqrtf
+ 271              	.LVL32:
+ 272              		.loc 1 123 16 view .LVU70
+ 273 002a F0EE408A 		vmov.f32	s17, s0
+ 274              	.LVL33:
+ 124:Core/APP/scara.c ****     float d2 = sqrtf((x - m2_x) * (x - m2_x) + (y - m2_y) * (y - m2_y));
+ 275              		.loc 1 124 5 is_stmt 1 view .LVU71
+ 276              		.loc 1 124 25 is_stmt 0 view .LVU72
+ 277 002e 38EE4A8A 		vsub.f32	s16, s16, s20
+ 278              	.LVL34:
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s 			page 8
+
+
+ 279              		.loc 1 124 33 view .LVU73
+ 280 0032 28EE080A 		vmul.f32	s0, s16, s16
+ 281              	.LVL35:
+ 282              		.loc 1 124 16 view .LVU74
+ 283 0036 39EE800A 		vadd.f32	s0, s19, s0
+ 284 003a FFF7FEFF 		bl	sqrtf
+ 285              	.LVL36:
+ 125:Core/APP/scara.c ****     
+ 126:Core/APP/scara.c ****     // 检查是否有解（三角形三边关系）
+ 127:Core/APP/scara.c ****     if (d1 > LONG_ARM_LENGTH + SHORT_ARM_LENGTH || 
+ 286              		.loc 1 127 5 is_stmt 1 view .LVU75
+ 287              		.loc 1 127 8 is_stmt 0 view .LVU76
+ 288 003e DFED307A 		vldr.32	s15, .L13+4
+ 289 0042 F4EEE78A 		vcmpe.f32	s17, s15
+ 290 0046 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 291 004a 4EDC     		bgt	.L7
+ 292 004c F0EE409A 		vmov.f32	s19, s0
+ 293              		.loc 1 127 49 discriminator 1 view .LVU77
+ 294 0050 B4EEE70A 		vcmpe.f32	s0, s15
+ 295 0054 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 296 0058 4BDC     		bgt	.L8
+ 128:Core/APP/scara.c ****         d2 > LONG_ARM_LENGTH + SHORT_ARM_LENGTH || 
+ 297              		.loc 1 128 49 view .LVU78
+ 298 005a DFED2A7A 		vldr.32	s15, .L13+8
+ 299 005e F4EEE78A 		vcmpe.f32	s17, s15
+ 300 0062 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 301 0066 46D4     		bmi	.L9
+ 129:Core/APP/scara.c ****         d1 < fabsf(LONG_ARM_LENGTH - SHORT_ARM_LENGTH) ||
+ 302              		.loc 1 129 56 view .LVU79
+ 303 0068 B4EEE70A 		vcmpe.f32	s0, s15
+ 304 006c F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 305 0070 01D5     		bpl	.L12
+ 130:Core/APP/scara.c ****         d2 < fabsf(LONG_ARM_LENGTH - SHORT_ARM_LENGTH)) {
+ 131:Core/APP/scara.c ****         return 0; // 无解
+ 306              		.loc 1 131 16 view .LVU80
+ 307 0072 0020     		movs	r0, #0
+ 308 0074 3AE0     		b	.L6
+ 309              	.L12:
+ 132:Core/APP/scara.c ****     }
+ 133:Core/APP/scara.c ****     
+ 134:Core/APP/scara.c ****     // 余弦定理计算关节角度
+ 135:Core/APP/scara.c ****     float alpha1 = acosf((LONG_ARM_LENGTH * LONG_ARM_LENGTH + d1 * d1 - SHORT_ARM_LENGTH * SHORT_AR
+ 310              		.loc 1 135 5 is_stmt 1 view .LVU81
+ 311              		.loc 1 135 66 is_stmt 0 view .LVU82
+ 312 0076 28EEA80A 		vmul.f32	s0, s17, s17
+ 313              	.LVL37:
+ 314              		.loc 1 135 61 view .LVU83
+ 315 007a 9FED23CA 		vldr.32	s24, .L13+12
+ 316 007e 30EE0C0A 		vadd.f32	s0, s0, s24
+ 317              		.loc 1 135 71 view .LVU84
+ 318 0082 DFED22BA 		vldr.32	s23, .L13+16
+ 319 0086 30EE6B0A 		vsub.f32	s0, s0, s23
+ 320              		.loc 1 135 133 view .LVU85
+ 321 008a 9FED21BA 		vldr.32	s22, .L13+20
+ 322 008e 68EE8B8A 		vmul.f32	s17, s17, s22
+ 323              	.LVL38:
+ 324              		.loc 1 135 20 view .LVU86
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s 			page 9
+
+
+ 325 0092 80EE280A 		vdiv.f32	s0, s0, s17
+ 326 0096 FFF7FEFF 		bl	acosf
+ 327              	.LVL39:
+ 328 009a B0EE40AA 		vmov.f32	s20, s0
+ 329              	.LVL40:
+ 136:Core/APP/scara.c ****     float alpha2 = acosf((LONG_ARM_LENGTH * LONG_ARM_LENGTH + d2 * d2 - SHORT_ARM_LENGTH * SHORT_AR
+ 330              		.loc 1 136 5 is_stmt 1 view .LVU87
+ 331              		.loc 1 136 66 is_stmt 0 view .LVU88
+ 332 009e 69EEA97A 		vmul.f32	s15, s19, s19
+ 333              		.loc 1 136 61 view .LVU89
+ 334 00a2 77EE8C7A 		vadd.f32	s15, s15, s24
+ 335              		.loc 1 136 71 view .LVU90
+ 336 00a6 77EEEB7A 		vsub.f32	s15, s15, s23
+ 337              		.loc 1 136 133 view .LVU91
+ 338 00aa 69EE8B9A 		vmul.f32	s19, s19, s22
+ 339              	.LVL41:
+ 340              		.loc 1 136 20 view .LVU92
+ 341 00ae 87EEA90A 		vdiv.f32	s0, s15, s19
+ 342              	.LVL42:
+ 343              		.loc 1 136 20 view .LVU93
+ 344 00b2 FFF7FEFF 		bl	acosf
+ 345              	.LVL43:
+ 346 00b6 F0EE409A 		vmov.f32	s19, s0
+ 347              	.LVL44:
+ 137:Core/APP/scara.c ****     
+ 138:Core/APP/scara.c ****     // 计算末端点与电机连线的角度
+ 139:Core/APP/scara.c ****     float beta1 = atan2f(y - m1_y, x - m1_x);
+ 348              		.loc 1 139 5 is_stmt 1 view .LVU94
+ 349              		.loc 1 139 19 is_stmt 0 view .LVU95
+ 350 00ba F0EE6A0A 		vmov.f32	s1, s21
+ 351 00be B0EE490A 		vmov.f32	s0, s18
+ 352              	.LVL45:
+ 353              		.loc 1 139 19 view .LVU96
+ 354 00c2 FFF7FEFF 		bl	atan2f
+ 355              	.LVL46:
+ 356 00c6 F0EE408A 		vmov.f32	s17, s0
+ 357              	.LVL47:
+ 140:Core/APP/scara.c ****     float beta2 = atan2f(y - m2_y, x - m2_x);
+ 358              		.loc 1 140 5 is_stmt 1 view .LVU97
+ 359              		.loc 1 140 19 is_stmt 0 view .LVU98
+ 360 00ca F0EE480A 		vmov.f32	s1, s16
+ 361 00ce B0EE490A 		vmov.f32	s0, s18
+ 362              	.LVL48:
+ 363              		.loc 1 140 19 view .LVU99
+ 364 00d2 FFF7FEFF 		bl	atan2f
+ 365              	.LVL49:
+ 141:Core/APP/scara.c ****     
+ 142:Core/APP/scara.c ****     // 计算两种可能的电机角度
+ 143:Core/APP/scara.c ****     float angle1_sol1 = beta1 + alpha1;
+ 366              		.loc 1 143 5 is_stmt 1 view .LVU100
+ 144:Core/APP/scara.c ****     float angle1_sol2 = beta1 - alpha1;
+ 367              		.loc 1 144 5 view .LVU101
+ 368              		.loc 1 144 11 is_stmt 0 view .LVU102
+ 369 00d6 78EECA8A 		vsub.f32	s17, s17, s20
+ 370              	.LVL50:
+ 145:Core/APP/scara.c ****     float angle2_sol1 = beta2 + alpha2;
+ 371              		.loc 1 145 5 is_stmt 1 view .LVU103
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s 			page 10
+
+
+ 146:Core/APP/scara.c ****     float angle2_sol2 = beta2 - alpha2;
+ 372              		.loc 1 146 5 view .LVU104
+ 373              		.loc 1 146 11 is_stmt 0 view .LVU105
+ 374 00da 30EE690A 		vsub.f32	s0, s0, s19
+ 375              	.LVL51:
+ 147:Core/APP/scara.c ****     
+ 148:Core/APP/scara.c ****     // 选择在工作区域内的解（这里我们选择向下的解）
+ 149:Core/APP/scara.c ****     // 因为从上往下看，电机逆时针为正，所以我们应该选择y值小的解
+ 150:Core/APP/scara.c ****     *motor1_angle = angle1_sol2;
+ 376              		.loc 1 150 5 is_stmt 1 view .LVU106
+ 377              		.loc 1 150 19 is_stmt 0 view .LVU107
+ 378 00de C5ED008A 		vstr.32	s17, [r5]
+ 151:Core/APP/scara.c ****     *motor2_angle = angle2_sol2;
+ 379              		.loc 1 151 5 is_stmt 1 view .LVU108
+ 380              		.loc 1 151 19 is_stmt 0 view .LVU109
+ 381 00e2 84ED000A 		vstr.32	s0, [r4]
+ 152:Core/APP/scara.c ****     
+ 153:Core/APP/scara.c ****     return 1; // 成功
+ 382              		.loc 1 153 5 is_stmt 1 view .LVU110
+ 383              		.loc 1 153 12 is_stmt 0 view .LVU111
+ 384 00e6 0120     		movs	r0, #1
+ 385 00e8 00E0     		b	.L6
+ 386              	.LVL52:
+ 387              	.L7:
+ 131:Core/APP/scara.c ****     }
+ 388              		.loc 1 131 16 view .LVU112
+ 389 00ea 0020     		movs	r0, #0
+ 390              	.LVL53:
+ 391              	.L6:
+ 154:Core/APP/scara.c **** }
+ 392              		.loc 1 154 1 view .LVU113
+ 393 00ec BDEC0A8B 		vldm	sp!, {d8-d12}
+ 394              	.LCFI5:
+ 395              		.cfi_remember_state
+ 396              		.cfi_restore 88
+ 397              		.cfi_restore 89
+ 398              		.cfi_restore 86
+ 399              		.cfi_restore 87
+ 400              		.cfi_restore 84
+ 401              		.cfi_restore 85
+ 402              		.cfi_restore 82
+ 403              		.cfi_restore 83
+ 404              		.cfi_restore 80
+ 405              		.cfi_restore 81
+ 406              		.cfi_def_cfa_offset 16
+ 407              	.LVL54:
+ 408              		.loc 1 154 1 view .LVU114
+ 409 00f0 38BD     		pop	{r3, r4, r5, pc}
+ 410              	.LVL55:
+ 411              	.L8:
+ 412              	.LCFI6:
+ 413              		.cfi_restore_state
+ 131:Core/APP/scara.c ****     }
+ 414              		.loc 1 131 16 view .LVU115
+ 415 00f2 0020     		movs	r0, #0
+ 416 00f4 FAE7     		b	.L6
+ 417              	.L9:
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s 			page 11
+
+
+ 418 00f6 0020     		movs	r0, #0
+ 419 00f8 F8E7     		b	.L6
+ 420              	.L14:
+ 421 00fa 00BF     		.align	2
+ 422              	.L13:
+ 423 00fc 0000B442 		.word	1119092736
+ 424 0100 0000C343 		.word	1136852992
+ 425 0104 00008C42 		.word	1116471296
+ 426 0108 00A44E47 		.word	1196336128
+ 427 010c 0000C846 		.word	1187512320
+ 428 0110 0000E643 		.word	1139146752
+ 429              		.cfi_endproc
+ 430              	.LFE139:
+ 432              		.section	.text.SCARA_SetPosition,"ax",%progbits
+ 433              		.align	1
+ 434              		.global	SCARA_SetPosition
+ 435              		.syntax unified
+ 436              		.thumb
+ 437              		.thumb_func
+ 439              	SCARA_SetPosition:
+ 440              	.LVL56:
+ 441              	.LFB140:
+ 155:Core/APP/scara.c **** 
+ 156:Core/APP/scara.c **** /**
+ 157:Core/APP/scara.c ****   * @brief  设置SCARA位置
+ 158:Core/APP/scara.c ****   * @param  x 末端X坐标
+ 159:Core/APP/scara.c ****   * @param  y 末端Y坐标
+ 160:Core/APP/scara.c ****   * @retval 1成功，0失败（无解）
+ 161:Core/APP/scara.c ****   */
+ 162:Core/APP/scara.c **** uint8_t SCARA_SetPosition(float x, float y)
+ 163:Core/APP/scara.c **** {
+ 442              		.loc 1 163 1 is_stmt 1 view -0
+ 443              		.cfi_startproc
+ 444              		@ args = 0, pretend = 0, frame = 8
+ 445              		@ frame_needed = 0, uses_anonymous_args = 0
+ 446              		.loc 1 163 1 is_stmt 0 view .LVU117
+ 447 0000 30B5     		push	{r4, r5, lr}
+ 448              	.LCFI7:
+ 449              		.cfi_def_cfa_offset 12
+ 450              		.cfi_offset 4, -12
+ 451              		.cfi_offset 5, -8
+ 452              		.cfi_offset 14, -4
+ 453 0002 83B0     		sub	sp, sp, #12
+ 454              	.LCFI8:
+ 455              		.cfi_def_cfa_offset 24
+ 456 0004 10EE105A 		vmov	r5, s0
+ 457 0008 10EE904A 		vmov	r4, s1
+ 164:Core/APP/scara.c ****     float motor1_angle, motor2_angle;
+ 458              		.loc 1 164 5 is_stmt 1 view .LVU118
+ 165:Core/APP/scara.c ****     
+ 166:Core/APP/scara.c ****     // 计算逆运动学
+ 167:Core/APP/scara.c ****     if (!SCARA_InverseKinematics(x, y, &motor1_angle, &motor2_angle)) {
+ 459              		.loc 1 167 5 view .LVU119
+ 460              		.loc 1 167 10 is_stmt 0 view .LVU120
+ 461 000c 6946     		mov	r1, sp
+ 462 000e 01A8     		add	r0, sp, #4
+ 463 0010 FFF7FEFF 		bl	SCARA_InverseKinematics
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s 			page 12
+
+
+ 464              	.LVL57:
+ 465              		.loc 1 167 8 discriminator 1 view .LVU121
+ 466 0014 08B9     		cbnz	r0, .L18
+ 467              	.L16:
+ 168:Core/APP/scara.c ****         return 0; // 无解
+ 169:Core/APP/scara.c ****     }
+ 170:Core/APP/scara.c ****     
+ 171:Core/APP/scara.c ****     // 控制电机到目标角度
+ 172:Core/APP/scara.c ****     MI_motor_PosCtrl(motor1, motor1_angle);
+ 173:Core/APP/scara.c ****     MI_motor_PosCtrl(motor2, motor2_angle);
+ 174:Core/APP/scara.c ****     
+ 175:Core/APP/scara.c ****     // 更新当前位置
+ 176:Core/APP/scara.c ****     current_x = x;
+ 177:Core/APP/scara.c ****     current_y = y;
+ 178:Core/APP/scara.c ****     
+ 179:Core/APP/scara.c ****     return 1;
+ 180:Core/APP/scara.c **** }
+ 468              		.loc 1 180 1 view .LVU122
+ 469 0016 03B0     		add	sp, sp, #12
+ 470              	.LCFI9:
+ 471              		.cfi_remember_state
+ 472              		.cfi_def_cfa_offset 12
+ 473              		@ sp needed
+ 474 0018 30BD     		pop	{r4, r5, pc}
+ 475              	.LVL58:
+ 476              	.L18:
+ 477              	.LCFI10:
+ 478              		.cfi_restore_state
+ 172:Core/APP/scara.c ****     MI_motor_PosCtrl(motor2, motor2_angle);
+ 479              		.loc 1 172 5 is_stmt 1 view .LVU123
+ 480 001a 9DED010A 		vldr.32	s0, [sp, #4]
+ 481 001e 084B     		ldr	r3, .L19
+ 482 0020 1868     		ldr	r0, [r3]
+ 483 0022 FFF7FEFF 		bl	MI_motor_PosCtrl
+ 484              	.LVL59:
+ 173:Core/APP/scara.c ****     
+ 485              		.loc 1 173 5 view .LVU124
+ 486 0026 9DED000A 		vldr.32	s0, [sp]
+ 487 002a 064B     		ldr	r3, .L19+4
+ 488 002c 1868     		ldr	r0, [r3]
+ 489 002e FFF7FEFF 		bl	MI_motor_PosCtrl
+ 490              	.LVL60:
+ 176:Core/APP/scara.c ****     current_y = y;
+ 491              		.loc 1 176 5 view .LVU125
+ 176:Core/APP/scara.c ****     current_y = y;
+ 492              		.loc 1 176 15 is_stmt 0 view .LVU126
+ 493 0032 054B     		ldr	r3, .L19+8
+ 494 0034 1D60     		str	r5, [r3]	@ float
+ 177:Core/APP/scara.c ****     
+ 495              		.loc 1 177 5 is_stmt 1 view .LVU127
+ 177:Core/APP/scara.c ****     
+ 496              		.loc 1 177 15 is_stmt 0 view .LVU128
+ 497 0036 054B     		ldr	r3, .L19+12
+ 498 0038 1C60     		str	r4, [r3]	@ float
+ 179:Core/APP/scara.c **** }
+ 499              		.loc 1 179 5 is_stmt 1 view .LVU129
+ 179:Core/APP/scara.c **** }
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s 			page 13
+
+
+ 500              		.loc 1 179 12 is_stmt 0 view .LVU130
+ 501 003a 0120     		movs	r0, #1
+ 502 003c EBE7     		b	.L16
+ 503              	.L20:
+ 504 003e 00BF     		.align	2
+ 505              	.L19:
+ 506 0040 00000000 		.word	motor1
+ 507 0044 00000000 		.word	motor2
+ 508 0048 00000000 		.word	current_x
+ 509 004c 00000000 		.word	current_y
+ 510              		.cfi_endproc
+ 511              	.LFE140:
+ 513              		.section	.text.SCARA_GetCurrentPosition,"ax",%progbits
+ 514              		.align	1
+ 515              		.global	SCARA_GetCurrentPosition
+ 516              		.syntax unified
+ 517              		.thumb
+ 518              		.thumb_func
+ 520              	SCARA_GetCurrentPosition:
+ 521              	.LVL61:
+ 522              	.LFB141:
+ 181:Core/APP/scara.c **** 
+ 182:Core/APP/scara.c **** /**
+ 183:Core/APP/scara.c ****   * @brief  获取SCARA当前位置
+ 184:Core/APP/scara.c ****   * @param  x 末端X坐标指针
+ 185:Core/APP/scara.c ****   * @param  y 末端Y坐标指针
+ 186:Core/APP/scara.c ****   * @retval 无
+ 187:Core/APP/scara.c ****   */
+ 188:Core/APP/scara.c **** void SCARA_GetCurrentPosition(float *x, float *y)
+ 189:Core/APP/scara.c **** {
+ 523              		.loc 1 189 1 is_stmt 1 view -0
+ 524              		.cfi_startproc
+ 525              		@ args = 0, pretend = 0, frame = 0
+ 526              		@ frame_needed = 0, uses_anonymous_args = 0
+ 527              		.loc 1 189 1 is_stmt 0 view .LVU132
+ 528 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 529              	.LCFI11:
+ 530              		.cfi_def_cfa_offset 24
+ 531              		.cfi_offset 3, -24
+ 532              		.cfi_offset 4, -20
+ 533              		.cfi_offset 5, -16
+ 534              		.cfi_offset 6, -12
+ 535              		.cfi_offset 7, -8
+ 536              		.cfi_offset 14, -4
+ 537 0002 0546     		mov	r5, r0
+ 538 0004 0C46     		mov	r4, r1
+ 190:Core/APP/scara.c ****     // 获取当前电机角度
+ 191:Core/APP/scara.c ****     MI_motor_get_mechPos(motor1);
+ 539              		.loc 1 191 5 is_stmt 1 view .LVU133
+ 540 0006 0C4F     		ldr	r7, .L23
+ 541 0008 3868     		ldr	r0, [r7]
+ 542              	.LVL62:
+ 543              		.loc 1 191 5 is_stmt 0 view .LVU134
+ 544 000a FFF7FEFF 		bl	MI_motor_get_mechPos
+ 545              	.LVL63:
+ 192:Core/APP/scara.c ****     MI_motor_get_mechPos(motor2);
+ 546              		.loc 1 192 5 is_stmt 1 view .LVU135
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s 			page 14
+
+
+ 547 000e 0B4E     		ldr	r6, .L23+4
+ 548 0010 3068     		ldr	r0, [r6]
+ 549 0012 FFF7FEFF 		bl	MI_motor_get_mechPos
+ 550              	.LVL64:
+ 193:Core/APP/scara.c ****     
+ 194:Core/APP/scara.c ****     // 通过正运动学计算末端位置
+ 195:Core/APP/scara.c ****     SCARA_ForwardKinematics(motor1->motor_fdb.mechPos, motor2->motor_fdb.mechPos, x, y);
+ 551              		.loc 1 195 5 view .LVU136
+ 552              		.loc 1 195 35 is_stmt 0 view .LVU137
+ 553 0016 3B68     		ldr	r3, [r7]
+ 554              		.loc 1 195 46 view .LVU138
+ 555 0018 93ED0E0A 		vldr.32	s0, [r3, #56]
+ 556              		.loc 1 195 62 view .LVU139
+ 557 001c 3368     		ldr	r3, [r6]
+ 558              		.loc 1 195 73 view .LVU140
+ 559 001e D3ED0E0A 		vldr.32	s1, [r3, #56]
+ 560              		.loc 1 195 5 view .LVU141
+ 561 0022 2146     		mov	r1, r4
+ 562 0024 2846     		mov	r0, r5
+ 563 0026 FFF7FEFF 		bl	SCARA_ForwardKinematics
+ 564              	.LVL65:
+ 196:Core/APP/scara.c ****     
+ 197:Core/APP/scara.c ****     // 更新当前位置
+ 198:Core/APP/scara.c ****     current_x = *x;
+ 565              		.loc 1 198 5 is_stmt 1 view .LVU142
+ 566              		.loc 1 198 17 is_stmt 0 view .LVU143
+ 567 002a 2A68     		ldr	r2, [r5]	@ float
+ 568              		.loc 1 198 15 view .LVU144
+ 569 002c 044B     		ldr	r3, .L23+8
+ 570 002e 1A60     		str	r2, [r3]	@ float
+ 199:Core/APP/scara.c ****     current_y = *y;
+ 571              		.loc 1 199 5 is_stmt 1 view .LVU145
+ 572              		.loc 1 199 17 is_stmt 0 view .LVU146
+ 573 0030 2268     		ldr	r2, [r4]	@ float
+ 574              		.loc 1 199 15 view .LVU147
+ 575 0032 044B     		ldr	r3, .L23+12
+ 576 0034 1A60     		str	r2, [r3]	@ float
+ 200:Core/APP/scara.c **** }
+ 577              		.loc 1 200 1 view .LVU148
+ 578 0036 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 579              	.LVL66:
+ 580              	.L24:
+ 581              		.loc 1 200 1 view .LVU149
+ 582              		.align	2
+ 583              	.L23:
+ 584 0038 00000000 		.word	motor1
+ 585 003c 00000000 		.word	motor2
+ 586 0040 00000000 		.word	current_x
+ 587 0044 00000000 		.word	current_y
+ 588              		.cfi_endproc
+ 589              	.LFE141:
+ 591              		.section	.text.SCARA_Home,"ax",%progbits
+ 592              		.align	1
+ 593              		.global	SCARA_Home
+ 594              		.syntax unified
+ 595              		.thumb
+ 596              		.thumb_func
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s 			page 15
+
+
+ 598              	SCARA_Home:
+ 599              	.LFB142:
+ 201:Core/APP/scara.c **** 
+ 202:Core/APP/scara.c **** /**
+ 203:Core/APP/scara.c ****   * @brief  SCARA回零位
+ 204:Core/APP/scara.c ****   * @retval 无
+ 205:Core/APP/scara.c ****   */
+ 206:Core/APP/scara.c **** void SCARA_Home(void)
+ 207:Core/APP/scara.c **** {
+ 600              		.loc 1 207 1 is_stmt 1 view -0
+ 601              		.cfi_startproc
+ 602              		@ args = 0, pretend = 0, frame = 0
+ 603              		@ frame_needed = 0, uses_anonymous_args = 0
+ 604 0000 08B5     		push	{r3, lr}
+ 605              	.LCFI12:
+ 606              		.cfi_def_cfa_offset 8
+ 607              		.cfi_offset 3, -8
+ 608              		.cfi_offset 14, -4
+ 609 0002 2DED028B 		vpush.64	{d8}
+ 610              	.LCFI13:
+ 611              		.cfi_def_cfa_offset 16
+ 612              		.cfi_offset 80, -16
+ 613              		.cfi_offset 81, -12
+ 208:Core/APP/scara.c ****     // 设置电机到零位置
+ 209:Core/APP/scara.c ****     MI_motor_PosCtrl(motor1, 0.0f);
+ 614              		.loc 1 209 5 view .LVU151
+ 615 0006 9FED0C8A 		vldr.32	s16, .L27
+ 616 000a B0EE480A 		vmov.f32	s0, s16
+ 617 000e 0B4B     		ldr	r3, .L27+4
+ 618 0010 1868     		ldr	r0, [r3]
+ 619 0012 FFF7FEFF 		bl	MI_motor_PosCtrl
+ 620              	.LVL67:
+ 210:Core/APP/scara.c ****     MI_motor_PosCtrl(motor2, 0.0f);
+ 621              		.loc 1 210 5 view .LVU152
+ 622 0016 B0EE480A 		vmov.f32	s0, s16
+ 623 001a 094B     		ldr	r3, .L27+8
+ 624 001c 1868     		ldr	r0, [r3]
+ 625 001e FFF7FEFF 		bl	MI_motor_PosCtrl
+ 626              	.LVL68:
+ 211:Core/APP/scara.c ****     
+ 212:Core/APP/scara.c ****     // 等待电机到达位置
+ 213:Core/APP/scara.c ****     HAL_Delay(1000);
+ 627              		.loc 1 213 5 view .LVU153
+ 628 0022 4FF47A70 		mov	r0, #1000
+ 629 0026 FFF7FEFF 		bl	HAL_Delay
+ 630              	.LVL69:
+ 214:Core/APP/scara.c ****     
+ 215:Core/APP/scara.c ****     // 更新当前位置
+ 216:Core/APP/scara.c ****     SCARA_GetCurrentPosition(&current_x, &current_y);
+ 631              		.loc 1 216 5 view .LVU154
+ 632 002a 0649     		ldr	r1, .L27+12
+ 633 002c 0648     		ldr	r0, .L27+16
+ 634 002e FFF7FEFF 		bl	SCARA_GetCurrentPosition
+ 635              	.LVL70:
+ 217:Core/APP/scara.c **** }
+ 636              		.loc 1 217 1 is_stmt 0 view .LVU155
+ 637 0032 BDEC028B 		vldm	sp!, {d8}
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s 			page 16
+
+
+ 638              	.LCFI14:
+ 639              		.cfi_restore 80
+ 640              		.cfi_restore 81
+ 641              		.cfi_def_cfa_offset 8
+ 642 0036 08BD     		pop	{r3, pc}
+ 643              	.L28:
+ 644              		.align	2
+ 645              	.L27:
+ 646 0038 00000000 		.word	0
+ 647 003c 00000000 		.word	motor1
+ 648 0040 00000000 		.word	motor2
+ 649 0044 00000000 		.word	current_y
+ 650 0048 00000000 		.word	current_x
+ 651              		.cfi_endproc
+ 652              	.LFE142:
+ 654              		.section	.text.SCARA_Init,"ax",%progbits
+ 655              		.align	1
+ 656              		.global	SCARA_Init
+ 657              		.syntax unified
+ 658              		.thumb
+ 659              		.thumb_func
+ 661              	SCARA_Init:
+ 662              	.LFB137:
+  22:Core/APP/scara.c ****     // 分配电机
+ 663              		.loc 1 22 1 is_stmt 1 view -0
+ 664              		.cfi_startproc
+ 665              		@ args = 0, pretend = 0, frame = 0
+ 666              		@ frame_needed = 0, uses_anonymous_args = 0
+ 667 0000 70B5     		push	{r4, r5, r6, lr}
+ 668              	.LCFI15:
+ 669              		.cfi_def_cfa_offset 16
+ 670              		.cfi_offset 4, -16
+ 671              		.cfi_offset 5, -12
+ 672              		.cfi_offset 6, -8
+ 673              		.cfi_offset 14, -4
+  24:Core/APP/scara.c ****     motor2 = &chassis_motor[SCARA_MOTOR2_ID - 1];
+ 674              		.loc 1 24 5 view .LVU157
+  24:Core/APP/scara.c ****     motor2 = &chassis_motor[SCARA_MOTOR2_ID - 1];
+ 675              		.loc 1 24 12 is_stmt 0 view .LVU158
+ 676 0002 1C4D     		ldr	r5, .L31
+ 677 0004 1C48     		ldr	r0, .L31+4
+ 678 0006 2860     		str	r0, [r5]
+  25:Core/APP/scara.c ****     
+ 679              		.loc 1 25 5 is_stmt 1 view .LVU159
+  25:Core/APP/scara.c ****     
+ 680              		.loc 1 25 12 is_stmt 0 view .LVU160
+ 681 0008 1C4C     		ldr	r4, .L31+8
+ 682 000a 00F15803 		add	r3, r0, #88
+ 683 000e 2360     		str	r3, [r4]
+  28:Core/APP/scara.c ****     MI_motor_init(motor2, &hcan1, SCARA_MOTOR2_ID);
+ 684              		.loc 1 28 5 is_stmt 1 view .LVU161
+ 685 0010 1B4E     		ldr	r6, .L31+12
+ 686 0012 0122     		movs	r2, #1
+ 687 0014 3146     		mov	r1, r6
+ 688 0016 FFF7FEFF 		bl	MI_motor_init
+ 689              	.LVL71:
+  29:Core/APP/scara.c ****     
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s 			page 17
+
+
+ 690              		.loc 1 29 5 view .LVU162
+ 691 001a 0222     		movs	r2, #2
+ 692 001c 3146     		mov	r1, r6
+ 693 001e 2068     		ldr	r0, [r4]
+ 694 0020 FFF7FEFF 		bl	MI_motor_init
+ 695              	.LVL72:
+  32:Core/APP/scara.c ****     MI_motor_stop(motor2);
+ 696              		.loc 1 32 5 view .LVU163
+ 697 0024 2868     		ldr	r0, [r5]
+ 698 0026 FFF7FEFF 		bl	MI_motor_stop
+ 699              	.LVL73:
+  33:Core/APP/scara.c ****     
+ 700              		.loc 1 33 5 view .LVU164
+ 701 002a 2068     		ldr	r0, [r4]
+ 702 002c FFF7FEFF 		bl	MI_motor_stop
+ 703              	.LVL74:
+  36:Core/APP/scara.c ****     MI_motor_setMechPosition2Zero(motor2);
+ 704              		.loc 1 36 5 view .LVU165
+ 705 0030 2868     		ldr	r0, [r5]
+ 706 0032 FFF7FEFF 		bl	MI_motor_setMechPosition2Zero
+ 707              	.LVL75:
+  37:Core/APP/scara.c ****     
+ 708              		.loc 1 37 5 view .LVU166
+ 709 0036 2068     		ldr	r0, [r4]
+ 710 0038 FFF7FEFF 		bl	MI_motor_setMechPosition2Zero
+ 711              	.LVL76:
+  40:Core/APP/scara.c ****     MI_motor_enable(motor2);
+ 712              		.loc 1 40 5 view .LVU167
+ 713 003c 2868     		ldr	r0, [r5]
+ 714 003e FFF7FEFF 		bl	MI_motor_enable
+ 715              	.LVL77:
+  41:Core/APP/scara.c ****     
+ 716              		.loc 1 41 5 view .LVU168
+ 717 0042 2068     		ldr	r0, [r4]
+ 718 0044 FFF7FEFF 		bl	MI_motor_enable
+ 719              	.LVL78:
+  44:Core/APP/scara.c ****     MI_motor_setMode(motor2, MODE_POS);
+ 720              		.loc 1 44 5 view .LVU169
+ 721 0048 0121     		movs	r1, #1
+ 722 004a 2868     		ldr	r0, [r5]
+ 723 004c FFF7FEFF 		bl	MI_motor_setMode
+ 724              	.LVL79:
+  45:Core/APP/scara.c ****     
+ 725              		.loc 1 45 5 view .LVU170
+ 726 0050 0121     		movs	r1, #1
+ 727 0052 2068     		ldr	r0, [r4]
+ 728 0054 FFF7FEFF 		bl	MI_motor_setMode
+ 729              	.LVL80:
+  48:Core/APP/scara.c ****     MI_motor_SetSpdLim(motor2, 5.0f);
+ 730              		.loc 1 48 5 view .LVU171
+ 731 0058 B1EE040A 		vmov.f32	s0, #5.0e+0
+ 732 005c 2868     		ldr	r0, [r5]
+ 733 005e FFF7FEFF 		bl	MI_motor_SetSpdLim
+ 734              	.LVL81:
+  49:Core/APP/scara.c ****     
+ 735              		.loc 1 49 5 view .LVU172
+ 736 0062 B1EE040A 		vmov.f32	s0, #5.0e+0
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s 			page 18
+
+
+ 737 0066 2068     		ldr	r0, [r4]
+ 738 0068 FFF7FEFF 		bl	MI_motor_SetSpdLim
+ 739              	.LVL82:
+  52:Core/APP/scara.c **** }
+ 740              		.loc 1 52 5 view .LVU173
+ 741 006c FFF7FEFF 		bl	SCARA_Home
+ 742              	.LVL83:
+  53:Core/APP/scara.c **** 
+ 743              		.loc 1 53 1 is_stmt 0 view .LVU174
+ 744 0070 70BD     		pop	{r4, r5, r6, pc}
+ 745              	.L32:
+ 746 0072 00BF     		.align	2
+ 747              	.L31:
+ 748 0074 00000000 		.word	motor1
+ 749 0078 00000000 		.word	chassis_motor
+ 750 007c 00000000 		.word	motor2
+ 751 0080 00000000 		.word	hcan1
+ 752              		.cfi_endproc
+ 753              	.LFE137:
+ 755              		.section	.bss.current_y,"aw",%nobits
+ 756              		.align	2
+ 759              	current_y:
+ 760 0000 00000000 		.space	4
+ 761              		.section	.bss.current_x,"aw",%nobits
+ 762              		.align	2
+ 765              	current_x:
+ 766 0000 00000000 		.space	4
+ 767              		.section	.bss.motor2,"aw",%nobits
+ 768              		.align	2
+ 771              	motor2:
+ 772 0000 00000000 		.space	4
+ 773              		.section	.bss.motor1,"aw",%nobits
+ 774              		.align	2
+ 777              	motor1:
+ 778 0000 00000000 		.space	4
+ 779              		.text
+ 780              	.Letext0:
+ 781              		.file 2 "c:/Users/HZW/.eide/tools/13.2 Rel1/arm-none-eabi/include/machine/_default_types.h"
+ 782              		.file 3 "c:/Users/HZW/.eide/tools/13.2 Rel1/arm-none-eabi/include/sys/_stdint.h"
+ 783              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f427xx.h"
+ 784              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h"
+ 785              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h"
+ 786              		.file 7 "Core/BSP/MI_motor_dev.h"
+ 787              		.file 8 "Core/Inc/can.h"
+ 788              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 789              		.file 10 "c:/Users/HZW/.eide/tools/13.2 Rel1/arm-none-eabi/include/math.h"
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s 			page 19
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 scara.c
+C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s:21     .text.SCARA_ForwardKinematics:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s:27     .text.SCARA_ForwardKinematics:00000000 SCARA_ForwardKinematics
+C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s:208    .text.SCARA_ForwardKinematics:000000d4 $d
+C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s:216    .text.SCARA_InverseKinematics:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s:222    .text.SCARA_InverseKinematics:00000000 SCARA_InverseKinematics
+C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s:423    .text.SCARA_InverseKinematics:000000fc $d
+C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s:433    .text.SCARA_SetPosition:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s:439    .text.SCARA_SetPosition:00000000 SCARA_SetPosition
+C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s:506    .text.SCARA_SetPosition:00000040 $d
+C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s:777    .bss.motor1:00000000 motor1
+C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s:771    .bss.motor2:00000000 motor2
+C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s:765    .bss.current_x:00000000 current_x
+C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s:759    .bss.current_y:00000000 current_y
+C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s:514    .text.SCARA_GetCurrentPosition:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s:520    .text.SCARA_GetCurrentPosition:00000000 SCARA_GetCurrentPosition
+C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s:584    .text.SCARA_GetCurrentPosition:00000038 $d
+C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s:592    .text.SCARA_Home:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s:598    .text.SCARA_Home:00000000 SCARA_Home
+C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s:646    .text.SCARA_Home:00000038 $d
+C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s:655    .text.SCARA_Init:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s:661    .text.SCARA_Init:00000000 SCARA_Init
+C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s:748    .text.SCARA_Init:00000074 $d
+C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s:756    .bss.current_y:00000000 $d
+C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s:762    .bss.current_x:00000000 $d
+C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s:768    .bss.motor2:00000000 $d
+C:\Users\HZW\AppData\Local\Temp\ccJ2ugdd.s:774    .bss.motor1:00000000 $d
+
+UNDEFINED SYMBOLS
+cosf
+sinf
+sqrtf
+acosf
+atan2f
+MI_motor_PosCtrl
+MI_motor_get_mechPos
+HAL_Delay
+MI_motor_init
+MI_motor_stop
+MI_motor_setMechPosition2Zero
+MI_motor_enable
+MI_motor_setMode
+MI_motor_SetSpdLim
+chassis_motor
+hcan1

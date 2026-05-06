@@ -1,0 +1,2555 @@
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"car.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Core/APP/car.c"
+  20              		.section	.text.omega_zero,"ax",%progbits
+  21              		.align	1
+  22              		.global	omega_zero
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	omega_zero:
+  28              	.LFB137:
+   1:Core/APP/car.c **** #include "car.h"
+   2:Core/APP/car.c **** 
+   3:Core/APP/car.c **** // 电机位置
+   4:Core/APP/car.c **** //                                  X
+   5:Core/APP/car.c **** //                                  ^
+   6:Core/APP/car.c **** //                   motors[1]      *   motors[2]
+   7:Core/APP/car.c **** //                                  *
+   8:Core/APP/car.c **** //                                  *
+   9:Core/APP/car.c **** //                                  *
+  10:Core/APP/car.c **** //                 Y <* * * * * * * * * * * * * * *
+  11:Core/APP/car.c **** //                                  *
+  12:Core/APP/car.c **** //                                  *
+  13:Core/APP/car.c **** //                                  *
+  14:Core/APP/car.c **** //                   motors[3]      *   motors[4]
+  15:Core/APP/car.c **** //
+  16:Core/APP/car.c **** //                             Z轴逆时针为正
+  17:Core/APP/car.c **** //
+  18:Core/APP/car.c **** 
+  19:Core/APP/car.c **** // 角度校准为0
+  20:Core/APP/car.c **** void omega_zero()
+  21:Core/APP/car.c **** {
+  29              		.loc 1 21 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 16
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 00B5     		push	{lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 4
+  36              		.cfi_offset 14, -4
+  37 0002 85B0     		sub	sp, sp, #20
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 2
+
+
+  38              	.LCFI1:
+  39              		.cfi_def_cfa_offset 24
+  22:Core/APP/car.c ****     uint8_t txcmd_5[16] = {0};
+  40              		.loc 1 22 5 view .LVU1
+  41              		.loc 1 22 13 is_stmt 0 view .LVU2
+  42 0004 0023     		movs	r3, #0
+  43 0006 0093     		str	r3, [sp]
+  44 0008 0193     		str	r3, [sp, #4]
+  45 000a 0293     		str	r3, [sp, #8]
+  46 000c 0393     		str	r3, [sp, #12]
+  23:Core/APP/car.c ****     txcmd_5[0] = 0xFF;
+  47              		.loc 1 23 5 is_stmt 1 view .LVU3
+  48              		.loc 1 23 16 is_stmt 0 view .LVU4
+  49 000e FF23     		movs	r3, #255
+  50 0010 8DF80030 		strb	r3, [sp]
+  24:Core/APP/car.c ****     txcmd_5[1] = 0xAA;
+  51              		.loc 1 24 5 is_stmt 1 view .LVU5
+  52              		.loc 1 24 16 is_stmt 0 view .LVU6
+  53 0014 AA22     		movs	r2, #170
+  54 0016 8DF80120 		strb	r2, [sp, #1]
+  25:Core/APP/car.c ****     txcmd_5[2] = 0x00;
+  55              		.loc 1 25 5 is_stmt 1 view .LVU7
+  26:Core/APP/car.c ****     txcmd_5[3] = 0xFF;
+  56              		.loc 1 26 5 view .LVU8
+  57              		.loc 1 26 16 is_stmt 0 view .LVU9
+  58 001a 8DF80330 		strb	r3, [sp, #3]
+  27:Core/APP/car.c ****     txcmd_5[4] = 0x00;
+  59              		.loc 1 27 5 is_stmt 1 view .LVU10
+  28:Core/APP/car.c ****     HAL_UART_Transmit(&huart6, txcmd_5, 5, 100);
+  60              		.loc 1 28 5 view .LVU11
+  61 001e 6423     		movs	r3, #100
+  62 0020 0522     		movs	r2, #5
+  63 0022 6946     		mov	r1, sp
+  64 0024 0248     		ldr	r0, .L3
+  65 0026 FFF7FEFF 		bl	HAL_UART_Transmit
+  66              	.LVL0:
+  29:Core/APP/car.c **** }
+  67              		.loc 1 29 1 is_stmt 0 view .LVU12
+  68 002a 05B0     		add	sp, sp, #20
+  69              	.LCFI2:
+  70              		.cfi_def_cfa_offset 4
+  71              		@ sp needed
+  72 002c 5DF804FB 		ldr	pc, [sp], #4
+  73              	.L4:
+  74              		.align	2
+  75              	.L3:
+  76 0030 00000000 		.word	huart6
+  77              		.cfi_endproc
+  78              	.LFE137:
+  80              		.section	.text.Init_Car,"ax",%progbits
+  81              		.align	1
+  82              		.global	Init_Car
+  83              		.syntax unified
+  84              		.thumb
+  85              		.thumb_func
+  87              	Init_Car:
+  88              	.LFB138:
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 3
+
+
+  30:Core/APP/car.c **** 
+  31:Core/APP/car.c **** // 初始化车辆状态
+  32:Core/APP/car.c **** Car_Status *car = NULL;
+  33:Core/APP/car.c **** void Init_Car()
+  34:Core/APP/car.c **** {
+  89              		.loc 1 34 1 is_stmt 1 view -0
+  90              		.cfi_startproc
+  91              		@ args = 0, pretend = 0, frame = 0
+  92              		@ frame_needed = 0, uses_anonymous_args = 0
+  93 0000 08B5     		push	{r3, lr}
+  94              	.LCFI3:
+  95              		.cfi_def_cfa_offset 8
+  96              		.cfi_offset 3, -8
+  97              		.cfi_offset 14, -4
+  35:Core/APP/car.c ****     car = (Car_Status *)malloc(sizeof(Car_Status));
+  98              		.loc 1 35 5 view .LVU14
+  99              		.loc 1 35 25 is_stmt 0 view .LVU15
+ 100 0002 6C20     		movs	r0, #108
+ 101 0004 FFF7FEFF 		bl	malloc
+ 102              	.LVL1:
+ 103              		.loc 1 35 9 discriminator 1 view .LVU16
+ 104 0008 134B     		ldr	r3, .L8
+ 105 000a 1860     		str	r0, [r3]
+  36:Core/APP/car.c ****     if (car != NULL)
+ 106              		.loc 1 36 5 is_stmt 1 view .LVU17
+ 107              		.loc 1 36 8 is_stmt 0 view .LVU18
+ 108 000c 10B3     		cbz	r0, .L5
+  37:Core/APP/car.c ****     {
+  38:Core/APP/car.c ****         
+  39:Core/APP/car.c ****         car->current_car_Vx = 0.0f; 
+ 109              		.loc 1 39 9 is_stmt 1 view .LVU19
+ 110              		.loc 1 39 29 is_stmt 0 view .LVU20
+ 111 000e 0023     		movs	r3, #0
+ 112 0010 0362     		str	r3, [r0, #32]	@ float
+  40:Core/APP/car.c ****         car->current_car_Vy = 0.0f; 
+ 113              		.loc 1 40 9 is_stmt 1 view .LVU21
+ 114              		.loc 1 40 29 is_stmt 0 view .LVU22
+ 115 0012 4362     		str	r3, [r0, #36]	@ float
+  41:Core/APP/car.c ****         car->target_car_Vx = 0.0f;
+ 116              		.loc 1 41 9 is_stmt 1 view .LVU23
+ 117              		.loc 1 41 28 is_stmt 0 view .LVU24
+ 118 0014 8362     		str	r3, [r0, #40]	@ float
+  42:Core/APP/car.c ****         car->target_car_Vy = 0.0f;
+ 119              		.loc 1 42 9 is_stmt 1 view .LVU25
+ 120              		.loc 1 42 28 is_stmt 0 view .LVU26
+ 121 0016 C362     		str	r3, [r0, #44]	@ float
+  43:Core/APP/car.c **** 
+  44:Core/APP/car.c ****         car->delta_car_pos_x = 0.0f;  
+ 122              		.loc 1 44 9 is_stmt 1 view .LVU27
+ 123              		.loc 1 44 30 is_stmt 0 view .LVU28
+ 124 0018 0363     		str	r3, [r0, #48]	@ float
+  45:Core/APP/car.c ****         car->delta_car_pos_y = 0.0f;  
+ 125              		.loc 1 45 9 is_stmt 1 view .LVU29
+ 126              		.loc 1 45 30 is_stmt 0 view .LVU30
+ 127 001a 4363     		str	r3, [r0, #52]	@ float
+  46:Core/APP/car.c ****         car->target_car_pos_x = 0.0f; 
+ 128              		.loc 1 46 9 is_stmt 1 view .LVU31
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 4
+
+
+ 129              		.loc 1 46 31 is_stmt 0 view .LVU32
+ 130 001c 8363     		str	r3, [r0, #56]	@ float
+  47:Core/APP/car.c ****         car->target_car_pos_y = 0.0f; 
+ 131              		.loc 1 47 9 is_stmt 1 view .LVU33
+ 132              		.loc 1 47 31 is_stmt 0 view .LVU34
+ 133 001e C363     		str	r3, [r0, #60]	@ float
+  48:Core/APP/car.c **** 
+  49:Core/APP/car.c ****         car->target_Vel1 = 0.0f; 
+ 134              		.loc 1 49 9 is_stmt 1 view .LVU35
+ 135              		.loc 1 49 26 is_stmt 0 view .LVU36
+ 136 0020 0360     		str	r3, [r0]	@ float
+  50:Core/APP/car.c ****         car->target_Vel2 = 0.0f;
+ 137              		.loc 1 50 9 is_stmt 1 view .LVU37
+ 138              		.loc 1 50 12 is_stmt 0 view .LVU38
+ 139 0022 0D4A     		ldr	r2, .L8
+ 140 0024 1268     		ldr	r2, [r2]
+ 141              		.loc 1 50 26 view .LVU39
+ 142 0026 5360     		str	r3, [r2, #4]	@ float
+  51:Core/APP/car.c ****         car->target_Vel3 = 0.0f;
+ 143              		.loc 1 51 9 is_stmt 1 view .LVU40
+ 144              		.loc 1 51 26 is_stmt 0 view .LVU41
+ 145 0028 9360     		str	r3, [r2, #8]	@ float
+  52:Core/APP/car.c ****         car->target_Vel4 = 0.0f;
+ 146              		.loc 1 52 9 is_stmt 1 view .LVU42
+ 147              		.loc 1 52 26 is_stmt 0 view .LVU43
+ 148 002a D360     		str	r3, [r2, #12]	@ float
+  53:Core/APP/car.c **** 
+  54:Core/APP/car.c ****         car->current_Vel1 = 0.0f; 
+ 149              		.loc 1 54 9 is_stmt 1 view .LVU44
+ 150              		.loc 1 54 27 is_stmt 0 view .LVU45
+ 151 002c 1361     		str	r3, [r2, #16]	@ float
+  55:Core/APP/car.c ****         car->current_Vel2 = 0.0f;
+ 152              		.loc 1 55 9 is_stmt 1 view .LVU46
+ 153              		.loc 1 55 27 is_stmt 0 view .LVU47
+ 154 002e 5361     		str	r3, [r2, #20]	@ float
+  56:Core/APP/car.c ****         car->current_Vel3 = 0.0f;
+ 155              		.loc 1 56 9 is_stmt 1 view .LVU48
+ 156              		.loc 1 56 27 is_stmt 0 view .LVU49
+ 157 0030 9361     		str	r3, [r2, #24]	@ float
+  57:Core/APP/car.c ****         car->current_Vel4 = 0.0f;
+ 158              		.loc 1 57 9 is_stmt 1 view .LVU50
+ 159              		.loc 1 57 27 is_stmt 0 view .LVU51
+ 160 0032 D361     		str	r3, [r2, #28]	@ float
+  58:Core/APP/car.c **** 
+  59:Core/APP/car.c ****         car->current_map_Vx = 0.0f; 
+ 161              		.loc 1 59 9 is_stmt 1 view .LVU52
+ 162              		.loc 1 59 29 is_stmt 0 view .LVU53
+ 163 0034 1364     		str	r3, [r2, #64]	@ float
+  60:Core/APP/car.c ****         car->current_map_Vy = 0.0f; 
+ 164              		.loc 1 60 9 is_stmt 1 view .LVU54
+ 165              		.loc 1 60 29 is_stmt 0 view .LVU55
+ 166 0036 5364     		str	r3, [r2, #68]	@ float
+  61:Core/APP/car.c ****         car->target_map_Vx = 0.0f;
+ 167              		.loc 1 61 9 is_stmt 1 view .LVU56
+ 168              		.loc 1 61 28 is_stmt 0 view .LVU57
+ 169 0038 9364     		str	r3, [r2, #72]	@ float
+  62:Core/APP/car.c ****         car->target_map_Vy = 0.0f;
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 5
+
+
+ 170              		.loc 1 62 9 is_stmt 1 view .LVU58
+ 171              		.loc 1 62 28 is_stmt 0 view .LVU59
+ 172 003a D364     		str	r3, [r2, #76]	@ float
+  63:Core/APP/car.c **** 
+  64:Core/APP/car.c ****         car->current_map_pos_x = 0.0f; 
+ 173              		.loc 1 64 9 is_stmt 1 view .LVU60
+ 174              		.loc 1 64 32 is_stmt 0 view .LVU61
+ 175 003c 1365     		str	r3, [r2, #80]	@ float
+  65:Core/APP/car.c ****         car->current_map_pos_y = 0.0f; 
+ 176              		.loc 1 65 9 is_stmt 1 view .LVU62
+ 177              		.loc 1 65 32 is_stmt 0 view .LVU63
+ 178 003e 5365     		str	r3, [r2, #84]	@ float
+  66:Core/APP/car.c ****         car->target_map_pos_x = 0.0f;
+ 179              		.loc 1 66 9 is_stmt 1 view .LVU64
+ 180              		.loc 1 66 31 is_stmt 0 view .LVU65
+ 181 0040 9365     		str	r3, [r2, #88]	@ float
+  67:Core/APP/car.c ****         car->target_map_pos_y = 0.0f;
+ 182              		.loc 1 67 9 is_stmt 1 view .LVU66
+ 183              		.loc 1 67 31 is_stmt 0 view .LVU67
+ 184 0042 D365     		str	r3, [r2, #92]	@ float
+  68:Core/APP/car.c **** 
+  69:Core/APP/car.c ****         car->current_angle_vel = 0.0f;
+ 185              		.loc 1 69 9 is_stmt 1 view .LVU68
+ 186              		.loc 1 69 32 is_stmt 0 view .LVU69
+ 187 0044 1366     		str	r3, [r2, #96]	@ float
+  70:Core/APP/car.c ****         car->target_angle_speed = 0.0f; 
+ 188              		.loc 1 70 9 is_stmt 1 view .LVU70
+ 189              		.loc 1 70 33 is_stmt 0 view .LVU71
+ 190 0046 5366     		str	r3, [r2, #100]	@ float
+  71:Core/APP/car.c **** 
+  72:Core/APP/car.c ****         car->car_mode = CAR_STOP;
+ 191              		.loc 1 72 9 is_stmt 1 view .LVU72
+ 192              		.loc 1 72 23 is_stmt 0 view .LVU73
+ 193 0048 0423     		movs	r3, #4
+ 194 004a 82F86830 		strb	r3, [r2, #104]
+  73:Core/APP/car.c ****         car->car_face = Forward;
+ 195              		.loc 1 73 9 is_stmt 1 view .LVU74
+ 196              		.loc 1 73 23 is_stmt 0 view .LVU75
+ 197 004e 0023     		movs	r3, #0
+ 198 0050 82F86930 		strb	r3, [r2, #105]
+ 199              	.L5:
+  74:Core/APP/car.c ****     }
+  75:Core/APP/car.c **** }
+ 200              		.loc 1 75 1 view .LVU76
+ 201 0054 08BD     		pop	{r3, pc}
+ 202              	.L9:
+ 203 0056 00BF     		.align	2
+ 204              	.L8:
+ 205 0058 00000000 		.word	car
+ 206              		.cfi_endproc
+ 207              	.LFE138:
+ 209              		.section	.text.Reset_Car_Status,"ax",%progbits
+ 210              		.align	1
+ 211              		.global	Reset_Car_Status
+ 212              		.syntax unified
+ 213              		.thumb
+ 214              		.thumb_func
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 6
+
+
+ 216              	Reset_Car_Status:
+ 217              	.LFB139:
+  76:Core/APP/car.c **** // 重置车辆状态
+  77:Core/APP/car.c **** void Reset_Car_Status()
+  78:Core/APP/car.c **** {
+ 218              		.loc 1 78 1 is_stmt 1 view -0
+ 219              		.cfi_startproc
+ 220              		@ args = 0, pretend = 0, frame = 0
+ 221              		@ frame_needed = 0, uses_anonymous_args = 0
+ 222              		@ link register save eliminated.
+  79:Core/APP/car.c ****     car->current_car_Vx = 0.0f; // x方向速度
+ 223              		.loc 1 79 5 view .LVU78
+ 224              		.loc 1 79 8 is_stmt 0 view .LVU79
+ 225 0000 1749     		ldr	r1, .L11
+ 226 0002 0A68     		ldr	r2, [r1]
+ 227              		.loc 1 79 25 view .LVU80
+ 228 0004 0023     		movs	r3, #0
+ 229 0006 1362     		str	r3, [r2, #32]	@ float
+  80:Core/APP/car.c ****     car->current_car_Vy = 0.0f; //
+ 230              		.loc 1 80 5 is_stmt 1 view .LVU81
+ 231              		.loc 1 80 25 is_stmt 0 view .LVU82
+ 232 0008 5362     		str	r3, [r2, #36]	@ float
+  81:Core/APP/car.c ****     car->target_car_Vx = 0.0f;
+ 233              		.loc 1 81 5 is_stmt 1 view .LVU83
+ 234              		.loc 1 81 24 is_stmt 0 view .LVU84
+ 235 000a 9362     		str	r3, [r2, #40]	@ float
+  82:Core/APP/car.c ****     car->target_car_Vy = 0.0f;
+ 236              		.loc 1 82 5 is_stmt 1 view .LVU85
+ 237              		.loc 1 82 24 is_stmt 0 view .LVU86
+ 238 000c D362     		str	r3, [r2, #44]	@ float
+  83:Core/APP/car.c **** 
+  84:Core/APP/car.c ****     car->delta_car_pos_x = 0.0f;  // 上一次微分项
+ 239              		.loc 1 84 5 is_stmt 1 view .LVU87
+ 240              		.loc 1 84 26 is_stmt 0 view .LVU88
+ 241 000e 1363     		str	r3, [r2, #48]	@ float
+  85:Core/APP/car.c ****     car->delta_car_pos_y = 0.0f;  // 上一次微分项
+ 242              		.loc 1 85 5 is_stmt 1 view .LVU89
+ 243              		.loc 1 85 26 is_stmt 0 view .LVU90
+ 244 0010 5363     		str	r3, [r2, #52]	@ float
+  86:Core/APP/car.c ****     car->target_car_pos_x = 0.0f; // 上一次微分项
+ 245              		.loc 1 86 5 is_stmt 1 view .LVU91
+ 246              		.loc 1 86 27 is_stmt 0 view .LVU92
+ 247 0012 9363     		str	r3, [r2, #56]	@ float
+  87:Core/APP/car.c ****     car->target_car_pos_y = 0.0f; // 上一次微分项
+ 248              		.loc 1 87 5 is_stmt 1 view .LVU93
+ 249              		.loc 1 87 27 is_stmt 0 view .LVU94
+ 250 0014 D363     		str	r3, [r2, #60]	@ float
+  88:Core/APP/car.c **** 
+  89:Core/APP/car.c ****     car->target_Vel1 = 0.0f;
+ 251              		.loc 1 89 5 is_stmt 1 view .LVU95
+ 252              		.loc 1 89 22 is_stmt 0 view .LVU96
+ 253 0016 1360     		str	r3, [r2]	@ float
+  90:Core/APP/car.c ****     car->target_Vel2 = 0.0f;
+ 254              		.loc 1 90 5 is_stmt 1 view .LVU97
+ 255              		.loc 1 90 8 is_stmt 0 view .LVU98
+ 256 0018 0A68     		ldr	r2, [r1]
+ 257              		.loc 1 90 22 view .LVU99
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 7
+
+
+ 258 001a 5360     		str	r3, [r2, #4]	@ float
+  91:Core/APP/car.c ****     car->target_Vel3 = 0.0f;
+ 259              		.loc 1 91 5 is_stmt 1 view .LVU100
+ 260              		.loc 1 91 22 is_stmt 0 view .LVU101
+ 261 001c 9360     		str	r3, [r2, #8]	@ float
+  92:Core/APP/car.c ****     car->target_Vel4 = 0.0f;
+ 262              		.loc 1 92 5 is_stmt 1 view .LVU102
+ 263              		.loc 1 92 22 is_stmt 0 view .LVU103
+ 264 001e D360     		str	r3, [r2, #12]	@ float
+  93:Core/APP/car.c **** 
+  94:Core/APP/car.c ****     car->current_Vel1 = 0.0f;
+ 265              		.loc 1 94 5 is_stmt 1 view .LVU104
+ 266              		.loc 1 94 23 is_stmt 0 view .LVU105
+ 267 0020 1361     		str	r3, [r2, #16]	@ float
+  95:Core/APP/car.c ****     car->current_Vel2 = 0.0f;
+ 268              		.loc 1 95 5 is_stmt 1 view .LVU106
+ 269              		.loc 1 95 23 is_stmt 0 view .LVU107
+ 270 0022 5361     		str	r3, [r2, #20]	@ float
+  96:Core/APP/car.c ****     car->current_Vel3 = 0.0f;
+ 271              		.loc 1 96 5 is_stmt 1 view .LVU108
+ 272              		.loc 1 96 23 is_stmt 0 view .LVU109
+ 273 0024 9361     		str	r3, [r2, #24]	@ float
+  97:Core/APP/car.c ****     car->current_Vel4 = 0.0f;
+ 274              		.loc 1 97 5 is_stmt 1 view .LVU110
+ 275              		.loc 1 97 23 is_stmt 0 view .LVU111
+ 276 0026 D361     		str	r3, [r2, #28]	@ float
+  98:Core/APP/car.c **** 
+  99:Core/APP/car.c ****     car->current_map_Vx = 0.0f; //
+ 277              		.loc 1 99 5 is_stmt 1 view .LVU112
+ 278              		.loc 1 99 25 is_stmt 0 view .LVU113
+ 279 0028 1364     		str	r3, [r2, #64]	@ float
+ 100:Core/APP/car.c ****     car->current_map_Vy = 0.0f; //
+ 280              		.loc 1 100 5 is_stmt 1 view .LVU114
+ 281              		.loc 1 100 25 is_stmt 0 view .LVU115
+ 282 002a 5364     		str	r3, [r2, #68]	@ float
+ 101:Core/APP/car.c ****     car->target_map_Vx = 0.0f;
+ 283              		.loc 1 101 5 is_stmt 1 view .LVU116
+ 284              		.loc 1 101 24 is_stmt 0 view .LVU117
+ 285 002c 9364     		str	r3, [r2, #72]	@ float
+ 102:Core/APP/car.c ****     car->target_map_Vy = 0.0f;
+ 286              		.loc 1 102 5 is_stmt 1 view .LVU118
+ 287              		.loc 1 102 24 is_stmt 0 view .LVU119
+ 288 002e D364     		str	r3, [r2, #76]	@ float
+ 103:Core/APP/car.c **** 
+ 104:Core/APP/car.c ****     car->current_map_pos_x = 0.0f; // x方向
+ 289              		.loc 1 104 5 is_stmt 1 view .LVU120
+ 290              		.loc 1 104 28 is_stmt 0 view .LVU121
+ 291 0030 1365     		str	r3, [r2, #80]	@ float
+ 105:Core/APP/car.c ****     car->current_map_pos_y = 0.0f; //
+ 292              		.loc 1 105 5 is_stmt 1 view .LVU122
+ 293              		.loc 1 105 28 is_stmt 0 view .LVU123
+ 294 0032 5365     		str	r3, [r2, #84]	@ float
+ 106:Core/APP/car.c ****     car->target_map_pos_x = 0.0f;
+ 295              		.loc 1 106 5 is_stmt 1 view .LVU124
+ 296              		.loc 1 106 27 is_stmt 0 view .LVU125
+ 297 0034 9365     		str	r3, [r2, #88]	@ float
+ 107:Core/APP/car.c ****     car->target_map_pos_y = 0.0f;
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 8
+
+
+ 298              		.loc 1 107 5 is_stmt 1 view .LVU126
+ 299              		.loc 1 107 27 is_stmt 0 view .LVU127
+ 300 0036 D365     		str	r3, [r2, #92]	@ float
+ 108:Core/APP/car.c **** 
+ 109:Core/APP/car.c ****     car->current_angle_vel = 0.0f;
+ 301              		.loc 1 109 5 is_stmt 1 view .LVU128
+ 302              		.loc 1 109 28 is_stmt 0 view .LVU129
+ 303 0038 1366     		str	r3, [r2, #96]	@ float
+ 110:Core/APP/car.c ****     car->target_angle_speed = 0.0f; // 重置目标角速度
+ 304              		.loc 1 110 5 is_stmt 1 view .LVU130
+ 305              		.loc 1 110 29 is_stmt 0 view .LVU131
+ 306 003a 5366     		str	r3, [r2, #100]	@ float
+ 111:Core/APP/car.c ****     car->car_mode = CAR_STOP;
+ 307              		.loc 1 111 5 is_stmt 1 view .LVU132
+ 308              		.loc 1 111 19 is_stmt 0 view .LVU133
+ 309 003c 0423     		movs	r3, #4
+ 310 003e 82F86830 		strb	r3, [r2, #104]
+ 112:Core/APP/car.c **** 
+ 113:Core/APP/car.c ****     motors[1]->first_run = true;
+ 311              		.loc 1 113 5 is_stmt 1 view .LVU134
+ 312              		.loc 1 113 11 is_stmt 0 view .LVU135
+ 313 0042 084A     		ldr	r2, .L11+4
+ 314 0044 5168     		ldr	r1, [r2, #4]
+ 315              		.loc 1 113 26 view .LVU136
+ 316 0046 0123     		movs	r3, #1
+ 317 0048 81F85430 		strb	r3, [r1, #84]
+ 114:Core/APP/car.c ****     motors[2]->first_run = true;
+ 318              		.loc 1 114 5 is_stmt 1 view .LVU137
+ 319              		.loc 1 114 11 is_stmt 0 view .LVU138
+ 320 004c 9168     		ldr	r1, [r2, #8]
+ 321              		.loc 1 114 26 view .LVU139
+ 322 004e 81F85430 		strb	r3, [r1, #84]
+ 115:Core/APP/car.c ****     motors[3]->first_run = true;
+ 323              		.loc 1 115 5 is_stmt 1 view .LVU140
+ 324              		.loc 1 115 11 is_stmt 0 view .LVU141
+ 325 0052 D168     		ldr	r1, [r2, #12]
+ 326              		.loc 1 115 26 view .LVU142
+ 327 0054 81F85430 		strb	r3, [r1, #84]
+ 116:Core/APP/car.c ****     motors[4]->first_run = true;
+ 328              		.loc 1 116 5 is_stmt 1 view .LVU143
+ 329              		.loc 1 116 11 is_stmt 0 view .LVU144
+ 330 0058 1269     		ldr	r2, [r2, #16]
+ 331              		.loc 1 116 26 view .LVU145
+ 332 005a 82F85430 		strb	r3, [r2, #84]
+ 117:Core/APP/car.c **** }
+ 333              		.loc 1 117 1 view .LVU146
+ 334 005e 7047     		bx	lr
+ 335              	.L12:
+ 336              		.align	2
+ 337              	.L11:
+ 338 0060 00000000 		.word	car
+ 339 0064 00000000 		.word	motors
+ 340              		.cfi_endproc
+ 341              	.LFE139:
+ 343              		.global	__aeabi_f2d
+ 344              		.global	__aeabi_dcmpgt
+ 345              		.global	__aeabi_dcmplt
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 9
+
+
+ 346              		.global	__aeabi_ddiv
+ 347              		.global	__aeabi_d2f
+ 348              		.section	.text.From_Motor_to_Car_Status,"ax",%progbits
+ 349              		.align	1
+ 350              		.global	From_Motor_to_Car_Status
+ 351              		.syntax unified
+ 352              		.thumb
+ 353              		.thumb_func
+ 355              	From_Motor_to_Car_Status:
+ 356              	.LFB140:
+ 118:Core/APP/car.c **** //从电机与陀螺仪状态解算车辆状态
+ 119:Core/APP/car.c **** void From_Motor_to_Car_Status(void)
+ 120:Core/APP/car.c **** {  
+ 357              		.loc 1 120 1 is_stmt 1 view -0
+ 358              		.cfi_startproc
+ 359              		@ args = 0, pretend = 0, frame = 0
+ 360              		@ frame_needed = 0, uses_anonymous_args = 0
+ 361 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 362              	.LCFI4:
+ 363              		.cfi_def_cfa_offset 24
+ 364              		.cfi_offset 4, -24
+ 365              		.cfi_offset 5, -20
+ 366              		.cfi_offset 6, -16
+ 367              		.cfi_offset 7, -12
+ 368              		.cfi_offset 8, -8
+ 369              		.cfi_offset 14, -4
+ 370 0004 2DED068B 		vpush.64	{d8, d9, d10}
+ 371              	.LCFI5:
+ 372              		.cfi_def_cfa_offset 48
+ 373              		.cfi_offset 80, -48
+ 374              		.cfi_offset 81, -44
+ 375              		.cfi_offset 82, -40
+ 376              		.cfi_offset 83, -36
+ 377              		.cfi_offset 84, -32
+ 378              		.cfi_offset 85, -28
+ 121:Core/APP/car.c ****     // 关闭特定中断,防止数据竞争
+ 122:Core/APP/car.c ****     Disable_IMU_Interrupts();
+ 379              		.loc 1 122 5 view .LVU148
+ 380 0008 FFF7FEFF 		bl	Disable_IMU_Interrupts
+ 381              	.LVL2:
+ 123:Core/APP/car.c ****     HAL_NVIC_DisableIRQ(CAN1_RX0_IRQn); 
+ 382              		.loc 1 123 5 view .LVU149
+ 383 000c 1420     		movs	r0, #20
+ 384 000e FFF7FEFF 		bl	HAL_NVIC_DisableIRQ
+ 385              	.LVL3:
+ 124:Core/APP/car.c **** 
+ 125:Core/APP/car.c ****     float angle = omega * PI / 180; // 角度转弧度
+ 386              		.loc 1 125 5 view .LVU150
+ 387              		.loc 1 125 25 is_stmt 0 view .LVU151
+ 388 0012 B54B     		ldr	r3, .L35+40
+ 389 0014 D3ED007A 		vldr.32	s15, [r3]
+ 390 0018 9FEDB47A 		vldr.32	s14, .L35+44
+ 391 001c 67EE877A 		vmul.f32	s15, s15, s14
+ 392              		.loc 1 125 11 view .LVU152
+ 393 0020 9FEDB37A 		vldr.32	s14, .L35+48
+ 394 0024 C7EE87AA 		vdiv.f32	s21, s15, s14
+ 395              	.LVL4:
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 10
+
+
+ 126:Core/APP/car.c ****     if (fmod(omega, 360.0f) > 315.0f || fmod(omega, 360.0f) < 45.0f)
+ 396              		.loc 1 126 5 is_stmt 1 view .LVU153
+ 397              		.loc 1 126 9 is_stmt 0 view .LVU154
+ 398 0028 1868     		ldr	r0, [r3]	@ float
+ 399 002a FFF7FEFF 		bl	__aeabi_f2d
+ 400              	.LVL5:
+ 401 002e 9FEDA41B 		vldr.64	d1, .L35
+ 402 0032 41EC100B 		vmov	d0, r0, r1
+ 403 0036 FFF7FEFF 		bl	fmod
+ 404              	.LVL6:
+ 405 003a 51EC100B 		vmov	r0, r1, d0
+ 406              		.loc 1 126 8 discriminator 1 view .LVU155
+ 407 003e A2A3     		adr	r3, .L35+8
+ 408 0040 D3E90023 		ldrd	r2, [r3]
+ 409 0044 FFF7FEFF 		bl	__aeabi_dcmpgt
+ 410              	.LVL7:
+ 411 0048 0028     		cmp	r0, #0
+ 412 004a 00F0A280 		beq	.L34
+ 413              	.L14:
+ 127:Core/APP/car.c ****     {
+ 128:Core/APP/car.c ****         car->car_face = Forward;
+ 414              		.loc 1 128 9 is_stmt 1 view .LVU156
+ 415              		.loc 1 128 12 is_stmt 0 view .LVU157
+ 416 004e A94B     		ldr	r3, .L35+52
+ 417 0050 1B68     		ldr	r3, [r3]
+ 418              		.loc 1 128 23 view .LVU158
+ 419 0052 0022     		movs	r2, #0
+ 420 0054 83F86920 		strb	r2, [r3, #105]
+ 421              	.L17:
+ 129:Core/APP/car.c ****     }
+ 130:Core/APP/car.c ****     else if (fmod(omega, 360.0f) > 45.0f && fmod(omega, 360.0f) < 135.0f)
+ 131:Core/APP/car.c ****     {
+ 132:Core/APP/car.c ****         car->car_face = Left;
+ 133:Core/APP/car.c ****     }
+ 134:Core/APP/car.c ****     else if (fmod(omega, 360.0f) > 135.0f && fmod(omega, 360.0f) < 225.0f)
+ 135:Core/APP/car.c ****     {
+ 136:Core/APP/car.c ****         car->car_face = Back;
+ 137:Core/APP/car.c ****     }
+ 138:Core/APP/car.c ****     else if (fmod(omega, 360.0f) > 225.0f && fmod(omega, 360.0f) < 315.0f)
+ 139:Core/APP/car.c ****     {
+ 140:Core/APP/car.c ****         car->car_face = Right;
+ 141:Core/APP/car.c ****     }
+ 142:Core/APP/car.c **** 
+ 143:Core/APP/car.c ****     car->current_Vel1 = motors[1]->current_speed;
+ 422              		.loc 1 143 5 is_stmt 1 view .LVU159
+ 423              		.loc 1 143 31 is_stmt 0 view .LVU160
+ 424 0058 A74B     		ldr	r3, .L35+56
+ 425 005a 5F68     		ldr	r7, [r3, #4]
+ 426              		.loc 1 143 8 view .LVU161
+ 427 005c A54A     		ldr	r2, .L35+52
+ 428 005e 1468     		ldr	r4, [r2]
+ 429              		.loc 1 143 34 view .LVU162
+ 430 0060 97ED146A 		vldr.32	s12, [r7, #80]
+ 431              		.loc 1 143 23 view .LVU163
+ 432 0064 84ED046A 		vstr.32	s12, [r4, #16]
+ 144:Core/APP/car.c ****     car->current_Vel2 = motors[2]->current_speed;
+ 433              		.loc 1 144 5 is_stmt 1 view .LVU164
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 11
+
+
+ 434              		.loc 1 144 31 is_stmt 0 view .LVU165
+ 435 0068 D3F80880 		ldr	r8, [r3, #8]
+ 436              		.loc 1 144 34 view .LVU166
+ 437 006c D8ED147A 		vldr.32	s15, [r8, #80]
+ 438              		.loc 1 144 23 view .LVU167
+ 439 0070 C4ED057A 		vstr.32	s15, [r4, #20]
+ 145:Core/APP/car.c ****     car->current_Vel3 = motors[3]->current_speed;
+ 440              		.loc 1 145 5 is_stmt 1 view .LVU168
+ 441              		.loc 1 145 31 is_stmt 0 view .LVU169
+ 442 0074 DE68     		ldr	r6, [r3, #12]
+ 443              		.loc 1 145 34 view .LVU170
+ 444 0076 D6ED146A 		vldr.32	s13, [r6, #80]
+ 445              		.loc 1 145 23 view .LVU171
+ 446 007a C4ED066A 		vstr.32	s13, [r4, #24]
+ 146:Core/APP/car.c ****     car->current_Vel4 = motors[4]->current_speed;
+ 447              		.loc 1 146 5 is_stmt 1 view .LVU172
+ 448              		.loc 1 146 31 is_stmt 0 view .LVU173
+ 449 007e 1D69     		ldr	r5, [r3, #16]
+ 450              		.loc 1 146 34 view .LVU174
+ 451 0080 95ED147A 		vldr.32	s14, [r5, #80]
+ 452              		.loc 1 146 23 view .LVU175
+ 453 0084 84ED077A 		vstr.32	s14, [r4, #28]
+ 147:Core/APP/car.c **** 
+ 148:Core/APP/car.c ****     car->current_car_Vx = (car->current_Vel1 + car->current_Vel2 + car->current_Vel3 + car->current
+ 454              		.loc 1 148 5 is_stmt 1 view .LVU176
+ 455              		.loc 1 148 46 is_stmt 0 view .LVU177
+ 456 0088 36EE278A 		vadd.f32	s16, s12, s15
+ 457              		.loc 1 148 66 view .LVU178
+ 458 008c 36EE888A 		vadd.f32	s16, s13, s16
+ 459              		.loc 1 148 86 view .LVU179
+ 460 0090 37EE088A 		vadd.f32	s16, s14, s16
+ 461              		.loc 1 148 107 view .LVU180
+ 462 0094 F5EE009A 		vmov.f32	s19, #2.5e-1
+ 463 0098 28EE298A 		vmul.f32	s16, s16, s19
+ 464              		.loc 1 148 25 view .LVU181
+ 465 009c 84ED088A 		vstr.32	s16, [r4, #32]
+ 149:Core/APP/car.c ****     car->current_car_Vy = (-car->current_Vel1 + car->current_Vel2 + car->current_Vel3 - car->curren
+ 466              		.loc 1 149 5 is_stmt 1 view .LVU182
+ 467              		.loc 1 149 47 is_stmt 0 view .LVU183
+ 468 00a0 77EEC67A 		vsub.f32	s15, s15, s12
+ 469              		.loc 1 149 67 view .LVU184
+ 470 00a4 76EEA78A 		vadd.f32	s17, s13, s15
+ 471              		.loc 1 149 87 view .LVU185
+ 472 00a8 78EEC78A 		vsub.f32	s17, s17, s14
+ 473              		.loc 1 149 108 view .LVU186
+ 474 00ac 68EEA98A 		vmul.f32	s17, s17, s19
+ 475              		.loc 1 149 25 view .LVU187
+ 476 00b0 C4ED098A 		vstr.32	s17, [r4, #36]
+ 150:Core/APP/car.c ****     // 解算角速度
+ 151:Core/APP/car.c ****     car->current_angle_vel =  (-car->current_Vel1 + car->current_Vel2 - car->current_Vel3 + car->cu
+ 477              		.loc 1 151 5 is_stmt 1 view .LVU188
+ 478              		.loc 1 151 71 is_stmt 0 view .LVU189
+ 479 00b4 77EEE67A 		vsub.f32	s15, s15, s13
+ 480              		.loc 1 151 91 view .LVU190
+ 481 00b8 77EE277A 		vadd.f32	s15, s14, s15
+ 482 00bc 17EE900A 		vmov	r0, s15
+ 483 00c0 FFF7FEFF 		bl	__aeabi_f2d
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 12
+
+
+ 484              	.LVL8:
+ 485              		.loc 1 151 112 view .LVU191
+ 486 00c4 82A3     		adr	r3, .L35+16
+ 487 00c6 D3E90023 		ldrd	r2, [r3]
+ 488 00ca FFF7FEFF 		bl	__aeabi_ddiv
+ 489              	.LVL9:
+ 490 00ce FFF7FEFF 		bl	__aeabi_d2f
+ 491              	.LVL10:
+ 492              		.loc 1 151 28 view .LVU192
+ 493 00d2 2066     		str	r0, [r4, #96]	@ float
+ 152:Core/APP/car.c ****     car->current_map_Vx = car->current_car_Vx * cosf(angle) - car->current_car_Vy * sinf(angle);
+ 494              		.loc 1 152 5 is_stmt 1 view .LVU193
+ 495              		.loc 1 152 49 is_stmt 0 view .LVU194
+ 496 00d4 B0EE6A0A 		vmov.f32	s0, s21
+ 497 00d8 FFF7FEFF 		bl	cosf
+ 498              	.LVL11:
+ 499 00dc B0EE409A 		vmov.f32	s18, s0
+ 500              		.loc 1 152 47 discriminator 1 view .LVU195
+ 501 00e0 28EE00AA 		vmul.f32	s20, s16, s0
+ 502              		.loc 1 152 85 discriminator 1 view .LVU196
+ 503 00e4 B0EE6A0A 		vmov.f32	s0, s21
+ 504 00e8 FFF7FEFF 		bl	sinf
+ 505              	.LVL12:
+ 506              		.loc 1 152 83 discriminator 2 view .LVU197
+ 507 00ec 68EE807A 		vmul.f32	s15, s17, s0
+ 508              		.loc 1 152 61 discriminator 2 view .LVU198
+ 509 00f0 3AEE67AA 		vsub.f32	s20, s20, s15
+ 510              		.loc 1 152 25 discriminator 2 view .LVU199
+ 511 00f4 84ED10AA 		vstr.32	s20, [r4, #64]
+ 153:Core/APP/car.c ****     car->current_map_Vy = car->current_car_Vx * sinf(angle) + car->current_car_Vy * cosf(angle);
+ 512              		.loc 1 153 5 is_stmt 1 view .LVU200
+ 513              		.loc 1 153 47 is_stmt 0 discriminator 1 view .LVU201
+ 514 00f8 28EE008A 		vmul.f32	s16, s16, s0
+ 515              		.loc 1 153 83 discriminator 2 view .LVU202
+ 516 00fc 68EE898A 		vmul.f32	s17, s17, s18
+ 517              		.loc 1 153 61 discriminator 2 view .LVU203
+ 518 0100 38EE288A 		vadd.f32	s16, s16, s17
+ 519              		.loc 1 153 25 discriminator 2 view .LVU204
+ 520 0104 84ED118A 		vstr.32	s16, [r4, #68]
+ 154:Core/APP/car.c ****     
+ 155:Core/APP/car.c ****     car->delta_car_pos_x = (+motors[1]->delta_distance_traveled + motors[2]->delta_distance_travele
+ 521              		.loc 1 155 5 is_stmt 1 view .LVU205
+ 522              		.loc 1 155 39 is_stmt 0 view .LVU206
+ 523 0108 97ED137A 		vldr.32	s14, [r7, #76]
+ 524              		.loc 1 155 76 view .LVU207
+ 525 010c D8ED137A 		vldr.32	s15, [r8, #76]
+ 526              		.loc 1 155 65 view .LVU208
+ 527 0110 37EE277A 		vadd.f32	s14, s14, s15
+ 528              		.loc 1 155 113 view .LVU209
+ 529 0114 D6ED137A 		vldr.32	s15, [r6, #76]
+ 530              		.loc 1 155 102 view .LVU210
+ 531 0118 37EE277A 		vadd.f32	s14, s14, s15
+ 532              		.loc 1 155 150 view .LVU211
+ 533 011c D5ED137A 		vldr.32	s15, [r5, #76]
+ 534              		.loc 1 155 139 view .LVU212
+ 535 0120 37EE277A 		vadd.f32	s14, s14, s15
+ 536              		.loc 1 155 177 view .LVU213
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 13
+
+
+ 537 0124 27EE297A 		vmul.f32	s14, s14, s19
+ 538              		.loc 1 155 26 view .LVU214
+ 539 0128 84ED0C7A 		vstr.32	s14, [r4, #48]
+ 156:Core/APP/car.c ****     car->delta_car_pos_y = (-motors[1]->delta_distance_traveled + motors[2]->delta_distance_travele
+ 540              		.loc 1 156 5 is_stmt 1 view .LVU215
+ 541              		.loc 1 156 76 is_stmt 0 view .LVU216
+ 542 012c D8ED137A 		vldr.32	s15, [r8, #76]
+ 543              		.loc 1 156 39 view .LVU217
+ 544 0130 97ED136A 		vldr.32	s12, [r7, #76]
+ 545              		.loc 1 156 65 view .LVU218
+ 546 0134 77EEC67A 		vsub.f32	s15, s15, s12
+ 547              		.loc 1 156 113 view .LVU219
+ 548 0138 96ED136A 		vldr.32	s12, [r6, #76]
+ 549              		.loc 1 156 102 view .LVU220
+ 550 013c 77EE867A 		vadd.f32	s15, s15, s12
+ 551              		.loc 1 156 150 view .LVU221
+ 552 0140 95ED136A 		vldr.32	s12, [r5, #76]
+ 553              		.loc 1 156 139 view .LVU222
+ 554 0144 77EEC67A 		vsub.f32	s15, s15, s12
+ 555              		.loc 1 156 177 view .LVU223
+ 556 0148 67EEA97A 		vmul.f32	s15, s15, s19
+ 557              		.loc 1 156 26 view .LVU224
+ 558 014c C4ED0D7A 		vstr.32	s15, [r4, #52]
+ 157:Core/APP/car.c **** 
+ 158:Core/APP/car.c ****     // 更新当前位置
+ 159:Core/APP/car.c ****     car->current_map_pos_x += car->delta_car_pos_x * cosf(angle) - car->delta_car_pos_y * sinf(angl
+ 559              		.loc 1 159 5 is_stmt 1 view .LVU225
+ 560              		.loc 1 159 8 is_stmt 0 view .LVU226
+ 561 0150 94ED146A 		vldr.32	s12, [r4, #80]
+ 562              		.loc 1 159 52 discriminator 1 view .LVU227
+ 563 0154 69EE075A 		vmul.f32	s11, s18, s14
+ 564              		.loc 1 159 89 discriminator 2 view .LVU228
+ 565 0158 20EE275A 		vmul.f32	s10, s0, s15
+ 566              		.loc 1 159 66 discriminator 2 view .LVU229
+ 567 015c 75EEC55A 		vsub.f32	s11, s11, s10
+ 568              		.loc 1 159 28 discriminator 2 view .LVU230
+ 569 0160 36EE256A 		vadd.f32	s12, s12, s11
+ 570 0164 84ED146A 		vstr.32	s12, [r4, #80]
+ 160:Core/APP/car.c ****     car->current_map_pos_y += car->delta_car_pos_x * sinf(angle) + car->delta_car_pos_y * cosf(angl
+ 571              		.loc 1 160 5 is_stmt 1 view .LVU231
+ 572              		.loc 1 160 8 is_stmt 0 view .LVU232
+ 573 0168 94ED156A 		vldr.32	s12, [r4, #84]
+ 574              		.loc 1 160 52 discriminator 1 view .LVU233
+ 575 016c 60EE076A 		vmul.f32	s13, s0, s14
+ 576              		.loc 1 160 89 discriminator 2 view .LVU234
+ 577 0170 29EE279A 		vmul.f32	s18, s18, s15
+ 578              		.loc 1 160 66 discriminator 2 view .LVU235
+ 579 0174 76EE896A 		vadd.f32	s13, s13, s18
+ 580              		.loc 1 160 28 discriminator 2 view .LVU236
+ 581 0178 76EE267A 		vadd.f32	s15, s12, s13
+ 582 017c C4ED157A 		vstr.32	s15, [r4, #84]
+ 161:Core/APP/car.c **** 
+ 162:Core/APP/car.c ****     // 恢复中断
+ 163:Core/APP/car.c ****     Enable_IMU_Interrupts();
+ 583              		.loc 1 163 5 is_stmt 1 view .LVU237
+ 584 0180 FFF7FEFF 		bl	Enable_IMU_Interrupts
+ 585              	.LVL13:
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 14
+
+
+ 164:Core/APP/car.c ****     HAL_NVIC_EnableIRQ(CAN1_RX0_IRQn);
+ 586              		.loc 1 164 5 view .LVU238
+ 587 0184 1420     		movs	r0, #20
+ 588 0186 FFF7FEFF 		bl	HAL_NVIC_EnableIRQ
+ 589              	.LVL14:
+ 165:Core/APP/car.c **** }
+ 590              		.loc 1 165 1 is_stmt 0 view .LVU239
+ 591 018a BDEC068B 		vldm	sp!, {d8-d10}
+ 592              	.LCFI6:
+ 593              		.cfi_remember_state
+ 594              		.cfi_restore 84
+ 595              		.cfi_restore 85
+ 596              		.cfi_restore 82
+ 597              		.cfi_restore 83
+ 598              		.cfi_restore 80
+ 599              		.cfi_restore 81
+ 600              		.cfi_def_cfa_offset 24
+ 601 018e BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 602              	.L34:
+ 603              	.LCFI7:
+ 604              		.cfi_restore_state
+ 126:Core/APP/car.c ****     {
+ 605              		.loc 1 126 41 discriminator 1 view .LVU240
+ 606 0192 554B     		ldr	r3, .L35+40
+ 607 0194 1868     		ldr	r0, [r3]	@ float
+ 608 0196 FFF7FEFF 		bl	__aeabi_f2d
+ 609              	.LVL15:
+ 610 019a 9FED491B 		vldr.64	d1, .L35
+ 611 019e 41EC100B 		vmov	d0, r0, r1
+ 612 01a2 FFF7FEFF 		bl	fmod
+ 613              	.LVL16:
+ 614 01a6 51EC100B 		vmov	r0, r1, d0
+ 126:Core/APP/car.c ****     {
+ 615              		.loc 1 126 38 discriminator 1 view .LVU241
+ 616 01aa 0022     		movs	r2, #0
+ 617 01ac 534B     		ldr	r3, .L35+60
+ 618 01ae FFF7FEFF 		bl	__aeabi_dcmplt
+ 619              	.LVL17:
+ 620 01b2 0028     		cmp	r0, #0
+ 621 01b4 7FF44BAF 		bne	.L14
+ 130:Core/APP/car.c ****     {
+ 622              		.loc 1 130 10 is_stmt 1 view .LVU242
+ 130:Core/APP/car.c ****     {
+ 623              		.loc 1 130 14 is_stmt 0 view .LVU243
+ 624 01b8 4B4B     		ldr	r3, .L35+40
+ 625 01ba 1868     		ldr	r0, [r3]	@ float
+ 626 01bc FFF7FEFF 		bl	__aeabi_f2d
+ 627              	.LVL18:
+ 628 01c0 9FED3F1B 		vldr.64	d1, .L35
+ 629 01c4 41EC100B 		vmov	d0, r0, r1
+ 630 01c8 FFF7FEFF 		bl	fmod
+ 631              	.LVL19:
+ 632 01cc 51EC100B 		vmov	r0, r1, d0
+ 130:Core/APP/car.c ****     {
+ 633              		.loc 1 130 13 discriminator 1 view .LVU244
+ 634 01d0 0022     		movs	r2, #0
+ 635 01d2 4A4B     		ldr	r3, .L35+60
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 15
+
+
+ 636 01d4 FFF7FEFF 		bl	__aeabi_dcmpgt
+ 637              	.LVL20:
+ 638 01d8 B8B1     		cbz	r0, .L18
+ 130:Core/APP/car.c ****     {
+ 639              		.loc 1 130 45 discriminator 1 view .LVU245
+ 640 01da 434B     		ldr	r3, .L35+40
+ 641 01dc 1868     		ldr	r0, [r3]	@ float
+ 642 01de FFF7FEFF 		bl	__aeabi_f2d
+ 643              	.LVL21:
+ 644 01e2 9FED371B 		vldr.64	d1, .L35
+ 645 01e6 41EC100B 		vmov	d0, r0, r1
+ 646 01ea FFF7FEFF 		bl	fmod
+ 647              	.LVL22:
+ 648 01ee 51EC100B 		vmov	r0, r1, d0
+ 130:Core/APP/car.c ****     {
+ 649              		.loc 1 130 42 discriminator 1 view .LVU246
+ 650 01f2 39A3     		adr	r3, .L35+24
+ 651 01f4 D3E90023 		ldrd	r2, [r3]
+ 652 01f8 FFF7FEFF 		bl	__aeabi_dcmplt
+ 653              	.LVL23:
+ 654 01fc 28B1     		cbz	r0, .L18
+ 132:Core/APP/car.c ****     }
+ 655              		.loc 1 132 9 is_stmt 1 view .LVU247
+ 132:Core/APP/car.c ****     }
+ 656              		.loc 1 132 12 is_stmt 0 view .LVU248
+ 657 01fe 3D4B     		ldr	r3, .L35+52
+ 658 0200 1B68     		ldr	r3, [r3]
+ 132:Core/APP/car.c ****     }
+ 659              		.loc 1 132 23 view .LVU249
+ 660 0202 0122     		movs	r2, #1
+ 661 0204 83F86920 		strb	r2, [r3, #105]
+ 662 0208 26E7     		b	.L17
+ 663              	.L18:
+ 134:Core/APP/car.c ****     {
+ 664              		.loc 1 134 10 is_stmt 1 view .LVU250
+ 134:Core/APP/car.c ****     {
+ 665              		.loc 1 134 14 is_stmt 0 view .LVU251
+ 666 020a 374B     		ldr	r3, .L35+40
+ 667 020c 1868     		ldr	r0, [r3]	@ float
+ 668 020e FFF7FEFF 		bl	__aeabi_f2d
+ 669              	.LVL24:
+ 670 0212 9FED2B1B 		vldr.64	d1, .L35
+ 671 0216 41EC100B 		vmov	d0, r0, r1
+ 672 021a FFF7FEFF 		bl	fmod
+ 673              	.LVL25:
+ 674 021e 51EC100B 		vmov	r0, r1, d0
+ 134:Core/APP/car.c ****     {
+ 675              		.loc 1 134 13 discriminator 1 view .LVU252
+ 676 0222 2DA3     		adr	r3, .L35+24
+ 677 0224 D3E90023 		ldrd	r2, [r3]
+ 678 0228 FFF7FEFF 		bl	__aeabi_dcmpgt
+ 679              	.LVL26:
+ 680 022c B8B1     		cbz	r0, .L21
+ 134:Core/APP/car.c ****     {
+ 681              		.loc 1 134 46 discriminator 1 view .LVU253
+ 682 022e 2E4B     		ldr	r3, .L35+40
+ 683 0230 1868     		ldr	r0, [r3]	@ float
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 16
+
+
+ 684 0232 FFF7FEFF 		bl	__aeabi_f2d
+ 685              	.LVL27:
+ 686 0236 9FED221B 		vldr.64	d1, .L35
+ 687 023a 41EC100B 		vmov	d0, r0, r1
+ 688 023e FFF7FEFF 		bl	fmod
+ 689              	.LVL28:
+ 690 0242 51EC100B 		vmov	r0, r1, d0
+ 134:Core/APP/car.c ****     {
+ 691              		.loc 1 134 43 discriminator 1 view .LVU254
+ 692 0246 26A3     		adr	r3, .L35+32
+ 693 0248 D3E90023 		ldrd	r2, [r3]
+ 694 024c FFF7FEFF 		bl	__aeabi_dcmplt
+ 695              	.LVL29:
+ 696 0250 28B1     		cbz	r0, .L21
+ 136:Core/APP/car.c ****     }
+ 697              		.loc 1 136 9 is_stmt 1 view .LVU255
+ 136:Core/APP/car.c ****     }
+ 698              		.loc 1 136 12 is_stmt 0 view .LVU256
+ 699 0252 284B     		ldr	r3, .L35+52
+ 700 0254 1B68     		ldr	r3, [r3]
+ 136:Core/APP/car.c ****     }
+ 701              		.loc 1 136 23 view .LVU257
+ 702 0256 0222     		movs	r2, #2
+ 703 0258 83F86920 		strb	r2, [r3, #105]
+ 704 025c FCE6     		b	.L17
+ 705              	.L21:
+ 138:Core/APP/car.c ****     {
+ 706              		.loc 1 138 10 is_stmt 1 view .LVU258
+ 138:Core/APP/car.c ****     {
+ 707              		.loc 1 138 14 is_stmt 0 view .LVU259
+ 708 025e 224B     		ldr	r3, .L35+40
+ 709 0260 1868     		ldr	r0, [r3]	@ float
+ 710 0262 FFF7FEFF 		bl	__aeabi_f2d
+ 711              	.LVL30:
+ 712 0266 9FED161B 		vldr.64	d1, .L35
+ 713 026a 41EC100B 		vmov	d0, r0, r1
+ 714 026e FFF7FEFF 		bl	fmod
+ 715              	.LVL31:
+ 716 0272 51EC100B 		vmov	r0, r1, d0
+ 138:Core/APP/car.c ****     {
+ 717              		.loc 1 138 13 discriminator 1 view .LVU260
+ 718 0276 1AA3     		adr	r3, .L35+32
+ 719 0278 D3E90023 		ldrd	r2, [r3]
+ 720 027c FFF7FEFF 		bl	__aeabi_dcmpgt
+ 721              	.LVL32:
+ 722 0280 0028     		cmp	r0, #0
+ 723 0282 3FF4E9AE 		beq	.L17
+ 138:Core/APP/car.c ****     {
+ 724              		.loc 1 138 46 discriminator 1 view .LVU261
+ 725 0286 184B     		ldr	r3, .L35+40
+ 726 0288 1868     		ldr	r0, [r3]	@ float
+ 727 028a FFF7FEFF 		bl	__aeabi_f2d
+ 728              	.LVL33:
+ 729 028e 9FED0C1B 		vldr.64	d1, .L35
+ 730 0292 41EC100B 		vmov	d0, r0, r1
+ 731 0296 FFF7FEFF 		bl	fmod
+ 732              	.LVL34:
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 17
+
+
+ 733 029a 51EC100B 		vmov	r0, r1, d0
+ 138:Core/APP/car.c ****     {
+ 734              		.loc 1 138 43 discriminator 1 view .LVU262
+ 735 029e 0AA3     		adr	r3, .L35+8
+ 736 02a0 D3E90023 		ldrd	r2, [r3]
+ 737 02a4 FFF7FEFF 		bl	__aeabi_dcmplt
+ 738              	.LVL35:
+ 739 02a8 0028     		cmp	r0, #0
+ 740 02aa 3FF4D5AE 		beq	.L17
+ 140:Core/APP/car.c ****     }
+ 741              		.loc 1 140 9 is_stmt 1 view .LVU263
+ 140:Core/APP/car.c ****     }
+ 742              		.loc 1 140 12 is_stmt 0 view .LVU264
+ 743 02ae 114B     		ldr	r3, .L35+52
+ 744 02b0 1B68     		ldr	r3, [r3]
+ 140:Core/APP/car.c ****     }
+ 745              		.loc 1 140 23 view .LVU265
+ 746 02b2 0322     		movs	r2, #3
+ 747 02b4 83F86920 		strb	r2, [r3, #105]
+ 748 02b8 CEE6     		b	.L17
+ 749              	.L36:
+ 750 02ba 00BFAFF3 		.align	3
+ 750      0080
+ 751              	.L35:
+ 752 02c0 00000000 		.word	0
+ 753 02c4 00807640 		.word	1081507840
+ 754 02c8 00000000 		.word	0
+ 755 02cc 00B07340 		.word	1081323520
+ 756 02d0 86C4BC9D 		.word	-1648573306
+ 757 02d4 E9913C40 		.word	1077711337
+ 758 02d8 00000000 		.word	0
+ 759 02dc 00E06040 		.word	1080090624
+ 760 02e0 00000000 		.word	0
+ 761 02e4 00206C40 		.word	1080827904
+ 762 02e8 00000000 		.word	omega
+ 763 02ec DB0F4940 		.word	1078530011
+ 764 02f0 00003443 		.word	1127481344
+ 765 02f4 00000000 		.word	car
+ 766 02f8 00000000 		.word	motors
+ 767 02fc 00804640 		.word	1078362112
+ 768              		.cfi_endproc
+ 769              	.LFE140:
+ 771              		.section	.text.Update_Car_Status,"ax",%progbits
+ 772              		.align	1
+ 773              		.global	Update_Car_Status
+ 774              		.syntax unified
+ 775              		.thumb
+ 776              		.thumb_func
+ 778              	Update_Car_Status:
+ 779              	.LFB141:
+ 166:Core/APP/car.c **** // 更新车辆状态
+ 167:Core/APP/car.c **** void Update_Car_Status(void)
+ 168:Core/APP/car.c **** {
+ 780              		.loc 1 168 1 is_stmt 1 view -0
+ 781              		.cfi_startproc
+ 782              		@ args = 0, pretend = 0, frame = 0
+ 783              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 18
+
+
+ 784 0000 38B5     		push	{r3, r4, r5, lr}
+ 785              	.LCFI8:
+ 786              		.cfi_def_cfa_offset 16
+ 787              		.cfi_offset 3, -16
+ 788              		.cfi_offset 4, -12
+ 789              		.cfi_offset 5, -8
+ 790              		.cfi_offset 14, -4
+ 169:Core/APP/car.c ****     for (int i = 1; i < 5; i++)
+ 791              		.loc 1 169 5 view .LVU267
+ 792              	.LBB2:
+ 793              		.loc 1 169 10 view .LVU268
+ 794              	.LVL36:
+ 795              		.loc 1 169 14 is_stmt 0 view .LVU269
+ 796 0002 0124     		movs	r4, #1
+ 797              		.loc 1 169 5 view .LVU270
+ 798 0004 09E0     		b	.L38
+ 799              	.LVL37:
+ 800              	.L39:
+ 170:Core/APP/car.c ****     {
+ 171:Core/APP/car.c ****         MI_motor_get_speed(motors[i]);
+ 801              		.loc 1 171 9 is_stmt 1 view .LVU271
+ 802 0006 074D     		ldr	r5, .L41
+ 803 0008 55F82400 		ldr	r0, [r5, r4, lsl #2]
+ 804 000c FFF7FEFF 		bl	MI_motor_get_speed
+ 805              	.LVL38:
+ 172:Core/APP/car.c ****         MI_motor_get_mechPos(motors[i]);
+ 806              		.loc 1 172 9 view .LVU272
+ 807 0010 55F82400 		ldr	r0, [r5, r4, lsl #2]
+ 808 0014 FFF7FEFF 		bl	MI_motor_get_mechPos
+ 809              	.LVL39:
+ 169:Core/APP/car.c ****     for (int i = 1; i < 5; i++)
+ 810              		.loc 1 169 29 discriminator 3 view .LVU273
+ 811 0018 0134     		adds	r4, r4, #1
+ 812              	.LVL40:
+ 813              	.L38:
+ 169:Core/APP/car.c ****     for (int i = 1; i < 5; i++)
+ 814              		.loc 1 169 23 discriminator 1 view .LVU274
+ 815 001a 042C     		cmp	r4, #4
+ 816 001c F3DD     		ble	.L39
+ 817              	.LBE2:
+ 173:Core/APP/car.c ****     }
+ 174:Core/APP/car.c ****     From_Motor_to_Car_Status();  
+ 818              		.loc 1 174 5 view .LVU275
+ 819 001e FFF7FEFF 		bl	From_Motor_to_Car_Status
+ 820              	.LVL41:
+ 175:Core/APP/car.c **** }
+ 821              		.loc 1 175 1 is_stmt 0 view .LVU276
+ 822 0022 38BD     		pop	{r3, r4, r5, pc}
+ 823              	.LVL42:
+ 824              	.L42:
+ 825              		.loc 1 175 1 view .LVU277
+ 826              		.align	2
+ 827              	.L41:
+ 828 0024 00000000 		.word	motors
+ 829              		.cfi_endproc
+ 830              	.LFE141:
+ 832              		.global	__aeabi_dmul
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 19
+
+
+ 833              		.global	__aeabi_dadd
+ 834              		.global	__aeabi_dsub
+ 835              		.section	.text.Publish_Car_Speed,"ax",%progbits
+ 836              		.align	1
+ 837              		.global	Publish_Car_Speed
+ 838              		.syntax unified
+ 839              		.thumb
+ 840              		.thumb_func
+ 842              	Publish_Car_Speed:
+ 843              	.LFB142:
+ 176:Core/APP/car.c **** // 发布车辆速度
+ 177:Core/APP/car.c **** void Publish_Car_Speed(void)
+ 178:Core/APP/car.c **** {
+ 844              		.loc 1 178 1 is_stmt 1 view -0
+ 845              		.cfi_startproc
+ 846              		@ args = 0, pretend = 0, frame = 0
+ 847              		@ frame_needed = 0, uses_anonymous_args = 0
+ 848 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+ 849              	.LCFI9:
+ 850              		.cfi_def_cfa_offset 32
+ 851              		.cfi_offset 3, -32
+ 852              		.cfi_offset 4, -28
+ 853              		.cfi_offset 5, -24
+ 854              		.cfi_offset 6, -20
+ 855              		.cfi_offset 7, -16
+ 856              		.cfi_offset 8, -12
+ 857              		.cfi_offset 9, -8
+ 858              		.cfi_offset 14, -4
+ 859 0004 2DED068B 		vpush.64	{d8, d9, d10}
+ 860              	.LCFI10:
+ 861              		.cfi_def_cfa_offset 56
+ 862              		.cfi_offset 80, -56
+ 863              		.cfi_offset 81, -52
+ 864              		.cfi_offset 82, -48
+ 865              		.cfi_offset 83, -44
+ 866              		.cfi_offset 84, -40
+ 867              		.cfi_offset 85, -36
+ 179:Core/APP/car.c ****     float angle = omega * PI / 180.0f; // 角度转弧度
+ 868              		.loc 1 179 5 view .LVU279
+ 869              		.loc 1 179 25 is_stmt 0 view .LVU280
+ 870 0008 8F4B     		ldr	r3, .L45+24
+ 871 000a D3ED007A 		vldr.32	s15, [r3]
+ 872 000e DFED8F9A 		vldr.32	s19, .L45+28
+ 873 0012 67EEA97A 		vmul.f32	s15, s15, s19
+ 874              		.loc 1 179 11 view .LVU281
+ 875 0016 9FED8E7A 		vldr.32	s14, .L45+32
+ 876 001a C7EE87AA 		vdiv.f32	s21, s15, s14
+ 877              	.LVL43:
+ 180:Core/APP/car.c ****     // 根据map_speed计算car_speed
+ 181:Core/APP/car.c ****     car->target_car_Vx = car->target_map_Vx * cosf(angle) + car->target_map_Vy * sinf(angle);
+ 878              		.loc 1 181 5 is_stmt 1 view .LVU282
+ 879              		.loc 1 181 29 is_stmt 0 view .LVU283
+ 880 001e 8D4D     		ldr	r5, .L45+36
+ 881 0020 2C68     		ldr	r4, [r5]
+ 882 0022 94ED128A 		vldr.32	s16, [r4, #72]
+ 883              		.loc 1 181 47 view .LVU284
+ 884 0026 B0EE6A0A 		vmov.f32	s0, s21
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 20
+
+
+ 885 002a FFF7FEFF 		bl	cosf
+ 886              	.LVL44:
+ 887 002e F0EE408A 		vmov.f32	s17, s0
+ 888              		.loc 1 181 45 discriminator 1 view .LVU285
+ 889 0032 28EE009A 		vmul.f32	s18, s16, s0
+ 890              		.loc 1 181 64 discriminator 1 view .LVU286
+ 891 0036 94ED13AA 		vldr.32	s20, [r4, #76]
+ 892              		.loc 1 181 82 discriminator 1 view .LVU287
+ 893 003a B0EE6A0A 		vmov.f32	s0, s21
+ 894 003e FFF7FEFF 		bl	sinf
+ 895              	.LVL45:
+ 896              		.loc 1 181 80 discriminator 2 view .LVU288
+ 897 0042 6AEE007A 		vmul.f32	s15, s20, s0
+ 898              		.loc 1 181 59 discriminator 2 view .LVU289
+ 899 0046 79EE277A 		vadd.f32	s15, s18, s15
+ 900              		.loc 1 181 24 discriminator 2 view .LVU290
+ 901 004a C4ED0A7A 		vstr.32	s15, [r4, #40]
+ 182:Core/APP/car.c ****     car->target_car_Vy = -car->target_map_Vx * sinf(angle) + car->target_map_Vy * cosf(angle);
+ 902              		.loc 1 182 5 is_stmt 1 view .LVU291
+ 903              		.loc 1 182 46 is_stmt 0 discriminator 1 view .LVU292
+ 904 004e 28EE408A 		vnmul.f32	s16, s16, s0
+ 905              		.loc 1 182 81 discriminator 2 view .LVU293
+ 906 0052 68EE8A8A 		vmul.f32	s17, s17, s20
+ 907              		.loc 1 182 60 discriminator 2 view .LVU294
+ 908 0056 38EE288A 		vadd.f32	s16, s16, s17
+ 909              		.loc 1 182 24 discriminator 2 view .LVU295
+ 910 005a 84ED0B8A 		vstr.32	s16, [r4, #44]
+ 183:Core/APP/car.c ****     // 根据car_speed计算motor_speed
+ 184:Core/APP/car.c **** 
+ 185:Core/APP/car.c ****     float Kx = 1;
+ 911              		.loc 1 185 5 is_stmt 1 view .LVU296
+ 912              	.LVL46:
+ 186:Core/APP/car.c ****     float Ky = 1;
+ 913              		.loc 1 186 5 view .LVU297
+ 187:Core/APP/car.c ****     float Kz = 0.736; // 1.74将target和current单位统一
+ 914              		.loc 1 187 5 view .LVU298
+ 188:Core/APP/car.c **** 
+ 189:Core/APP/car.c ****     car->target_Vel1 = Kx * car->target_car_Vx - Ky * car->target_car_Vy + Kz * (-car->target_angle
+ 915              		.loc 1 189 5 view .LVU299
+ 916              		.loc 1 189 48 is_stmt 0 view .LVU300
+ 917 005e 77EEC87A 		vsub.f32	s15, s15, s16
+ 918 0062 17EE900A 		vmov	r0, s15
+ 919 0066 FFF7FEFF 		bl	__aeabi_f2d
+ 920              	.LVL47:
+ 921 006a 0646     		mov	r6, r0
+ 922 006c 0F46     		mov	r7, r1
+ 923              		.loc 1 189 86 view .LVU301
+ 924 006e D4ED197A 		vldr.32	s15, [r4, #100]
+ 925              		.loc 1 189 107 view .LVU302
+ 926 0072 9FED799A 		vldr.32	s18, .L45+40
+ 927 0076 67EEC97A 		vnmul.f32	s15, s15, s18
+ 928              		.loc 1 189 148 view .LVU303
+ 929 007a 67EEA97A 		vmul.f32	s15, s15, s19
+ 930 007e 17EE900A 		vmov	r0, s15
+ 931 0082 FFF7FEFF 		bl	__aeabi_f2d
+ 932              	.LVL48:
+ 933              		.loc 1 189 153 view .LVU304
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 21
+
+
+ 934 0086 0022     		movs	r2, #0
+ 935 0088 744B     		ldr	r3, .L45+44
+ 936 008a FFF7FEFF 		bl	__aeabi_ddiv
+ 937              	.LVL49:
+ 938              		.loc 1 189 79 view .LVU305
+ 939 008e 68A3     		adr	r3, .L45
+ 940 0090 D3E90023 		ldrd	r2, [r3]
+ 941 0094 FFF7FEFF 		bl	__aeabi_dmul
+ 942              	.LVL50:
+ 943 0098 0246     		mov	r2, r0
+ 944 009a 0B46     		mov	r3, r1
+ 945              		.loc 1 189 74 view .LVU306
+ 946 009c 3046     		mov	r0, r6
+ 947 009e 3946     		mov	r1, r7
+ 948 00a0 FFF7FEFF 		bl	__aeabi_dadd
+ 949              	.LVL51:
+ 950 00a4 FFF7FEFF 		bl	__aeabi_d2f
+ 951              	.LVL52:
+ 952              		.loc 1 189 22 view .LVU307
+ 953 00a8 2060     		str	r0, [r4]	@ float
+ 190:Core/APP/car.c ****     car->target_Vel2 = Kx * car->target_car_Vx + Ky * car->target_car_Vy + Kz * (+car->target_angle
+ 954              		.loc 1 190 5 is_stmt 1 view .LVU308
+ 955              		.loc 1 190 32 is_stmt 0 view .LVU309
+ 956 00aa 2C68     		ldr	r4, [r5]
+ 957 00ac D4ED0A8A 		vldr.32	s17, [r4, #40]
+ 958              		.loc 1 190 58 view .LVU310
+ 959 00b0 94ED0B8A 		vldr.32	s16, [r4, #44]
+ 960              		.loc 1 190 48 view .LVU311
+ 961 00b4 78EE887A 		vadd.f32	s15, s17, s16
+ 962 00b8 17EE900A 		vmov	r0, s15
+ 963 00bc FFF7FEFF 		bl	__aeabi_f2d
+ 964              	.LVL53:
+ 965 00c0 8046     		mov	r8, r0
+ 966 00c2 8946     		mov	r9, r1
+ 967              		.loc 1 190 86 view .LVU312
+ 968 00c4 D4ED197A 		vldr.32	s15, [r4, #100]
+ 969              		.loc 1 190 107 view .LVU313
+ 970 00c8 67EE897A 		vmul.f32	s15, s15, s18
+ 971              		.loc 1 190 148 view .LVU314
+ 972 00cc 67EEA97A 		vmul.f32	s15, s15, s19
+ 973 00d0 17EE900A 		vmov	r0, s15
+ 974 00d4 FFF7FEFF 		bl	__aeabi_f2d
+ 975              	.LVL54:
+ 976              		.loc 1 190 153 view .LVU315
+ 977 00d8 0022     		movs	r2, #0
+ 978 00da 604B     		ldr	r3, .L45+44
+ 979 00dc FFF7FEFF 		bl	__aeabi_ddiv
+ 980              	.LVL55:
+ 981              		.loc 1 190 79 view .LVU316
+ 982 00e0 53A3     		adr	r3, .L45
+ 983 00e2 D3E90023 		ldrd	r2, [r3]
+ 984 00e6 FFF7FEFF 		bl	__aeabi_dmul
+ 985              	.LVL56:
+ 986 00ea 0646     		mov	r6, r0
+ 987 00ec 0F46     		mov	r7, r1
+ 988              		.loc 1 190 74 view .LVU317
+ 989 00ee 0246     		mov	r2, r0
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 22
+
+
+ 990 00f0 0B46     		mov	r3, r1
+ 991 00f2 4046     		mov	r0, r8
+ 992 00f4 4946     		mov	r1, r9
+ 993 00f6 FFF7FEFF 		bl	__aeabi_dadd
+ 994              	.LVL57:
+ 995 00fa FFF7FEFF 		bl	__aeabi_d2f
+ 996              	.LVL58:
+ 997              		.loc 1 190 22 view .LVU318
+ 998 00fe 6060     		str	r0, [r4, #4]	@ float
+ 191:Core/APP/car.c ****     car->target_Vel3 = Kx * car->target_car_Vx + Ky * car->target_car_Vy + Kz * (-car->target_angle
+ 999              		.loc 1 191 5 is_stmt 1 view .LVU319
+ 1000              		.loc 1 191 74 is_stmt 0 view .LVU320
+ 1001 0100 3246     		mov	r2, r6
+ 1002 0102 3B46     		mov	r3, r7
+ 1003 0104 4046     		mov	r0, r8
+ 1004 0106 4946     		mov	r1, r9
+ 1005 0108 FFF7FEFF 		bl	__aeabi_dsub
+ 1006              	.LVL59:
+ 1007 010c FFF7FEFF 		bl	__aeabi_d2f
+ 1008              	.LVL60:
+ 1009              		.loc 1 191 22 view .LVU321
+ 1010 0110 A060     		str	r0, [r4, #8]	@ float
+ 192:Core/APP/car.c ****     car->target_Vel4 = Kx * car->target_car_Vx - Ky * car->target_car_Vy + Kz * (+car->target_angle
+ 1011              		.loc 1 192 5 is_stmt 1 view .LVU322
+ 1012              		.loc 1 192 48 is_stmt 0 view .LVU323
+ 1013 0112 78EEC87A 		vsub.f32	s15, s17, s16
+ 1014 0116 17EE900A 		vmov	r0, s15
+ 1015 011a FFF7FEFF 		bl	__aeabi_f2d
+ 1016              	.LVL61:
+ 1017 011e 0246     		mov	r2, r0
+ 1018 0120 0B46     		mov	r3, r1
+ 1019              		.loc 1 192 74 view .LVU324
+ 1020 0122 3046     		mov	r0, r6
+ 1021 0124 3946     		mov	r1, r7
+ 1022 0126 FFF7FEFF 		bl	__aeabi_dadd
+ 1023              	.LVL62:
+ 1024 012a FFF7FEFF 		bl	__aeabi_d2f
+ 1025              	.LVL63:
+ 1026              		.loc 1 192 22 view .LVU325
+ 1027 012e E060     		str	r0, [r4, #12]	@ float
+ 193:Core/APP/car.c **** 
+ 194:Core/APP/car.c ****     // 线性平滑
+ 195:Core/APP/car.c ****     car->target_Vel1 = car->target_Vel1 * 0.85 + car->current_Vel1 * 0.15;
+ 1028              		.loc 1 195 5 is_stmt 1 view .LVU326
+ 1029              		.loc 1 195 27 is_stmt 0 view .LVU327
+ 1030 0130 2068     		ldr	r0, [r4]	@ float
+ 1031 0132 FFF7FEFF 		bl	__aeabi_f2d
+ 1032              	.LVL64:
+ 1033              		.loc 1 195 41 view .LVU328
+ 1034 0136 40A3     		adr	r3, .L45+8
+ 1035 0138 D3E90023 		ldrd	r2, [r3]
+ 1036 013c FFF7FEFF 		bl	__aeabi_dmul
+ 1037              	.LVL65:
+ 1038 0140 0646     		mov	r6, r0
+ 1039 0142 0F46     		mov	r7, r1
+ 1040              		.loc 1 195 53 view .LVU329
+ 1041 0144 2069     		ldr	r0, [r4, #16]	@ float
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 23
+
+
+ 1042 0146 FFF7FEFF 		bl	__aeabi_f2d
+ 1043              	.LVL66:
+ 1044              		.loc 1 195 68 view .LVU330
+ 1045 014a 3DA3     		adr	r3, .L45+16
+ 1046 014c D3E90023 		ldrd	r2, [r3]
+ 1047 0150 FFF7FEFF 		bl	__aeabi_dmul
+ 1048              	.LVL67:
+ 1049 0154 0246     		mov	r2, r0
+ 1050 0156 0B46     		mov	r3, r1
+ 1051              		.loc 1 195 48 view .LVU331
+ 1052 0158 3046     		mov	r0, r6
+ 1053 015a 3946     		mov	r1, r7
+ 1054 015c FFF7FEFF 		bl	__aeabi_dadd
+ 1055              	.LVL68:
+ 1056 0160 FFF7FEFF 		bl	__aeabi_d2f
+ 1057              	.LVL69:
+ 1058              		.loc 1 195 22 view .LVU332
+ 1059 0164 2060     		str	r0, [r4]	@ float
+ 196:Core/APP/car.c ****     car->target_Vel2 = car->target_Vel2 * 0.85 + car->current_Vel2 * 0.15;
+ 1060              		.loc 1 196 5 is_stmt 1 view .LVU333
+ 1061              		.loc 1 196 27 is_stmt 0 view .LVU334
+ 1062 0166 2C68     		ldr	r4, [r5]
+ 1063 0168 6068     		ldr	r0, [r4, #4]	@ float
+ 1064 016a FFF7FEFF 		bl	__aeabi_f2d
+ 1065              	.LVL70:
+ 1066              		.loc 1 196 41 view .LVU335
+ 1067 016e 32A3     		adr	r3, .L45+8
+ 1068 0170 D3E90023 		ldrd	r2, [r3]
+ 1069 0174 FFF7FEFF 		bl	__aeabi_dmul
+ 1070              	.LVL71:
+ 1071 0178 0646     		mov	r6, r0
+ 1072 017a 0F46     		mov	r7, r1
+ 1073              		.loc 1 196 53 view .LVU336
+ 1074 017c 6069     		ldr	r0, [r4, #20]	@ float
+ 1075 017e FFF7FEFF 		bl	__aeabi_f2d
+ 1076              	.LVL72:
+ 1077              		.loc 1 196 68 view .LVU337
+ 1078 0182 2FA3     		adr	r3, .L45+16
+ 1079 0184 D3E90023 		ldrd	r2, [r3]
+ 1080 0188 FFF7FEFF 		bl	__aeabi_dmul
+ 1081              	.LVL73:
+ 1082 018c 0246     		mov	r2, r0
+ 1083 018e 0B46     		mov	r3, r1
+ 1084              		.loc 1 196 48 view .LVU338
+ 1085 0190 3046     		mov	r0, r6
+ 1086 0192 3946     		mov	r1, r7
+ 1087 0194 FFF7FEFF 		bl	__aeabi_dadd
+ 1088              	.LVL74:
+ 1089 0198 FFF7FEFF 		bl	__aeabi_d2f
+ 1090              	.LVL75:
+ 1091 019c 08EE100A 		vmov	s16, r0
+ 1092              		.loc 1 196 22 view .LVU339
+ 1093 01a0 6060     		str	r0, [r4, #4]	@ float
+ 197:Core/APP/car.c ****     car->target_Vel3 = car->target_Vel3 * 0.85 + car->current_Vel3 * 0.15;
+ 1094              		.loc 1 197 5 is_stmt 1 view .LVU340
+ 1095              		.loc 1 197 27 is_stmt 0 view .LVU341
+ 1096 01a2 A068     		ldr	r0, [r4, #8]	@ float
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 24
+
+
+ 1097 01a4 FFF7FEFF 		bl	__aeabi_f2d
+ 1098              	.LVL76:
+ 1099              		.loc 1 197 41 view .LVU342
+ 1100 01a8 23A3     		adr	r3, .L45+8
+ 1101 01aa D3E90023 		ldrd	r2, [r3]
+ 1102 01ae FFF7FEFF 		bl	__aeabi_dmul
+ 1103              	.LVL77:
+ 1104 01b2 0646     		mov	r6, r0
+ 1105 01b4 0F46     		mov	r7, r1
+ 1106              		.loc 1 197 53 view .LVU343
+ 1107 01b6 A069     		ldr	r0, [r4, #24]	@ float
+ 1108 01b8 FFF7FEFF 		bl	__aeabi_f2d
+ 1109              	.LVL78:
+ 1110              		.loc 1 197 68 view .LVU344
+ 1111 01bc 20A3     		adr	r3, .L45+16
+ 1112 01be D3E90023 		ldrd	r2, [r3]
+ 1113 01c2 FFF7FEFF 		bl	__aeabi_dmul
+ 1114              	.LVL79:
+ 1115 01c6 0246     		mov	r2, r0
+ 1116 01c8 0B46     		mov	r3, r1
+ 1117              		.loc 1 197 48 view .LVU345
+ 1118 01ca 3046     		mov	r0, r6
+ 1119 01cc 3946     		mov	r1, r7
+ 1120 01ce FFF7FEFF 		bl	__aeabi_dadd
+ 1121              	.LVL80:
+ 1122 01d2 FFF7FEFF 		bl	__aeabi_d2f
+ 1123              	.LVL81:
+ 1124 01d6 08EE900A 		vmov	s17, r0
+ 1125              		.loc 1 197 22 view .LVU346
+ 1126 01da A060     		str	r0, [r4, #8]	@ float
+ 198:Core/APP/car.c ****     car->target_Vel4 = car->target_Vel4 * 0.85 + car->current_Vel4 * 0.15;
+ 1127              		.loc 1 198 5 is_stmt 1 view .LVU347
+ 1128              		.loc 1 198 27 is_stmt 0 view .LVU348
+ 1129 01dc E068     		ldr	r0, [r4, #12]	@ float
+ 1130 01de FFF7FEFF 		bl	__aeabi_f2d
+ 1131              	.LVL82:
+ 1132              		.loc 1 198 41 view .LVU349
+ 1133 01e2 15A3     		adr	r3, .L45+8
+ 1134 01e4 D3E90023 		ldrd	r2, [r3]
+ 1135 01e8 FFF7FEFF 		bl	__aeabi_dmul
+ 1136              	.LVL83:
+ 1137 01ec 0646     		mov	r6, r0
+ 1138 01ee 0F46     		mov	r7, r1
+ 1139              		.loc 1 198 53 view .LVU350
+ 1140 01f0 E069     		ldr	r0, [r4, #28]	@ float
+ 1141 01f2 FFF7FEFF 		bl	__aeabi_f2d
+ 1142              	.LVL84:
+ 1143              		.loc 1 198 68 view .LVU351
+ 1144 01f6 12A3     		adr	r3, .L45+16
+ 1145 01f8 D3E90023 		ldrd	r2, [r3]
+ 1146 01fc FFF7FEFF 		bl	__aeabi_dmul
+ 1147              	.LVL85:
+ 1148 0200 0246     		mov	r2, r0
+ 1149 0202 0B46     		mov	r3, r1
+ 1150              		.loc 1 198 48 view .LVU352
+ 1151 0204 3046     		mov	r0, r6
+ 1152 0206 3946     		mov	r1, r7
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 25
+
+
+ 1153 0208 FFF7FEFF 		bl	__aeabi_dadd
+ 1154              	.LVL86:
+ 1155 020c FFF7FEFF 		bl	__aeabi_d2f
+ 1156              	.LVL87:
+ 1157 0210 01EE900A 		vmov	s3, r0
+ 1158              		.loc 1 198 22 view .LVU353
+ 1159 0214 E060     		str	r0, [r4, #12]	@ float
+ 199:Core/APP/car.c **** 
+ 200:Core/APP/car.c ****     //发布电机速度
+ 201:Core/APP/car.c ****     Publish_Chassis_Motor_Speed(car->target_Vel1, car->target_Vel2, car->target_Vel3, car->target_V
+ 1160              		.loc 1 201 5 is_stmt 1 view .LVU354
+ 1161 0216 B0EE681A 		vmov.f32	s2, s17
+ 1162 021a F0EE480A 		vmov.f32	s1, s16
+ 1163 021e 94ED000A 		vldr.32	s0, [r4]
+ 1164 0222 FFF7FEFF 		bl	Publish_Chassis_Motor_Speed
+ 1165              	.LVL88:
+ 202:Core/APP/car.c **** }
+ 1166              		.loc 1 202 1 is_stmt 0 view .LVU355
+ 1167 0226 BDEC068B 		vldm	sp!, {d8-d10}
+ 1168              	.LCFI11:
+ 1169              		.cfi_restore 84
+ 1170              		.cfi_restore 85
+ 1171              		.cfi_restore 82
+ 1172              		.cfi_restore 83
+ 1173              		.cfi_restore 80
+ 1174              		.cfi_restore 81
+ 1175              		.cfi_def_cfa_offset 32
+ 1176 022a BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 1177              	.L46:
+ 1178 022e 00BF     		.align	3
+ 1179              	.L45:
+ 1180 0230 000000E0 		.word	-536870912
+ 1181 0234 4F8DE73F 		.word	1072139599
+ 1182 0238 33333333 		.word	858993459
+ 1183 023c 3333EB3F 		.word	1072378675
+ 1184 0240 33333333 		.word	858993459
+ 1185 0244 3333C33F 		.word	1069757235
+ 1186 0248 00000000 		.word	omega
+ 1187 024c DB0F4940 		.word	1078530011
+ 1188 0250 00003443 		.word	1127481344
+ 1189 0254 00000000 		.word	car
+ 1190 0258 DE6B0D44 		.word	1141730270
+ 1191 025c 00806640 		.word	1080459264
+ 1192              		.cfi_endproc
+ 1193              	.LFE142:
+ 1195              		.section	.text.Move_TransformX,"ax",%progbits
+ 1196              		.align	1
+ 1197              		.global	Move_TransformX
+ 1198              		.syntax unified
+ 1199              		.thumb
+ 1200              		.thumb_func
+ 1202              	Move_TransformX:
+ 1203              	.LVL89:
+ 1204              	.LFB143:
+ 203:Core/APP/car.c **** 
+ 204:Core/APP/car.c **** //#################################################################################################
+ 205:Core/APP/car.c **** // 位置模式
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 26
+
+
+ 206:Core/APP/car.c **** void Move_TransformX(float X  ,float Vx)//X单位：mm，Vx单位：rad/s
+ 207:Core/APP/car.c **** {
+ 1205              		.loc 1 207 1 is_stmt 1 view -0
+ 1206              		.cfi_startproc
+ 1207              		@ args = 0, pretend = 0, frame = 0
+ 1208              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1209              		.loc 1 207 1 is_stmt 0 view .LVU357
+ 1210 0000 38B5     		push	{r3, r4, r5, lr}
+ 1211              	.LCFI12:
+ 1212              		.cfi_def_cfa_offset 16
+ 1213              		.cfi_offset 3, -16
+ 1214              		.cfi_offset 4, -12
+ 1215              		.cfi_offset 5, -8
+ 1216              		.cfi_offset 14, -4
+ 1217 0002 2DED028B 		vpush.64	{d8}
+ 1218              	.LCFI13:
+ 1219              		.cfi_def_cfa_offset 24
+ 1220              		.cfi_offset 80, -24
+ 1221              		.cfi_offset 81, -20
+ 1222 0006 F0EE408A 		vmov.f32	s17, s0
+ 1223 000a B0EE608A 		vmov.f32	s16, s1
+ 208:Core/APP/car.c ****     Reset_Chassis_Motor_MechPosition();
+ 1224              		.loc 1 208 5 is_stmt 1 view .LVU358
+ 1225 000e FFF7FEFF 		bl	Reset_Chassis_Motor_MechPosition
+ 1226              	.LVL90:
+ 209:Core/APP/car.c ****     for (int i = 1; i < 5; i++)
+ 1227              		.loc 1 209 5 view .LVU359
+ 1228              	.LBB3:
+ 1229              		.loc 1 209 10 view .LVU360
+ 1230              		.loc 1 209 14 is_stmt 0 view .LVU361
+ 1231 0012 0124     		movs	r4, #1
+ 1232              		.loc 1 209 5 view .LVU362
+ 1233 0014 00E0     		b	.L48
+ 1234              	.LVL91:
+ 1235              	.L49:
+ 1236              		.loc 1 209 29 is_stmt 1 discriminator 2 view .LVU363
+ 1237 0016 0134     		adds	r4, r4, #1
+ 1238              	.LVL92:
+ 1239              	.L48:
+ 1240              		.loc 1 209 23 discriminator 1 view .LVU364
+ 1241 0018 042C     		cmp	r4, #4
+ 1242 001a 0FDC     		bgt	.L52
+ 210:Core/APP/car.c ****     {
+ 211:Core/APP/car.c ****         MI_motor_SetSpdLim(motors[i], Vx );
+ 1243              		.loc 1 211 9 view .LVU365
+ 1244 001c 174D     		ldr	r5, .L53
+ 1245 001e B0EE480A 		vmov.f32	s0, s16
+ 1246 0022 55F82400 		ldr	r0, [r5, r4, lsl #2]
+ 1247 0026 FFF7FEFF 		bl	MI_motor_SetSpdLim
+ 1248              	.LVL93:
+ 212:Core/APP/car.c ****         if (motors[i]->Control_mode != MODE_POS)
+ 1249              		.loc 1 212 9 view .LVU366
+ 1250              		.loc 1 212 19 is_stmt 0 view .LVU367
+ 1251 002a 55F82400 		ldr	r0, [r5, r4, lsl #2]
+ 1252              		.loc 1 212 22 view .LVU368
+ 1253 002e 8379     		ldrb	r3, [r0, #6]	@ zero_extendqisi2
+ 1254              		.loc 1 212 12 view .LVU369
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 27
+
+
+ 1255 0030 012B     		cmp	r3, #1
+ 1256 0032 F0D0     		beq	.L49
+ 213:Core/APP/car.c ****         {
+ 214:Core/APP/car.c ****             MI_motor_setMode(motors[i], MODE_POS);
+ 1257              		.loc 1 214 13 is_stmt 1 view .LVU370
+ 1258 0034 0121     		movs	r1, #1
+ 1259 0036 FFF7FEFF 		bl	MI_motor_setMode
+ 1260              	.LVL94:
+ 1261 003a ECE7     		b	.L49
+ 1262              	.L52:
+ 1263              		.loc 1 214 13 is_stmt 0 view .LVU371
+ 1264              	.LBE3:
+ 215:Core/APP/car.c ****         }
+ 216:Core/APP/car.c ****     }
+ 217:Core/APP/car.c **** 
+ 218:Core/APP/car.c ****     float Target1, Target2, Target3, Target4 = 0.0f;
+ 1265              		.loc 1 218 5 is_stmt 1 view .LVU372
+ 1266              	.LVL95:
+ 219:Core/APP/car.c ****     Target3 = -X / WHEEL_RADIUS;
+ 1267              		.loc 1 219 5 view .LVU373
+ 1268              		.loc 1 219 15 is_stmt 0 view .LVU374
+ 1269 003c F1EE688A 		vneg.f32	s17, s17
+ 1270              	.LVL96:
+ 1271              		.loc 1 219 13 view .LVU375
+ 1272 0040 DFED0F7A 		vldr.32	s15, .L53+4
+ 1273 0044 88EEA78A 		vdiv.f32	s16, s17, s15
+ 1274              	.LVL97:
+ 220:Core/APP/car.c ****     Target1 = -X / WHEEL_RADIUS;
+ 1275              		.loc 1 220 5 is_stmt 1 view .LVU376
+ 221:Core/APP/car.c ****     Target2 = X / WHEEL_RADIUS;
+ 1276              		.loc 1 221 5 view .LVU377
+ 1277 0048 F1EE488A 		vneg.f32	s17, s16
+ 1278              	.LVL98:
+ 222:Core/APP/car.c ****     Target4 = X / WHEEL_RADIUS;
+ 1279              		.loc 1 222 5 view .LVU378
+ 223:Core/APP/car.c **** 
+ 224:Core/APP/car.c ****     MI_motor_PosCtrl(motors[1],Target1);
+ 1280              		.loc 1 224 5 view .LVU379
+ 1281 004c 0B4C     		ldr	r4, .L53
+ 1282              	.LVL99:
+ 1283              		.loc 1 224 5 is_stmt 0 view .LVU380
+ 1284 004e B0EE480A 		vmov.f32	s0, s16
+ 1285 0052 6068     		ldr	r0, [r4, #4]
+ 1286 0054 FFF7FEFF 		bl	MI_motor_PosCtrl
+ 1287              	.LVL100:
+ 225:Core/APP/car.c ****     MI_motor_PosCtrl(motors[3],Target3);
+ 1288              		.loc 1 225 5 is_stmt 1 view .LVU381
+ 1289 0058 B0EE480A 		vmov.f32	s0, s16
+ 1290 005c E068     		ldr	r0, [r4, #12]
+ 1291 005e FFF7FEFF 		bl	MI_motor_PosCtrl
+ 1292              	.LVL101:
+ 226:Core/APP/car.c ****     MI_motor_PosCtrl(motors[2],Target2);
+ 1293              		.loc 1 226 5 view .LVU382
+ 1294 0062 B0EE680A 		vmov.f32	s0, s17
+ 1295 0066 A068     		ldr	r0, [r4, #8]
+ 1296 0068 FFF7FEFF 		bl	MI_motor_PosCtrl
+ 1297              	.LVL102:
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 28
+
+
+ 227:Core/APP/car.c ****     MI_motor_PosCtrl(motors[4],Target4);
+ 1298              		.loc 1 227 5 view .LVU383
+ 1299 006c B0EE680A 		vmov.f32	s0, s17
+ 1300 0070 2069     		ldr	r0, [r4, #16]
+ 1301 0072 FFF7FEFF 		bl	MI_motor_PosCtrl
+ 1302              	.LVL103:
+ 228:Core/APP/car.c **** 
+ 229:Core/APP/car.c **** }
+ 1303              		.loc 1 229 1 is_stmt 0 view .LVU384
+ 1304 0076 BDEC028B 		vldm	sp!, {d8}
+ 1305              	.LCFI14:
+ 1306              		.cfi_restore 80
+ 1307              		.cfi_restore 81
+ 1308              		.cfi_def_cfa_offset 16
+ 1309              	.LVL104:
+ 1310              		.loc 1 229 1 view .LVU385
+ 1311 007a 38BD     		pop	{r3, r4, r5, pc}
+ 1312              	.L54:
+ 1313              		.align	2
+ 1314              	.L53:
+ 1315 007c 00000000 		.word	motors
+ 1316 0080 00009842 		.word	1117257728
+ 1317              		.cfi_endproc
+ 1318              	.LFE143:
+ 1320              		.section	.text.Move_TransformY,"ax",%progbits
+ 1321              		.align	1
+ 1322              		.global	Move_TransformY
+ 1323              		.syntax unified
+ 1324              		.thumb
+ 1325              		.thumb_func
+ 1327              	Move_TransformY:
+ 1328              	.LVL105:
+ 1329              	.LFB144:
+ 230:Core/APP/car.c **** 
+ 231:Core/APP/car.c **** void Move_TransformY(float Y ,float Vy)//Vy单位：rad/s
+ 232:Core/APP/car.c **** {
+ 1330              		.loc 1 232 1 is_stmt 1 view -0
+ 1331              		.cfi_startproc
+ 1332              		@ args = 0, pretend = 0, frame = 0
+ 1333              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1334              		.loc 1 232 1 is_stmt 0 view .LVU387
+ 1335 0000 38B5     		push	{r3, r4, r5, lr}
+ 1336              	.LCFI15:
+ 1337              		.cfi_def_cfa_offset 16
+ 1338              		.cfi_offset 3, -16
+ 1339              		.cfi_offset 4, -12
+ 1340              		.cfi_offset 5, -8
+ 1341              		.cfi_offset 14, -4
+ 1342 0002 2DED028B 		vpush.64	{d8}
+ 1343              	.LCFI16:
+ 1344              		.cfi_def_cfa_offset 24
+ 1345              		.cfi_offset 80, -24
+ 1346              		.cfi_offset 81, -20
+ 1347 0006 F0EE408A 		vmov.f32	s17, s0
+ 1348 000a B0EE608A 		vmov.f32	s16, s1
+ 233:Core/APP/car.c ****     Reset_Chassis_Motor_MechPosition();
+ 1349              		.loc 1 233 5 is_stmt 1 view .LVU388
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 29
+
+
+ 1350 000e FFF7FEFF 		bl	Reset_Chassis_Motor_MechPosition
+ 1351              	.LVL106:
+ 234:Core/APP/car.c ****     for (int i = 1; i < 5; i++)
+ 1352              		.loc 1 234 5 view .LVU389
+ 1353              	.LBB4:
+ 1354              		.loc 1 234 10 view .LVU390
+ 1355              		.loc 1 234 14 is_stmt 0 view .LVU391
+ 1356 0012 0124     		movs	r4, #1
+ 1357              		.loc 1 234 5 view .LVU392
+ 1358 0014 00E0     		b	.L56
+ 1359              	.LVL107:
+ 1360              	.L57:
+ 1361              		.loc 1 234 29 is_stmt 1 discriminator 2 view .LVU393
+ 1362 0016 0134     		adds	r4, r4, #1
+ 1363              	.LVL108:
+ 1364              	.L56:
+ 1365              		.loc 1 234 23 discriminator 1 view .LVU394
+ 1366 0018 042C     		cmp	r4, #4
+ 1367 001a 0FDC     		bgt	.L60
+ 235:Core/APP/car.c ****     {
+ 236:Core/APP/car.c ****         MI_motor_SetSpdLim(motors[i], Vy);
+ 1368              		.loc 1 236 9 view .LVU395
+ 1369 001c 174D     		ldr	r5, .L61
+ 1370 001e B0EE480A 		vmov.f32	s0, s16
+ 1371 0022 55F82400 		ldr	r0, [r5, r4, lsl #2]
+ 1372 0026 FFF7FEFF 		bl	MI_motor_SetSpdLim
+ 1373              	.LVL109:
+ 237:Core/APP/car.c ****         if (motors[i]->Control_mode != MODE_POS)
+ 1374              		.loc 1 237 9 view .LVU396
+ 1375              		.loc 1 237 19 is_stmt 0 view .LVU397
+ 1376 002a 55F82400 		ldr	r0, [r5, r4, lsl #2]
+ 1377              		.loc 1 237 22 view .LVU398
+ 1378 002e 8379     		ldrb	r3, [r0, #6]	@ zero_extendqisi2
+ 1379              		.loc 1 237 12 view .LVU399
+ 1380 0030 012B     		cmp	r3, #1
+ 1381 0032 F0D0     		beq	.L57
+ 238:Core/APP/car.c ****         {
+ 239:Core/APP/car.c ****             MI_motor_setMode(motors[i], MODE_POS);
+ 1382              		.loc 1 239 13 is_stmt 1 view .LVU400
+ 1383 0034 0121     		movs	r1, #1
+ 1384 0036 FFF7FEFF 		bl	MI_motor_setMode
+ 1385              	.LVL110:
+ 1386 003a ECE7     		b	.L57
+ 1387              	.L60:
+ 1388              		.loc 1 239 13 is_stmt 0 view .LVU401
+ 1389              	.LBE4:
+ 240:Core/APP/car.c ****         }
+ 241:Core/APP/car.c ****     }
+ 242:Core/APP/car.c ****     float Target1, Target2, Target3, Target4 = 0.0f;
+ 1390              		.loc 1 242 5 is_stmt 1 view .LVU402
+ 1391              	.LVL111:
+ 243:Core/APP/car.c **** 
+ 244:Core/APP/car.c ****     Target3 = -Y / WHEEL_RADIUS; 
+ 1392              		.loc 1 244 5 view .LVU403
+ 1393              		.loc 1 244 15 is_stmt 0 view .LVU404
+ 1394 003c F1EE688A 		vneg.f32	s17, s17
+ 1395              	.LVL112:
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 30
+
+
+ 1396              		.loc 1 244 13 view .LVU405
+ 1397 0040 DFED0F7A 		vldr.32	s15, .L61+4
+ 1398 0044 88EEA78A 		vdiv.f32	s16, s17, s15
+ 1399              	.LVL113:
+ 245:Core/APP/car.c ****     Target1 = +Y / WHEEL_RADIUS;
+ 1400              		.loc 1 245 5 is_stmt 1 view .LVU406
+ 1401 0048 F1EE488A 		vneg.f32	s17, s16
+ 1402              	.LVL114:
+ 246:Core/APP/car.c ****     Target2 = +Y / WHEEL_RADIUS;
+ 1403              		.loc 1 246 5 view .LVU407
+ 247:Core/APP/car.c ****     Target4 = -Y / WHEEL_RADIUS;
+ 1404              		.loc 1 247 5 view .LVU408
+ 248:Core/APP/car.c **** 
+ 249:Core/APP/car.c ****     MI_motor_PosCtrl(motors[1],Target1);
+ 1405              		.loc 1 249 5 view .LVU409
+ 1406 004c 0B4C     		ldr	r4, .L61
+ 1407              	.LVL115:
+ 1408              		.loc 1 249 5 is_stmt 0 view .LVU410
+ 1409 004e B0EE680A 		vmov.f32	s0, s17
+ 1410 0052 6068     		ldr	r0, [r4, #4]
+ 1411 0054 FFF7FEFF 		bl	MI_motor_PosCtrl
+ 1412              	.LVL116:
+ 250:Core/APP/car.c ****     MI_motor_PosCtrl(motors[3],Target3);
+ 1413              		.loc 1 250 5 is_stmt 1 view .LVU411
+ 1414 0058 B0EE480A 		vmov.f32	s0, s16
+ 1415 005c E068     		ldr	r0, [r4, #12]
+ 1416 005e FFF7FEFF 		bl	MI_motor_PosCtrl
+ 1417              	.LVL117:
+ 251:Core/APP/car.c ****     MI_motor_PosCtrl(motors[2],Target2);
+ 1418              		.loc 1 251 5 view .LVU412
+ 1419 0062 B0EE680A 		vmov.f32	s0, s17
+ 1420 0066 A068     		ldr	r0, [r4, #8]
+ 1421 0068 FFF7FEFF 		bl	MI_motor_PosCtrl
+ 1422              	.LVL118:
+ 252:Core/APP/car.c ****     MI_motor_PosCtrl(motors[4],Target4);
+ 1423              		.loc 1 252 5 view .LVU413
+ 1424 006c B0EE480A 		vmov.f32	s0, s16
+ 1425 0070 2069     		ldr	r0, [r4, #16]
+ 1426 0072 FFF7FEFF 		bl	MI_motor_PosCtrl
+ 1427              	.LVL119:
+ 253:Core/APP/car.c **** 
+ 254:Core/APP/car.c **** }
+ 1428              		.loc 1 254 1 is_stmt 0 view .LVU414
+ 1429 0076 BDEC028B 		vldm	sp!, {d8}
+ 1430              	.LCFI17:
+ 1431              		.cfi_restore 80
+ 1432              		.cfi_restore 81
+ 1433              		.cfi_def_cfa_offset 16
+ 1434              	.LVL120:
+ 1435              		.loc 1 254 1 view .LVU415
+ 1436 007a 38BD     		pop	{r3, r4, r5, pc}
+ 1437              	.L62:
+ 1438              		.align	2
+ 1439              	.L61:
+ 1440 007c 00000000 		.word	motors
+ 1441 0080 00009842 		.word	1117257728
+ 1442              		.cfi_endproc
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 31
+
+
+ 1443              	.LFE144:
+ 1445              		.section	.text.Move_TransformXY,"ax",%progbits
+ 1446              		.align	1
+ 1447              		.global	Move_TransformXY
+ 1448              		.syntax unified
+ 1449              		.thumb
+ 1450              		.thumb_func
+ 1452              	Move_TransformXY:
+ 1453              	.LVL121:
+ 1454              	.LFB145:
+ 255:Core/APP/car.c **** 
+ 256:Core/APP/car.c **** void Move_TransformXY(float XY, float Vxy) //
+ 257:Core/APP/car.c **** {
+ 1455              		.loc 1 257 1 is_stmt 1 view -0
+ 1456              		.cfi_startproc
+ 1457              		@ args = 0, pretend = 0, frame = 0
+ 1458              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1459              		.loc 1 257 1 is_stmt 0 view .LVU417
+ 1460 0000 38B5     		push	{r3, r4, r5, lr}
+ 1461              	.LCFI18:
+ 1462              		.cfi_def_cfa_offset 16
+ 1463              		.cfi_offset 3, -16
+ 1464              		.cfi_offset 4, -12
+ 1465              		.cfi_offset 5, -8
+ 1466              		.cfi_offset 14, -4
+ 1467 0002 2DED048B 		vpush.64	{d8, d9}
+ 1468              	.LCFI19:
+ 1469              		.cfi_def_cfa_offset 32
+ 1470              		.cfi_offset 80, -32
+ 1471              		.cfi_offset 81, -28
+ 1472              		.cfi_offset 82, -24
+ 1473              		.cfi_offset 83, -20
+ 1474 0006 F0EE408A 		vmov.f32	s17, s0
+ 1475 000a B0EE608A 		vmov.f32	s16, s1
+ 258:Core/APP/car.c ****     Reset_Chassis_Motor_MechPosition();
+ 1476              		.loc 1 258 5 is_stmt 1 view .LVU418
+ 1477 000e FFF7FEFF 		bl	Reset_Chassis_Motor_MechPosition
+ 1478              	.LVL122:
+ 259:Core/APP/car.c ****     for (int i = 1; i < 5; i++)
+ 1479              		.loc 1 259 5 view .LVU419
+ 1480              	.LBB5:
+ 1481              		.loc 1 259 10 view .LVU420
+ 1482              		.loc 1 259 14 is_stmt 0 view .LVU421
+ 1483 0012 0124     		movs	r4, #1
+ 1484              		.loc 1 259 5 view .LVU422
+ 1485 0014 00E0     		b	.L64
+ 1486              	.LVL123:
+ 1487              	.L65:
+ 1488              		.loc 1 259 29 is_stmt 1 discriminator 2 view .LVU423
+ 1489 0016 0134     		adds	r4, r4, #1
+ 1490              	.LVL124:
+ 1491              	.L64:
+ 1492              		.loc 1 259 23 discriminator 1 view .LVU424
+ 1493 0018 042C     		cmp	r4, #4
+ 1494 001a 0FDC     		bgt	.L68
+ 260:Core/APP/car.c ****     {
+ 261:Core/APP/car.c ****         MI_motor_SetSpdLim(motors[i], Vxy);
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 32
+
+
+ 1495              		.loc 1 261 9 view .LVU425
+ 1496 001c 184D     		ldr	r5, .L69
+ 1497 001e B0EE480A 		vmov.f32	s0, s16
+ 1498 0022 55F82400 		ldr	r0, [r5, r4, lsl #2]
+ 1499 0026 FFF7FEFF 		bl	MI_motor_SetSpdLim
+ 1500              	.LVL125:
+ 262:Core/APP/car.c ****         if (motors[i]->Control_mode != MODE_POS)
+ 1501              		.loc 1 262 9 view .LVU426
+ 1502              		.loc 1 262 19 is_stmt 0 view .LVU427
+ 1503 002a 55F82400 		ldr	r0, [r5, r4, lsl #2]
+ 1504              		.loc 1 262 22 view .LVU428
+ 1505 002e 8379     		ldrb	r3, [r0, #6]	@ zero_extendqisi2
+ 1506              		.loc 1 262 12 view .LVU429
+ 1507 0030 012B     		cmp	r3, #1
+ 1508 0032 F0D0     		beq	.L65
+ 263:Core/APP/car.c ****         {
+ 264:Core/APP/car.c ****             MI_motor_setMode(motors[i], MODE_POS);
+ 1509              		.loc 1 264 13 is_stmt 1 view .LVU430
+ 1510 0034 0121     		movs	r1, #1
+ 1511 0036 FFF7FEFF 		bl	MI_motor_setMode
+ 1512              	.LVL126:
+ 1513 003a ECE7     		b	.L65
+ 1514              	.L68:
+ 1515              		.loc 1 264 13 is_stmt 0 view .LVU431
+ 1516              	.LBE5:
+ 265:Core/APP/car.c ****         }
+ 266:Core/APP/car.c ****     }
+ 267:Core/APP/car.c ****     float Target1, Target2, Target3, Target4 = 0.0f;
+ 1517              		.loc 1 267 5 is_stmt 1 view .LVU432
+ 1518              	.LVL127:
+ 268:Core/APP/car.c **** 
+ 269:Core/APP/car.c ****     Target3 = -  2*XY/WHEEL_RADIUS;
+ 1519              		.loc 1 269 5 view .LVU433
+ 1520              		.loc 1 269 19 is_stmt 0 view .LVU434
+ 1521 003c F8EE007A 		vmov.f32	s15, #-2.0e+0
+ 1522 0040 68EEA78A 		vmul.f32	s17, s17, s15
+ 1523              	.LVL128:
+ 1524              		.loc 1 269 13 view .LVU435
+ 1525 0044 DFED0F7A 		vldr.32	s15, .L69+4
+ 1526 0048 88EEA79A 		vdiv.f32	s18, s17, s15
+ 1527              	.LVL129:
+ 270:Core/APP/car.c ****     Target1 = 0;
+ 1528              		.loc 1 270 5 is_stmt 1 view .LVU436
+ 271:Core/APP/car.c ****     Target2 =   2*XY/WHEEL_RADIUS;
+ 1529              		.loc 1 271 5 view .LVU437
+ 272:Core/APP/car.c ****     Target4 = 0;
+ 1530              		.loc 1 272 5 view .LVU438
+ 273:Core/APP/car.c **** 
+ 274:Core/APP/car.c ****     MI_motor_PosCtrl(motors[1],Target1);
+ 1531              		.loc 1 274 5 view .LVU439
+ 1532 004c 9FED0E8A 		vldr.32	s16, .L69+8
+ 1533              	.LVL130:
+ 1534              		.loc 1 274 5 is_stmt 0 view .LVU440
+ 1535 0050 0B4C     		ldr	r4, .L69
+ 1536              	.LVL131:
+ 1537              		.loc 1 274 5 view .LVU441
+ 1538 0052 B0EE480A 		vmov.f32	s0, s16
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 33
+
+
+ 1539 0056 6068     		ldr	r0, [r4, #4]
+ 1540 0058 FFF7FEFF 		bl	MI_motor_PosCtrl
+ 1541              	.LVL132:
+ 275:Core/APP/car.c ****     MI_motor_PosCtrl(motors[3],Target3);
+ 1542              		.loc 1 275 5 is_stmt 1 view .LVU442
+ 1543 005c B0EE490A 		vmov.f32	s0, s18
+ 1544 0060 E068     		ldr	r0, [r4, #12]
+ 1545 0062 FFF7FEFF 		bl	MI_motor_PosCtrl
+ 1546              	.LVL133:
+ 276:Core/APP/car.c ****     MI_motor_PosCtrl(motors[2],Target2);
+ 1547              		.loc 1 276 5 view .LVU443
+ 1548 0066 B1EE490A 		vneg.f32	s0, s18
+ 1549              	.LVL134:
+ 1550              		.loc 1 276 5 is_stmt 0 view .LVU444
+ 1551 006a A068     		ldr	r0, [r4, #8]
+ 1552 006c FFF7FEFF 		bl	MI_motor_PosCtrl
+ 1553              	.LVL135:
+ 277:Core/APP/car.c ****     MI_motor_PosCtrl(motors[4],Target4);
+ 1554              		.loc 1 277 5 is_stmt 1 view .LVU445
+ 1555 0070 B0EE480A 		vmov.f32	s0, s16
+ 1556 0074 2069     		ldr	r0, [r4, #16]
+ 1557 0076 FFF7FEFF 		bl	MI_motor_PosCtrl
+ 1558              	.LVL136:
+ 278:Core/APP/car.c **** 
+ 279:Core/APP/car.c **** }
+ 1559              		.loc 1 279 1 is_stmt 0 view .LVU446
+ 1560 007a BDEC048B 		vldm	sp!, {d8-d9}
+ 1561              	.LCFI20:
+ 1562              		.cfi_restore 82
+ 1563              		.cfi_restore 83
+ 1564              		.cfi_restore 80
+ 1565              		.cfi_restore 81
+ 1566              		.cfi_def_cfa_offset 16
+ 1567              	.LVL137:
+ 1568              		.loc 1 279 1 view .LVU447
+ 1569 007e 38BD     		pop	{r3, r4, r5, pc}
+ 1570              	.L70:
+ 1571              		.align	2
+ 1572              	.L69:
+ 1573 0080 00000000 		.word	motors
+ 1574 0084 00009842 		.word	1117257728
+ 1575 0088 00000000 		.word	0
+ 1576              		.cfi_endproc
+ 1577              	.LFE145:
+ 1579              		.section	.text.Move_At_Angle,"ax",%progbits
+ 1580              		.align	1
+ 1581              		.global	Move_At_Angle
+ 1582              		.syntax unified
+ 1583              		.thumb
+ 1584              		.thumb_func
+ 1586              	Move_At_Angle:
+ 1587              	.LVL138:
+ 1588              	.LFB146:
+ 280:Core/APP/car.c **** void Move_At_Angle(float angle, float distance, float speed)//angle单位：°，distance单位：m
+ 281:Core/APP/car.c **** {
+ 1589              		.loc 1 281 1 is_stmt 1 view -0
+ 1590              		.cfi_startproc
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 34
+
+
+ 1591              		@ args = 0, pretend = 0, frame = 32
+ 1592              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1593              		.loc 1 281 1 is_stmt 0 view .LVU449
+ 1594 0000 30B5     		push	{r4, r5, lr}
+ 1595              	.LCFI21:
+ 1596              		.cfi_def_cfa_offset 12
+ 1597              		.cfi_offset 4, -12
+ 1598              		.cfi_offset 5, -8
+ 1599              		.cfi_offset 14, -4
+ 1600 0002 2DED068B 		vpush.64	{d8, d9, d10}
+ 1601              	.LCFI22:
+ 1602              		.cfi_def_cfa_offset 36
+ 1603              		.cfi_offset 80, -36
+ 1604              		.cfi_offset 81, -32
+ 1605              		.cfi_offset 82, -28
+ 1606              		.cfi_offset 83, -24
+ 1607              		.cfi_offset 84, -20
+ 1608              		.cfi_offset 85, -16
+ 1609 0006 89B0     		sub	sp, sp, #36
+ 1610              	.LCFI23:
+ 1611              		.cfi_def_cfa_offset 72
+ 1612 0008 B0EE408A 		vmov.f32	s16, s0
+ 1613 000c F0EE608A 		vmov.f32	s17, s1
+ 1614 0010 F0EE419A 		vmov.f32	s19, s2
+ 282:Core/APP/car.c ****     Reset_Chassis_Motor_MechPosition();
+ 1615              		.loc 1 282 5 is_stmt 1 view .LVU450
+ 1616 0014 FFF7FEFF 		bl	Reset_Chassis_Motor_MechPosition
+ 1617              	.LVL139:
+ 283:Core/APP/car.c **** 
+ 284:Core/APP/car.c ****     float angle_rad = angle * PI / 180.0f;
+ 1618              		.loc 1 284 5 view .LVU451
+ 1619              		.loc 1 284 29 is_stmt 0 view .LVU452
+ 1620 0018 DFED387A 		vldr.32	s15, .L77
+ 1621 001c 28EE278A 		vmul.f32	s16, s16, s15
+ 1622              	.LVL140:
+ 1623              		.loc 1 284 11 view .LVU453
+ 1624 0020 DFED377A 		vldr.32	s15, .L77+4
+ 1625 0024 88EE279A 		vdiv.f32	s18, s16, s15
+ 1626              	.LVL141:
+ 285:Core/APP/car.c **** 
+ 286:Core/APP/car.c ****     // 计算小车坐标系下的目标位移分量
+ 287:Core/APP/car.c ****     float target_car_Dx = distance * cosf(angle_rad);
+ 1627              		.loc 1 287 5 is_stmt 1 view .LVU454
+ 1628              		.loc 1 287 38 is_stmt 0 view .LVU455
+ 1629 0028 B0EE490A 		vmov.f32	s0, s18
+ 1630 002c FFF7FEFF 		bl	cosf
+ 1631              	.LVL142:
+ 1632 0030 B0EE408A 		vmov.f32	s16, s0
+ 1633              		.loc 1 287 11 discriminator 1 view .LVU456
+ 1634 0034 20EE28AA 		vmul.f32	s20, s0, s17
+ 1635              	.LVL143:
+ 288:Core/APP/car.c ****     float target_car_Dy = distance * sinf(angle_rad);
+ 1636              		.loc 1 288 5 is_stmt 1 view .LVU457
+ 1637              		.loc 1 288 38 is_stmt 0 view .LVU458
+ 1638 0038 B0EE490A 		vmov.f32	s0, s18
+ 1639 003c FFF7FEFF 		bl	sinf
+ 1640              	.LVL144:
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 35
+
+
+ 1641              		.loc 1 288 11 discriminator 1 view .LVU459
+ 1642 0040 60EE288A 		vmul.f32	s17, s0, s17
+ 1643              	.LVL145:
+ 289:Core/APP/car.c **** 
+ 290:Core/APP/car.c **** 
+ 291:Core/APP/car.c ****     float physical_target_rad[4];
+ 1644              		.loc 1 291 5 is_stmt 1 view .LVU460
+ 292:Core/APP/car.c ****     physical_target_rad[0] = (target_car_Dx - target_car_Dy) / WHEEL_RADIUS; // 电机1
+ 1645              		.loc 1 292 5 view .LVU461
+ 1646              		.loc 1 292 45 is_stmt 0 view .LVU462
+ 1647 0044 7AEE687A 		vsub.f32	s15, s20, s17
+ 1648              		.loc 1 292 62 view .LVU463
+ 1649 0048 DFED2E6A 		vldr.32	s13, .L77+8
+ 1650 004c 87EEA69A 		vdiv.f32	s18, s15, s13
+ 1651              	.LVL146:
+ 1652              		.loc 1 292 28 view .LVU464
+ 1653 0050 8DED049A 		vstr.32	s18, [sp, #16]
+ 293:Core/APP/car.c ****     physical_target_rad[1] = (target_car_Dx + target_car_Dy) / WHEEL_RADIUS; // 电机2
+ 1654              		.loc 1 293 5 is_stmt 1 view .LVU465
+ 1655              		.loc 1 293 45 is_stmt 0 view .LVU466
+ 1656 0054 3AEE28AA 		vadd.f32	s20, s20, s17
+ 1657              	.LVL147:
+ 1658              		.loc 1 293 62 view .LVU467
+ 1659 0058 CAEE268A 		vdiv.f32	s17, s20, s13
+ 1660              	.LVL148:
+ 1661              		.loc 1 293 28 view .LVU468
+ 1662 005c CDED058A 		vstr.32	s17, [sp, #20]
+ 294:Core/APP/car.c ****     physical_target_rad[2] = (target_car_Dx + target_car_Dy) / WHEEL_RADIUS; // 电机3
+ 1663              		.loc 1 294 5 is_stmt 1 view .LVU469
+ 1664              		.loc 1 294 28 is_stmt 0 view .LVU470
+ 1665 0060 CDED068A 		vstr.32	s17, [sp, #24]
+ 295:Core/APP/car.c ****     physical_target_rad[3] = (target_car_Dx - target_car_Dy) / WHEEL_RADIUS; // 电机4
+ 1666              		.loc 1 295 5 is_stmt 1 view .LVU471
+ 1667              		.loc 1 295 28 is_stmt 0 view .LVU472
+ 1668 0064 8DED079A 		vstr.32	s18, [sp, #28]
+ 296:Core/APP/car.c **** 
+ 297:Core/APP/car.c ****     // 计算每个轮子的角速度限制 (rad/s)
+ 298:Core/APP/car.c ****     // 与目标转动角度成比例
+ 299:Core/APP/car.c ****     float speed_limit_rad_s[4];
+ 1669              		.loc 1 299 5 is_stmt 1 view .LVU473
+ 300:Core/APP/car.c ****     speed_limit_rad_s[0] = fabsf(speed * (cosf(angle_rad) - sinf(angle_rad)) / WHEEL_RADIUS);
+ 1670              		.loc 1 300 5 view .LVU474
+ 1671              		.loc 1 300 59 is_stmt 0 discriminator 2 view .LVU475
+ 1672 0068 38EE407A 		vsub.f32	s14, s16, s0
+ 1673              		.loc 1 300 40 discriminator 2 view .LVU476
+ 1674 006c 27EE297A 		vmul.f32	s14, s14, s19
+ 1675              		.loc 1 300 78 discriminator 2 view .LVU477
+ 1676 0070 C7EE267A 		vdiv.f32	s15, s14, s13
+ 1677              		.loc 1 300 28 discriminator 2 view .LVU478
+ 1678 0074 F0EEE77A 		vabs.f32	s15, s15
+ 1679              		.loc 1 300 26 discriminator 2 view .LVU479
+ 1680 0078 CDED007A 		vstr.32	s15, [sp]
+ 301:Core/APP/car.c ****     speed_limit_rad_s[1] = fabsf(speed * (cosf(angle_rad) + sinf(angle_rad)) / WHEEL_RADIUS);
+ 1681              		.loc 1 301 5 is_stmt 1 view .LVU480
+ 1682              		.loc 1 301 59 is_stmt 0 discriminator 2 view .LVU481
+ 1683 007c 38EE008A 		vadd.f32	s16, s16, s0
+ 1684              	.LVL149:
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 36
+
+
+ 1685              		.loc 1 301 40 discriminator 2 view .LVU482
+ 1686 0080 28EE291A 		vmul.f32	s2, s16, s19
+ 1687              		.loc 1 301 78 discriminator 2 view .LVU483
+ 1688 0084 81EE267A 		vdiv.f32	s14, s2, s13
+ 1689              		.loc 1 301 28 discriminator 2 view .LVU484
+ 1690 0088 B0EEC77A 		vabs.f32	s14, s14
+ 1691              		.loc 1 301 26 discriminator 2 view .LVU485
+ 1692 008c 8DED017A 		vstr.32	s14, [sp, #4]
+ 302:Core/APP/car.c ****     speed_limit_rad_s[2] = fabsf(speed * (cosf(angle_rad) + sinf(angle_rad)) / WHEEL_RADIUS);
+ 1693              		.loc 1 302 5 is_stmt 1 view .LVU486
+ 1694              		.loc 1 302 26 is_stmt 0 discriminator 2 view .LVU487
+ 1695 0090 8DED027A 		vstr.32	s14, [sp, #8]
+ 303:Core/APP/car.c ****     speed_limit_rad_s[3] = fabsf(speed * (cosf(angle_rad) - sinf(angle_rad)) / WHEEL_RADIUS);
+ 1696              		.loc 1 303 5 is_stmt 1 view .LVU488
+ 1697              		.loc 1 303 26 is_stmt 0 discriminator 2 view .LVU489
+ 1698 0094 CDED037A 		vstr.32	s15, [sp, #12]
+ 304:Core/APP/car.c **** 
+ 305:Core/APP/car.c ****     // 设置速度限制和模式
+ 306:Core/APP/car.c ****     for (int i = 1; i <= 4; i++)
+ 1699              		.loc 1 306 5 is_stmt 1 view .LVU490
+ 1700              	.LBB6:
+ 1701              		.loc 1 306 10 view .LVU491
+ 1702              	.LVL150:
+ 1703              		.loc 1 306 14 is_stmt 0 view .LVU492
+ 1704 0098 0124     		movs	r4, #1
+ 1705              		.loc 1 306 5 view .LVU493
+ 1706 009a 00E0     		b	.L72
+ 1707              	.LVL151:
+ 1708              	.L73:
+ 1709              		.loc 1 306 30 is_stmt 1 discriminator 2 view .LVU494
+ 1710 009c 0134     		adds	r4, r4, #1
+ 1711              	.LVL152:
+ 1712              	.L72:
+ 1713              		.loc 1 306 23 discriminator 1 view .LVU495
+ 1714 009e 042C     		cmp	r4, #4
+ 1715 00a0 13DC     		bgt	.L76
+ 307:Core/APP/car.c ****     {
+ 308:Core/APP/car.c ****         // 查找最大速度限制以进行可能的缩放（如果超过电机能力），这里�
+ 309:Core/APP/car.c ****         MI_motor_SetSpdLim(motors[i], speed_limit_rad_s[i-1]);
+ 1716              		.loc 1 309 9 view .LVU496
+ 1717              		.loc 1 309 58 is_stmt 0 view .LVU497
+ 1718 00a2 631E     		subs	r3, r4, #1
+ 1719              		.loc 1 309 9 view .LVU498
+ 1720 00a4 08AA     		add	r2, sp, #32
+ 1721 00a6 02EB8303 		add	r3, r2, r3, lsl #2
+ 1722 00aa 174D     		ldr	r5, .L77+12
+ 1723 00ac 13ED080A 		vldr.32	s0, [r3, #-32]
+ 1724 00b0 55F82400 		ldr	r0, [r5, r4, lsl #2]
+ 1725 00b4 FFF7FEFF 		bl	MI_motor_SetSpdLim
+ 1726              	.LVL153:
+ 310:Core/APP/car.c ****         if (motors[i]->Control_mode != MODE_POS)
+ 1727              		.loc 1 310 9 is_stmt 1 view .LVU499
+ 1728              		.loc 1 310 19 is_stmt 0 view .LVU500
+ 1729 00b8 55F82400 		ldr	r0, [r5, r4, lsl #2]
+ 1730              		.loc 1 310 22 view .LVU501
+ 1731 00bc 8379     		ldrb	r3, [r0, #6]	@ zero_extendqisi2
+ 1732              		.loc 1 310 12 view .LVU502
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 37
+
+
+ 1733 00be 012B     		cmp	r3, #1
+ 1734 00c0 ECD0     		beq	.L73
+ 311:Core/APP/car.c ****         {
+ 312:Core/APP/car.c ****             MI_motor_setMode(motors[i], MODE_POS);
+ 1735              		.loc 1 312 13 is_stmt 1 view .LVU503
+ 1736 00c2 0121     		movs	r1, #1
+ 1737 00c4 FFF7FEFF 		bl	MI_motor_setMode
+ 1738              	.LVL154:
+ 1739 00c8 E8E7     		b	.L73
+ 1740              	.L76:
+ 1741              	.LBE6:
+ 313:Core/APP/car.c ****         }
+ 314:Core/APP/car.c ****     }
+ 315:Core/APP/car.c **** 
+ 316:Core/APP/car.c **** 
+ 317:Core/APP/car.c ****     MI_motor_PosCtrl(motors[1], -physical_target_rad[0]);
+ 1742              		.loc 1 317 5 view .LVU504
+ 1743 00ca 0F4C     		ldr	r4, .L77+12
+ 1744              	.LVL155:
+ 1745              		.loc 1 317 5 is_stmt 0 view .LVU505
+ 1746 00cc B1EE490A 		vneg.f32	s0, s18
+ 1747 00d0 6068     		ldr	r0, [r4, #4]
+ 1748 00d2 FFF7FEFF 		bl	MI_motor_PosCtrl
+ 1749              	.LVL156:
+ 318:Core/APP/car.c ****     MI_motor_PosCtrl(motors[2], +physical_target_rad[1]); 
+ 1750              		.loc 1 318 5 is_stmt 1 view .LVU506
+ 1751 00d6 B0EE680A 		vmov.f32	s0, s17
+ 1752 00da A068     		ldr	r0, [r4, #8]
+ 1753 00dc FFF7FEFF 		bl	MI_motor_PosCtrl
+ 1754              	.LVL157:
+ 319:Core/APP/car.c ****     MI_motor_PosCtrl(motors[3], -physical_target_rad[2]);
+ 1755              		.loc 1 319 5 view .LVU507
+ 1756 00e0 B1EE680A 		vneg.f32	s0, s17
+ 1757 00e4 E068     		ldr	r0, [r4, #12]
+ 1758 00e6 FFF7FEFF 		bl	MI_motor_PosCtrl
+ 1759              	.LVL158:
+ 320:Core/APP/car.c ****     MI_motor_PosCtrl(motors[4], +physical_target_rad[3]); 
+ 1760              		.loc 1 320 5 view .LVU508
+ 1761 00ea B0EE490A 		vmov.f32	s0, s18
+ 1762 00ee 2069     		ldr	r0, [r4, #16]
+ 1763 00f0 FFF7FEFF 		bl	MI_motor_PosCtrl
+ 1764              	.LVL159:
+ 321:Core/APP/car.c **** }
+ 1765              		.loc 1 321 1 is_stmt 0 view .LVU509
+ 1766 00f4 09B0     		add	sp, sp, #36
+ 1767              	.LCFI24:
+ 1768              		.cfi_def_cfa_offset 36
+ 1769              		@ sp needed
+ 1770 00f6 BDEC068B 		vldm	sp!, {d8-d10}
+ 1771              	.LCFI25:
+ 1772              		.cfi_restore 84
+ 1773              		.cfi_restore 85
+ 1774              		.cfi_restore 82
+ 1775              		.cfi_restore 83
+ 1776              		.cfi_restore 80
+ 1777              		.cfi_restore 81
+ 1778              		.cfi_def_cfa_offset 12
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 38
+
+
+ 1779 00fa 30BD     		pop	{r4, r5, pc}
+ 1780              	.L78:
+ 1781              		.align	2
+ 1782              	.L77:
+ 1783 00fc DB0F4940 		.word	1078530011
+ 1784 0100 00003443 		.word	1127481344
+ 1785 0104 00009842 		.word	1117257728
+ 1786 0108 00000000 		.word	motors
+ 1787              		.cfi_endproc
+ 1788              	.LFE146:
+ 1790              		.section	.text.Move_TransformZ,"ax",%progbits
+ 1791              		.align	1
+ 1792              		.global	Move_TransformZ
+ 1793              		.syntax unified
+ 1794              		.thumb
+ 1795              		.thumb_func
+ 1797              	Move_TransformZ:
+ 1798              	.LVL160:
+ 1799              	.LFB147:
+ 322:Core/APP/car.c **** 
+ 323:Core/APP/car.c **** void Move_TransformZ(float angle, float Vz) // angle单位：°，Vz单位：rad/s
+ 324:Core/APP/car.c **** {
+ 1800              		.loc 1 324 1 is_stmt 1 view -0
+ 1801              		.cfi_startproc
+ 1802              		@ args = 0, pretend = 0, frame = 0
+ 1803              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1804              		.loc 1 324 1 is_stmt 0 view .LVU511
+ 1805 0000 38B5     		push	{r3, r4, r5, lr}
+ 1806              	.LCFI26:
+ 1807              		.cfi_def_cfa_offset 16
+ 1808              		.cfi_offset 3, -16
+ 1809              		.cfi_offset 4, -12
+ 1810              		.cfi_offset 5, -8
+ 1811              		.cfi_offset 14, -4
+ 1812 0002 2DED028B 		vpush.64	{d8}
+ 1813              	.LCFI27:
+ 1814              		.cfi_def_cfa_offset 24
+ 1815              		.cfi_offset 80, -24
+ 1816              		.cfi_offset 81, -20
+ 1817 0006 F0EE408A 		vmov.f32	s17, s0
+ 1818 000a B0EE608A 		vmov.f32	s16, s1
+ 325:Core/APP/car.c ****     Reset_Chassis_Motor_MechPosition();
+ 1819              		.loc 1 325 5 is_stmt 1 view .LVU512
+ 1820 000e FFF7FEFF 		bl	Reset_Chassis_Motor_MechPosition
+ 1821              	.LVL161:
+ 326:Core/APP/car.c ****     for (int i = 1; i < 5; i++)
+ 1822              		.loc 1 326 5 view .LVU513
+ 1823              	.LBB7:
+ 1824              		.loc 1 326 10 view .LVU514
+ 1825              		.loc 1 326 14 is_stmt 0 view .LVU515
+ 1826 0012 0124     		movs	r4, #1
+ 1827              		.loc 1 326 5 view .LVU516
+ 1828 0014 00E0     		b	.L80
+ 1829              	.LVL162:
+ 1830              	.L81:
+ 1831              		.loc 1 326 29 is_stmt 1 discriminator 2 view .LVU517
+ 1832 0016 0134     		adds	r4, r4, #1
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 39
+
+
+ 1833              	.LVL163:
+ 1834              	.L80:
+ 1835              		.loc 1 326 23 discriminator 1 view .LVU518
+ 1836 0018 042C     		cmp	r4, #4
+ 1837 001a 0FDC     		bgt	.L90
+ 327:Core/APP/car.c ****     {
+ 328:Core/APP/car.c ****         MI_motor_SetSpdLim(motors[i], Vz);
+ 1838              		.loc 1 328 9 view .LVU519
+ 1839 001c 254D     		ldr	r5, .L91
+ 1840 001e B0EE480A 		vmov.f32	s0, s16
+ 1841 0022 55F82400 		ldr	r0, [r5, r4, lsl #2]
+ 1842 0026 FFF7FEFF 		bl	MI_motor_SetSpdLim
+ 1843              	.LVL164:
+ 329:Core/APP/car.c ****         if (motors[i]->Control_mode != MODE_POS)
+ 1844              		.loc 1 329 9 view .LVU520
+ 1845              		.loc 1 329 19 is_stmt 0 view .LVU521
+ 1846 002a 55F82400 		ldr	r0, [r5, r4, lsl #2]
+ 1847              		.loc 1 329 22 view .LVU522
+ 1848 002e 8379     		ldrb	r3, [r0, #6]	@ zero_extendqisi2
+ 1849              		.loc 1 329 12 view .LVU523
+ 1850 0030 012B     		cmp	r3, #1
+ 1851 0032 F0D0     		beq	.L81
+ 330:Core/APP/car.c ****         {
+ 331:Core/APP/car.c ****             MI_motor_setMode(motors[i], MODE_POS);
+ 1852              		.loc 1 331 13 is_stmt 1 view .LVU524
+ 1853 0034 0121     		movs	r1, #1
+ 1854 0036 FFF7FEFF 		bl	MI_motor_setMode
+ 1855              	.LVL165:
+ 1856 003a ECE7     		b	.L81
+ 1857              	.L90:
+ 1858              		.loc 1 331 13 is_stmt 0 view .LVU525
+ 1859              	.LBE7:
+ 332:Core/APP/car.c ****         }
+ 333:Core/APP/car.c ****     }
+ 334:Core/APP/car.c **** 
+ 335:Core/APP/car.c ****     float Target1, Target2, Target3, Target4 = 0.0f;
+ 1860              		.loc 1 335 5 is_stmt 1 view .LVU526
+ 1861              	.LVL166:
+ 336:Core/APP/car.c ****     float angle_rad = angle * (PI / 180.0f);
+ 1862              		.loc 1 336 5 view .LVU527
+ 1863              		.loc 1 336 11 is_stmt 0 view .LVU528
+ 1864 003c DFED1E7A 		vldr.32	s15, .L91+4
+ 1865 0040 68EEA78A 		vmul.f32	s17, s17, s15
+ 1866              	.LVL167:
+ 337:Core/APP/car.c ****     float rotation_radius = sqrtf(CAR_S*CAR_S + CAR_W*CAR_W) / 2.0f;
+ 1867              		.loc 1 337 5 is_stmt 1 view .LVU529
+ 338:Core/APP/car.c ****      // 计算轮子需要移动的角度（rad）: 弧长 = 半径 × 角度
+ 339:Core/APP/car.c ****     float wheel_rad = sqrtf(2) * rotation_radius * angle_rad / WHEEL_RADIUS;
+ 1868              		.loc 1 339 5 view .LVU530
+ 1869              		.loc 1 339 50 is_stmt 0 view .LVU531
+ 1870 0044 DFED1D7A 		vldr.32	s15, .L91+8
+ 1871 0048 68EEA78A 		vmul.f32	s17, s17, s15
+ 1872              	.LVL168:
+ 1873              		.loc 1 339 11 view .LVU532
+ 1874 004c 9FED1C7A 		vldr.32	s14, .L91+12
+ 1875 0050 C8EE877A 		vdiv.f32	s15, s17, s14
+ 1876              	.LVL169:
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 40
+
+
+ 340:Core/APP/car.c ****     float k = 1.0205;//修正系数
+ 1877              		.loc 1 340 5 is_stmt 1 view .LVU533
+ 341:Core/APP/car.c ****     if(Vz >10 && Vz <= 15)
+ 1878              		.loc 1 341 5 view .LVU534
+ 1879              		.loc 1 341 7 is_stmt 0 view .LVU535
+ 1880 0054 B2EE047A 		vmov.f32	s14, #1.0e+1
+ 1881 0058 B4EEC78A 		vcmpe.f32	s16, s14
+ 1882 005c F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1883 0060 09DD     		ble	.L88
+ 1884              		.loc 1 341 15 discriminator 1 view .LVU536
+ 1885 0062 B2EE0E7A 		vmov.f32	s14, #1.5e+1
+ 1886 0066 B4EEC78A 		vcmpe.f32	s16, s14
+ 1887 006a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1888 006e 1ED9     		bls	.L86
+ 340:Core/APP/car.c ****     float k = 1.0205;//修正系数
+ 1889              		.loc 1 340 11 view .LVU537
+ 1890 0070 9FED148A 		vldr.32	s16, .L91+16
+ 1891              	.LVL170:
+ 340:Core/APP/car.c ****     float k = 1.0205;//修正系数
+ 1892              		.loc 1 340 11 view .LVU538
+ 1893 0074 01E0     		b	.L83
+ 1894              	.LVL171:
+ 1895              	.L88:
+ 340:Core/APP/car.c ****     float k = 1.0205;//修正系数
+ 1896              		.loc 1 340 11 view .LVU539
+ 1897 0076 9FED138A 		vldr.32	s16, .L91+16
+ 1898              	.LVL172:
+ 1899              	.L83:
+ 342:Core/APP/car.c ****     {
+ 343:Core/APP/car.c ****         k = 1.015;
+ 344:Core/APP/car.c ****     }
+ 345:Core/APP/car.c ****     else if(Vz <=10)
+ 346:Core/APP/car.c ****     {
+ 347:Core/APP/car.c ****         k = 1.0205;
+ 348:Core/APP/car.c ****     }
+ 349:Core/APP/car.c ****     wheel_rad = wheel_rad * k;
+ 1900              		.loc 1 349 5 is_stmt 1 view .LVU540
+ 1901              		.loc 1 349 15 is_stmt 0 view .LVU541
+ 1902 007a 28EE278A 		vmul.f32	s16, s16, s15
+ 1903              	.LVL173:
+ 350:Core/APP/car.c ****     Target1 = wheel_rad;
+ 1904              		.loc 1 350 5 is_stmt 1 view .LVU542
+ 351:Core/APP/car.c ****     Target2 = wheel_rad;
+ 1905              		.loc 1 351 5 view .LVU543
+ 352:Core/APP/car.c ****     Target3 = wheel_rad;
+ 1906              		.loc 1 352 5 view .LVU544
+ 353:Core/APP/car.c ****     Target4 = wheel_rad;
+ 1907              		.loc 1 353 5 view .LVU545
+ 354:Core/APP/car.c **** 
+ 355:Core/APP/car.c ****     MI_motor_PosCtrl(motors[1], Target1);
+ 1908              		.loc 1 355 5 view .LVU546
+ 1909 007e 0D4C     		ldr	r4, .L91
+ 1910              	.LVL174:
+ 1911              		.loc 1 355 5 is_stmt 0 view .LVU547
+ 1912 0080 B0EE480A 		vmov.f32	s0, s16
+ 1913 0084 6068     		ldr	r0, [r4, #4]
+ 1914 0086 FFF7FEFF 		bl	MI_motor_PosCtrl
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 41
+
+
+ 1915              	.LVL175:
+ 356:Core/APP/car.c ****     MI_motor_PosCtrl(motors[2], Target2);
+ 1916              		.loc 1 356 5 is_stmt 1 view .LVU548
+ 1917 008a B0EE480A 		vmov.f32	s0, s16
+ 1918 008e A068     		ldr	r0, [r4, #8]
+ 1919 0090 FFF7FEFF 		bl	MI_motor_PosCtrl
+ 1920              	.LVL176:
+ 357:Core/APP/car.c ****     MI_motor_PosCtrl(motors[3], Target3);
+ 1921              		.loc 1 357 5 view .LVU549
+ 1922 0094 B0EE480A 		vmov.f32	s0, s16
+ 1923 0098 E068     		ldr	r0, [r4, #12]
+ 1924 009a FFF7FEFF 		bl	MI_motor_PosCtrl
+ 1925              	.LVL177:
+ 358:Core/APP/car.c ****     MI_motor_PosCtrl(motors[4], Target4);
+ 1926              		.loc 1 358 5 view .LVU550
+ 1927 009e B0EE480A 		vmov.f32	s0, s16
+ 1928 00a2 2069     		ldr	r0, [r4, #16]
+ 1929 00a4 FFF7FEFF 		bl	MI_motor_PosCtrl
+ 1930              	.LVL178:
+ 359:Core/APP/car.c **** 
+ 360:Core/APP/car.c **** }
+ 1931              		.loc 1 360 1 is_stmt 0 view .LVU551
+ 1932 00a8 BDEC028B 		vldm	sp!, {d8}
+ 1933              	.LCFI28:
+ 1934              		.cfi_remember_state
+ 1935              		.cfi_restore 80
+ 1936              		.cfi_restore 81
+ 1937              		.cfi_def_cfa_offset 16
+ 1938              	.LVL179:
+ 1939              		.loc 1 360 1 view .LVU552
+ 1940 00ac 38BD     		pop	{r3, r4, r5, pc}
+ 1941              	.LVL180:
+ 1942              	.L86:
+ 1943              	.LCFI29:
+ 1944              		.cfi_restore_state
+ 343:Core/APP/car.c ****     }
+ 1945              		.loc 1 343 11 view .LVU553
+ 1946 00ae 9FED068A 		vldr.32	s16, .L91+20
+ 1947              	.LVL181:
+ 343:Core/APP/car.c ****     }
+ 1948              		.loc 1 343 11 view .LVU554
+ 1949 00b2 E2E7     		b	.L83
+ 1950              	.L92:
+ 1951              		.align	2
+ 1952              	.L91:
+ 1953 00b4 00000000 		.word	motors
+ 1954 00b8 35FA8E3C 		.word	1016003125
+ 1955 00bc 0000C843 		.word	1137180672
+ 1956 00c0 00009842 		.word	1117257728
+ 1957 00c4 BE9F823F 		.word	1065525182
+ 1958 00c8 85EB813F 		.word	1065479045
+ 1959              		.cfi_endproc
+ 1960              	.LFE147:
+ 1962              		.global	car
+ 1963              		.section	.bss.car,"aw",%nobits
+ 1964              		.align	2
+ 1967              	car:
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 42
+
+
+ 1968 0000 00000000 		.space	4
+ 1969              		.text
+ 1970              	.Letext0:
+ 1971              		.file 2 "c:/Users/HZW/.eide/tools/13.2 Rel1/arm-none-eabi/include/machine/_default_types.h"
+ 1972              		.file 3 "c:/Users/HZW/.eide/tools/13.2 Rel1/arm-none-eabi/include/sys/_stdint.h"
+ 1973              		.file 4 "c:/Users/HZW/.eide/tools/13.2 Rel1/lib/gcc/arm-none-eabi/13.2.1/include/stddef.h"
+ 1974              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f427xx.h"
+ 1975              		.file 6 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h"
+ 1976              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 1977              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 1978              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h"
+ 1979              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h"
+ 1980              		.file 11 "Core/Inc/main.h"
+ 1981              		.file 12 "Core/Inc/usart.h"
+ 1982              		.file 13 "Core/BSP/MI_motor_dev.h"
+ 1983              		.file 14 "Core/APP/car.h"
+ 1984              		.file 15 "Core/BSP/bsp.h"
+ 1985              		.file 16 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h"
+ 1986              		.file 17 "c:/Users/HZW/.eide/tools/13.2 Rel1/arm-none-eabi/include/math.h"
+ 1987              		.file 18 "c:/Users/HZW/.eide/tools/13.2 Rel1/arm-none-eabi/include/stdlib.h"
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 43
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 car.c
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:21     .text.omega_zero:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:27     .text.omega_zero:00000000 omega_zero
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:76     .text.omega_zero:00000030 $d
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:81     .text.Init_Car:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:87     .text.Init_Car:00000000 Init_Car
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:205    .text.Init_Car:00000058 $d
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:1967   .bss.car:00000000 car
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:210    .text.Reset_Car_Status:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:216    .text.Reset_Car_Status:00000000 Reset_Car_Status
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:338    .text.Reset_Car_Status:00000060 $d
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:349    .text.From_Motor_to_Car_Status:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:355    .text.From_Motor_to_Car_Status:00000000 From_Motor_to_Car_Status
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:752    .text.From_Motor_to_Car_Status:000002c0 $d
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:772    .text.Update_Car_Status:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:778    .text.Update_Car_Status:00000000 Update_Car_Status
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:828    .text.Update_Car_Status:00000024 $d
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:836    .text.Publish_Car_Speed:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:842    .text.Publish_Car_Speed:00000000 Publish_Car_Speed
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:1180   .text.Publish_Car_Speed:00000230 $d
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:1196   .text.Move_TransformX:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:1202   .text.Move_TransformX:00000000 Move_TransformX
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:1315   .text.Move_TransformX:0000007c $d
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:1321   .text.Move_TransformY:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:1327   .text.Move_TransformY:00000000 Move_TransformY
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:1440   .text.Move_TransformY:0000007c $d
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:1446   .text.Move_TransformXY:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:1452   .text.Move_TransformXY:00000000 Move_TransformXY
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:1573   .text.Move_TransformXY:00000080 $d
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:1580   .text.Move_At_Angle:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:1586   .text.Move_At_Angle:00000000 Move_At_Angle
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:1783   .text.Move_At_Angle:000000fc $d
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:1791   .text.Move_TransformZ:00000000 $t
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:1797   .text.Move_TransformZ:00000000 Move_TransformZ
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:1953   .text.Move_TransformZ:000000b4 $d
+C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s:1964   .bss.car:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_UART_Transmit
+huart6
+malloc
+motors
+__aeabi_f2d
+__aeabi_dcmpgt
+__aeabi_dcmplt
+__aeabi_ddiv
+__aeabi_d2f
+Disable_IMU_Interrupts
+HAL_NVIC_DisableIRQ
+fmod
+cosf
+sinf
+Enable_IMU_Interrupts
+HAL_NVIC_EnableIRQ
+omega
+MI_motor_get_speed
+ARM GAS  C:\Users\HZW\AppData\Local\Temp\ccqUh3GP.s 			page 44
+
+
+MI_motor_get_mechPos
+__aeabi_dmul
+__aeabi_dadd
+__aeabi_dsub
+Publish_Chassis_Motor_Speed
+Reset_Chassis_Motor_MechPosition
+MI_motor_SetSpdLim
+MI_motor_setMode
+MI_motor_PosCtrl

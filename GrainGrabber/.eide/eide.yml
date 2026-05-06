@@ -1,32 +1,69 @@
 version: "4.1"
-name: GrainGrabber
+name: lifting
 type: ARM
-deviceName: null
-packDir: null
+deviceName: STM32F427IIHx
+packDir: .pack/Keil/STM32F4xx_DFP.2.14.0
 srcDirs:
   - Core
   - Drivers
-  - User
   - Middlewares
 virtualFolder:
   name: <virtual_root>
   files:
     - path: startup_stm32f427xx.s
-  folders: []
+  folders:
+    - name: startup_stm32f427xx.s
+      files:
+        - path: startup_stm32f427xxcopy.s
+      folders: []
+    - name: startup
+      files:
+        - path: startup_stm32f427xx.s
+      folders: []
 dependenceList: []
 outDir: build
 miscInfo:
-  uid: e54cf1def21ba1bfa706577bbf67122c
+  uid: b433d2b55adfd9d916c2867eb211434c
 targets:
   Debug:
     cppPreprocessAttrs:
       defineList:
         - USE_HAL_DRIVER
         - STM32F427xx
-      incList: []
+      incList:
+        - .
+        - Core
+        - Core/Inc
+        - Drivers
+        - Drivers/CMSIS
+        - Drivers/STM32F4xx_HAL_Driver
+        - Drivers/CMSIS/Device
+        - Drivers/CMSIS/Include
+        - Drivers/CMSIS/Device/ST
+        - Drivers/CMSIS/Device/ST/STM32F4xx
+        - Drivers/CMSIS/Device/ST/STM32F4xx/Include
+        - Drivers/CMSIS/Device/ST/STM32F4xx/Source
+        - Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates
+        - Drivers/STM32F4xx_HAL_Driver/Inc
+        - Drivers/STM32F4xx_HAL_Driver/Src
+        - Drivers/STM32F4xx_HAL_Driver/Inc/Legacy
+        - Middlewares
+        - Middlewares/Third_Party
+        - Middlewares/Third_Party/FreeRTOS
+        - Middlewares/Third_Party/FreeRTOS/Source
+        - Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2
+        - Middlewares/Third_Party/FreeRTOS/Source/include
+        - Middlewares/Third_Party/FreeRTOS/Source/portable
+        - Middlewares/Third_Party/FreeRTOS/Source/portable/GCC
+        - Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang
+        - Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F
+        - Core/BSP
+        - Core/APP
       libList: []
-    excludeList: []
-    settings: {}
+    excludeList:
+      - <virtual_root>/startup_stm32f427xx.s
+    settings:
+      debugger: cortex-debug
     toolchain: GCC
     toolchainConfigMap:
       GCC:
@@ -49,19 +86,15 @@ targets:
             optimization: level-debug
             warnings: all-warnings
           global:
-            $float-abi-type: hard
-            misc-control: ""
-            not-use-syscalls: true
+            $float-abi-type: softfp
+            misc-control: --specs=nosys.specs --specs=nano.specs
             output-debug-info: enable
-            use-newlib-nano: true
           linker:
-            $outputTaskExcludes:
-              - .bin
-            LD_FLAGS: ""
+            LD_FLAGS: -u _printf_float
             LIB_FLAGS: -lm
             output-format: elf
             remove-unused-input-sections: true
-        scatterFilePath: STM32F427IIHx_FLASH.ld
+        scatterFilePath: STM32F427XX_FLASH.ld
         storageLayout:
           RAM: []
           ROM: []
@@ -76,4 +109,19 @@ targets:
         otherCmds: ""
         proType: 1
         speed: 8000
-    uploader: JLink
+      OpenOCD:
+        baseAddr: "0x08000000"
+        bin: ""
+        interface: cmsis-dap-v1
+        target: stm32f4x
+      STLink:
+        address: "0x08000000"
+        bin: ""
+        elFile: None
+        optionBytes: .eide/debug.st.option.bytes.ini
+        otherCmds: ""
+        proType: SWD
+        resetMode: default
+        runAfterProgram: true
+        speed: 4000
+    uploader: OpenOCD

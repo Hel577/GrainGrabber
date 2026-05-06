@@ -7,7 +7,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2026 STMicroelectronics.
+  * Copyright (c) 2025 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -31,6 +31,12 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "stdio.h"
+#include "math.h"
+#include "stdbool.h"
+#include <stdlib.h>
+#include "string.h"
+#include "stdint.h"
 
 /* USER CODE END Includes */
 
@@ -60,6 +66,17 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN Private defines */
 
+#define RXCMD6_DMA_SIZE 33
+#define RXCMD3_DMA_SIZE 9
+// 全局变量声明
+extern uint8_t rxcmd6_dma[RXCMD6_DMA_SIZE];
+extern uint8_t rxcmd6_app[RXCMD6_DMA_SIZE];
+extern uint8_t rxcmd3_dma[RXCMD3_DMA_SIZE];
+extern volatile float omega;            // 实际角度值
+extern volatile float omega_1;          // 原始角度值（-180到180度）
+extern volatile float current_angle_speed; // 当前角速度
+extern uint32_t last_receive_hwt_time; // 最后接收时间
+extern uint8_t move_flag;
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
