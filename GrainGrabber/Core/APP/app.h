@@ -52,14 +52,8 @@ void Start_Scara(void);
 void Get_Box(uint8_t box_id);
 void Put_Box(uint8_t box_id ,uint8_t dir, bool maduo);
 void Ready_To_Put_Box(uint8_t box_id);
-void Move_To_Shelf(void);
-void Move_To_Paper(void);
-void Move_point_to_point(uint8_t point_1, uint8_t point_2);
-void Move_point_to_point_direct(uint8_t point_1, uint8_t point_2, uint32_t timeout_ms);
-void Move_Shelf_Left(void);
-void Move_Shelf_Right(void);
-void Move_To_Next_Paper(void);
-uint8_t Near_Box(uint8_t box_id ,uint8_t dir, bool maduo);
+void Move_To_Target(uint8_t target_id);
+void Move_To_Placing_Box(uint8_t* box_ids);
 
 // 添加非阻塞版本的函数
 void Start_Scara_NonBlocking(void);
@@ -70,5 +64,7 @@ void Move_To_Position_XYZ_NonBlocking(float target_x, float target_y, float targ
 void Move_By_Vision_NonBlocking(uint8_t paper_id, uint32_t timeout);
 void Move_By_Easy_NonBlocking(float target_x, float target_y, float target_z, uint32_t timeout);
 void Move_Translation_NonBlocking(float target_x, float target_y, float target_z, uint32_t timeout);
+uint8_t Near_Box(uint8_t box_id ,uint8_t dir, bool maduo);
+
 
 #endif

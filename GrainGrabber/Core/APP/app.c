@@ -12,6 +12,7 @@ void app_init(void)
 bool car_box[7] = {1, 1, 1, 1, 1, 1, 1};
 uint8_t paper_box[7] = {0, 0, 0, 0, 0, 0, 0}; //用于判断纸箱是否有箱子（2为有两层，1为有一层，0为无）
 uint8_t put_round = 0; //放置箱子的次数
+uint8_t last_target_index = 0; // 用于记录上一个目标点的位置，用初始点进行初始化
 
 //**************************机械臂动作组**********************************************/
 //非阻塞机械臂动作组
@@ -1512,248 +1513,98 @@ void Move_Translation_NonBlocking(float target_x, float target_y, float target_z
 }
 
 
+// 定义不同目标点的位置
+float target_positions[16][3] = {
+    {1785, 1010, 0},
+    {2785, 500, 0},
+    {3535, 500, 0},
+    {3280, 500, 0},
+    {3280, 1000, 0},
+    {3280, 1500, 0},
+    {3535, 1500, 0},
+    {3000, 1500, 0},
+    {785, 500, -180},
+    {440, 445, -90},
+    {445, 600, -180},
+    {445,1000,-180},
+    {445,1400,-180},
+    {440,1555,-270},
+    {785,500,-180},
+    {785,1500,-180}//初始生成的随机点
+};
+
+int timeout[16][16] = {
+    // 0    1    2    3    4    5    6    7    8    9    10   11   12   13   14   15
+    {0,   3667,5000,4500,4167,4667,5667,4834,4000,5500,4834,5667,6500,5334,3000,3834},
+    {2000,0,   1667,1334,1834,2500,3500,2334,3834,5000,5334,6167,7000,5834,4667,3834},
+    {3334,1667,0,   834, 1334,2000,2667,1834,5167,6334,6167,7000,7834,6667,5500,4667},
+    {2834,1334,834, 0,   1167,1834,2667,1834,4667,5834,6000,6834,7667,6500,5334,4500},
+    {2500,1834,1334,1167,0,   1167,1834,1500,4334,5500,5500,6334,7167,6000,4834,4000},
+    {3000,2500,2000,1834,1167,0,   1167,1167,4834,5667,4834,5667,6500,5334,4334,3500},
+    {4000,3500,2667,2667,1834,1167,0,   1667,5834,6500,5667,6500,7334,6167,5167,4334},
+    {3167,2334,1834,1834,1500,1167,1667,0,   5000,5834,5334,6167,7000,5834,4667,3834},
+    {2334,3834,5167,4667,4334,4834,5834,5000,0,   3500,4667,5500,6334,5167,3000,3834},
+    {3834,5000,6334,5834,5500,5667,6500,5834,3500,0,   3667,4500,5334,4000,2834,4000},
+    {4834,5334,6167,6000,5500,4834,5667,5334,4667,3667,0,   1500,2334,1667,4000,2667},
+    {5667,6167,7000,6834,6334,5667,6500,6167,5500,4500,1500,0,   1500,1834,4834,3500},
+    {6500,7000,7834,7667,7167,6500,7334,7000,6334,5334,2334,1500,0,   2500,5667,4334},
+    {5334,5834,6667,6500,6000,5334,6167,5834,5167,4000,1667,1834,2500,0,   4500,3167},
+    {3000,4667,5500,5334,4834,4334,5167,4667,3000,2834,4000,4834,5667,4500,0,   2334},
+    {3834,3834,4667,4500,4000,3500,4334,3834,3834,4000,2667,3500,4334,3167,2334,0}
+};
 
 
-//开局移动到货架
-void Move_To_Shelf(void)
-{
-  // Move_To_Position_XYZ_NonBlocking(-580,2160,0,3300);
-  Move_To_Position_XYZ_NonBlocking(600,600,0,5000);
-  // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+void Move_To_Target(uint8_t target_id){
+  float target_x, target_y, target_z;
+  target_x = target_positions[target_id-1][0];
+  target_y = target_positions[target_id-1][1];
+  target_z = target_positions[target_id-1][2];
+
+  float begin_x = target_positions[last_target_index][0];
+  float begin_y = target_positions[last_target_index][1];
+
+  float dis_x = target_x - begin_x;
+  float dis_y = target_y - begin_y;
+
+
+
+  Move_To_Position_XYZ_NonBlocking(dis_x, dis_y, target_z, timeout[last_target_index][target_id-1]);
+  last_target_index = target_id-1;
 }
 
-//货架区左移一格
-void Move_Shelf_Left(void)
-{
-  Move_Translation_NonBlocking(-510, 0, 0, 2500);
-  // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+void Move_To_Placing_Box(uint8_t* box_ids){
+  //定义放置盒子从上向下分别为1，2，3, 4, 5
+  Move_To_Target(box_ids[0]+9);//box_id+9为箱子放置位置的id
+  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  if(box_ids[0]==1){
+    switch(box_ids[1]){
+      case 2:
+      case 3:{
+        Move_To_Target(15);
+        break;
+      }
+      case 4:{
+        Move_To_Target(16);
+        break;
+      default:
+        break;
+      }
+    }//如果第一个盒子是1号位，则需要进入中转点
+    osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  }
+
+  Move_To_Target(box_ids[1]+9);//前往第二个箱子的位置
+  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+
+  if(box_ids[2]==5){
+    Move_To_Target(16);
+    osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+    //如果最后一个盒子是5号位，也需要进入中转点
+  }
+
+  Move_To_Target(box_ids[2]+9);//前往第三个箱子的位置
+  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
 }
-
-//货架区右移一格
-void Move_Shelf_Right(void)
-{
-  Move_Translation_NonBlocking(510, 0, 0, 2500);
-  // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
-}
-
-//从货架移动到纸垛
-void Move_To_Paper(void)
-{
-  Move_To_Position_XYZ_NonBlocking(-500, -2320, 180, 4000);
-  // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
-}
-
-//纸垛区点到点移动                   y
-//                          p2      ^ p3          
-//                 p1            p0 *            p4
-//                                 -*-------> x
-void Move_point_to_point(uint8_t point_1, uint8_t point_2)
-{
-
-    
-    // 定义不同点之间的超时时间（毫秒）
-    uint32_t timeout[7][7] = {
-        {    0, 5400, 4800, 4800, 4300, 5000, 6000 }, // 从点0到各点
-        { 3000,    0, 3500, 4000, 3600, 1000, 4500 }, // 从点1到各点
-        { 4000, 3000,    0, 3000, 3500, 1200, 3000 }, // 从点2到各点
-        { 4000, 4000, 3000,    0, 2500, 5000, 3000 }, // 从点3到各点
-        { 3000, 4000, 3500, 3000,    0, 3000, 1200 }, // 从点4到各点
-        { 2000, 1000, 1600, 5000, 3000,    0, 4000 }, // 从点5到各点
-        { 2000, 4000, 3000, 1200, 3000, 4000,    0 }  // 从点6到各点
-    };
-    
-    // 如果起点和终点相同，不需要移动
-    if (point_1 == point_2) return;
-    
-    // 如果点不在有效范围内，返回
-    if (point_1 > 6 || point_2 > 6) return;
-    
-    // 特殊路径处理
-    if ((point_1 == 1 && point_2 == 2) || (point_1 == 2 && point_2 == 1)) {
-        // 1号和2号点之间需要经过5号点
-        if (point_1 == 1) {
-            // 从1到2
-            // Move_point_to_point_direct(point_1, point_2, timeout[point_1][2]);
-            // Move_point_to_point_direct(point_1, 5, timeout[point_1][5]);
-            // Move_point_to_point_direct(5, point_2, timeout[5][point_2]);
-            Move_point_to_point_direct(point_1, 5, timeout[point_1][5]);
-            Move_point_to_point_direct(5, point_2, timeout[5][point_2]);
-
-
-
-            // 从5
-        } else {
-            // 从2到5
-            Move_point_to_point_direct(point_1, 5, timeout[point_1][5]);
-            // 从5到1
-            Move_point_to_point_direct(5, point_2, timeout[5][point_2]);
-        }
-        return;
-    }
-    
-    if ((point_1 == 3 && point_2 == 4) || (point_1 == 4 && point_2 == 3)) {
-        // 3号和4号点之间需要经过6号点
-        if (point_1 == 3) {
-            // 从3到6
-            // Move_point_to_point_direct(point_1, 6, timeout[point_1][6]);
-            // // 从6到4
-            // Move_point_to_point_direct(6, point_2, timeout[6][point_2]);
-            Move_point_to_point_direct(point_1, point_2, timeout[point_1][point_2]);
-
-        } else {
-            // 从4到6
-            Move_point_to_point_direct(point_1, 6, timeout[point_1][6]);
-            // 从6到3
-            Move_point_to_point_direct(6, point_2, timeout[6][point_2]);
-        }
-        return;
-    }
-    
-    // 其他点之间可以直接移动
-    Move_point_to_point_direct(point_1, point_2, timeout[point_1][point_2]);
-}
-
-
-// 直接从一个点移动到另一个点，不考虑路径规划
-void Move_point_to_point_direct(uint8_t point_1, uint8_t point_2, uint32_t timeout_ms)
-{
-    // 定义各点姿态 [x, y, 角度]
-    float point_coords[7][3] = {
-        { -540,-2240, 0},      // 点0 (中心点)
-        {-386, 380, 270}, // 点1 
-        {-380, 650, 180},  // 点2 
-        { 430, 650, 180}, // 点3 
-        { 380, 380, 90}, // 点4 
-        {-180, 450, 225}, // 点5 (1和2之间的中转点)
-        { 200, 480, 135},  // 点6 (3和4之间的中转点)
-        // { 200, 400, 180}  // 点7 (3和4之间的中转点)
-    };
-    
-    // 如果起点和终点相同，不需要移动
-    if (point_1 == point_2) return;
-    
-    // 如果点不在有效范围内，返回
-    if (point_1 > 6 || point_2 > 6) return;
-    
-    // 获取起点和终点坐标与姿态
-    float start_x = point_coords[point_1][0];
-    float start_y = point_coords[point_1][1];
-    
-    float end_x = point_coords[point_2][0];
-    float end_y = point_coords[point_2][1];
-    float end_angle = point_coords[point_2][2];
-    if((point_1 ==2)&&(point_2 ==4))
-  {
-    end_x += 180;
-  }
-  else if((point_1 ==2)&&(point_2 == 3))
-  {
-    end_x += 100;
-  }  
-  else if((point_1 ==3)&&(point_2 == 2))
-  {
-    end_x -= 100;
-  }    
-  else if((point_1 ==4)&&(point_2 ==2))
-  {
-    end_x -= 120;
-    end_y -= 68;
-  }
-  else if((point_1 ==3)&&(point_2 ==1))
-  {
-    end_x -= 180;
-  }
-    else if((point_1 ==1)&&(point_2 ==3))
-  {
-    end_x += 120;
-    end_y -=30;
-  }
-    else if((point_1 ==1)&&(point_2 ==4))
-  {
-    end_x += 170;
-  }
-    else if((point_1 ==4)&&(point_2 ==1))
-  {
-    end_x -= 180;
-  }
-      else if((point_1 ==5)&&(point_2 ==2))
-  {
-    end_x += 78;
-  }
-      else if((point_1 ==6)&&(point_2 ==3))
-  {
-    end_x -= 120;
-  }
-      else if((point_1 ==0)&&(point_2 ==1))
-  {
-    end_x += 23;
-    end_y += 40;
-  }
-      else if((point_1 ==0)&&(point_2 ==2))
-  {
-    end_x += 43;
-    end_y += 13;
-  }
-      else if((point_1 ==0)&&(point_2 ==3))
-  {
-    end_x += 15;
-  }
-      else if((point_1 ==0)&&(point_2 ==4))
-  {
-    end_x += 100;
-    end_y += 40;
-  }
-  
-
-
-    // 计算全局坐标系中的姿态差
-    float delta_x = end_x - start_x;
-    float delta_y = end_y - start_y;
- 
-    
-    // 将全局坐标系中的位移转换到车身坐标系
-    float car_delta_x = -delta_x;
-    float car_delta_y = -delta_y;
-
-    // 使用车身坐标系的相对位置进行移动
-    if((fabs(car_delta_x)>=2000 ||fabs(car_delta_y)>=2000))
-    {
-      Move_To_Position_XYZ_NonBlocking(car_delta_x, car_delta_y, end_angle, timeout_ms);
-    }
-    else
-    {
-      // Move_By_Easy(car_delta_x, car_delta_y, end_angle, timeout_ms);
-      Move_To_Position_XYZ_NonBlocking(car_delta_x, car_delta_y, end_angle, timeout_ms);
-
-    }
-}
-
-
-
-void Move_To_Next_Paper(void)
-{
-  if(put_round == 1)
-  {
-    Move_point_to_point(0, raspi.paper_id[0]);
-    move_flag = 1;
-  }
-  else if(put_round >=2)
-  {
-    if(raspi.paper_id[put_round-1] != raspi.paper_id[put_round-2])
-    { 
-      Move_point_to_point(raspi.paper_id[put_round-2], raspi.paper_id[put_round-1]);
-      move_flag = 1;
-    }
-    else
-    {
-      move_flag = 0;
-    }
-  }
-}
-
-
-
-
 
 uint8_t Near_Box(uint8_t box_id ,uint8_t dir, bool maduo)
   {

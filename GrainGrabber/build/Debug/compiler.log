@@ -1,20 +1,11 @@
 >>> cc
 
-./Core/Src/main.c:20:1: warning: "/*" within comment [-Wcomment]
-   20 | /* USER CODE END Header */
-./Core/BSP/MI_motor_dev.c: In function 'MI_motor_decode':
-./Core/BSP/MI_motor_dev.c:416:13: warning: variable 'nsvd' set but not used [-Wunused-but-set-variable]
-  416 |     uint8_t nsvd = 0;
-      |             ^~~~
-./Core/APP/raspi.c: In function 'Raspi_Process_Data':
-./Core/APP/raspi.c:102:29: warning: unused variable 'from_id' [-Wunused-variable]
-  102 |                     uint8_t from_id = (byte >> 4) & 0x0F;  // �?位是起点ID
-      |                             ^~~~~~~
+
 
 >>> ld
 
 C:/Users/Ganbo/.eide/tools/gcc_arm/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/bin/ld.exe: warning: ./build/Debug/lifting.elf has a LOAD segment with RWX permissions
 Memory region         Used Size  Region Size  %age Used
-             RAM:       23096 B       192 KB     11.75%
+             RAM:       23296 B       192 KB     11.85%
           CCMRAM:           0 B        64 KB      0.00%
-           FLASH:       61276 B         2 MB      2.92%
+           FLASH:       61904 B         2 MB      2.95%
