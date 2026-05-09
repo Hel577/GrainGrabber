@@ -668,8 +668,9 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
  * @param timeout 超时时间（单位：毫秒）
  * @details 该函数使用视觉反馈进行精细PID控制，使车辆移动到视觉识别的目标位置
  */
-void Move_By_Vision(uint8_t paper_id, uint32_t timeout)
+void Move_By_Vision(uint8_t box_place, uint32_t timeout)
 {
+    //按照box的位置划分（从上往下依次增大，从1开始）
     // HAL_TIM_Base_Stop_IT(&htim5);
 
     float target_z = 0;
@@ -679,7 +680,7 @@ void Move_By_Vision(uint8_t paper_id, uint32_t timeout)
     uint8_t stability_counter = 0;
     uint8_t stability_counter_threshold = 7;
 
-    if(paper_id == 1 )
+    if(box_place == 1 )
     {
         target_z = 270;
         real_x = raspi.real_x[1];
@@ -689,12 +690,8 @@ void Move_By_Vision(uint8_t paper_id, uint32_t timeout)
             timeout += 600;
 
         }
-        else if(put_round>=2)
-        {
-            timeout += 300;
-        }
     }
-    else if(paper_id == 2)
+    else if(box_place == 2)
     {
         target_z = 180;
         real_x = raspi.real_x[2];
@@ -712,7 +709,7 @@ void Move_By_Vision(uint8_t paper_id, uint32_t timeout)
             stability_counter_threshold = 15;
         }
     }
-    else if(paper_id == 3)
+    else if(box_place == 3)
     {
         target_z = 180;
         real_x = raspi.real_x[2];
@@ -732,7 +729,7 @@ void Move_By_Vision(uint8_t paper_id, uint32_t timeout)
             stability_counter_threshold = 20;
         }
     }
-    else if(paper_id == 4)
+    else if(box_place == 4)
     {
         target_z = 90;
         real_x = raspi.real_x[1];
@@ -742,7 +739,13 @@ void Move_By_Vision(uint8_t paper_id, uint32_t timeout)
             timeout += 400;
         }
     }
-    else if(paper_id == 0)
+    else if(box_place == 5)
+    {
+        target_z = 0;
+        real_x = raspi.real_x[0];
+        real_y = raspi.real_y[0];
+    }
+    else if(box_place == 0)
     {
         target_z = 0;
         real_x = raspi.real_x[0];

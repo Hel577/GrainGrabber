@@ -7,6 +7,7 @@ Raspi_Date raspi;
 
 // 添加全局变量来表示是否接收到树莓派的确认
 volatile uint8_t raspi_detect_ok = 0;
+int bean_id_index = 0;//记录第bean_id_index个拾取的豆子
 
 /**
  * @brief 初始化树莓派通信
@@ -28,16 +29,10 @@ void Init_Raspi(void)
     raspi.cmd = 0;
     
     // 初始化纸垛区域ID数组
-    memset(raspi.paper_id, 0, sizeof(raspi.paper_id));
+    memset(raspi.bean_order, 0, sizeof(raspi.bean_order));
     
     // 初始化储存槽ID数组
     memset(raspi.box_id, 0, sizeof(raspi.box_id));
-    
-    // 初始化箱子方向数组
-    memset(raspi.box_dir, 0, sizeof(raspi.box_dir));
-    
-    // 初始化码垛标志数组
-    memset(raspi.maduo, 0, sizeof(raspi.maduo));
 
     memset(raspi.buffer, 0, RASPI_BUFFER_SIZE);
     //树莓派串口初始化,启动dma接收中断
@@ -50,13 +45,13 @@ void Init_Raspi(void)
  * @param task_type 任务类型
  * @param data 附加数据
  */
-void Raspi_Send_Task(uint8_t task_type, uint8_t data)
+void Raspi_Send_Task(uint8_t task_type)
 {
     uint8_t tx_data[4];
-    tx_data[0] = 0x04;  // STX
+    tx_data[0] = 0xEE;  // STX
     tx_data[1] = task_type;
-    tx_data[2] = data;
-    tx_data[3] = 0x05;  // ETX
+    tx_data[2] = 0x00;
+    tx_data[3] = 0xFF;  // ETX
 
     // printf("Raspi_Send_Task: task_type=%d, data=%d\r\n", task_type, data);
     HAL_UART_Transmit(&huart3, tx_data, 4, 10);
@@ -65,14 +60,24 @@ void Raspi_Send_Task(uint8_t task_type, uint8_t data)
     
 }
 
-
-
-//唤醒树莓派前后识别箱子和纸垛
-void Start_Raspi_Detect(void)
+void Raspi_Finish_Task(uint8_t task_type)
 {
-    Raspi_Send_Task(TASK_DETECT_BOX, 0);
-}
+    if(task_type == TASK_MOVE_BY_BEAN)
+    //当结束根据豆子微调任务时，认为这个豆子的种类已经确认了，将指针指向下一个豆子
+    //（残留信息会被新的微调任务覆盖，影响不大）
+    {
+        bean_id_index++;
+    }
+    uint8_t tx_data[4];
+    tx_data[0] = 0xEE;  // STX
+    tx_data[1] = task_type;
+    tx_data[2] = 0xFF;
+    tx_data[3] = 0xFF;  // ETX
 
+    // printf("Raspi_Finish_Task: task_type=%d\r\n", task_type);
+    HAL_UART_Transmit(&huart3, tx_data, 4, 10);
+    osDelay(5); 
+}
 
 
 /**
@@ -85,7 +90,7 @@ void Raspi_Process_Data(uint8_t *rx_data, uint16_t size)
 
     
     // 检查数据帧格式: STX + CMD + DATA... + ETX
-    if (size == 9 && rx_data[0] == 0xEE && rx_data[size-1] == 0xFF)
+    if (size == 8 && rx_data[0] == 0xEE && rx_data[size-1] == 0xFF)
     {
         // 将数据帧复制到raspi.buffer
         memcpy(raspi.buffer, rx_data, size);
@@ -94,14 +99,24 @@ void Raspi_Process_Data(uint8_t *rx_data, uint16_t size)
         // 根据命令类型处理
         switch (raspi.cmd)
         {
-            case PLAN_MOVE:  // MOVE命令
+            case PLAN_MOVE_BY_BEAN:  // 根据豆子位置微调命令
+            case PLAN_MOVE_BY_BOX:  // 根据箱子位置微调命令
             {
-                // 解析移动计划：每个字节高4位是起点ID，低4位是终点ID
-                for (int i = 0; i < 6; i++) {
-                    uint8_t byte = rx_data[i+2];
-                    uint8_t from_id = (byte >> 4) & 0x0F;  // 高4位是起点ID
-                    uint8_t to_id = byte & 0x0F;          // 低4位是终点ID
-                    raspi.paper_id[i] = to_id;            // 只存储终点ID
+                float x = (float)((uint16_t)((rx_data[2] << 8) | rx_data[3])) ;
+                float y = (float)((uint16_t)((rx_data[4] << 8) | rx_data[5])) ;
+                uint8_t type = rx_data[6];
+
+                //处理异常值
+                if(x >= 640 || y >= 480 || x<0 || y<0)
+                {
+                    break;
+                }
+                raspi.vision_x = x;
+                raspi.vision_y = y;
+
+                if(bean_id_index < 3) // 最多记录3个豆子
+                {
+                    raspi.bean_order[bean_id_index] = type;
                 }
             
                 // 调试输出
@@ -116,11 +131,11 @@ void Raspi_Process_Data(uint8_t *rx_data, uint16_t size)
             case PLAN_BOX_ID:  // 货箱ID计划
             {
 
-                memcpy(raspi.box_id, &rx_data[2], 6);  // 复制6个字节到box_id
-
+                memcpy(raspi.box_id, &rx_data[2], 5);  // 复制5个字节到box_id
+                raspi_detect_ok = 1;
                 // 调试输出
                 // printf("Plan_Box_ID: ");
-                // for (int i = 0; i < 6; i++) {
+                // for (int i = 0; i < 5; i++) {
                 //     printf("%d ", raspi.box_id[i]);
                 // }
                 // printf("\r\n");
@@ -128,60 +143,16 @@ void Raspi_Process_Data(uint8_t *rx_data, uint16_t size)
 
 
             }
-                
-            case PLAN_SIDE:  // 放置方向计划
-            {
-
-                memcpy(raspi.box_dir, &rx_data[2], 6);  // 复制6个字节到box_dir
-
-                // 调试输出
-                // printf("Plan_Side: ");
-                // for (int i = 0; i < 6; i++) {
-                //     printf("%d ", raspi.box_dir[i]);
-                // }   
-                // printf("\r\n");
-                break;
-
-            }
-                
-            case PLAN_HEIGHT:  // 放置高度计划
-            {
-                memcpy(raspi.maduo, &rx_data[2], 6);  // 复制6个字节到maduo
-
-                // 调试输出
-                // printf("Plan_Height: ");
-                // for (int i = 0; i < 6; i++) {
-                //     printf("%d ", raspi.maduo[i]);
-                // }
-                // printf("\r\n");
-                break;
-            }
-            case 0x14:
-            {
-                // 检查第三个到第八个字节是否全为0x00
-                if (rx_data[2] == 0x00 && rx_data[3] == 0x00 && rx_data[4] == 0x00 && 
-                    rx_data[5] == 0x00 && rx_data[6] == 0x00 && rx_data[7] == 0x00) {
-                    raspi_detect_ok = 1;
-                    // printf("raspi_detect_ok\r\n");
-                }
-                break;
-            }
-            case CMD_LOCATE:  // 定位坐标
-            {
-                    float x = (float)((uint16_t)((rx_data[2] << 8) | rx_data[3])) ;
-                    float y = (float)((uint16_t)((rx_data[4] << 8) | rx_data[5])) ;
-
-                    //处理异常值
-                    if(x >= 640 || y >= 480 || x<0 || y<0)
-                    {
-                        break;
-                    }
-                    raspi.vision_x = x;
-                    raspi.vision_y = y;
-                    // printf("vision_x: %d, vision_y: %d\r\n", (int)raspi.vision_x, (int)raspi.vision_y);
-                    break;
-
-            }
+            // case RASPI_DETECT_OK:  // 树莓派检测完成标志
+            // {
+            //     // 检查第三个到第八个字节是否全为0x00
+            //     if (rx_data[2] == 0x00 && rx_data[3] == 0x00 && rx_data[4] == 0x00 && 
+            //         rx_data[5] == 0x00 && rx_data[6] == 0x00 && rx_data[7] == 0x00) {
+            //         raspi_detect_ok = 1;
+            //         // printf("raspi_detect_ok\r\n");
+            //     }
+            //     break;
+            // }
                 
             default:
                 // 未知命令

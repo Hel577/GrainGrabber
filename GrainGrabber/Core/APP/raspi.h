@@ -18,18 +18,21 @@
 #define CMD_LOCATE  0x04
 
 /* 任务类型定义(Send to Raspi) */
-#define TASK_DETECT_BOX    0x05
-#define TASK_DETECT_PAPER  0x06
-#define TASK_LOCATE_BOX    0x07
-#define TASK_LOCATE_PAPER  0x08
-#define TASK_PAPER       0x09
+#define TASK_DETECT_BOX    0x05//识别箱子任务
+#define TASK_MOVE_BY_BEAN     0x07//根据豆子位置微调任务
+#define TASK_MOVE_BY_BOX   0x08//根据箱子位置微调任务
 
 
 /*树莓派数据类型*/
-#define PLAN_MOVE 0x10      // 移动区域计划
-#define PLAN_BOX_ID 0x11    // 货箱ID计划
-#define PLAN_SIDE 0x12      // 放置左中右侧边计划
-#define PLAN_HEIGHT 0x13    // 放置高度计划
+#define PLAN_MOVE_BY_BEAN 0x10      // 根据豆子位置微调计划
+#define PLAN_MOVE_BY_BOX 0x11      // 根据箱子位置微调计划
+#define PLAN_BOX_ID 0x12    // 货箱ID计划
+
+#define RASPI_DETECT_OK 0x14 //树莓派检测完成标志
+
+#define GREEN_BEAN 1
+#define YELLOW_BEAN 2
+#define WHITE_BEAN 3
 
 /* 数据结构定义 */
 typedef struct {
@@ -39,11 +42,8 @@ typedef struct {
     volatile float vision_y;//视觉检测坐标(纵向，0-480)
     float real_x[3];//实际中心坐标(横向，0-640)
     float real_y[3];//实际中心坐标(纵向，0-480)
-    uint8_t paper_id[6];//按顺序要移动到的纸垛区域   
-    uint8_t box_id[6];//按顺序要放的储存槽id     
-    uint8_t box_dir[6];//按顺序要放的箱子方向   0 1 2 分别表示左中右
-    bool maduo[6];//按顺序要放的箱子是否码垛   0为不码垛 1为码垛
-
+    uint8_t box_id[5];//顺序为从上到下的盒子的id
+    uint8_t bean_order[3];//绿豆=1，黄豆=2，白芸豆=3
 } Raspi_Date;
 
 /* 函数声明 */
