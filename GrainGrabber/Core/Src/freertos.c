@@ -241,11 +241,7 @@ void StartScaraTask(void *argument)
         case 2: // Ready_To_Put_Box
           Ready_To_Put_Box(scaraState.box_id);
           break;
-          
-        case 3: // Put_Box
-          Put_Box(scaraState.box_id, scaraState.paper_dir, scaraState.maduo);//内部释放chasis信号量，控制底盘下一次运动时机
-          break;
-          
+        
         default:
           break;
       }

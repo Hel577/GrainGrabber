@@ -48,7 +48,8 @@ typedef struct {
 
 /* 函数声明 */
 void Init_Raspi(void);
-void Raspi_Send_Task(uint8_t task_type, uint8_t data);
+void Raspi_Send_Task(uint8_t task_type);
+void Raspi_Finish_Task(uint8_t task_type);
 void Raspi_Process_Data(uint8_t *rx_data, uint16_t size);
 void Start_Raspi_Detect(void);
 
