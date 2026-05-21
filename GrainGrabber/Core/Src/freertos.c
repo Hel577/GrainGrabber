@@ -283,7 +283,7 @@ void StartMainTask(void *argument)
 //************************************************************************** */
 
   // Init_All();  
-  my_task();
+  test_lift();
   // test_motor();
 
 

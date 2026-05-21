@@ -26,7 +26,7 @@ void test_motor(void){
 
 uint8_t box_ids[3] = {1,3,5};//选择的盒子编号，理论上由比赛抽签决定
 
-void my_task(void){
+void test_chassis(void){
   Move_To_Target(2);
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   Move_To_Target(3);
@@ -59,5 +59,12 @@ void my_task(void){
   sort_easy(box_ids,3);
   Move_To_Placing_Box(box_ids);
 
+}
 
+void test_lift(void){
+  printf("test lift\r\n");
+  Scara_PosCtrl(180,180);
+  osDelay(5000);
+  Scara_Return_Home();
+  osDelay(5000);
 }

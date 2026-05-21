@@ -25,17 +25,12 @@ void Init_Scara(void)
     // 初始化SCARA结构体
     scara.L_motor = motors[5];
     scara.R_motor = motors[6];
-    scara.current_th1 = OFFSET_ANGLE;
-    scara.current_th2 = 180.0f - OFFSET_ANGLE;
-    scara.current_th3 = OFFSET_ANGLE;
-    scara.current_th4 = 180.0f - OFFSET_ANGLE;
-    scara.end_x = 0.0f;
-    scara.end_y = 407.9215f;
-    scara.target_th1 = OFFSET_ANGLE;
-    scara.target_th2 = 180.0f - OFFSET_ANGLE;
+    scara.current_th1 = 0.0f;
+    scara.current_th2 = 0.0f;
+    scara.target_th1 = 0.0f;
+    scara.target_th2 = 0.0f;
     scara.step_angle = 10.5f;// 增量控制步进角度（°）//空爪可以切换大的
     scara.is_moving = 0;
-    scara.workspace = 0; // 初始在正工作空间
 
     //初始化末端爪子结构体
     hand.current_angle = 0.0f; // 初始末端角度为0（与x轴平行）
@@ -57,95 +52,20 @@ void Init_Scara(void)
  */
 void detect_workspace(void)
 {
+  return;
   // 计算当前电机角度
-  float th1 = scara.current_th1;
-  float th2 = scara.current_th2;
-  if ((th1 > 0.0f && th1 < 180.0f && th2 > 0.0f && th2 < 180.0f) || 
-  (th1 > 0.0f && th1 < 180.0f && th2 > -180.0f && th2 < 0.0f) || 
-  (th1 > 180.0f && th1 < 360.0f && th2 > 0.0f && th2 < 180.0f)) {
-    scara.workspace = 0;
-  } 
-  else if ((th1 > 180.0f && th1 < 360.0f && th2 > -180.0f && th2 < 0.0f) ) {
-    scara.workspace = 1;
-  } 
-  else{
-    
-  }
+  // float th1 = scara.current_th1;
+  // float th2 = scara.current_th2;
 }
   
-// }
 
-/**
-  * @brief  正运动学：根据电机角度计算末端位置，同时得到小臂角度（实际模型的角度，而非电机直接的反馈角度，需要补上偏置）
-  * @param  motor1_angle 电机1角度(rad)
-  * @param  motor2_angle 电机2角度(rad)
-  * @param  x 末端X坐标指针
-  * @param  y 末端Y坐标指针
-  * @retval 无
-  */
-void SCARA_ForwardKinematics( float angle1, float angle2)
-{
-    angle1 = angle1 * PI / 180.0f;
-    angle2 = angle2 * PI / 180.0f;
-    // 电机1位置（左侧）
-    float m1_x = -MOTOR_DISTANCE/2;
-    float m1_y = 0;
-    
-    // 电机2位置（右侧）
-    float m2_x = MOTOR_DISTANCE/2;
-    float m2_y = 0;
-    
-    // 大臂末端位置
-    float p1_x = m1_x + LARGE_ARM_LENGTH * cosf(angle1);
-    float p1_y = m1_y + LARGE_ARM_LENGTH * sinf(angle1);
-    
-    float p2_x = m2_x + LARGE_ARM_LENGTH * cosf(angle2);
-    float p2_y = m2_y + LARGE_ARM_LENGTH * sinf(angle2);
-    
-    // 计算两大臂末端间距离
-    float p1p2_dist = sqrtf((p2_x - p1_x) * (p2_x - p1_x) + (p2_y - p1_y) * (p2_y - p1_y));
-    
-    // 计算末端位置
-    float h = sqrtf(SMALL_ARM_LENGTH * SMALL_ARM_LENGTH - (p1p2_dist / 2) * (p1p2_dist / 2));
-    
-    // 计算两大臂末端连线的中点
-    float mid_x = (p1_x + p2_x) / 2;
-    float mid_y = (p1_y + p2_y) / 2;
-    
-    // 计算垂直于两大臂末端连线的单位向量
-    float dx = p2_x - p1_x;
-    float dy = p2_y - p1_y;
-    float norm = sqrtf(dx * dx + dy * dy);
-    
-    // 垂直单位向量
-    float ux = -dy / norm;
-    float uy = dx / norm;
-    detect_workspace();
-    // 选择向外凸的解（即在两个关节之外）
-    if (scara.workspace == 0) {
-        // 在正工作空间，末端位置在两个关节之外
-        scara.end_x = mid_x + ux * h;
-        scara.end_y = mid_y + uy * h;
-    } 
-    else if (scara.workspace == 1) {
-        // 在负工作空间，末端位置在两个关节之外
-        scara.end_x = mid_x - ux * h;
-        scara.end_y = mid_y - uy * h;
-
-    }
-    // 计算小臂与水平方向的夹角
-    scara.current_th3 = 180.0f*atan2f((scara.end_y - p1_y), (scara.end_x - p1_x))/PI;
-    scara.current_th4 = 180.0f*atan2f(fabsf(scara.end_y - p2_y), fabsf(scara.end_x - p2_x))/PI;
-    
-}
 
 void Update_Scara_Status(void)
 {
   // MI_motor_get_mechPos(scara.L_motor);
   // MI_motor_get_mechPos(scara.R_motor);
-  scara.current_th1 = 180.0f*scara.L_motor->motor_fdb.angle/PI + OFFSET_ANGLE;
-  scara.current_th2 = 180.0f*scara.R_motor->motor_fdb.angle/PI + (180.0f - OFFSET_ANGLE);
-  SCARA_ForwardKinematics(scara.current_th1, scara.current_th2);
+  scara.current_th1 = 180.0f*scara.L_motor->motor_fdb.angle/PI;
+  scara.current_th2 = 180.0f*scara.R_motor->motor_fdb.angle/PI;
 }
 
 /**
@@ -156,8 +76,6 @@ void Update_Scara_Status(void)
  */
 void set_scara_position(float angle1, float angle2)
 {
-  angle1 = angle1 - OFFSET_ANGLE;
-  angle2 = angle2 - (180.0f - OFFSET_ANGLE);
   float angle1_rad = angle1 * PI / 180.0f;
   float angle2_rad = angle2 * PI / 180.0f;
   MI_motor_PosCtrl(scara.L_motor, angle1_rad);
@@ -211,15 +129,17 @@ void add_scara_ctrl(void)
   // 轮流控制两个电机
   // if(motor_index == 0) {
     // 控制左臂电机
-    float angle1 = target_angle1 - OFFSET_ANGLE;
+    float angle1 = target_angle1;
     float angle1_rad = angle1 * PI / 180.0f;
     MI_motor_PosCtrl(scara.L_motor, angle1_rad);
+    printf("send angle1: %f\r\n", angle1);
     // motor_index = 1;  // 下一次控制右臂电机
   // } else {
     // 控制右臂电机
-    float angle2 = target_angle2 - (180.0f - OFFSET_ANGLE);
+    float angle2 = target_angle2;
     float angle2_rad = angle2 * PI / 180.0f;
     MI_motor_PosCtrl(scara.R_motor, angle2_rad);
+    printf("send angle2: %f\r\n", angle2);
     // motor_index = 0;  // 下一次控制左臂电机
   // }
 }
@@ -235,14 +155,35 @@ void add_scara_ctrl(void)
 void Scara_PosCtrl(float angle1, float angle2)
 {
   scara.target_th1 = angle1;
-  scara.target_th2 = angle2;
+  scara.target_th2 = -angle2;
   scara.is_moving = 1;
   HAL_TIM_Base_Start_IT(&htim5);
 
 }
+
+void Scara_To_Height(float height)
+{
+  // 根据目标高度计算对应的电机角度
+  // 默认为最高高度，向下为正值
+  float target_angle1, target_angle2;
+  Calculate_Angles_From_Height(height, &target_angle1, &target_angle2);
+  
+  // 设置目标角度
+  Scara_PosCtrl(target_angle1, target_angle2);
+}
+
+void Calculate_Angles_From_Height(float height, float* angle1, float* angle2)
+{
+  // 根据机械臂的几何关系计算电机角度
+  // 这里需要根据具体的机械臂结构进行计算，以下是一个示例
+  *angle1 = height / RADIUS * 180.0f / PI; // 简单的线性关系，实际可能需要更复杂的计算
+  *angle2 = *angle1; // 两个电机目标角度相同，实际可能需要根据机械臂结构进行调整
+}
+  
+
 void Scara_Return_Home(void)
 {
-  Scara_PosCtrl(OFFSET_ANGLE,180-OFFSET_ANGLE);
+  Scara_PosCtrl(0.0f, 0.0f);
 }
 //*********************************** 末端爪子控制 ***********************************
 /**
@@ -263,10 +204,7 @@ void Control_End_Rotation(float angle)
 //保持末端角度，定时器中使用
 void Maintain_End_Rotation(void)
 {
-  float diff = hand.target_angle + OFFSET_ANGLE - scara.current_th3;
-
-    Control_End_Rotation(diff);
-
+  return;
 }
 
 

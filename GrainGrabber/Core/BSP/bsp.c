@@ -180,7 +180,7 @@ void Init_Scara_Motor(void)
     motors[6] = &scara_motor[1];
     for (uint8_t id = 5; id < 7; id++)
     {
-        MI_motor_init(motors[id],&hcan2,id);
+        MI_motor_init(motors[id],&hcan1,id);
     }
     // Reset_Scara_Motor_MechPosition();
 
@@ -267,7 +267,7 @@ void Dis_Scara_Motor(void)
 void Init_Lifting_Motor(void)
 {
     motors[7] = &lifting_motor[0];
-    MI_motor_init(motors[7],&hcan2,7);
+    MI_motor_init(motors[7],&hcan1,7);
     // Reset_Lifting_Motor_MechPosition();
     //设置位置模式限速和速度模式电流限制
     MI_motor_SetSpdLim(motors[7], 12);//位置模式限速

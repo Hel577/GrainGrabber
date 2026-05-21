@@ -71,7 +71,7 @@ void Raspi_Finish_Task(uint8_t task_type)
     uint8_t tx_data[4];
     tx_data[0] = 0xEE;  // STX
     tx_data[1] = task_type;
-    tx_data[2] = 0xFF;
+    tx_data[2] = 0xAC;
     tx_data[3] = 0xFF;  // ETX
 
     // printf("Raspi_Finish_Task: task_type=%d\r\n", task_type);
@@ -105,6 +105,11 @@ void Raspi_Process_Data(uint8_t *rx_data, uint16_t size)
                 float x = (float)((uint16_t)((rx_data[2] << 8) | rx_data[3])) ;
                 float y = (float)((uint16_t)((rx_data[4] << 8) | rx_data[5])) ;
                 uint8_t type = rx_data[6];
+
+                if(type<1 || type>3)
+                {
+                    break;
+                }
 
                 //处理异常值
                 if(x >= 640 || y >= 480 || x<0 || y<0)

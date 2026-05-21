@@ -8,7 +8,7 @@
 #include "math.h"
 
 /* 宏定义 */
-#define RASPI_BUFFER_SIZE 9
+#define RASPI_BUFFER_SIZE 8
 
 
 /* 命令类型定义(From Raspi)*/

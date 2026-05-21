@@ -6,6 +6,6 @@
 
 C:/Users/Ganbo/.eide/tools/gcc_arm/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/bin/ld.exe: warning: ./build/Debug/lifting.elf has a LOAD segment with RWX permissions
 Memory region         Used Size  Region Size  %age Used
-             RAM:       24288 B       192 KB     12.35%
+             RAM:       23072 B       192 KB     11.74%
           CCMRAM:           0 B        64 KB      0.00%
-           FLASH:       59144 B         2 MB      2.82%
+           FLASH:       56604 B         2 MB      2.70%

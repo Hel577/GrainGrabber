@@ -22,6 +22,8 @@ void Init_All(void);
 void my_task(void);
 void test_move(void);
 void test_motor(void);
+void test_chassis(void);
+void test_lift(void);
 
 #ifdef __cplusplus
 }

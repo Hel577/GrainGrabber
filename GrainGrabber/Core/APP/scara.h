@@ -17,7 +17,7 @@ extern "C"
 #define LARGE_ARM_LENGTH 160.0f       // 大臂长度(mm)
 #define OFFSET_X 0.0f                 // 机械臂零位末端位置
 #define OFFSET_Y 0.0f                 // 机械臂零位末端位置
-#define OFFSET_ANGLE 76.225853f                 // 机械臂零位电机处模型角度，大小臂平行时大臂角度（锐角）
+#define RADIUS 10.0f                   // 末端圆盘半径(mm)
 
 /* 末端爪子参数定义 */
 #define GRAB_OPEN    3000  //爪子完全张开
@@ -32,21 +32,16 @@ typedef struct {
 } hand_t;
 
 
-// SCARA机械臂结构体
+// 升降系统结构体
 typedef struct {    
     MI_Motor_t *L_motor;     // 左臂电机
     MI_Motor_t *R_motor; 
-    float end_x;    // 末端x坐标
-    float end_y;    // 末端y坐标
     float current_th1;       // 左边电机实际物理模型的角度(0-360°)
-    float current_th2;       // 右边电机实际物理模型的角度(-180°~180°)
-    float current_th3;       // 左边小臂角度(锐角)
-    float current_th4;       // 右边小臂角度（锐角）
-    float target_th1;        // 左臂目标角度
-    float target_th2;        // 右臂目标角度
+    float current_th2;       // 右边电机实际物理模型的角度(0-360°)
+    float target_th1;        // 左侧电机目标角度
+    float target_th2;        // 右侧电机目标角度
     float step_angle; 
     bool is_moving;  // 电机增量控制步进值（度）
-    bool workspace;  // 工作空间区域：0-正工作空间，1-负工作空间
 } SCARA_t;
 
 extern SCARA_t scara;
@@ -57,7 +52,6 @@ extern hand_t hand;
 /* 函数声明 */
 void Init_Scara(void);
 void detect_workspace(void);
-void SCARA_ForwardKinematics( float angle1, float angle2);
 void Update_Scara_Status(void);
 void set_scara_position(float angle1, float angle2);
 void add_scara_ctrl(void);
@@ -68,6 +62,8 @@ void Maintain_End_Rotation(void);
 void End_Rotation_Ctrl(float maintain_angle);
 void Grab_On(void);
 void Grab_Off(void);
+void Calculate_Angles_From_Height(float height, float *angle1, float *angle2);
+void Scara_To_Height(float height);
 
 
 #endif
