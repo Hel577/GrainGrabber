@@ -685,3 +685,16 @@ These source files will be recompiled
 [2026-05-21 23:36:03]	[done]
 	build successfully !
 
+[2026-05-21 23:52:34]	[info] incremental build: 6 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-05-21 23:52:36]	[done]
+	build successfully !
+

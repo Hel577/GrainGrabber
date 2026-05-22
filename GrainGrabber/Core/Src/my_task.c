@@ -63,6 +63,7 @@ void test_chassis(void){
 
 void test_lift(void){
   printf("test lift\r\n");
+  Init_All();
   Scara_PosCtrl(180,180);
   osDelay(5000);
   Scara_Return_Home();
