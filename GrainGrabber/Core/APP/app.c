@@ -3,7 +3,7 @@ void app_init(void)
 {
     Init_Imu();
     Init_Car();
-    Init_Lift();
+    Init_push();
     Init_Scara();
     Init_Raspi();
 }
@@ -81,7 +81,7 @@ void Put_Box_NonBlocking(uint8_t box_id, uint8_t dir, bool maduo)
 
 void Start_Scara(void)
 {
-  Lift_PosCtrl(4.3);
+  push_PosCtrl(4.3);
   Grab_On();
   Scara_PosCtrl(192,-12);
   End_Rotation_Ctrl(0);
@@ -102,20 +102,20 @@ void Get_Box(uint8_t box_id)
       End_Rotation_Ctrl(0);
       osDelay(500);
 
-      Lift_PosCtrl(2.45);//降低高度贴着箱子
+      push_PosCtrl(2.45);//降低高度贴着箱子
       osDelay(350);
 
       Grab_On();//夹爪箱子
       osDelay(500);
 
-      Lift_PosCtrl(3.9);//上升到一层货架高度
+      push_PosCtrl(3.9);//上升到一层货架高度
       End_Rotation_Ctrl(90);//旋转90度
       osDelay(500);
 
       Scara_PosCtrl(193.5,-13.5);//收到车内负工作空间过度点（考虑干涉）
       osDelay(480);
 
-      Lift_PosCtrl(8.9);//升到车一号位进入高度
+      push_PosCtrl(8.9);//升到车一号位进入高度
       osDelay(400);
 
       End_Rotation_Ctrl(0);
@@ -125,12 +125,12 @@ void Get_Box(uint8_t box_id)
       Scara_PosCtrl(205,-115);//收到车一号位
       osDelay(700);
 
-      Lift_PosCtrl(6.9);//下降到一号位一层抓放高度
+      push_PosCtrl(6.9);//下降到一号位一层抓放高度
       osDelay(400);
 
       Grab_Off();
       osDelay(300);
-      Lift_PosCtrl(13);//升到二层货架进入高度
+      push_PosCtrl(13);//升到二层货架进入高度
       osDelay(400);
 
       scara.step_angle +=3;
@@ -141,7 +141,7 @@ void Get_Box(uint8_t box_id)
 
      //   osDelay(500);
       
-      // Lift_PosCtrl(4.5);//下降到一层货架高度
+      // push_PosCtrl(4.5);//下降到一层货架高度
     //   osDelay(300);
 
 
@@ -159,13 +159,13 @@ void Get_Box(uint8_t box_id)
       Grab_Off();
       osDelay(600);
 
-      Lift_PosCtrl(10.88);//降低高度贴着箱子
+      push_PosCtrl(10.88);//降低高度贴着箱子
       osDelay(350);
 
       Grab_On();//夹爪箱子
       osDelay(500);
 
-      Lift_PosCtrl(11.5);//升到二层货架旋转高度
+      push_PosCtrl(11.5);//升到二层货架旋转高度
       osDelay(100);
 
       Scara_PosCtrl(210,-30);//收到车内负工作空间过度点（考虑干涉）
@@ -175,13 +175,13 @@ void Get_Box(uint8_t box_id)
       osDelay(680);
       osSemaphoreRelease(ChassisMoveDoneHandle);
 
-      Lift_PosCtrl(7);//下降到二号位一层抓放高度
+      push_PosCtrl(7);//下降到二号位一层抓放高度
       osDelay(460);
 
       Grab_Off();
 
       osDelay(300);
-      Lift_PosCtrl(8.6);//升到车二号位离开高度
+      push_PosCtrl(8.6);//升到车二号位离开高度
       osDelay(300);
 
       scara.step_angle +=3;
@@ -189,7 +189,7 @@ void Get_Box(uint8_t box_id)
       osDelay(500);
       scara.step_angle -=3;
 
-      Lift_PosCtrl(3.9);//下降到一层货架高度
+      push_PosCtrl(3.9);//下降到一层货架高度
       Grab_On();
       // osSemaphoreRelease(ChassisMoveDoneHandle);
 
@@ -202,26 +202,26 @@ void Get_Box(uint8_t box_id)
       Grab_Off();
       osDelay(500);
 
-      Lift_PosCtrl(2.45);//降低高度贴着箱子
+      push_PosCtrl(2.45);//降低高度贴着箱子
       osDelay(350);
 
       Grab_On();//夹爪箱子
       osDelay(500);
 
-      Lift_PosCtrl(3.9);//上升到退出一层货架高度
+      push_PosCtrl(3.9);//上升到退出一层货架高度
       End_Rotation_Ctrl(90);//旋转90度
       osDelay(500);
 
       Scara_PosCtrl(193,-13);//收到车内负工作空间过度点（考虑干涉）
       osDelay(680);
-      Lift_PosCtrl(3.4);
+      push_PosCtrl(3.4);
       osDelay(140);
 
 
       Grab_Off();
       osDelay(300);
 
-      Lift_PosCtrl(13);//升到进入二层货架高度
+      push_PosCtrl(13);//升到进入二层货架高度
       Grab_On();
       End_Rotation_Ctrl(0);
 
@@ -238,20 +238,20 @@ void Get_Box(uint8_t box_id)
       Grab_Off();
       osDelay(500);
 
-      Lift_PosCtrl(2.45);//降低高度贴着箱子
+      push_PosCtrl(2.45);//降低高度贴着箱子
       osDelay(350);
 
       Grab_On();//夹住箱子
       osDelay(500);
 
-      Lift_PosCtrl(3.9);//上升到退出一层货架高度
+      push_PosCtrl(3.9);//上升到退出一层货架高度
       End_Rotation_Ctrl(90);//旋转90度
       osDelay(500);
 
       Scara_PosCtrl(193,-13);//收到车内负工作空间过度点（考虑干涉）
       osDelay(500);
 
-      Lift_PosCtrl(11.6);//升到四号位进入高度
+      push_PosCtrl(11.6);//升到四号位进入高度
       osDelay(650);
       End_Rotation_Ctrl(0);
 
@@ -260,13 +260,13 @@ void Get_Box(uint8_t box_id)
       Scara_PosCtrl(207,-118);//收到车四号位
       osDelay(700);
 
-      Lift_PosCtrl(10.1);//降到放四号位高度
+      push_PosCtrl(10.1);//降到放四号位高度
       osDelay(400);
 
       Grab_Off();
       osDelay(300);
 
-      Lift_PosCtrl(13);//升到进入二层货架高度
+      push_PosCtrl(13);//升到进入二层货架高度
       osDelay(300);
 
       scara.step_angle +=3;
@@ -284,13 +284,13 @@ void Get_Box(uint8_t box_id)
       Grab_Off();
       osDelay(550);
 
-      Lift_PosCtrl(10.88);//降低高度贴着箱子
+      push_PosCtrl(10.88);//降低高度贴着箱子
       osDelay(350);
 
       Grab_On();//夹住箱子
       osDelay(500);
 
-      Lift_PosCtrl(14.8);//升到二层货架旋转高度
+      push_PosCtrl(14.8);//升到二层货架旋转高度
       osDelay(100);
 
       Scara_PosCtrl(210,-30);//收到车内负工作空间过度点（考虑干涉）
@@ -301,13 +301,13 @@ void Get_Box(uint8_t box_id)
       Scara_PosCtrl(278,-30);//收到车五号位//要调整
       osDelay(500);
 
-      Lift_PosCtrl(10.1);//降到放五号位高度
+      push_PosCtrl(10.1);//降到放五号位高度
       osDelay(690);
 
       Grab_Off();
       osDelay(300);
 
-      Lift_PosCtrl(12);//升到进入二层货架高度
+      push_PosCtrl(12);//升到进入二层货架高度
       osDelay(300);
       
       scara.step_angle +=3;
@@ -315,7 +315,7 @@ void Get_Box(uint8_t box_id)
       osDelay(600);
       scara.step_angle -=3;
 
-      Lift_PosCtrl(3.9);//升到进入一层货架高度
+      push_PosCtrl(3.9);//升到进入一层货架高度
       Grab_On();
       osDelay(600);
 
@@ -327,13 +327,13 @@ void Get_Box(uint8_t box_id)
       Grab_Off();
       osDelay(550);
 
-      Lift_PosCtrl(10.88);//降低高度贴着箱子
+      push_PosCtrl(10.88);//降低高度贴着箱子
       osDelay(350);
 
       Grab_On();//夹住箱子
       osDelay(500);
 
-      Lift_PosCtrl(11.5);//升到二层货架旋转高度
+      push_PosCtrl(11.5);//升到二层货架旋转高度
       osDelay(100);
 
       // osDelay(500);
@@ -341,7 +341,7 @@ void Get_Box(uint8_t box_id)
       osDelay(450);
       End_Rotation_Ctrl(90);
       osDelay(150);
-      Lift_PosCtrl(6.5);//降到6号位高度
+      push_PosCtrl(6.5);//降到6号位高度
       // End_Rotation_Ctrl(90);
 
 
@@ -351,7 +351,7 @@ void Get_Box(uint8_t box_id)
       Grab_Off();
       osDelay(300);
 
-      Lift_PosCtrl(13);//升到进入二层货架高度
+      push_PosCtrl(13);//升到进入二层货架高度
 
       osDelay(200);
 
@@ -378,7 +378,7 @@ void Ready_To_Put_Box(uint8_t box_id)
       End_Rotation_Ctrl(0);
       osDelay(390);
 
-      Lift_PosCtrl(6.7);//下降到一号位一层抓取高度
+      push_PosCtrl(6.7);//下降到一号位一层抓取高度
       osDelay(400);
 
       Grab_On();
@@ -390,7 +390,7 @@ void Ready_To_Put_Box(uint8_t box_id)
       End_Rotation_Ctrl(0);
       osDelay(390);
 
-      Lift_PosCtrl(6.7);//下降到二号位一层抓取高度
+      push_PosCtrl(6.7);//下降到二号位一层抓取高度
       osDelay(400);
 
       Grab_On();
@@ -402,7 +402,7 @@ void Ready_To_Put_Box(uint8_t box_id)
       End_Rotation_Ctrl(90);
       osDelay(150);
 
-      Lift_PosCtrl(3);//下降到三号位一层抓取高度
+      push_PosCtrl(3);//下降到三号位一层抓取高度
       osDelay(700);
 
       Grab_On();
@@ -415,7 +415,7 @@ void Ready_To_Put_Box(uint8_t box_id)
       End_Rotation_Ctrl(0);
       osDelay(530);
 
-      Lift_PosCtrl(10);//下降到四号位一层抓取高度
+      push_PosCtrl(10);//下降到四号位一层抓取高度
       osDelay(330);
 
       Grab_On();
@@ -427,7 +427,7 @@ void Ready_To_Put_Box(uint8_t box_id)
       End_Rotation_Ctrl(0);
       osDelay(530);
 
-      Lift_PosCtrl(10);//下降到五号位一层抓取高度
+      push_PosCtrl(10);//下降到五号位一层抓取高度
       osDelay(330);
 
       Grab_On();
@@ -439,7 +439,7 @@ void Ready_To_Put_Box(uint8_t box_id)
       End_Rotation_Ctrl(90);
       osDelay(200);
 
-      Lift_PosCtrl(6.4);//下降到六号位高度
+      push_PosCtrl(6.4);//下降到六号位高度
       osDelay(560);
 
       Grab_On();

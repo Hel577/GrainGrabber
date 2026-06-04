@@ -698,3 +698,211 @@ These source files will be recompiled
 [2026-05-21 23:52:36]	[done]
 	build successfully !
 
+[2026-06-04 19:22:38]	[info] incremental build: 17 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\bsp.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': object (.o) file not exist
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\raspi.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\bsp.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\bsp.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\MI_motor_dev.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\bsp.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\pid.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\dma.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\gpio.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_hal_msp.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_it.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\tim.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\usart.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+
+[2026-06-04 19:22:42]	[done]
+	build successfully !
+
+[2026-06-04 20:05:17]	[info] incremental build: 8 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\bsp.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-06-04 20:05:17]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/APP/push.o -MMD ./Core/APP/push.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/APP/push.c: In function 'Init_push':
+./Core/APP/push.c:20:9: error: 'push_Status' has no member named 'current_position'
+   20 |     push->current_position = 0.0f;
+      |         ^~
+./Core/APP/push.c:21:9: error: 'push_Status' has no member named 'target_position'
+   21 |     push->target_position = 0.0f;
+      |         ^~
+./Core/APP/push.c:22:9: error: 'push_Status' has no member named 'max_position'
+   22 |     push->max_position = 15.0f;    // 设置最大高度限制，根据实际情况调整
+      |         ^~
+./Core/APP/push.c:23:9: error: 'push_Status' has no member named 'min_position'
+   23 |     push->min_position = 0.0f;      // 设置最小高度限�?      |         ^~
+./Core/APP/push.c: In function 'Calculate_Angles_From_Position':
+./Core/APP/push.c:44:5: error: 'para' undeclared (first use in this function)
+   44 |     para = ARM_LONG_LENGTH*ARM_LONG_LENGTH-ARM_SHORT_LENGTH*ARM_SHORT_LENGTH-position*position;
+      |     ^~~~
+./Core/APP/push.c:44:5: note: each undeclared identifier is reported only once for each function it appears in
+./Core/APP/push.c:45:5: error: 'radias' undeclared (first use in this function)
+   45 |     radias = acosf(para/(2*position*ARM_SHORT_LENGTH));
+      |     ^~~~~~
+./Core/APP/push.c: In function 'push_Move_To_Position':
+./Core/APP/push.c:59:39: error: 'push_Status' has no member named 'min_position'
+   59 |     float target_position = fmaxf(push->min_position, fminf(position, push->max_position));
+      |                                       ^~
+./Core/APP/push.c:59:75: error: 'push_Status' has no member named 'max_position'
+   59 |     float target_position = fmaxf(push->min_position, fminf(position, push->max_position));
+      |                                                                           ^~
+./Core/APP/push.c:60:9: error: 'push_Status' has no member named 'target_position'
+   60 |     push->target_position = target_position;
+      |         ^~
+./Core/APP/push.c: In function 'push_Is_Reached':
+./Core/APP/push.c:76:9: error: 'push_Status' has no member named 'current_position'
+   76 |     push->current_position = -1.0f*motors[7]->motor_fdb.mechPos;
+      |         ^~
+./Core/APP/push.c:77:29: error: 'push_Status' has no member named 'target_position'
+   77 |     float error = fabsf(push->target_position - push->current_position);
+      |                             ^~
+./Core/APP/push.c:77:53: error: 'push_Status' has no member named 'current_position'
+   77 |     float error = fabsf(push->target_position - push->current_position);
+      |                                                     ^~
+
+[2026-06-04 20:05:59]	[info] incremental build: 7 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\bsp.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-06-04 20:06:00]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/APP/push.o -MMD ./Core/APP/push.c
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/APP/push.c: In function 'push_Reset':
+./Core/APP/push.c:35:9: error: 'push_Status' has no member named 'target_height'
+   35 |     push->target_height = 0.0f;
+      |         ^~
+./Core/APP/push.c: In function 'Calculate_Angles_From_Position':
+./Core/APP/push.c:44:5: error: 'para' undeclared (first use in this function)
+   44 |     para = ARM_LONG_LENGTH*ARM_LONG_LENGTH-ARM_SHORT_LENGTH*ARM_SHORT_LENGTH-position*position;
+      |     ^~~~
+./Core/APP/push.c:44:5: note: each undeclared identifier is reported only once for each function it appears in
+./Core/APP/push.c:45:5: error: 'radias' undeclared (first use in this function)
+   45 |     radias = acosf(para/(2*position*ARM_SHORT_LENGTH));
+      |     ^~~~~~
+
+[2026-06-04 20:06:41]	[info] incremental build: 5 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\bsp.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-06-04 20:06:42]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/Src/my_task.o -MMD ./Core/Src/my_task.c
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/Src/my_task.c:93:6: error: redefinition of 'test_Grab'
+   93 | void test_Grab(void){
+      |      ^~~~~~~~~
+./Core/Src/my_task.c:84:6: note: previous definition of 'test_Grab' with type 'void(void)'
+   84 | void test_Grab(void){
+      |      ^~~~~~~~~
+
+[2026-06-04 20:08:02]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\my_task.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\my_task.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-06-04 20:08:03]	[done]
+	build successfully !
+
+[2026-06-04 20:59:52]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+
+[2026-06-04 20:59:53]	[done]
+	build successfully !
+
+[2026-06-04 21:06:34]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+
+[2026-06-04 21:06:35]	[done]
+	build successfully !
+
+[2026-06-04 21:08:30]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-06-04 21:08:30]	[done]
+	build successfully !
+
+[2026-06-04 21:11:01]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+
+[2026-06-04 21:11:01]	[done]
+	build successfully !
+
+[2026-06-04 21:12:45]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+
+[2026-06-04 21:12:46]	[done]
+	build successfully !
+
+[2026-06-04 21:14:47]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-06-04 21:14:47]	[done]
+	build successfully !
+
+[2026-06-04 21:16:02]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': source file has been changed.
+
+[2026-06-04 21:16:03]	[done]
+	build successfully !
+
+[2026-06-04 21:26:05]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-06-04 21:26:05]	[done]
+	build successfully !
+

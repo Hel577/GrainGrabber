@@ -24,6 +24,9 @@ void test_move(void);
 void test_motor(void);
 void test_chassis(void);
 void test_lift(void);
+void test_Push(void);
+void test_Grab(void);
+void test_Graber(void);
 
 #ifdef __cplusplus
 }

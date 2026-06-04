@@ -10,7 +10,7 @@ uint8_t MI_MASTERID = 0xF4; //master id 发送指令时EXTID的bit8:15,反馈的
 //小米电机对象
 MI_Motor_t chassis_motor[4];//底盘电机
 MI_Motor_t scara_motor[2];//SCARA机械臂电机
-MI_Motor_t lifting_motor[1];//升降电机
+MI_Motor_t pushing_motor[1];//升降电机
 MI_Motor_t *motors[8];
 
 extern CAN_HandleTypeDef hcan1;

@@ -28,11 +28,11 @@ void Set_Scara_Motor_CurrLim(uint8_t current_lim);
 void Reset_Scara_Motor_MechPosition(void);
 void En_Scara_Motor(void);
 void Dis_Scara_Motor(void);
-void Init_Lifting_Motor(void);
-void Change_Lifting_Motor_Mode(uint8_t mode);
-void Set_Lifting_Motor_SpdLim(uint8_t spd_lim);
-void Set_Lifting_Motor_CurrLim(uint8_t current_lim);
-void Reset_Lifting_Motor_MechPosition(void);
-void En_Lifting_Motor(void);
-void Dis_Lifting_Motor(void);
+void Init_pushing_Motor(void);
+void Change_pushing_Motor_Mode(uint8_t mode);
+void Set_pushing_Motor_SpdLim(uint8_t spd_lim);
+void Set_pushing_Motor_CurrLim(uint8_t current_lim);
+void Reset_pushing_Motor_MechPosition(void);
+void En_pushing_Motor(void);
+void Dis_pushing_Motor(void);
 #endif

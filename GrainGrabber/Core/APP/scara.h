@@ -17,7 +17,7 @@ extern "C"
 #define LARGE_ARM_LENGTH 160.0f       // 大臂长度(mm)
 #define OFFSET_X 0.0f                 // 机械臂零位末端位置
 #define OFFSET_Y 0.0f                 // 机械臂零位末端位置
-#define RADIUS 10.0f                   // 末端圆盘半径(mm)
+#define RADIUS 210.0f                   // 末端圆盘半径(mm)
 
 /* 末端爪子参数定义 */
 #define GRAB_OPEN    3000  //爪子完全张开

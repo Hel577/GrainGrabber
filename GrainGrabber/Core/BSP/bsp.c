@@ -5,7 +5,7 @@ void bsp_init(void)
     // osDelay(3000);
     Init_Chassis_Motor();
     Init_Scara_Motor();
-    Init_Lifting_Motor();
+    Init_pushing_Motor();
     Init_PID();
 }
 
@@ -264,22 +264,22 @@ void Dis_Scara_Motor(void)
     }
 }   
 //******************************************************升降电机******************************************************
-void Init_Lifting_Motor(void)
+void Init_pushing_Motor(void)
 {
-    motors[7] = &lifting_motor[0];
+    motors[7] = &pushing_motor[0];
     MI_motor_init(motors[7],&hcan1,7);
-    // Reset_Lifting_Motor_MechPosition();
+    // Reset_pushing_Motor_MechPosition();
     //设置位置模式限速和速度模式电流限制
     MI_motor_SetSpdLim(motors[7], 12);//位置模式限速
     MI_motor_SetCurrLim(motors[7], 20);//速度模式电流限制
-    Change_Lifting_Motor_Mode(MODE_POS);
+    Change_pushing_Motor_Mode(MODE_POS);
 }
 /**
   * @brief  切换升降电机模式
   * @param1  mode 模式
   * @retval null
   */
-void Change_Lifting_Motor_Mode(uint8_t mode)
+void Change_pushing_Motor_Mode(uint8_t mode)
 {
     MI_motor_setMode(motors[7], mode);
 }
@@ -288,7 +288,7 @@ void Change_Lifting_Motor_Mode(uint8_t mode)
   * @param1  spd_lim 限速
   * @retval null
   */
-void Set_Lifting_Motor_SpdLim(uint8_t spd_lim)
+void Set_pushing_Motor_SpdLim(uint8_t spd_lim)
 {
     MI_motor_SetSpdLim(motors[7], spd_lim);
 }
@@ -297,7 +297,7 @@ void Set_Lifting_Motor_SpdLim(uint8_t spd_lim)
   * @param1  current_lim 电流限制
   * @retval null
   */
-void Set_Lifting_Motor_CurrLim(uint8_t current_lim)
+void Set_pushing_Motor_CurrLim(uint8_t current_lim)
 {
     MI_motor_SetCurrLim(motors[7], current_lim);
 }
@@ -306,17 +306,17 @@ void Set_Lifting_Motor_CurrLim(uint8_t current_lim)
   * @brief  重置升降电机机械零位
   * @retval null
   */
-void Reset_Lifting_Motor_MechPosition(void)
+void Reset_pushing_Motor_MechPosition(void)
 {
-    Dis_Lifting_Motor();
+    Dis_pushing_Motor();
     MI_motor_setMechPosition2Zero(motors[7]);
-    En_Lifting_Motor();
+    En_pushing_Motor();
 }
 /**
   * @brief  使能升降电机
   * @retval null
   */
-void En_Lifting_Motor(void)
+void En_pushing_Motor(void)
 {
     MI_motor_enable(motors[7]);
 }
@@ -324,7 +324,7 @@ void En_Lifting_Motor(void)
   * @brief  失能升降电机
   * @retval null
   */
-void Dis_Lifting_Motor(void)
+void Dis_pushing_Motor(void)
 {
     MI_motor_stop(motors[7]);
 }

@@ -132,14 +132,14 @@ void add_scara_ctrl(void)
     float angle1 = target_angle1;
     float angle1_rad = angle1 * PI / 180.0f;
     MI_motor_PosCtrl(scara.L_motor, angle1_rad);
-    printf("send angle1: %f\r\n", angle1);
+    // printf("send angle1: %f\r\n", angle1);
     // motor_index = 1;  // 下一次控制右臂电机
   // } else {
     // 控制右臂电机
     float angle2 = target_angle2;
     float angle2_rad = angle2 * PI / 180.0f;
     MI_motor_PosCtrl(scara.R_motor, angle2_rad);
-    printf("send angle2: %f\r\n", angle2);
+    // printf("send angle2: %f\r\n", angle2);
     // motor_index = 0;  // 下一次控制左臂电机
   // }
 }
@@ -204,7 +204,9 @@ void Control_End_Rotation(float angle)
 //保持末端角度，定时器中使用
 void Maintain_End_Rotation(void)
 {
-  return;
+  float diff = hand.target_angle;
+
+    Control_End_Rotation(diff);
 }
 
 
@@ -220,9 +222,9 @@ void Grab_On(void)
 {
   HAL_TIM_Base_Stop_IT(&htim5);
   hand.grab_state = 1;
-  Filter_Servo_PosCtrl(GRAB_SERVO,GRAB_BOX,3400,200);
+  Filter_Servo_PosCtrl(GRAB_SERVO,GRAB_ClOSE_All,3400,200);
   osDelay(3);
-  Filter_Servo_PosCtrl(GRAB_SERVO,GRAB_BOX,3400,200);
+  Filter_Servo_PosCtrl(GRAB_SERVO,GRAB_ClOSE_All,3400,200);
   osDelay(10);
   HAL_TIM_Base_Start_IT(&htim5);
 

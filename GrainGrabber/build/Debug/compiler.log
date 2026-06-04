@@ -1,11 +1,18 @@
+>>> info
+
+Compiler Full Name: arm-none-eabi-gcc.exe (Arm GNU Toolchain 14.3.Rel1 (Build arm-14.174)) 14.3.1 20250623
+Compiler Version: 14.3.1
+Builder Mode: Incremental
+The amount of C files: 1
+The amount of C++ files: 0
+The amount of Asm files: 0
+
+>>> prebuild
+
+
+
 >>> cc
 
-
-
-
-
-./Core/Src/main.c:20:1: warning: "/*" within comment [-Wcomment]
-   20 | /* USER CODE END Header */
 
 
 >>> ld
@@ -14,4 +21,8 @@ C:/Users/Ganbo/.eide/tools/gcc_arm/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../
 Memory region         Used Size  Region Size  %age Used
              RAM:       23056 B       192 KB     11.73%
           CCMRAM:           0 B        64 KB      0.00%
-           FLASH:       54988 B         2 MB      2.62%
+           FLASH:       55828 B         2 MB      2.66%
+
+
+>>> postbuild
+

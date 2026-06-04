@@ -1,5 +1,5 @@
-build/Debug/.obj/Core/Src/my_task.o: Core/Src/my_task.c \
- Core/Inc/my_task.h Core/Inc/main.h \
+build/Debug/.obj/Core/APP/push.o: Core/APP/push.c Core/APP/push.h \
+ Core/BSP/bsp.h Core/BSP/MI_motor_dev.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  Core/Inc/stm32f4xx_hal_conf.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -26,7 +26,8 @@ build/Debug/.obj/Core/Src/my_task.o: Core/Src/my_task.c \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h Core/Inc/usart.h \
+ Core/Inc/main.h Core/Inc/can.h Core/Inc/tim.h \
  Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h \
  Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  Core/Inc/FreeRTOSConfig.h \
@@ -38,8 +39,4 @@ build/Debug/.obj/Core/Src/my_task.o: Core/Src/my_task.c \
  Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
  Middlewares/Third_Party/FreeRTOS/Source/include/list.h \
  Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
- Core/Inc/can.h Core/Inc/tim.h Core/Inc/dma.h Core/Inc/usart.h \
- Core/Inc/gpio.h Core/APP/app.h Core/APP/car.h Core/BSP/bsp.h \
- Core/BSP/MI_motor_dev.h Core/Inc/usart.h Core/Inc/can.h Core/Inc/main.h \
- Core/BSP/filter.h Core/BSP/pid.h Core/Inc/tim.h Core/APP/raspi.h \
- Core/APP/app.h Core/APP/push.h Core/APP/scara.h
+ Core/Inc/main.h Core/BSP/filter.h Core/BSP/pid.h Core/Inc/tim.h

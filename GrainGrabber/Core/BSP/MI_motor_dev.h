@@ -117,7 +117,7 @@ void Motors_Start(void);
 
 extern MI_Motor_t chassis_motor[4];
 extern MI_Motor_t scara_motor[2];
-extern MI_Motor_t lifting_motor[1];
+extern MI_Motor_t pushing_motor[1];
 extern MI_Motor_t *motors[8];
 #endif
  

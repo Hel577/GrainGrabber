@@ -6,7 +6,7 @@
 void Init_All(void)
 {
   Reset_Scara_Motor_MechPosition();
-  Reset_Lifting_Motor_MechPosition();
+  Reset_pushing_Motor_MechPosition();
   // Filter_Calibrate_Center_Position(GRAB_SERVO);
   // Filter_Calibrate_Center_Position(SPIN_SERVO);
   
@@ -68,4 +68,40 @@ void test_lift(void){
   osDelay(5000);
   Scara_Return_Home();
   osDelay(5000);
+}
+
+void test_Push(void){
+  printf("test push\r\n");
+  Init_All();
+  push_Move_To_Position(MAX_POSITION);
+  osDelay(5000);
+  push_Move_To_Position(MIN_POSITION);
+  osDelay(5000);
+  push_Move_To_Position(200);
+  osDelay(5000);
+}
+
+void test_Graber(void){
+  Grab_On();
+  osDelay(5000);
+  Grab_Off();
+  osDelay(5000);
+
+}
+
+
+void test_Grab(void){
+  printf("test grab\r\n");
+  Init_All();
+  push_Move_To_Position(MAX_POSITION);
+  osDelay(5000);
+  Scara_To_Height(200);
+  osDelay(5000);
+  Grab_On();
+  Scara_To_Height(50);
+  osDelay(5000);
+  push_Move_To_Position(MIN_POSITION);
+  osDelay(5000);
+  Grab_Off();
+
 }
