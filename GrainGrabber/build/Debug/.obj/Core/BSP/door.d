@@ -1,4 +1,5 @@
-build/Debug/.obj/Core/Src/main.o: Core/Src/main.c Core/Inc/main.h \
+build/Debug/.obj/Core/BSP/door.o: Core/BSP/door.c Core/BSP/door.h \
+ Core/Inc/gpio.h Core/Inc/main.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  Core/Inc/stm32f4xx_hal_conf.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -25,21 +26,4 @@ build/Debug/.obj/Core/Src/main.o: Core/Src/main.c Core/Inc/main.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h \
- Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
- Core/Inc/FreeRTOSConfig.h \
- Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h \
- Middlewares/Third_Party/FreeRTOS/Source/include/portable.h \
- Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h \
- Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h \
- Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h \
- Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
- Middlewares/Third_Party/FreeRTOS/Source/include/list.h \
- Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
- Core/Inc/can.h Core/Inc/main.h Core/Inc/tim.h Core/Inc/dma.h \
- Core/Inc/tim.h Core/Inc/usart.h Core/Inc/gpio.h Core/APP/app.h \
- Core/APP/car.h Core/BSP/bsp.h Core/BSP/MI_motor_dev.h Core/BSP/filter.h \
- Core/BSP/pid.h Core/APP/raspi.h Core/APP/app.h Core/APP/push.h \
- Core/APP/scara.h Core/Inc/my_task.h Core/Inc/can.h Core/Inc/dma.h \
- Core/Inc/usart.h Core/Inc/gpio.h Core/BSP/door.h Core/APP/scara.h
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h

@@ -63,6 +63,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define DoorControl_Pin GPIO_PIN_0
+#define DoorControl_GPIO_Port GPIOI
 
 /* USER CODE BEGIN Private defines */
 

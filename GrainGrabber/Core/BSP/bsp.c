@@ -187,7 +187,7 @@ void Init_Scara_Motor(void)
     //设置位置模式限速和速度模式电流限制
     for (uint8_t id = 5; id < 7; id++)
     {
-        MI_motor_SetSpdLim(motors[id], 8);//位置模式限速
+        MI_motor_SetSpdLim(motors[id], 10);//位置模式限速
         MI_motor_SetCurrLim(motors[id], 20);//速度模式电流限制
     }
     Change_Scara_Motor_Mode(MODE_POS);
@@ -270,7 +270,7 @@ void Init_pushing_Motor(void)
     MI_motor_init(motors[7],&hcan1,7);
     // Reset_pushing_Motor_MechPosition();
     //设置位置模式限速和速度模式电流限制
-    MI_motor_SetSpdLim(motors[7], 12);//位置模式限速
+    MI_motor_SetSpdLim(motors[7], 8);//位置模式限速
     MI_motor_SetCurrLim(motors[7], 20);//速度模式电流限制
     Change_pushing_Motor_Mode(MODE_POS);
 }

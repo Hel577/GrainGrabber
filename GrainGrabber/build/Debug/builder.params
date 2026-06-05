@@ -54,6 +54,7 @@
         "Core/APP/scara.c",
         "Core/BSP/MI_motor_dev.c",
         "Core/BSP/bsp.c",
+        "Core/BSP/door.c",
         "Core/BSP/filter.c",
         "Core/BSP/pid.c",
         "Core/Src/can.c",

@@ -375,11 +375,13 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
        {
            case 0:
                Update_Scara_Status();
+               push_Update();
                 Maintain_End_Rotation(); 
                state = 1;
                break;
            case 1:
                add_scara_ctrl();
+               add_push_ctrl();
                state = 0;
                break;
       //      case 2:

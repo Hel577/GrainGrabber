@@ -15,6 +15,8 @@ extern "C" {
 #include "gpio.h"
 #include "app.h"
 #include "bsp.h"
+#include "door.h"
+#include "scara.h"
 
 
 /* 函数声明 */
@@ -27,6 +29,7 @@ void test_lift(void);
 void test_Push(void);
 void test_Grab(void);
 void test_Graber(void);
+void test_door(void);
 
 #ifdef __cplusplus
 }

@@ -29,7 +29,7 @@ void Init_Scara(void)
     scara.current_th2 = 0.0f;
     scara.target_th1 = 0.0f;
     scara.target_th2 = 0.0f;
-    scara.step_angle = 10.5f;// 增量控制步进角度（°）//空爪可以切换大的
+    scara.step_angle = 20.5f;// 增量控制步进角度（°）//空爪可以切换大的
     scara.is_moving = 0;
 
     //初始化末端爪子结构体
@@ -94,7 +94,7 @@ void add_scara_ctrl(void)
   // 计算左臂电机步进
   float diff1 = scara.target_th1 - scara.current_th1;
   float step1 = 0.0f;
-  if(fabsf(diff1) < scara.step_angle) {
+  if(fabsf(diff1) < scara.step_angle*0.2f) {
       step1 = diff1;
       scara.is_moving = 0;
   } else {
@@ -110,11 +110,11 @@ void add_scara_ctrl(void)
   // 计算右臂电机步进
   float diff2 = scara.target_th2 - scara.current_th2;
   float step2 = 0.0f;
-  if(fabsf(diff2) < scara.step_angle) {
+  if(fabsf(diff2) < scara.step_angle*0.2f) {
       step2 = diff2;
   } else {
       // 接近目标位置时减小步进角度
-      if(fabsf(diff2) < 10.5f) {
+      if(fabsf(diff2) < 4.5f) {
           float reduced_step = scara.step_angle * 0.4f; // 减小为原来的一半
           step2 = (diff2 > 0) ? reduced_step : -reduced_step;
       } else {

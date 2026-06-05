@@ -7,6 +7,7 @@
 ./build/Debug/.obj/Core/APP/scara.o
 ./build/Debug/.obj/Core/BSP/MI_motor_dev.o
 ./build/Debug/.obj/Core/BSP/bsp.o
+./build/Debug/.obj/Core/BSP/door.o
 ./build/Debug/.obj/Core/BSP/filter.o
 ./build/Debug/.obj/Core/BSP/pid.o
 ./build/Debug/.obj/Core/Src/can.o

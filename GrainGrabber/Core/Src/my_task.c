@@ -63,8 +63,9 @@ void test_chassis(void){
 
 void test_lift(void){
   printf("test lift\r\n");
-  Init_All();
-  Scara_PosCtrl(180,180);
+  // Init_All();
+  printf("move to height 200\r\n");
+  Scara_To_Height(230);
   osDelay(5000);
   Scara_Return_Home();
   osDelay(5000);
@@ -73,9 +74,9 @@ void test_lift(void){
 void test_Push(void){
   printf("test push\r\n");
   Init_All();
-  push_Move_To_Position(MAX_POSITION);
-  osDelay(5000);
   push_Move_To_Position(MIN_POSITION);
+  osDelay(5000);
+  push_Move_To_Position(MAX_POSITION);
   osDelay(5000);
   push_Move_To_Position(200);
   osDelay(5000);
@@ -93,15 +94,24 @@ void test_Graber(void){
 void test_Grab(void){
   printf("test grab\r\n");
   Init_All();
-  push_Move_To_Position(MAX_POSITION);
+  // Scara_To_Height(50);
+  // push_Move_To_Position(MAX_POSITION);
   osDelay(5000);
-  Scara_To_Height(200);
+  Scara_To_Height(230);
   osDelay(5000);
-  Grab_On();
+  // Grab_On();
   Scara_To_Height(50);
-  osDelay(5000);
+  osDelay(500);
   push_Move_To_Position(MIN_POSITION);
   osDelay(5000);
-  Grab_Off();
+  // Grab_Off();
+  push_Move_To_Position(MAX_POSITION);
 
+}
+
+void test_door(void){
+  Door_Set_State(DOOR_CLOSE);
+  osDelay(5000);
+  Door_Set_State(DOOR_OPEN);
+  osDelay(5000);
 }

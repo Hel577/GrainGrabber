@@ -282,8 +282,8 @@ void StartMainTask(void *argument)
 //第一次启动
 //************************************************************************** */
 
-  // Init_All();  
-  test_lift();
+  Init_All();  
+  test_Graber();
   // test_motor();
 
 
