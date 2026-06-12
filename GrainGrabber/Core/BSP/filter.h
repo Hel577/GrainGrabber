@@ -10,17 +10,17 @@
 #include "usart.h"
 
 //末端角度转化率
-#define END_ANGLE_RATE 0.1528421053
+#define END_ANGLE_RATE 0.087890625
 
 /* Filter舵机ID定义 */
-#define SPIN_SERVO     1   // 旋转舵机ID
-#define GRAB_SERVO     2   // 夹爪舵机ID
+#define SPIN_SERVO    2   // 旋转舵机ID
+#define GRAB_SERVO     1   // 夹爪舵机ID
 
 /* Filter舵机位置范围 */
-#define SPIN_MIN_POS    1935  //对应末端0.1528421053度
-#define SPIN_MAX_POS    3225
-#define GRAB_MIN_POS    2048  //爪子完全闭合
-#define GRAB_MAX_POS    3000  //爪子完全张开
+#define SPIN_MIN_POS    0  //对应末端0.1528421053度
+#define SPIN_MAX_POS    4096
+#define GRAB_MIN_POS    0  //爪子完全张开
+#define GRAB_MAX_POS    4096  //爪子完全闭合
 
 /* Filter舵机指令相关参数 */
 #define FILTER_HEADER1    0xFF
@@ -28,6 +28,8 @@
 #define FILTER_WRITE_CMD  0x03
 #define FILTER_CALIB_ADDR 0x28
 #define FILTER_CTRL_ADDR  0x29
+#define FILTER_READ_ADDR 0x38
+#define FILTER_READ_CMD 0x02
 
 /**
  * @brief 计算Filter舵机校验码
@@ -58,4 +60,11 @@ void Filter_Servo_PosCtrl(uint8_t id, int16_t target_position, uint16_t target_s
  * @param len 数据长度
  */
 void Filter_Send_Command(uint8_t *data, uint8_t len);
+
+
+
+void Filter_Read_Pos(uint8_t id);
+bool Filter_Verify_Checksum(uint8_t *data, uint8_t len);
+
+
 #endif /* __FILTER_H */

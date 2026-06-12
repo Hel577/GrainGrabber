@@ -65,6 +65,7 @@ void Move_By_Vision_NonBlocking(uint8_t paper_id, uint32_t timeout);
 void Move_By_Easy_NonBlocking(float target_x, float target_y, float target_z, uint32_t timeout);
 void Move_Translation_NonBlocking(float target_x, float target_y, float target_z, uint32_t timeout);
 uint8_t Near_Box(uint8_t box_id ,uint8_t dir, bool maduo);
-
+void Try_Grab_Beans(uint8_t bean_id);
+void Choose_Plate(uint8_t plate_id);
 
 #endif

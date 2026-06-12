@@ -20,8 +20,8 @@ extern "C"
 #define RADIUS 21.0f                   // 末端圆盘半径(mm)
 
 /* 末端爪子参数定义 */
-#define GRAB_OPEN    3000  //爪子完全张开
-#define GRAB_ClOSE_All    2048  //爪子完全闭合
+#define GRAB_OPEN    1462  //爪子完全张开
+#define GRAB_ClOSE_All    2500  //爪子完全闭合
 #define GRAB_BOX 2173  //抓紧箱子
 // 末端爪子结构体
 typedef struct {
@@ -29,6 +29,8 @@ typedef struct {
     float target_angle;      // 末端目标保持角度
     float step_angle;        // 旋转舵机的增量控制步进值
     bool grab_state;      // 爪子开合状态：0-松开，1-抓住
+    uint16_t grab_target_angle;
+    uint16_t grab_current_angle;
 } hand_t;
 
 
@@ -64,6 +66,11 @@ void Grab_On(void);
 void Grab_Off(void);
 void Calculate_Angles_From_Height(float height, float *angle1, float *angle2);
 void Scara_To_Height(float height);
+void Filter_Process_Data(uint8_t* data);
+void Read_Grab_Angle(void);
+void Read_Spin_Angle(void);
+void Grab_Open_Slitly(void);
+void Grab_Pos_Ctrl(uint16_t angle);
 
 
 #endif

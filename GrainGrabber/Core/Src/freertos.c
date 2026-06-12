@@ -78,6 +78,13 @@ const osThreadAttr_t MainTask_attributes = {
   .stack_size = 512 * 4,
   .priority = (osPriority_t) osPriorityBelowNormal,
 };
+/* Definitions for FilterAngleGet */
+osThreadId_t FilterAngleGetHandle;
+const osThreadAttr_t FilterAngleGet_attributes = {
+  .name = "FilterAngleGet",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
 /* Definitions for ChassisMoveDone */
 osSemaphoreId_t ChassisMoveDoneHandle;
 const osSemaphoreAttr_t ChassisMoveDone_attributes = {
@@ -97,6 +104,7 @@ const osSemaphoreAttr_t ScaraMoveDone_attributes = {
 void StartChassisTask(void *argument);
 void StartScaraTask(void *argument);
 void StartMainTask(void *argument);
+void StartTask04(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -142,6 +150,9 @@ void MX_FREERTOS_Init(void) {
 
   /* creation of MainTask */
   MainTaskHandle = osThreadNew(StartMainTask, NULL, &MainTask_attributes);
+
+  /* creation of FilterAngleGet */
+  FilterAngleGetHandle = osThreadNew(StartTask04, NULL, &FilterAngleGet_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -283,7 +294,7 @@ void StartMainTask(void *argument)
 //************************************************************************** */
 
   Init_All();  
-  test_Graber();
+  test_Grab();
   // test_motor();
 
 
@@ -324,6 +335,27 @@ void StartMainTask(void *argument)
     // printf("omega: %f\r\n", omega);
   }
   /* USER CODE END StartMainTask */
+}
+
+/* USER CODE BEGIN Header_StartTask04 */
+/**
+* @brief Function implementing the FilterAngleGet thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartTask04 */
+void StartTask04(void *argument)
+{
+  /* USER CODE BEGIN StartTask04 */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(20);
+    Read_Grab_Angle();
+    Read_Spin_Angle();
+    printf("%d\r\n",hand.grab_current_angle);
+  }
+  /* USER CODE END StartTask04 */
 }
 
 /* Private application code --------------------------------------------------*/

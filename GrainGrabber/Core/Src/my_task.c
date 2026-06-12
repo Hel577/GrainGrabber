@@ -83,11 +83,13 @@ void test_Push(void){
 }
 
 void test_Graber(void){
+  osDelay(5000);
+  Grab_Off();
+  osDelay(5000);
   Grab_On();
   osDelay(5000);
   Grab_Off();
   osDelay(5000);
-
 }
 
 
@@ -96,16 +98,20 @@ void test_Grab(void){
   Init_All();
   // Scara_To_Height(50);
   // push_Move_To_Position(MAX_POSITION);
+  Grab_Off();
   osDelay(5000);
-  Scara_To_Height(230);
+  Scara_To_Height(270);
   osDelay(5000);
-  // Grab_On();
+  Try_Grab_Beans(2);
+
   Scara_To_Height(50);
   osDelay(500);
-  push_Move_To_Position(MIN_POSITION);
+  // push_Move_To_Position(MIN_POSITION);
   osDelay(5000);
   // Grab_Off();
-  push_Move_To_Position(MAX_POSITION);
+  // push_Move_To_Position(MAX_POSITION);
+  osDelay(5000);
+  Scara_Return_Home();
 
 }
 
@@ -113,5 +119,21 @@ void test_door(void){
   Door_Set_State(DOOR_CLOSE);
   osDelay(5000);
   Door_Set_State(DOOR_OPEN);
+  osDelay(5000);
+}
+
+void test_graber_resend(void){
+  while(true){
+    printf("%d\r\n",hand.grab_current_angle);
+    osDelay(100);
+  }
+}
+
+void test_Spin(void){
+  printf("Start Test Spin");
+
+  Choose_Plate(2);
+  osDelay(5000);
+  Choose_Plate(1);
   osDelay(5000);
 }

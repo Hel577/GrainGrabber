@@ -21,6 +21,28 @@ uint8_t Filter_Calculate_Checksum(uint8_t *data, uint8_t len)
     return checksum;
 }
 
+bool Filter_Verify_Checksum(uint8_t *data, uint8_t len)
+{
+    uint8_t total_sum = 0;
+    
+    // 注意：这里的 len 必须包含校验和字节
+    for (uint8_t i = 0; i < len; i++)
+    {
+        total_sum += data[i];
+    }
+    
+    total_sum = total_sum & 0xFF;
+    
+    // 方法1：重新计算校验和并与存储的校验和比较
+    // uint8_t received_checksum = data[len-1];
+    // uint8_t calculated_checksum = (~(total_sum - received_checksum)) & 0xFF;
+    // return (calculated_checksum == received_checksum);
+    
+    // 方法2：将计算结果取反后看是否为0（更简洁）
+    uint8_t result = (~total_sum) & 0xFF;
+    return (result == 0x00);  // 为0表示验证通过
+}
+
 /**
  * @brief 发送数据到Filter舵机
  * @param data 数据数组
@@ -139,5 +161,34 @@ void Filter_Servo_PosCtrl(uint8_t id, int16_t target_position, uint16_t target_s
     
     // 发送指令
     Filter_Send_Command(command, 14);
+}
+
+void Filter_Read_Pos(uint8_t id)
+{
+    uint8_t command[8]; // 修正数组大小为8，因为总共有8个字节
+    uint8_t data[5];
+    
+    // 构建指令
+    command[0] = FILTER_HEADER1;
+    command[1] = FILTER_HEADER2;
+    
+    data[0] = id;                // ID号
+    data[1] = 0x04;              // 数据长度
+    data[2] = FILTER_READ_CMD;  // 读指令
+    data[3] = FILTER_READ_ADDR; // 读首地址 (40)
+    data[4] = 0x02;              // 读入数据长度
+    
+    // 计算校验码
+    uint8_t checksum = Filter_Calculate_Checksum(data, 5);
+    
+    // 组装完整指令
+    command[2] = data[0];
+    command[3] = data[1];
+    command[4] = data[2];
+    command[5] = data[3];
+    command[6] = data[4];
+    command[7] = checksum;
+    
+    Filter_Send_Command(command, 8);
 }
 

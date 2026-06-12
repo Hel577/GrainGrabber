@@ -70,6 +70,10 @@ uint8_t rxcmd6_app[RXCMD6_DMA_SIZE];      // 应用程序读取的缓冲区
 uint8_t rxcmd3_dma[RXCMD3_DMA_SIZE];
 uint8_t move_flag = 0;//是否进行了点到点之间的移动，进行了就需要精调
 
+//舵机串口
+uint8_t rxcmd8_dma[RXCMD8_DMA_SIZE];
+
+
 
 // 用于检测跳变的omega
 volatile float omega_1 = 0;
@@ -132,7 +136,9 @@ int main(void)
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
   HAL_UART_Receive_DMA(&huart3, rxcmd3_dma, RXCMD3_DMA_SIZE);
-  memset(rxcmd3_dma, 0, RXCMD3_DMA_SIZE);  
+  HAL_UART_Receive_DMA(&huart8,rxcmd8_dma,RXCMD8_DMA_SIZE);
+  memset(rxcmd3_dma, 0, RXCMD3_DMA_SIZE);
+  memset(rxcmd8_dma,0,RXCMD8_DMA_SIZE);  
 
   
   
@@ -327,7 +333,15 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
     // filter servo
     else if (huart == &huart8)
     {
+    //舵机串口
+        uint8_t data[RXCMD8_DMA_SIZE];
+        memcpy(data,rxcmd8_dma,RXCMD8_DMA_SIZE);
+        //  清空DMA缓冲区
 
+        Filter_Process_Data(data);
+        memset(rxcmd8_dma, 0, RXCMD8_DMA_SIZE);
+        // 重新启动DMA接收
+        HAL_UART_Receive_DMA(&huart8, rxcmd8_dma, RXCMD8_DMA_SIZE);
     }
     //raspi5
     else if (huart == &huart3)
@@ -374,11 +388,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
        switch(state)
        {
            case 0:
-               Update_Scara_Status();
-               push_Update();
-                Maintain_End_Rotation(); 
-               state = 1;
-               break;
+              Update_Scara_Status();
+              push_Update();
+              Maintain_End_Rotation(); 
+              Filter_Servo_PosCtrl(GRAB_SERVO,hand.grab_target_angle,3400,200);
+              state = 1;
+              break;
            case 1:
                add_scara_ctrl();
                add_push_ctrl();

@@ -37,6 +37,7 @@ void Init_Scara(void)
     hand.target_angle = 0.0f;
     hand.step_angle = 30.0f; // 增量控制步进角度（°）
     hand.grab_state = 0; // 初始爪子松开
+    hand.grab_target_angle = 2048;
 }
 
 
@@ -218,13 +219,15 @@ void End_Rotation_Ctrl(float maintain_angle)
 
 }
 
+void Read_Spin_Angle(void){
+  Filter_Read_Pos(SPIN_SERVO);
+}
+
 void Grab_On(void)
 {
   HAL_TIM_Base_Stop_IT(&htim5);
   hand.grab_state = 1;
-  Filter_Servo_PosCtrl(GRAB_SERVO,GRAB_ClOSE_All,3400,200);
-  osDelay(3);
-  Filter_Servo_PosCtrl(GRAB_SERVO,GRAB_ClOSE_All,3400,200);
+  hand.grab_target_angle = GRAB_ClOSE_All;
   osDelay(10);
   HAL_TIM_Base_Start_IT(&htim5);
 
@@ -234,11 +237,45 @@ void Grab_Off(void)
 {
   HAL_TIM_Base_Stop_IT(&htim5);
   hand.grab_state = 0;
-  Filter_Servo_PosCtrl(GRAB_SERVO,GRAB_OPEN,3400,200);
-  osDelay(3);
-  Filter_Servo_PosCtrl(GRAB_SERVO,GRAB_OPEN,3400,200);
+  hand.grab_target_angle = GRAB_OPEN;
   osDelay(10);
   HAL_TIM_Base_Start_IT(&htim5);
 }
 
+void Grab_Pos_Ctrl(uint16_t angle){
+  HAL_TIM_Base_Stop_IT(&htim5);
+  hand.grab_state = 0;
+  hand.grab_target_angle = angle;
+  osDelay(10);
+  HAL_TIM_Base_Start_IT(&htim5);
+}
+
+void Grab_Open_Slitly(void){
+  HAL_TIM_Base_Stop_IT(&htim5);
+  Filter_Servo_PosCtrl(GRAB_SERVO,hand.grab_current_angle-350,3400,200);
+  osDelay(100);
+  Filter_Servo_PosCtrl(GRAB_SERVO,GRAB_ClOSE_All,3400,200);
+  osDelay(20);
+  HAL_TIM_Base_Start_IT(&htim5);
+}
+
+void Read_Grab_Angle(void){
+  Filter_Read_Pos(GRAB_SERVO);
+}
+
+void Filter_Process_Data(uint8_t* data)
+{
+    if(Filter_Verify_Checksum(&data[2],6)){
+      if(data[0]==FILTER_HEADER1&&data[1]==FILTER_HEADER2){
+          uint8_t id = data[2];
+          uint16_t angle = ((uint16_t)data[6]<<8)+(uint16_t)data[5];
+          if(id==GRAB_SERVO){
+              hand.grab_current_angle = angle;
+          }
+          if(id==SPIN_SERVO){
+              hand.current_angle = angle;
+          }
+      }
+    }
+}
 

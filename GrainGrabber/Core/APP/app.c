@@ -612,3 +612,48 @@ void Move_To_Placing_Box(uint8_t* box_ids){
   Move_To_Target(box_ids[2]+9);//前往第三个箱子的位置
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
 }
+
+
+uint16_t threashold[3] = {1900,2056,1500};//对应绿黄白的顺序
+
+void Try_Grab_Beans(uint8_t bean_id){
+  uint8_t try_times = 0;
+  uint16_t angle_threashold = threashold[bean_id-1];
+  for(;try_times<1;try_times++){
+    //抓取次数小于最大尝试次数，继续尝试抓取
+    if(try_times==0){
+      Grab_On();
+      osDelay(500);
+      Scara_To_Height(175);
+      osDelay(500);
+      // Grab_Open_Slitly();
+      // osDelay(5000);
+      // Grab_On();
+    }
+    else{
+      osDelay(5000);
+      Scara_To_Height(270);
+      osDelay(1000);
+      Grab_Pos_Ctrl(1700);
+      osDelay(2000);
+      Grab_On();
+      osDelay(5000);
+      Scara_To_Height(175);
+      // Grab_Open_Slitly();
+      osDelay(5000);
+    }
+
+    if(hand.grab_current_angle>angle_threashold){
+      try_times = 0;
+      return;
+    }
+
+  }
+  //超过最大次数，放弃抓取，继续执行后续步骤
+  try_times = 0;
+}
+
+void Choose_Plate(uint8_t plate_id){
+  /*从右到左为1，2，3 */
+  End_Rotation_Ctrl((plate_id-2)*60);
+}

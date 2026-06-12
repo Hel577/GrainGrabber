@@ -30,6 +30,8 @@ void test_Push(void);
 void test_Grab(void);
 void test_Graber(void);
 void test_door(void);
+void test_graber_resend(void);
+void test_Spin(void);
 
 #ifdef __cplusplus
 }

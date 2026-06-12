@@ -70,10 +70,12 @@ void Error_Handler(void);
 
 #define RXCMD6_DMA_SIZE 33
 #define RXCMD3_DMA_SIZE 9
+#define RXCMD8_DMA_SIZE 9
 // 全局变量声明
 extern uint8_t rxcmd6_dma[RXCMD6_DMA_SIZE];
 extern uint8_t rxcmd6_app[RXCMD6_DMA_SIZE];
 extern uint8_t rxcmd3_dma[RXCMD3_DMA_SIZE];
+extern uint8_t rxcmd8_dma[RXCMD8_DMA_SIZE];
 extern volatile float omega;            // 实际角度值
 extern volatile float omega_1;          // 原始角度值（-180到180度）
 extern volatile float current_angle_speed; // 当前角速度
