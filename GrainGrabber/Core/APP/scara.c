@@ -259,6 +259,15 @@ void Grab_Open_Slitly(void){
   HAL_TIM_Base_Start_IT(&htim5);
 }
 
+void Grab_Realease(void){
+  /*释放豆子*/
+  HAL_TIM_Base_Stop_IT(&htim5);
+  hand.grab_state = 0;
+  hand.grab_target_angle = GRAB_REALEASE;
+  osDelay(10);
+  HAL_TIM_Base_Start_IT(&htim5);
+}
+
 void Read_Grab_Angle(void){
   Filter_Read_Pos(GRAB_SERVO);
 }

@@ -1,366 +1,714 @@
-[2026-06-10 20:57:24]	[info] incremental build: 6 source files changed
+[2026-06-14 20:34:17]	[info] incremental build: 14 source files changed
 These source files will be recompiled
 ---
 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': source file has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\pid.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\can.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\dma.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\gpio.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_hal_msp.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_it.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\tim.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\usart.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
 
-[2026-06-10 20:57:25]	[done]
-	build successfully !
+[2026-06-14 20:34:17]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/APP/app.o -MMD ./Core/APP/app.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/BSP/door.c:5:6: error: conflicting types for 'Door_Set_State'; have 'void(door_t,  uint8_t)' {aka 'void(door_t,  unsigned char)'}
+    5 | void Door_Set_State(door_t door,uint8_t state)
+      |      ^~~~~~~~~~~~~~
+In file included from ./Core/BSP/door.c:1:
+./Core/BSP/door.h:18:6: note: previous declaration of 'Door_Set_State' with type 'void(uint8_t)' {aka 'void(unsigned char)'}
+   18 | void Door_Set_State(uint8_t state);
+      |      ^~~~~~~~~~~~~~
+./Core/BSP/door.c: In function 'Door_Init':
+./Core/BSP/door.c:24:5: error: expected ';' before 'doors'
+   24 |     doors[0].pin = DoorControl_Pin;
+      |     ^~~~~
+./Core/BSP/door.c:29:5: error: expected ';' before 'doors'
+   29 |     doors[1].pin = DoorControl1_Pin;
+      |     ^~~~~
+./Core/BSP/door.c:34:5: error: expected ';' before 'doors'
+   34 |     doors[2].pin = DoorControl2_Pin;
+      |     ^~~~~
+./Core/APP/app.c: In function 'Release_Bean':
+./Core/APP/app.c:586:20: error: 'doors' undeclared (first use in this function); did you mean 'door'?
+  586 |     Door_Set_State(doors[bean_id-1],DOOR_OPEN);
+      |                    ^~~~~
+      |                    door
+./Core/APP/app.c:586:20: note: each undeclared identifier is reported only once for each function it appears in
+./Core/APP/app.c:586:5: error: too many arguments to function 'Door_Set_State'
+  586 |     Door_Set_State(doors[bean_id-1],DOOR_OPEN);
+      |     ^~~~~~~~~~~~~~
+In file included from ./Core/APP/app.h:11,
+                 from ./Core/APP/app.c:1:
+Core/BSP/door.h:18:6: note: declared here
+   18 | void Door_Set_State(uint8_t state);
+      |      ^~~~~~~~~~~~~~
+./Core/APP/app.c:588:5: error: too many arguments to function 'Door_Set_State'
+  588 |     Door_Set_State(doors[bean_id-1],DOOR_CLOSE);
+      |     ^~~~~~~~~~~~~~
+Core/BSP/door.h:18:6: note: declared here
+   18 | void Door_Set_State(uint8_t state);
+      |      ^~~~~~~~~~~~~~
+./Core/APP/app.c: At top level:
+./Core/APP/app.c:594:6: error: conflicting types for 'Move_To_Placing_Box'; have 'void(uint8_t *, uint8_t *)' {aka 'void(unsigned char *, unsigned char *)'}
+  594 | void Move_To_Placing_Box(uint8_t* box_ids,uint8_t* bean_ids){
+      |      ^~~~~~~~~~~~~~~~~~~
+./Core/APP/app.h:57:6: note: previous declaration of 'Move_To_Placing_Box' with type 'void(uint8_t *)' {aka 'void(unsigned char *)'}
+   57 | void Move_To_Placing_Box(uint8_t* box_ids);
+      |      ^~~~~~~~~~~~~~~~~~~
+In file included from ./Core/APP/app.h:6:
+./Core/APP/app.c: In function 'Grab_Bean':
+./Core/APP/scara.h:24:27: error: expected expression before '{' token
+   24 | #define SCARA_HEIGHT_BEAN {200.0f,175.0f,230.0f} //对应第一，第二，第三次抓取的高度
+      |                           ^
+./Core/APP/app.c:679:19: note: in expansion of macro 'SCARA_HEIGHT_BEAN'
+  679 |   Scara_To_Height(SCARA_HEIGHT_BEAN[bean_id-1]);
+      |                   ^~~~~~~~~~~~~~~~~
+./Core/APP/app.c: In function 'Match_Box':
+./Core/APP/app.c:697:5: error: 'target' undeclared (first use in this function); did you mean 'target_ids'?
+  697 |     target = target_box[i];
+      |     ^~~~~~
+      |     target_ids
 
-[2026-06-10 20:57:58]	[done]
-	build successfully !
-
-[2026-06-10 21:01:54]	[info] incremental build: 2 source files changed
+[2026-06-14 20:34:49]	[info] incremental build: 12 source files changed
 These source files will be recompiled
 ---
 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\can.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\dma.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\gpio.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_hal_msp.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_it.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\tim.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\usart.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
 
-[2026-06-10 21:01:55]	[done]
-	build successfully !
-
-[2026-06-10 21:05:36]	[info] incremental build: 1 source files changed
-These source files will be recompiled
+[2026-06-14 20:34:50]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/APP/app.o -MMD ./Core/APP/app.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
 ---
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': source file has been changed.
+./Core/BSP/door.c:5:6: error: conflicting types for 'Door_Set_State'; have 'void(door_t,  uint8_t)' {aka 'void(door_t,  unsigned char)'}
+    5 | void Door_Set_State(door_t door,uint8_t state)
+      |      ^~~~~~~~~~~~~~
+In file included from ./Core/BSP/door.c:1:
+./Core/BSP/door.h:18:6: note: previous declaration of 'Door_Set_State' with type 'void(uint8_t)' {aka 'void(unsigned char)'}
+   18 | void Door_Set_State(uint8_t state);
+      |      ^~~~~~~~~~~~~~
+./Core/BSP/door.c: In function 'Door_Init':
+./Core/BSP/door.c:24:5: error: expected ';' before 'doors'
+   24 |     doors[0].pin = DoorControl_Pin;
+      |     ^~~~~
+./Core/BSP/door.c:29:5: error: expected ';' before 'doors'
+   29 |     doors[1].pin = DoorControl1_Pin;
+      |     ^~~~~
+./Core/BSP/door.c:34:5: error: expected ';' before 'doors'
+   34 |     doors[2].pin = DoorControl2_Pin;
+      |     ^~~~~
+./Core/APP/app.c: In function 'Release_Bean':
+./Core/APP/app.c:586:20: error: 'doors' undeclared (first use in this function); did you mean 'door'?
+  586 |     Door_Set_State(doors[bean_id-1],DOOR_OPEN);
+      |                    ^~~~~
+      |                    door
+./Core/APP/app.c:586:20: note: each undeclared identifier is reported only once for each function it appears in
+./Core/APP/app.c:586:5: error: too many arguments to function 'Door_Set_State'
+  586 |     Door_Set_State(doors[bean_id-1],DOOR_OPEN);
+      |     ^~~~~~~~~~~~~~
+In file included from ./Core/APP/app.h:11,
+                 from ./Core/APP/app.c:1:
+Core/BSP/door.h:18:6: note: declared here
+   18 | void Door_Set_State(uint8_t state);
+      |      ^~~~~~~~~~~~~~
+./Core/APP/app.c:588:5: error: too many arguments to function 'Door_Set_State'
+  588 |     Door_Set_State(doors[bean_id-1],DOOR_CLOSE);
+      |     ^~~~~~~~~~~~~~
+Core/BSP/door.h:18:6: note: declared here
+   18 | void Door_Set_State(uint8_t state);
+      |      ^~~~~~~~~~~~~~
+./Core/APP/app.c: At top level:
+./Core/APP/app.c:594:6: error: conflicting types for 'Move_To_Placing_Box'; have 'void(uint8_t *, uint8_t *)' {aka 'void(unsigned char *, unsigned char *)'}
+  594 | void Move_To_Placing_Box(uint8_t* box_ids,uint8_t* bean_ids){
+      |      ^~~~~~~~~~~~~~~~~~~
+./Core/APP/app.h:57:6: note: previous declaration of 'Move_To_Placing_Box' with type 'void(uint8_t *)' {aka 'void(unsigned char *)'}
+   57 | void Move_To_Placing_Box(uint8_t* box_ids);
+      |      ^~~~~~~~~~~~~~~~~~~
+In file included from ./Core/APP/app.h:6:
+./Core/APP/app.c: In function 'Grab_Bean':
+./Core/APP/scara.h:24:27: error: expected expression before '{' token
+   24 | #define SCARA_HEIGHT_BEAN {200.0f,175.0f,230.0f} //对应第一，第二，第三次抓取的高度
+      |                           ^
+./Core/APP/app.c:679:19: note: in expansion of macro 'SCARA_HEIGHT_BEAN'
+  679 |   Scara_To_Height(SCARA_HEIGHT_BEAN[bean_id-1]);
+      |                   ^~~~~~~~~~~~~~~~~
 
-[2026-06-10 21:05:36]	[done]
-	build successfully !
-
-[2026-06-10 21:08:45]	[info] incremental build: 2 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': source file has been changed.
-
-[2026-06-10 21:08:45]	[done]
-	build successfully !
-
-[2026-06-10 21:09:51]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
-
-[2026-06-10 21:09:52]	[done]
-	build successfully !
-
-[2026-06-10 21:18:29]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
-
-[2026-06-10 21:18:30]	[done]
-	build successfully !
-
-[2026-06-10 21:20:07]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': source file has been changed.
-
-[2026-06-10 21:20:08]	[done]
-	build successfully !
-
-[2026-06-10 21:22:26]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': source file has been changed.
-
-[2026-06-10 21:22:27]	[done]
-	build successfully !
-
-[2026-06-10 21:47:11]	[info] incremental build: 6 source files changed
+[2026-06-14 20:36:11]	[info] incremental build: 12 source files changed
 These source files will be recompiled
 ---
 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\gpio.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_hal_msp.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_it.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\tim.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\usart.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
 
-[2026-06-10 21:47:14]	[done]
-	build successfully !
+[2026-06-14 20:36:11]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/APP/app.o -MMD ./Core/APP/app.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/BSP/door.c:5:6: error: conflicting types for 'Door_Set_State'; have 'void(door_t,  uint8_t)' {aka 'void(door_t,  unsigned char)'}
+    5 | void Door_Set_State(door_t door,uint8_t state)
+      |      ^~~~~~~~~~~~~~
+In file included from ./Core/BSP/door.c:1:
+./Core/BSP/door.h:18:6: note: previous declaration of 'Door_Set_State' with type 'void(uint8_t)' {aka 'void(unsigned char)'}
+   18 | void Door_Set_State(uint8_t state);
+      |      ^~~~~~~~~~~~~~
+./Core/BSP/door.c: In function 'Door_Init':
+./Core/BSP/door.c:24:5: error: expected ';' before 'doors'
+   24 |     doors[0].pin = DoorControl_Pin;
+      |     ^~~~~
+./Core/BSP/door.c:29:5: error: expected ';' before 'doors'
+   29 |     doors[1].pin = DoorControl1_Pin;
+      |     ^~~~~
+./Core/BSP/door.c:34:5: error: expected ';' before 'doors'
+   34 |     doors[2].pin = DoorControl2_Pin;
+      |     ^~~~~
+./Core/APP/app.c: In function 'Release_Bean':
+./Core/APP/app.c:586:20: error: 'doors' undeclared (first use in this function); did you mean 'door'?
+  586 |     Door_Set_State(doors[bean_id-1],DOOR_OPEN);
+      |                    ^~~~~
+      |                    door
+./Core/APP/app.c:586:20: note: each undeclared identifier is reported only once for each function it appears in
+./Core/APP/app.c:586:5: error: too many arguments to function 'Door_Set_State'
+  586 |     Door_Set_State(doors[bean_id-1],DOOR_OPEN);
+      |     ^~~~~~~~~~~~~~
+In file included from ./Core/APP/app.h:11,
+                 from ./Core/APP/app.c:1:
+Core/BSP/door.h:18:6: note: declared here
+   18 | void Door_Set_State(uint8_t state);
+      |      ^~~~~~~~~~~~~~
+./Core/APP/app.c:588:5: error: too many arguments to function 'Door_Set_State'
+  588 |     Door_Set_State(doors[bean_id-1],DOOR_CLOSE);
+      |     ^~~~~~~~~~~~~~
+Core/BSP/door.h:18:6: note: declared here
+   18 | void Door_Set_State(uint8_t state);
+      |      ^~~~~~~~~~~~~~
+./Core/APP/app.c: At top level:
+./Core/APP/app.c:594:6: error: conflicting types for 'Move_To_Placing_Box'; have 'void(uint8_t *, uint8_t *)' {aka 'void(unsigned char *, unsigned char *)'}
+  594 | void Move_To_Placing_Box(uint8_t* box_ids,uint8_t* bean_ids){
+      |      ^~~~~~~~~~~~~~~~~~~
+./Core/APP/app.h:57:6: note: previous declaration of 'Move_To_Placing_Box' with type 'void(uint8_t *)' {aka 'void(unsigned char *)'}
+   57 | void Move_To_Placing_Box(uint8_t* box_ids);
+      |      ^~~~~~~~~~~~~~~~~~~
 
-[2026-06-10 22:12:57]	[info] incremental build: 5 source files changed
+[2026-06-14 20:37:29]	[info] incremental build: 11 source files changed
 These source files will be recompiled
 ---
 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\gpio.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
 'd:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_hal_msp.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_it.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\tim.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\usart.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
 
-[2026-06-10 22:12:58]	[done]
-	build successfully !
-
-[2026-06-10 22:37:33]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
-
-[2026-06-10 22:37:35]	[done]
-	build successfully !
-
-[2026-06-10 22:45:08]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
-
-[2026-06-10 22:45:09]	[done]
-	build successfully !
-
-[2026-06-10 22:51:51]	[info] incremental build: 3 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
-
-[2026-06-10 22:51:51]	[done]
-	build successfully !
-
-[2026-06-10 22:54:58]	[info] incremental build: 10 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\raspi.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\bsp.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-
-[2026-06-10 22:54:59]	[done]
-	build successfully !
-
-[2026-06-10 22:55:52]	[info] incremental build: 10 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\raspi.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\bsp.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-
-[2026-06-10 22:55:52]	[done]
-	build successfully !
-
-[2026-06-10 22:58:36]	[info] incremental build: 10 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\raspi.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': source file has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\bsp.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-
-[2026-06-10 22:58:36]	[done]
-	build successfully !
-
-[2026-06-10 22:59:35]	[info] incremental build: 10 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\raspi.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\bsp.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-
-[2026-06-10 22:59:35]	[done]
-	build successfully !
-
-[2026-06-10 23:03:21]	[info] incremental build: 10 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\raspi.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': source file has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\bsp.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
-
-[2026-06-10 23:03:22]	[done]
-	build successfully !
-
-[2026-06-10 23:07:11]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
-
-[2026-06-10 23:07:11]	[done]
-	build successfully !
-
-[2026-06-10 23:25:02]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
-
-[2026-06-10 23:25:03]	[done]
-	build successfully !
-
-[2026-06-11 11:49:33]	[info] incremental build: 6 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': source file has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': source file has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
-
-[2026-06-11 11:49:35]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c", exit code: 1
+[2026-06-14 20:37:29]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c", exit code: 1
 command: 
-  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/APP/scara.o -MMD ./Core/APP/scara.c
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/APP/app.o -MMD ./Core/APP/app.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
    at unify_builder.Program.Main(String[] args_)
 ---
-./Core/APP/scara.c: In function 'Grab_Off':
-./Core/APP/scara.c:242:7: warning: statement with no effect [-Wunused-value]
-  242 |   hand.grab_target_angle GRAB_OPEN;
-      |   ~~~~^~~~~~~~~~~~~~~~~~
-./Core/APP/scara.c:242:25: error: expected ';' before numeric constant
-  242 |   hand.grab_target_angle GRAB_OPEN;
+./Core/BSP/door.c:5:6: error: conflicting types for 'Door_Set_State'; have 'void(door_t,  uint8_t)' {aka 'void(door_t,  unsigned char)'}
+    5 | void Door_Set_State(door_t door,uint8_t state)
+      |      ^~~~~~~~~~~~~~
+In file included from ./Core/BSP/door.c:1:
+./Core/BSP/door.h:18:6: note: previous declaration of 'Door_Set_State' with type 'void(uint8_t)' {aka 'void(unsigned char)'}
+   18 | void Door_Set_State(uint8_t state);
+      |      ^~~~~~~~~~~~~~
+./Core/BSP/door.c: In function 'Door_Init':
+./Core/BSP/door.c:24:5: error: expected ';' before 'doors'
+   24 |     doors[0].pin = DoorControl_Pin;
+      |     ^~~~~
+./Core/BSP/door.c:29:5: error: expected ';' before 'doors'
+   29 |     doors[1].pin = DoorControl1_Pin;
+      |     ^~~~~
+./Core/BSP/door.c:34:5: error: expected ';' before 'doors'
+   34 |     doors[2].pin = DoorControl2_Pin;
+      |     ^~~~~
+./Core/APP/app.c: In function 'Release_Bean':
+./Core/APP/app.c:586:20: error: 'doors' undeclared (first use in this function); did you mean 'door'?
+  586 |     Door_Set_State(doors[bean_id-1],DOOR_OPEN);
+      |                    ^~~~~
+      |                    door
+./Core/APP/app.c:586:20: note: each undeclared identifier is reported only once for each function it appears in
+./Core/APP/app.c:586:5: error: too many arguments to function 'Door_Set_State'
+  586 |     Door_Set_State(doors[bean_id-1],DOOR_OPEN);
+      |     ^~~~~~~~~~~~~~
+In file included from ./Core/APP/app.h:11,
+                 from ./Core/APP/app.c:1:
+Core/BSP/door.h:18:6: note: declared here
+   18 | void Door_Set_State(uint8_t state);
+      |      ^~~~~~~~~~~~~~
+./Core/APP/app.c:588:5: error: too many arguments to function 'Door_Set_State'
+  588 |     Door_Set_State(doors[bean_id-1],DOOR_CLOSE);
+      |     ^~~~~~~~~~~~~~
+Core/BSP/door.h:18:6: note: declared here
+   18 | void Door_Set_State(uint8_t state);
+      |      ^~~~~~~~~~~~~~
+
+[2026-06-14 20:38:09]	[info] incremental build: 11 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\gpio.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_hal_msp.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_it.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\tim.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\usart.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+
+[2026-06-14 20:38:10]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/APP/app.o -MMD ./Core/APP/app.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/BSP/door.c: In function 'Door_Init':
+./Core/BSP/door.c:24:5: error: expected ';' before 'doors'
+   24 |     doors[0].pin = DoorControl_Pin;
+      |     ^~~~~
+./Core/BSP/door.c:29:5: error: expected ';' before 'doors'
+   29 |     doors[1].pin = DoorControl1_Pin;
+      |     ^~~~~
+./Core/BSP/door.c:34:5: error: expected ';' before 'doors'
+   34 |     doors[2].pin = DoorControl2_Pin;
+      |     ^~~~~
+./Core/APP/app.c: In function 'Release_Bean':
+./Core/APP/app.c:586:20: error: 'doors' undeclared (first use in this function); did you mean 'door'?
+  586 |     Door_Set_State(doors[bean_id-1],DOOR_OPEN);
+      |                    ^~~~~
+      |                    door
+./Core/APP/app.c:586:20: note: each undeclared identifier is reported only once for each function it appears in
+
+[2026-06-14 20:38:54]	[info] incremental build: 11 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\gpio.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_hal_msp.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_it.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\tim.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\usart.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+
+[2026-06-14 20:38:54]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/BSP/door.o -MMD ./Core/BSP/door.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/APP/app.c: In function 'Release_Bean':
+./Core/APP/app.c:586:25: error: subscripted value is neither array nor pointer nor vector
+  586 |     Door_Set_State(doors[bean_id-1],DOOR_OPEN);
       |                         ^
-      |                         ;
+./Core/APP/app.c:588:25: error: subscripted value is neither array nor pointer nor vector
+  588 |     Door_Set_State(doors[bean_id-1],DOOR_CLOSE);
+      |                         ^
+./Core/BSP/door.c:3:8: error: conflicting types for 'doors'; have 'door_t[3]'
+    3 | door_t doors[3];
+      |        ^~~~~
+In file included from ./Core/BSP/door.c:1:
+./Core/BSP/door.h:21:15: note: previous declaration of 'doors' with type 'door_t'
+   21 | extern door_t doors;
+      |               ^~~~~
+./Core/BSP/door.c: In function 'Door_Init':
+./Core/BSP/door.c:24:5: error: expected ';' before 'doors'
+   24 |     doors[0].pin = DoorControl_Pin;
+      |     ^~~~~
+./Core/BSP/door.c:29:5: error: expected ';' before 'doors'
+   29 |     doors[1].pin = DoorControl1_Pin;
+      |     ^~~~~
+./Core/BSP/door.c:34:5: error: expected ';' before 'doors'
+   34 |     doors[2].pin = DoorControl2_Pin;
+      |     ^~~~~
 
-[2026-06-11 11:50:21]	[info] incremental build: 4 source files changed
+[2026-06-14 20:39:10]	[info] incremental build: 9 source files changed
 These source files will be recompiled
 ---
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': source file has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': source file has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\gpio.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_hal_msp.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_it.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\tim.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\usart.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
 
-[2026-06-11 11:50:25]	[done]
+[2026-06-14 20:39:10]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/BSP/door.o -MMD ./Core/BSP/door.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/APP/app.c: In function 'Release_Bean':
+./Core/APP/app.c:586:25: error: subscripted value is neither array nor pointer nor vector
+  586 |     Door_Set_State(doors[bean_id-1],DOOR_OPEN);
+      |                         ^
+./Core/APP/app.c:588:25: error: subscripted value is neither array nor pointer nor vector
+  588 |     Door_Set_State(doors[bean_id-1],DOOR_CLOSE);
+      |                         ^
+./Core/BSP/door.c:3:8: error: conflicting types for 'doors'; have 'door_t[3]'
+    3 | door_t doors[3];
+      |        ^~~~~
+In file included from ./Core/BSP/door.c:1:
+./Core/BSP/door.h:21:15: note: previous declaration of 'doors' with type 'door_t'
+   21 | extern door_t doors;
+      |               ^~~~~
+
+[2026-06-14 20:39:40]	[info] incremental build: 10 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_hal_msp.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_it.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\tim.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\usart.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+
+[2026-06-14 20:39:40]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/BSP/door.o -MMD ./Core/BSP/door.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/BSP/door.c:3:8: error: conflicting types for 'doors'; have 'door_t[3]'
+    3 | door_t doors[3];
+      |        ^~~~~
+In file included from ./Core/BSP/door.c:1:
+./Core/BSP/door.h:21:16: note: previous declaration of 'doors' with type 'door_t *'
+   21 | extern door_t* doors;
+      |                ^~~~~
+
+[2026-06-14 20:39:58]	[info] incremental build: 10 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_hal_msp.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_it.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\tim.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\usart.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+
+[2026-06-14 20:39:58]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/BSP/door.o -MMD ./Core/BSP/door.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/BSP/door.c:3:8: error: conflicting types for 'doors'; have 'door_t[3]'
+    3 | door_t doors[3];
+      |        ^~~~~
+In file included from ./Core/BSP/door.c:1:
+./Core/BSP/door.h:21:17: note: previous declaration of 'doors' with type 'door_t *'
+   21 | extern door_t * doors;
+      |                 ^~~~~
+
+[2026-06-14 20:41:52]	[info] incremental build: 10 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_hal_msp.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\stm32f4xx_it.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\tim.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\usart.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+
+[2026-06-14 20:41:53]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/Src/my_task.o -MMD ./Core/Src/my_task.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/Src/my_task.c: In function 'test_chassis':
+./Core/Src/my_task.c:60:3: error: too few arguments to function 'Move_To_Placing_Box'
+   60 |   Move_To_Placing_Box(box_ids);
+      |   ^~~~~~~~~~~~~~~~~~~
+In file included from Core/Inc/my_task.h:16,
+                 from ./Core/Src/my_task.c:1:
+Core/APP/app.h:57:6: note: declared here
+   57 | void Move_To_Placing_Box(uint8_t* box_ids,uint8_t* bean_ids);
+      |      ^~~~~~~~~~~~~~~~~~~
+In file included from Core/APP/app.h:11:
+./Core/Src/my_task.c: In function 'test_door':
+Core/BSP/door.h:9:20: error: incompatible type for argument 1 of 'Door_Set_State'
+    9 | #define DOOR_CLOSE 0
+      |                    ^
+      |                    |
+      |                    int
+./Core/Src/my_task.c:119:18: note: in expansion of macro 'DOOR_CLOSE'
+  119 |   Door_Set_State(DOOR_CLOSE);
+      |                  ^~~~~~~~~~
+Core/BSP/door.h:18:28: note: expected 'door_t' but argument is of type 'int'
+   18 | void Door_Set_State(door_t door,uint8_t state);
+      |                     ~~~~~~~^~~~
+./Core/Src/my_task.c:119:3: error: too few arguments to function 'Door_Set_State'
+  119 |   Door_Set_State(DOOR_CLOSE);
+      |   ^~~~~~~~~~~~~~
+Core/BSP/door.h:18:6: note: declared here
+   18 | void Door_Set_State(door_t door,uint8_t state);
+      |      ^~~~~~~~~~~~~~
+Core/BSP/door.h:8:19: error: incompatible type for argument 1 of 'Door_Set_State'
+    8 | #define DOOR_OPEN 1
+      |                   ^
+      |                   |
+      |                   int
+./Core/Src/my_task.c:121:18: note: in expansion of macro 'DOOR_OPEN'
+  121 |   Door_Set_State(DOOR_OPEN);
+      |                  ^~~~~~~~~
+Core/BSP/door.h:18:28: note: expected 'door_t' but argument is of type 'int'
+   18 | void Door_Set_State(door_t door,uint8_t state);
+      |                     ~~~~~~~^~~~
+./Core/Src/my_task.c:121:3: error: too few arguments to function 'Door_Set_State'
+  121 |   Door_Set_State(DOOR_OPEN);
+      |   ^~~~~~~~~~~~~~
+Core/BSP/door.h:18:6: note: declared here
+   18 | void Door_Set_State(door_t door,uint8_t state);
+      |      ^~~~~~~~~~~~~~
+./Core/Src/my_task.c: In function 'my_task':
+./Core/Src/my_task.c:161:36: error: expected ';' before 'osDelay'
+  161 |   Choose_Plate(raspi.bean_order[0])
+      |                                    ^
+      |                                    ;
+  162 |   osDelay(500);
+      |   ~~~~~~~                           
+./Core/Src/my_task.c:174:36: error: expected ';' before 'osDelay'
+  174 |   Choose_Plate(raspi.bean_order[1])
+      |                                    ^
+      |                                    ;
+  175 |   osDelay(500);
+      |   ~~~~~~~                           
+./Core/Src/my_task.c:187:36: error: expected ';' before 'osDelay'
+  187 |   Choose_Plate(raspi.bean_order[2])
+      |                                    ^
+      |                                    ;
+  188 |   osDelay(500);
+      |   ~~~~~~~
+
+[2026-06-14 20:42:13]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\usart.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+
+[2026-06-14 20:42:13]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/Src/my_task.o -MMD ./Core/Src/my_task.c
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/Src/my_task.c: In function 'test_chassis':
+./Core/Src/my_task.c:60:3: error: too few arguments to function 'Move_To_Placing_Box'
+   60 |   Move_To_Placing_Box(box_ids);
+      |   ^~~~~~~~~~~~~~~~~~~
+In file included from Core/Inc/my_task.h:16,
+                 from ./Core/Src/my_task.c:1:
+Core/APP/app.h:57:6: note: declared here
+   57 | void Move_To_Placing_Box(uint8_t* box_ids,uint8_t* bean_ids);
+      |      ^~~~~~~~~~~~~~~~~~~
+In file included from Core/APP/app.h:11:
+./Core/Src/my_task.c: In function 'test_door':
+Core/BSP/door.h:9:20: error: incompatible type for argument 1 of 'Door_Set_State'
+    9 | #define DOOR_CLOSE 0
+      |                    ^
+      |                    |
+      |                    int
+./Core/Src/my_task.c:119:18: note: in expansion of macro 'DOOR_CLOSE'
+  119 |   Door_Set_State(DOOR_CLOSE);
+      |                  ^~~~~~~~~~
+Core/BSP/door.h:18:28: note: expected 'door_t' but argument is of type 'int'
+   18 | void Door_Set_State(door_t door,uint8_t state);
+      |                     ~~~~~~~^~~~
+./Core/Src/my_task.c:119:3: error: too few arguments to function 'Door_Set_State'
+  119 |   Door_Set_State(DOOR_CLOSE);
+      |   ^~~~~~~~~~~~~~
+Core/BSP/door.h:18:6: note: declared here
+   18 | void Door_Set_State(door_t door,uint8_t state);
+      |      ^~~~~~~~~~~~~~
+Core/BSP/door.h:8:19: error: incompatible type for argument 1 of 'Door_Set_State'
+    8 | #define DOOR_OPEN 1
+      |                   ^
+      |                   |
+      |                   int
+./Core/Src/my_task.c:121:18: note: in expansion of macro 'DOOR_OPEN'
+  121 |   Door_Set_State(DOOR_OPEN);
+      |                  ^~~~~~~~~
+Core/BSP/door.h:18:28: note: expected 'door_t' but argument is of type 'int'
+   18 | void Door_Set_State(door_t door,uint8_t state);
+      |                     ~~~~~~~^~~~
+./Core/Src/my_task.c:121:3: error: too few arguments to function 'Door_Set_State'
+  121 |   Door_Set_State(DOOR_OPEN);
+      |   ^~~~~~~~~~~~~~
+Core/BSP/door.h:18:6: note: declared here
+   18 | void Door_Set_State(door_t door,uint8_t state);
+      |      ^~~~~~~~~~~~~~
+./Core/Src/my_task.c: In function 'my_task':
+./Core/Src/my_task.c:161:36: error: expected ';' before 'osDelay'
+  161 |   Choose_Plate(raspi.bean_order[0])
+      |                                    ^
+      |                                    ;
+  162 |   osDelay(500);
+      |   ~~~~~~~                           
+./Core/Src/my_task.c:174:36: error: expected ';' before 'osDelay'
+  174 |   Choose_Plate(raspi.bean_order[1])
+      |                                    ^
+      |                                    ;
+  175 |   osDelay(500);
+      |   ~~~~~~~
+
+[2026-06-14 20:42:21]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\usart.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+
+[2026-06-14 20:42:22]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/Src/my_task.o -MMD ./Core/Src/my_task.c
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/Src/my_task.c: In function 'test_chassis':
+./Core/Src/my_task.c:60:3: error: too few arguments to function 'Move_To_Placing_Box'
+   60 |   Move_To_Placing_Box(box_ids);
+      |   ^~~~~~~~~~~~~~~~~~~
+In file included from Core/Inc/my_task.h:16,
+                 from ./Core/Src/my_task.c:1:
+Core/APP/app.h:57:6: note: declared here
+   57 | void Move_To_Placing_Box(uint8_t* box_ids,uint8_t* bean_ids);
+      |      ^~~~~~~~~~~~~~~~~~~
+In file included from Core/APP/app.h:11:
+./Core/Src/my_task.c: In function 'test_door':
+Core/BSP/door.h:9:20: error: incompatible type for argument 1 of 'Door_Set_State'
+    9 | #define DOOR_CLOSE 0
+      |                    ^
+      |                    |
+      |                    int
+./Core/Src/my_task.c:119:18: note: in expansion of macro 'DOOR_CLOSE'
+  119 |   Door_Set_State(DOOR_CLOSE);
+      |                  ^~~~~~~~~~
+Core/BSP/door.h:18:28: note: expected 'door_t' but argument is of type 'int'
+   18 | void Door_Set_State(door_t door,uint8_t state);
+      |                     ~~~~~~~^~~~
+./Core/Src/my_task.c:119:3: error: too few arguments to function 'Door_Set_State'
+  119 |   Door_Set_State(DOOR_CLOSE);
+      |   ^~~~~~~~~~~~~~
+Core/BSP/door.h:18:6: note: declared here
+   18 | void Door_Set_State(door_t door,uint8_t state);
+      |      ^~~~~~~~~~~~~~
+Core/BSP/door.h:8:19: error: incompatible type for argument 1 of 'Door_Set_State'
+    8 | #define DOOR_OPEN 1
+      |                   ^
+      |                   |
+      |                   int
+./Core/Src/my_task.c:121:18: note: in expansion of macro 'DOOR_OPEN'
+  121 |   Door_Set_State(DOOR_OPEN);
+      |                  ^~~~~~~~~
+Core/BSP/door.h:18:28: note: expected 'door_t' but argument is of type 'int'
+   18 | void Door_Set_State(door_t door,uint8_t state);
+      |                     ~~~~~~~^~~~
+./Core/Src/my_task.c:121:3: error: too few arguments to function 'Door_Set_State'
+  121 |   Door_Set_State(DOOR_OPEN);
+      |   ^~~~~~~~~~~~~~
+Core/BSP/door.h:18:6: note: declared here
+   18 | void Door_Set_State(door_t door,uint8_t state);
+      |      ^~~~~~~~~~~~~~
+./Core/Src/my_task.c: In function 'my_task':
+./Core/Src/my_task.c:161:36: error: expected ';' before 'osDelay'
+  161 |   Choose_Plate(raspi.bean_order[0])
+      |                                    ^
+      |                                    ;
+  162 |   osDelay(500);
+      |   ~~~~~~~
+
+[2026-06-14 20:42:40]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\usart.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+
+[2026-06-14 20:42:40]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/Src/my_task.o -MMD ./Core/Src/my_task.c
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/Src/my_task.c: In function 'test_chassis':
+./Core/Src/my_task.c:60:3: error: too few arguments to function 'Move_To_Placing_Box'
+   60 |   Move_To_Placing_Box(box_ids);
+      |   ^~~~~~~~~~~~~~~~~~~
+In file included from Core/Inc/my_task.h:16,
+                 from ./Core/Src/my_task.c:1:
+Core/APP/app.h:57:6: note: declared here
+   57 | void Move_To_Placing_Box(uint8_t* box_ids,uint8_t* bean_ids);
+      |      ^~~~~~~~~~~~~~~~~~~
+
+[2026-06-14 20:43:32]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\usart.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\Inc\main.h' has been changed.
+
+[2026-06-14 20:43:36]	[done]
 	build successfully !
 
-[2026-06-11 11:51:09]	[info] incremental build: 1 source files changed
+[2026-06-14 20:45:48]	[info] incremental build: 1 source files changed
 These source files will be recompiled
 ---
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
-
-[2026-06-11 11:51:09]	[done]
-	build successfully !
-
-[2026-06-11 19:33:43]	[info] incremental build: 2 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': source file has been changed.
 'd:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
 
-[2026-06-11 19:33:48]	[done]
-	build successfully !
-
-[2026-06-11 19:42:03]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
-
-[2026-06-11 19:42:04]	[done]
-	build successfully !
-
-[2026-06-11 19:46:56]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
-
-[2026-06-11 19:46:57]	[done]
-	build successfully !
-
-[2026-06-11 19:48:52]	[info] incremental build: 6 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
-
-[2026-06-11 19:48:54]	[done]
-	build successfully !
-
-[2026-06-11 19:53:19]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
-
-[2026-06-11 19:53:20]	[done]
-	build successfully !
-
-[2026-06-11 20:13:44]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
-
-[2026-06-11 20:13:45]	[done]
-	build successfully !
-
-[2026-06-11 20:14:25]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': source file has been changed.
-
-[2026-06-11 20:14:25]	[done]
-	build successfully !
-
-[2026-06-11 21:26:02]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
-
-[2026-06-11 21:26:04]	[done]
-	build successfully !
-
-[2026-06-11 21:26:18]	[done]
-	build successfully !
-
-[2026-06-11 21:27:34]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
-
-[2026-06-11 21:27:35]	[done]
-	build successfully !
-
-[2026-06-11 21:29:56]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
-
-[2026-06-11 21:29:57]	[done]
-	build successfully !
-
-[2026-06-11 21:34:26]	[info] incremental build: 1 source files changed
-These source files will be recompiled
----
-'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
-
-[2026-06-11 21:34:26]	[done]
+[2026-06-14 20:45:49]	[done]
 	build successfully !
 

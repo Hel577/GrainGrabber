@@ -40,8 +40,8 @@ typedef struct {
     volatile uint8_t cmd;//树莓派命令类型
     volatile float vision_x;//视觉检测坐标(横向，0-640)    使用后要清零
     volatile float vision_y;//视觉检测坐标(纵向，0-480)
-    float real_x[3];//实际中心坐标(横向，0-640)
-    float real_y[3];//实际中心坐标(纵向，0-480)
+    float real_x[4];//实际中心坐标(横向，0-640)
+    float real_y[4];//实际中心坐标(纵向，0-480)
     uint8_t box_id[5];//顺序为从上到下的盒子的id
     uint8_t bean_order[3];//绿豆=1，黄豆=2，白芸豆=3
 } Raspi_Date;

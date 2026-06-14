@@ -682,7 +682,7 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
 
     if(box_place == 1 )
     {
-        target_z = 270;
+        target_z = 0;
         real_x = raspi.real_x[1];
         real_y = raspi.real_y[1]+2;
         if(put_round == 1)
@@ -693,7 +693,7 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
     }
     else if(box_place == 2)
     {
-        target_z = 180;
+        target_z = 0;
         real_x = raspi.real_x[2];
         real_y = raspi.real_y[2];
         if(put_round == 1)
@@ -711,7 +711,7 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
     }
     else if(box_place == 3)
     {
-        target_z = 180;
+        target_z = 0;
         real_x = raspi.real_x[2];
         real_y = raspi.real_y[2];
         // if(put_round == 1)
@@ -728,22 +728,6 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
             timeout += 1900;
             stability_counter_threshold = 20;
         }
-    }
-    else if(box_place == 4)
-    {
-        target_z = 90;
-        real_x = raspi.real_x[1];
-        real_y = raspi.real_y[1];
-        if(put_round == 1)
-        {
-            timeout += 400;
-        }
-    }
-    else if(box_place == 5)
-    {
-        target_z = 0;
-        real_x = raspi.real_x[0];
-        real_y = raspi.real_y[0];
     }
     else if(box_place == 0)
     {

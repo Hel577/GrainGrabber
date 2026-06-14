@@ -65,6 +65,10 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define DoorControl_Pin GPIO_PIN_0
 #define DoorControl_GPIO_Port GPIOI
+#define DoorControl2_Pin GPIO_PIN_12
+#define DoorControl2_GPIO_Port GPIOH
+#define DoorControl1_Pin GPIO_PIN_11
+#define DoorControl1_GPIO_Port GPIOH
 
 /* USER CODE BEGIN Private defines */
 

@@ -17,14 +17,17 @@ void Init_Raspi(void)
 {
     raspi.vision_x = 0;
     raspi.vision_y = 0;
-    raspi.real_x[0] = 226; //货架箱子中心偏置
-    raspi.real_y[0] = 401;
+    raspi.real_x[0] = 320; 
+    raspi.real_y[0] = 240;
 
-    raspi.real_x[1] = 474; //侧面纸垛中心偏置
-    raspi.real_y[1] = 292;
+    raspi.real_x[1] = 320; 
+    raspi.real_y[1] = 240;
 
-    raspi.real_x[2] = 358;  //中间纸垛中心偏置
-    raspi.real_y[2] = 284;
+    raspi.real_x[2] = 320;  
+    raspi.real_y[2] = 240;
+
+    raspi.real_x[3] = 320;
+    raspi.real_y[3] = 240;
 
     raspi.cmd = 0;
     

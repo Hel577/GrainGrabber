@@ -8,6 +8,7 @@
 #include "raspi.h"
 #include "main.h"
 #include "cmsis_os.h"  // 添加CMSIS-RTOS头文件
+#include "door.h"
 
 // 底盘移动类型枚举
 typedef enum {
@@ -53,7 +54,7 @@ void Get_Box(uint8_t box_id);
 void Put_Box(uint8_t box_id ,uint8_t dir, bool maduo);
 void Ready_To_Put_Box(uint8_t box_id);
 void Move_To_Target(uint8_t target_id);
-void Move_To_Placing_Box(uint8_t* box_ids);
+void Move_To_Placing_Box(uint8_t* box_ids,uint8_t* bean_ids);
 
 // 添加非阻塞版本的函数
 void Start_Scara_NonBlocking(void);
@@ -67,5 +68,8 @@ void Move_Translation_NonBlocking(float target_x, float target_y, float target_z
 uint8_t Near_Box(uint8_t box_id ,uint8_t dir, bool maduo);
 void Try_Grab_Beans(uint8_t bean_id);
 void Choose_Plate(uint8_t plate_id);
+void Grab_Bean(uint8_t bean_id);
+void Match_Box(int* target_box,uint8_t* target_ids,uint8_t* bean_ids);
+void Release_Bean(uint8_t bean_id);
 
 #endif

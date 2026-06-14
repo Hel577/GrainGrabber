@@ -57,7 +57,7 @@ void test_chassis(void){
   }
 
   sort_easy(box_ids,3);
-  Move_To_Placing_Box(box_ids);
+  // Move_To_Placing_Box(box_ids);
 
 }
 
@@ -115,12 +115,12 @@ void test_Grab(void){
 
 }
 
-void test_door(void){
-  Door_Set_State(DOOR_CLOSE);
-  osDelay(5000);
-  Door_Set_State(DOOR_OPEN);
-  osDelay(5000);
-}
+// void test_door(void){
+//   Door_Set_State(DOOR_CLOSE);
+//   osDelay(5000);
+//   Door_Set_State(DOOR_OPEN);
+//   osDelay(5000);
+// }
 
 void test_graber_resend(void){
   while(true){
@@ -136,4 +136,65 @@ void test_Spin(void){
   osDelay(5000);
   Choose_Plate(1);
   osDelay(5000);
+}
+
+
+int target_box[3] = {1,3,5};//对应绿，黄，白的放的编号，需要抽签选择
+
+void my_task(void){
+  Init_All();
+
+  Raspi_Send_Task(TASK_DETECT_BOX);
+  while(raspi.box_id[0]==0);
+  Raspi_Finish_Task(TASK_DETECT_BOX);
+
+
+  Move_To_Target(2);
+  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  Move_To_Target(3);
+  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  Raspi_Send_Task(TASK_MOVE_BY_BEAN);
+  Move_By_Vision_NonBlocking(1,5000);
+  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  Raspi_Finish_Task(TASK_MOVE_BY_BEAN);
+  Grab_Bean(1);
+  Choose_Plate(raspi.bean_order[0]);
+  osDelay(500);
+  push_Move_To_Position(MAX_POSITION);
+  
+  Move_To_Target(4);
+  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  Move_To_Target(5);
+  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  Raspi_Send_Task(TASK_MOVE_BY_BEAN);
+  Move_By_Vision_NonBlocking(2,5000);
+  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  Raspi_Finish_Task(TASK_MOVE_BY_BEAN);
+  Grab_Bean(2);
+  Choose_Plate(raspi.bean_order[1]);
+  osDelay(500);
+  push_Move_To_Position(MAX_POSITION);
+
+  Move_To_Target(6);
+  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  Move_To_Target(7);
+  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  Raspi_Send_Task(TASK_MOVE_BY_BEAN);
+  Move_By_Vision_NonBlocking(3,5000);
+  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  Raspi_Finish_Task(TASK_MOVE_BY_BEAN);
+  Grab_Bean(3);
+  Choose_Plate(raspi.bean_order[2]);
+  osDelay(500);
+
+  Move_To_Target(8);
+  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  Move_To_Target(9);
+  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  
+  uint8_t target_ids[3] = {0,0,0};
+  uint8_t bean_ids[3] = {0,0,0};
+
+  Match_Box(target_box,target_ids,bean_ids);
+  Move_To_Placing_Box(target_ids,bean_ids);
 }

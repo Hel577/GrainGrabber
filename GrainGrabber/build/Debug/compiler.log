@@ -19,9 +19,9 @@ The amount of Asm files: 0
 
 C:/Users/Ganbo/.eide/tools/gcc_arm/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/bin/ld.exe: warning: ./build/Debug/lifting.elf has a LOAD segment with RWX permissions
 Memory region         Used Size  Region Size  %age Used
-             RAM:       23176 B       192 KB     11.79%
+             RAM:       23184 B       192 KB     11.79%
           CCMRAM:           0 B        64 KB      0.00%
-           FLASH:       56764 B         2 MB      2.71%
+           FLASH:       56652 B         2 MB      2.70%
 
 
 >>> postbuild

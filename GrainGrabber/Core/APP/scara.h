@@ -19,8 +19,14 @@ extern "C"
 #define OFFSET_Y 0.0f                 // 机械臂零位末端位置
 #define RADIUS 21.0f                   // 末端圆盘半径(mm)
 
+#define SCARA_HEIGHT_MAX 10.0f
+#define SCARA_HEIGHT_MIN 235.0f
+static const float SCARA_HEIGHT_BEAN[3] = {200.0f, 175.0f, 230.0f}; //对应第一，第二，第三次抓取的高度
+
+
 /* 末端爪子参数定义 */
 #define GRAB_OPEN    1462  //爪子完全张开
+#define GRAB_REALEASE 1700 //释放豆子
 #define GRAB_ClOSE_All    2500  //爪子完全闭合
 #define GRAB_BOX 2173  //抓紧箱子
 // 末端爪子结构体
@@ -71,6 +77,7 @@ void Read_Grab_Angle(void);
 void Read_Spin_Angle(void);
 void Grab_Open_Slitly(void);
 void Grab_Pos_Ctrl(uint16_t angle);
+void Grab_Realse(void);
 
 
 #endif

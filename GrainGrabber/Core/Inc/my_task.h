@@ -17,6 +17,7 @@ extern "C" {
 #include "bsp.h"
 #include "door.h"
 #include "scara.h"
+#include "raspi.h"
 
 
 /* 函数声明 */

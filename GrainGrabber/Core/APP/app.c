@@ -579,10 +579,25 @@ void Move_To_Target(uint8_t target_id){
   last_target_index = target_id-1;
 }
 
-void Move_To_Placing_Box(uint8_t* box_ids){
+void Release_Bean(uint8_t bean_id){
+    //bean_id和plate_id完全相等
+    Choose_Plate(bean_id);
+    osDelay(500);
+    Door_Set_State(doors[bean_id-1],DOOR_OPEN);
+    osDelay(10000);
+    Door_Set_State(doors[bean_id-1],DOOR_CLOSE);
+}
+
+
+
+
+void Move_To_Placing_Box(uint8_t* box_ids,uint8_t* bean_ids){
   //定义放置盒子从上向下分别为1，2，3, 4, 5
   Move_To_Target(box_ids[0]+9);//box_id+9为箱子放置位置的id
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+
+  Release_Bean(bean_ids[0]);
+
   if(box_ids[0]==1){
     switch(box_ids[1]){
       case 2:
@@ -602,6 +617,7 @@ void Move_To_Placing_Box(uint8_t* box_ids){
 
   Move_To_Target(box_ids[1]+9);//前往第二个箱子的位置
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  Release_Bean(bean_ids[1]);
 
   if(box_ids[2]==5){
     Move_To_Target(16);
@@ -611,6 +627,7 @@ void Move_To_Placing_Box(uint8_t* box_ids){
 
   Move_To_Target(box_ids[2]+9);//前往第三个箱子的位置
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  Release_Bean(bean_ids[2]);
 }
 
 
@@ -656,4 +673,52 @@ void Try_Grab_Beans(uint8_t bean_id){
 void Choose_Plate(uint8_t plate_id){
   /*从右到左为1，2，3 */
   End_Rotation_Ctrl((plate_id-2)*60);
+}
+
+void Grab_Bean(uint8_t bean_id){
+  Scara_To_Height(SCARA_HEIGHT_BEAN[bean_id-1]);
+  osDelay(5000);
+  Grab_On();
+  osDelay(1000);
+  Scara_To_Height(SCARA_HEIGHT_MAX);
+  osDelay(2000);
+  push_Move_To_Position(MIN_POSITION);
+  osDelay(700);
+  Grab_Realse();
+  osDelay(5000);
+  Grab_Off();
+}
+
+void Match_Box(int* target_box,uint8_t* target_ids,uint8_t* bean_ids){
+  /*将数据处理成要去的点位和对应的要放的豆子的编号
+  1，2，3对应绿黄白*/
+  uint8_t* box_ids = raspi.box_id;
+  for(int i=0;i<3;i++){
+    int target = target_box[i];
+    for(int j=0;j<5;j++){
+      if(box_ids[j]==target){
+        target_ids[i] = j+1;
+        bean_ids[i] = i+1;
+      }
+    }
+  }
+
+    void sort_easy(uint8_t* arr, uint8_t* beans,int size){
+      //冒泡排序规划访问顺序
+      for(int i=0;i<size-1;i++){
+        for(int j=0;j<size-1-i;j++){
+          if(arr[j]>arr[j+1]){
+            uint8_t temp = arr[j];
+            uint8_t bean_temp = beans[j];
+            arr[j] = arr[j+1];
+            arr[j+1] = temp;
+            beans[j] = beans[j+1];
+            beans[j+1] = bean_temp;
+          }
+        }
+      }
+    }
+
+  sort_easy(target_ids,bean_ids,3);
+
 }

@@ -40,4 +40,5 @@ build/Debug/.obj/Core/APP/app.o: Core/APP/app.c Core/APP/app.h \
  Middlewares/Third_Party/FreeRTOS/Source/include/list.h \
  Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
  Core/Inc/main.h Core/BSP/filter.h Core/BSP/pid.h Core/Inc/tim.h \
- Core/APP/raspi.h Core/APP/push.h Core/APP/scara.h
+ Core/APP/raspi.h Core/APP/push.h Core/APP/scara.h Core/BSP/door.h \
+ Core/Inc/gpio.h Core/APP/scara.h
