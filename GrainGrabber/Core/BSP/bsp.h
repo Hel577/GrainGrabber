@@ -8,7 +8,7 @@
 #include "tim.h"
 #define WHEEL_RADIUS 50.0f // 轮子半径 单位：mm
 #define CAR_S 300.0f // 前后轮心距
-#define CAR_W 365.0f // 左右轮心距
+#define CAR_W 381.21f // 左右轮心距
 void bsp_init(void);
 void SendMultiFloat2Vofa(float *values, uint8_t num);
 void Init_Chassis_Motor(void);

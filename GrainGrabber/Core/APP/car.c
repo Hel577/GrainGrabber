@@ -62,6 +62,7 @@ void auto_offset_omega()
     txcmd_5[3] = 0x01;
     txcmd_5[4] = 0x00;
     HAL_UART_Transmit(&huart6, txcmd_5, 5, 100);
+    printf("%f\r\n",omega);
     
     // 2. 延时20秒，等待陀螺仪完成零偏采集
     // HAL_Delay(20000);
@@ -74,6 +75,7 @@ void auto_offset_omega()
     txcmd_5[3] = 0x00;
     txcmd_5[4] = 0x00;
     HAL_UART_Transmit(&huart6, txcmd_5, 5, 100);
+    printf("%f\r\n",omega);
 }
 //打开陀螺仪全程自动获取零偏模式
 void Hwt_auto_get_offset_ON()
@@ -132,7 +134,7 @@ void Init_Imu(void)
     omega_zero();
     Hwt_auto_get_offset_ON();
     // Hwt_auto_get_offset_OFF();
-    // omega_zero();
+    omega_zero();
     Enable_IMU_Interrupts();
 }
 
@@ -589,12 +591,12 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
 
     // 误差阈值
     float x_error_ref = 5.0f;
-    float y_error_ref = 7.0f;
+    float y_error_ref = 5.0f;
     float omega_error_ref = 0.1f;
     if(fabs(target_y)>=2000 &&target_y>0)
     {
-        x_error_ref = 8.0f;
-        y_error_ref = 8.0f;
+        x_error_ref = 12.0f;
+        y_error_ref = 5.0f;
         omega_error_ref = 0.1f;
         stability_counter_threshold =4;     
 
@@ -602,14 +604,14 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
     else if((target_y)>=2000 &&target_y <0)
     {
         x_error_ref = 12.0f;
-        y_error_ref = 15.0f;
+        y_error_ref = 5.0f;
         omega_error_ref = 0.1f;  
         stability_counter_threshold =2;     
     }
     else if(fabs(target_y)<1100 && fabs(target_x)<1100)
     {
-        x_error_ref = 14.0f;
-        y_error_ref = 14.0f;
+        x_error_ref = 7.0f;
+        y_error_ref = 5.0f;
         omega_error_ref = 0.1f;
         stability_counter_threshold = 3;
     }

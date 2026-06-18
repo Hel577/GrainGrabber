@@ -34,9 +34,9 @@ void Init_PID(void)
     //粗调X轴
     if(rough_X_PID !=NULL)
     {
-        rough_X_PID->kp = 4.1f;
-        rough_X_PID->ki = 0.001f;
-        rough_X_PID->kd = 1.23f;
+        rough_X_PID->kp = 5.1f;
+        rough_X_PID->ki = 0.01f;
+        rough_X_PID->kd = 1.53f;
         rough_X_PID->dt = 0.018f;
         rough_X_PID->integral = 0.0f;
         rough_X_PID->prev_error = 0.0f;
@@ -53,9 +53,9 @@ void Init_PID(void)
     //粗调Y轴
     if(rough_Y_PID !=NULL)
     {
-        rough_Y_PID->kp = 4.18f;
-        rough_Y_PID->ki = 0.001f;
-        rough_Y_PID->kd = 1.41f;
+        rough_Y_PID->kp = 5.18f;
+        rough_Y_PID->ki = 0.01f;
+        rough_Y_PID->kd = 1.71f;
         rough_Y_PID->dt = 0.018f;
         rough_Y_PID->integral = 0.0f;
         rough_Y_PID->prev_error = 0.0f;

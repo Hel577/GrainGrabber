@@ -33,6 +33,11 @@ void test_Graber(void);
 void test_door(void);
 void test_graber_resend(void);
 void test_Spin(void);
+void test_Grab_Release(void);
+void my_task(void);
+void test_Raspi(void);
+void test_omega(void);
+void test_sss(void);
 
 #ifdef __cplusplus
 }

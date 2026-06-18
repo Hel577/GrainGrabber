@@ -521,23 +521,27 @@ void Move_Translation_NonBlocking(float target_x, float target_y, float target_z
 
 
 // 定义不同目标点的位置
+
+float const OFFSET_x = 1.0f;
+float const OFFSET_y = 1.0f;
+
 float target_positions[16][3] = {
-    {1785, 1010, 0},
-    {2785, 500, 0},
-    {3535, 500, 0},
-    {3280, 500, 0},
-    {3280, 1000, 0},
-    {3280, 1500, 0},
-    {3535, 1500, 0},
-    {3000, 1500, 0},
-    {785, 500, -180},
-    {440, 445, -90},
-    {445, 600, -180},
-    {445,1000,-180},
-    {445,1400,-180},
-    {440,1555,-270},
-    {785,500,-180},
-    {785,1500,-180}//初始生成的随机点
+    {1785*OFFSET_x, 1010*OFFSET_y, 0},
+    {2785*OFFSET_x, 500 *OFFSET_y, 0},
+    {3535*OFFSET_x, 500 *OFFSET_y, 0},
+    {3278*OFFSET_x, 500 *OFFSET_y, 0},
+    {3278*OFFSET_x, 1000*OFFSET_y, 0},
+    {3278*OFFSET_x, 1500*OFFSET_y, 0},
+    {3535*OFFSET_x, 1500*OFFSET_y, 0},
+    {3000*OFFSET_x, 1500*OFFSET_y, 0},
+    {785*OFFSET_x, 500*OFFSET_y, 180},
+    {440*OFFSET_x, 445*OFFSET_y, 270},
+    {445*OFFSET_x, 600*OFFSET_y, 180},
+    {445*OFFSET_x,1000*OFFSET_y,  180},
+    {445*OFFSET_x,1400*OFFSET_y,  180},
+    {440*OFFSET_x,1555*OFFSET_y,  90},
+    {785*OFFSET_x,500 *OFFSET_y,  180},
+    {785*OFFSET_x,1500*OFFSET_y,  180}//初始生成的随机点
 };
 
 int timeout[16][16] = {
@@ -575,7 +579,8 @@ void Move_To_Target(uint8_t target_id){
 
 
 
-  Move_To_Position_XYZ_NonBlocking(dis_x, dis_y, target_z, timeout[last_target_index][target_id-1]);
+  // Move_To_Position_XYZ_NonBlocking(dis_x, dis_y, target_z, timeout[last_target_index][target_id-1]);
+  Move_To_Position_XYZ_NonBlocking(dis_x, dis_y, target_z, osWaitForever);
   last_target_index = target_id-1;
 }
 
@@ -677,15 +682,15 @@ void Choose_Plate(uint8_t plate_id){
 
 void Grab_Bean(uint8_t bean_id){
   Scara_To_Height(SCARA_HEIGHT_BEAN[bean_id-1]);
-  osDelay(5000);
-  Grab_On();
-  osDelay(1000);
+  osDelay(2000);
+  // Grab_On();
+  osDelay(500);
   Scara_To_Height(SCARA_HEIGHT_MAX);
   osDelay(2000);
   push_Move_To_Position(MIN_POSITION);
-  osDelay(700);
-  Grab_Realse();
-  osDelay(5000);
+  osDelay(1000);
+  Grab_Release();
+  osDelay(6000);
   Grab_Off();
 }
 

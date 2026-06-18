@@ -64,26 +64,12 @@ const osThreadAttr_t ChassisTask_attributes = {
   .stack_size = 1024 * 4,
   .priority = (osPriority_t) osPriorityHigh,
 };
-/* Definitions for ScaraTask */
-osThreadId_t ScaraTaskHandle;
-const osThreadAttr_t ScaraTask_attributes = {
-  .name = "ScaraTask",
-  .stack_size = 512 * 4,
-  .priority = (osPriority_t) osPriorityNormal,
-};
 /* Definitions for MainTask */
 osThreadId_t MainTaskHandle;
 const osThreadAttr_t MainTask_attributes = {
   .name = "MainTask",
   .stack_size = 512 * 4,
   .priority = (osPriority_t) osPriorityBelowNormal,
-};
-/* Definitions for FilterAngleGet */
-osThreadId_t FilterAngleGetHandle;
-const osThreadAttr_t FilterAngleGet_attributes = {
-  .name = "FilterAngleGet",
-  .stack_size = 128 * 4,
-  .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for ChassisMoveDone */
 osSemaphoreId_t ChassisMoveDoneHandle;
@@ -102,9 +88,7 @@ const osSemaphoreAttr_t ScaraMoveDone_attributes = {
 /* USER CODE END FunctionPrototypes */
 
 void StartChassisTask(void *argument);
-void StartScaraTask(void *argument);
 void StartMainTask(void *argument);
-void StartTask04(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -145,14 +129,8 @@ void MX_FREERTOS_Init(void) {
   /* creation of ChassisTask */
   ChassisTaskHandle = osThreadNew(StartChassisTask, NULL, &ChassisTask_attributes);
 
-  /* creation of ScaraTask */
-  ScaraTaskHandle = osThreadNew(StartScaraTask, NULL, &ScaraTask_attributes);
-
   /* creation of MainTask */
   MainTaskHandle = osThreadNew(StartMainTask, NULL, &MainTask_attributes);
-
-  /* creation of FilterAngleGet */
-  FilterAngleGetHandle = osThreadNew(StartTask04, NULL, &FilterAngleGet_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -178,6 +156,7 @@ void StartChassisTask(void *argument)
   for(;;)
   {
     // 检查是否有新的移动命令
+    // printf("%f,%f\r\n",car->current_map_pos_x,car->current_map_pos_y);
     if (chassisState.moving && !chassisState.done)
     {
       // 根据移动类型执行相应操作
@@ -221,55 +200,6 @@ void StartChassisTask(void *argument)
   /* USER CODE END StartChassisTask */
 }
 
-/* USER CODE BEGIN Header_StartScaraTask */
-/**
-* @brief Function implementing the ScaraTask thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_StartScaraTask */
-void StartScaraTask(void *argument)
-{
-  /* USER CODE BEGIN StartScaraTask */
-  /* Infinite loop */
-  for(;;)
-  {
-    // 检查是否有新的机械臂动作命令
-    if (scaraState.moving && !scaraState.done)
-    {
-      HAL_TIM_Base_Start_IT(&htim5);
-      // 根据动作类型执行相应操作
-      switch (scaraState.action_type)
-      {
-        case 0: // Start_Scara
-          Start_Scara();
-          break;
-          
-        case 1: // Get_Box
-          Get_Box(scaraState.box_id);//内部释放chasis信号量，控制底盘下一次运动时机
-          break;
-          
-        case 2: // Ready_To_Put_Box
-          Ready_To_Put_Box(scaraState.box_id);
-          break;
-        
-        default:
-          break;
-      }
-      
-      // 动作完成，更新状态
-      scaraState.moving = false;
-      scaraState.done = true;
-      HAL_TIM_Base_Stop_IT(&htim5);//关闭定时器避免浪费资源
-      // 释放信号量，通知主任务机械臂动作已完成
-      osSemaphoreRelease(ScaraMoveDoneHandle);
-    }
-    
-    osDelay(10);
-  }
-  /* USER CODE END StartScaraTask */
-}
-
 /* USER CODE BEGIN Header_StartMainTask */
 /**
 * @brief Function implementing the MainTask thread.
@@ -295,7 +225,10 @@ void StartMainTask(void *argument)
 
   Init_All();  
   test_Grab();
+  // test_Raspi();
   // test_motor();
+  // test_omega();
+  // test_sss();
 
 
 //************************************************************************** */  
@@ -335,27 +268,6 @@ void StartMainTask(void *argument)
     // printf("omega: %f\r\n", omega);
   }
   /* USER CODE END StartMainTask */
-}
-
-/* USER CODE BEGIN Header_StartTask04 */
-/**
-* @brief Function implementing the FilterAngleGet thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_StartTask04 */
-void StartTask04(void *argument)
-{
-  /* USER CODE BEGIN StartTask04 */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(20);
-    Read_Grab_Angle();
-    Read_Spin_Angle();
-    printf("%d\r\n",hand.grab_current_angle);
-  }
-  /* USER CODE END StartTask04 */
 }
 
 /* Private application code --------------------------------------------------*/

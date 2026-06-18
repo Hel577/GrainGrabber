@@ -78,6 +78,7 @@ uint8_t rxcmd8_dma[RXCMD8_DMA_SIZE];
 // 用于检测跳变的omega
 volatile float omega_1 = 0;
 volatile float omega = 0;                      // 陀螺仪反馈的角度，单位：°
+float last_omega = 0;
 volatile float current_angle_speed = 0;        // 陀螺仪反馈的角速度，单位：°/s
 uint32_t last_receive_hwt_time = 0;   // 上一次接收陀螺仪数据的时间
 
@@ -308,7 +309,12 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
               // 计算实际角度
               omega = omega_1 + wrap_count * 360.0f;
               prev_omega = omega_1;
-              // printf("omega: %f\r\n", omega);
+
+
+              if(last_omega-omega>0.05||omega-last_omega>0.05){
+                last_omega = omega;
+                // printf("omega: %f\r\n", omega);
+              }
             }
           }
 
@@ -390,8 +396,23 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
            case 0:
               Update_Scara_Status();
               push_Update();
-              Maintain_End_Rotation(); 
-              Filter_Servo_PosCtrl(GRAB_SERVO,hand.grab_target_angle,3400,200);
+              Maintain_End_Rotation();
+              Filter_Read_Pos(GRAB_SERVO);
+              uint16_t target_angle = hand.grab_target_angle;
+              int speed = 3400;
+              int a = 200; 
+              // osDelay(20);
+              if(hand.grab_target_angle==GRAB_REALEASE && hand.grab_current_angle>GRAB_REALEASE){
+                osDelay(20);
+                if(hand.grab_current_angle>2150+2){
+                  Filter_Servo_PosCtrl(GRAB_SERVO,2150,2000,200);
+                  osDelay(50);
+                }
+                // target_angle = hand.grab_current_angle-10;
+                speed = 2;
+                a = 1;
+              }
+              Filter_Servo_PosCtrl(GRAB_SERVO,target_angle,speed, a);
               state = 1;
               break;
            case 1:

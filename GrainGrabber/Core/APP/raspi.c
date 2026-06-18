@@ -17,17 +17,17 @@ void Init_Raspi(void)
 {
     raspi.vision_x = 0;
     raspi.vision_y = 0;
-    raspi.real_x[0] = 320; 
-    raspi.real_y[0] = 240;
+    raspi.real_x[0] = 285; 
+    raspi.real_y[0] = 210;
 
-    raspi.real_x[1] = 320; 
-    raspi.real_y[1] = 240;
+    raspi.real_x[1] = 285; 
+    raspi.real_y[1] = 215;
 
-    raspi.real_x[2] = 320;  
-    raspi.real_y[2] = 240;
+    raspi.real_x[2] = 285;  
+    raspi.real_y[2] = 215;
 
-    raspi.real_x[3] = 320;
-    raspi.real_y[3] = 240;
+    raspi.real_x[3] = 285;
+    raspi.real_y[3] = 215;
 
     raspi.cmd = 0;
     
@@ -93,11 +93,19 @@ void Raspi_Process_Data(uint8_t *rx_data, uint16_t size)
 
     
     // 检查数据帧格式: STX + CMD + DATA... + ETX
-    if (size == 8 && rx_data[0] == 0xEE && rx_data[size-1] == 0xFF)
+    if (size == 9 && rx_data[0] == 0xEE && rx_data[size-2] == 0xFF)
     {
+
+
+
         // 将数据帧复制到raspi.buffer
         memcpy(raspi.buffer, rx_data, size);
         raspi.cmd = rx_data[1];
+
+        // for(int i=0;i<8;i++){
+        //     printf("%x ",rx_data[i]);
+        // }
+        // printf("\r\n");
 
         // 根据命令类型处理
         switch (raspi.cmd)
