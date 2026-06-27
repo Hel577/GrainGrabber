@@ -20,7 +20,7 @@
 /* 任务类型定义(Send to Raspi) */
 #define TASK_DETECT_BOX    0x05//识别箱子任务
 #define TASK_MOVE_BY_BEAN     0x07//根据豆子位置微调任务
-#define TASK_MOVE_BY_BOX   0x08//根据箱子位置微调任务
+#define TASK_MOVE_BY_BOX   0x08//根据AprilTag位置微调任务
 
 
 /*树莓派数据类型*/

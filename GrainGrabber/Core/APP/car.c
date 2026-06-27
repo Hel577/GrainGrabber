@@ -134,7 +134,7 @@ void Init_Imu(void)
     omega_zero();
     Hwt_auto_get_offset_ON();
     // Hwt_auto_get_offset_OFF();
-    omega_zero();
+    // omega_zero();
     Enable_IMU_Interrupts();
 }
 
@@ -595,7 +595,7 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
     float omega_error_ref = 0.1f;
     if(fabs(target_y)>=2000 &&target_y>0)
     {
-        x_error_ref = 12.0f;
+        x_error_ref = 5.0f;
         y_error_ref = 5.0f;
         omega_error_ref = 0.1f;
         stability_counter_threshold =4;     
@@ -603,14 +603,14 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
     }
     else if((target_y)>=2000 &&target_y <0)
     {
-        x_error_ref = 12.0f;
+        x_error_ref = 5.0f;
         y_error_ref = 5.0f;
         omega_error_ref = 0.1f;  
         stability_counter_threshold =2;     
     }
     else if(fabs(target_y)<1100 && fabs(target_x)<1100)
     {
-        x_error_ref = 7.0f;
+        x_error_ref = 5.0f;
         y_error_ref = 5.0f;
         omega_error_ref = 0.1f;
         stability_counter_threshold = 3;
@@ -686,7 +686,7 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
     {
         target_z = 0;
         real_x = raspi.real_x[1];
-        real_y = raspi.real_y[1]+2;
+        real_y = raspi.real_y[1];
         if(put_round == 1)
         {
             timeout += 600;
@@ -714,8 +714,8 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
     else if(box_place == 3)
     {
         target_z = 0;
-        real_x = raspi.real_x[2];
-        real_y = raspi.real_y[2];
+        real_x = raspi.real_x[3];
+        real_y = raspi.real_y[3];
         // if(put_round == 1)
         // {
         //     timeout += 400;
@@ -758,8 +758,8 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
 
 
     // 误差阈值
-    float x_error_ref = 1.1f;
-    float y_error_ref = 1.1f;
+    float x_error_ref = 7.1f;
+    float y_error_ref = 7.1f;
     float omega_error_ref = 0.1f;
 
     uint32_t start_time = HAL_GetTick();
@@ -799,30 +799,12 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
         else
         {   //根据车体方向选择计算方式
             //pid计算速度
-            if(car->car_face == Forward )
-            {
             //pid计算目标速度
-            car->target_map_Vx = PID_Calc_XY(fine_X_PID, raspi.vision_x, real_x);
-            car->target_map_Vy = PID_Calc_XY(fine_Y_PID, raspi.vision_y, real_y);
-           
-            }
-            else if(car->car_face == Back )
-            {
-                car->target_map_Vx = -1 * PID_Calc_XY(fine_X_PID, raspi.vision_x, real_x);
-                car->target_map_Vy = -1 * PID_Calc_XY(fine_Y_PID, raspi.vision_y, real_y);
-            }
-            else if(car->car_face == Right)
-            {
-                car->target_map_Vy = -1 * PID_Calc_XY(fine_X_PID, raspi.vision_x, real_x);
-                car->target_map_Vx = PID_Calc_XY(fine_Y_PID, raspi.vision_y, real_y);
-            }
-            else if(car->car_face == Left)
-            {
-                car->target_map_Vy = PID_Calc_XY(fine_Y_PID, raspi.vision_x, real_x);
-                car->target_map_Vx = -1 * PID_Calc_XY(fine_X_PID, raspi.vision_y, real_y);
-            }
+            car->target_map_Vy = -0.4*PID_Calc_XY(fine_Y_PID, real_x, raspi.vision_x);
+            car->target_map_Vx = -0.4*PID_Calc_XY(fine_X_PID, real_y, raspi.vision_y);
 
-             car->target_angle_speed = PID_Calc_Z(rough_Z_PID, target_z, omega);
+
+            car->target_angle_speed = PID_Calc_Z(rough_Z_PID, target_z, omega);
             // printf("%f, %f,%f ,%f,%f ,%f\r\n", raspi.vision_x-raspi.real_x[type], raspi.vision_y-raspi.real_y[type], target_z-omega, car->current_map_Vx, car->current_map_Vy, car->current_hwt_angle_speed);
         }
         Publish_Car_Speed();

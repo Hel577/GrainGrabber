@@ -224,11 +224,14 @@ void StartMainTask(void *argument)
 //************************************************************************** */
 
   Init_All();  
-  test_Grab();
+  // CAN_Send_Test();
   // test_Raspi();
   // test_motor();
   // test_omega();
   // test_sss();
+  // test_chassis();
+  // test_Grab();
+  test_lift();
 
 
 //************************************************************************** */  

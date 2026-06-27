@@ -153,7 +153,7 @@ void HAL_CAN_MspInit(CAN_HandleTypeDef* canHandle)
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
     /* CAN2 interrupt Init */
-    HAL_NVIC_SetPriority(CAN2_RX0_IRQn, 6, 0);
+    HAL_NVIC_SetPriority(CAN2_RX0_IRQn, 5, 0);
     HAL_NVIC_EnableIRQ(CAN2_RX0_IRQn);
   /* USER CODE BEGIN CAN2_MspInit 1 */
 
@@ -218,6 +218,7 @@ void HAL_CAN_MspDeInit(CAN_HandleTypeDef* canHandle)
 void CAN_Filter_Config(void)
 {
     CAN_FilterTypeDef sFilterConfig;
+    CAN_FilterTypeDef sFilterConfig0;
     
     /* 配置CAN1滤波器 */
     sFilterConfig.FilterBank = 0;                       // 使用过滤器0
@@ -232,16 +233,16 @@ void CAN_Filter_Config(void)
     HAL_CAN_ConfigFilter(&hcan1, &sFilterConfig);
     
     /* 配置CAN2滤波器 */
-    sFilterConfig.FilterBank = 14;                      // CAN2滤波器从14开始
-    sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;  // 掩码模式
-    sFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT; // 32位模式
-    sFilterConfig.FilterIdHigh = 0x0000;               // ID高16位
-    sFilterConfig.FilterIdLow = 0x0000;                // ID低16位
-    sFilterConfig.FilterMaskIdHigh = 0x0000;           // 掩码高16位
-    sFilterConfig.FilterMaskIdLow = 0x0000;            // 掩码低16位
-    sFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0; // 过滤器关联到FIFO0
-    sFilterConfig.FilterActivation = ENABLE;            // 激活过滤器
-    HAL_CAN_ConfigFilter(&hcan2, &sFilterConfig);
+    sFilterConfig0.FilterBank = 14;                      // CAN2滤波器从14开始
+    sFilterConfig0.FilterMode = CAN_FILTERMODE_IDMASK;  // 掩码模式
+    sFilterConfig0.FilterScale = CAN_FILTERSCALE_32BIT; // 32位模式
+    sFilterConfig0.FilterIdHigh = 0x0000;               // ID高16位
+    sFilterConfig0.FilterIdLow = 0x0000;                // ID低16位
+    sFilterConfig0.FilterMaskIdHigh = 0x0000;           // 掩码高16位
+    sFilterConfig0.FilterMaskIdLow = 0x0000;            // 掩码低16位
+    sFilterConfig0.FilterFIFOAssignment = CAN_RX_FIFO0; // 过滤器关联到FIFO0
+    sFilterConfig0.FilterActivation = ENABLE;            // 激活过滤器
+    HAL_CAN_ConfigFilter(&hcan2, &sFilterConfig0);
 }
 /* CAN发送测试函数 */
 void CAN_Send_Test(void)
@@ -254,7 +255,7 @@ void CAN_Send_Test(void)
     // 配置扩展帧
     // ExtId格式: mode(3位) | motor_id(8位) | data(15位) | res(6位)
     uint32_t mode = 3;          // mode = 3 (使能命令)
-    uint32_t motor_id = 1;      // 假设电机ID为1
+    uint32_t motor_id = 5;      // 假设电机ID为1
     uint32_t data = 0x12345;    // MI_MASTERID (主控ID)
     uint32_t res = 0;           // 保留位
 
@@ -270,14 +271,14 @@ void CAN_Send_Test(void)
     
     if(HAL_CAN_AddTxMessage(&hcan2, &TxHeader, TxData, &TxMailbox) != HAL_OK)
     {
-        // printf("[CAN TX] Error sending MI motor enable command!\r\n");
+        printf("[CAN TX] Error sending MI motor enable command!\r\n");
         Beep_On();
         Error_Handler();
     }
     else
     {
-        // printf("[CAN TX] MI motor enable command sent successfully\r\n\r\n");
-        // Beep_On();
+        printf("[CAN TX] MI motor enable command sent successfully\r\n\r\n");
+        Beep_On();
     }
 }
 

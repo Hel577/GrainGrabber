@@ -14,6 +14,8 @@ void Init_All(void)
 
 void test_motor(void){
   printf("test_motor\r\n");
+  Init_All();
+  osDelay(500);
    Move_To_Position_XYZ_NonBlocking(0, 500, 0, osWaitForever);
    osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
    osDelay(5000);
@@ -58,15 +60,16 @@ void test_sss(void){
 
 void test_chassis(void){
   Init_All();
-  osDelay(500);
+  osDelay(25000);
   Grab_Off();
 
-  Raspi_Send_Task(TASK_DETECT_BOX);
-  while(raspi.box_id[0]==0){
-    Raspi_Send_Task(TASK_DETECT_BOX);
-  }
-  Raspi_Finish_Task(TASK_DETECT_BOX);
+  // Raspi_Send_Task(TASK_DETECT_BOX);
+  // while(raspi.box_id[0]==0){
+  //   Raspi_Send_Task(TASK_DETECT_BOX);
+  // }
+  // Raspi_Finish_Task(TASK_DETECT_BOX);
 
+  osDelay(50);
 
   Move_To_Target(2);
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
@@ -77,7 +80,8 @@ void test_chassis(void){
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   osDelay(200);
   Raspi_Finish_Task(TASK_MOVE_BY_BEAN);
-  Choose_Plate(raspi.bean_order[0]);
+  // Choose_Plate(raspi.bean_order[0]);
+  Choose_Plate(2);
   Grab_Bean(1);
   osDelay(500);
   push_Move_To_Position(MAX_POSITION);
@@ -114,12 +118,17 @@ void test_chassis(void){
 
 void test_lift(void){
   printf("test lift\r\n");
-  // Init_All();
+  Init_All();
+
+  En_Chassis_Motor();
   printf("move to height 200\r\n");
   Scara_To_Height(230);
   osDelay(5000);
   Scara_Return_Home();
   osDelay(5000);
+  while(true){
+    printf("%d,%d\r\n",scara.current_th1,scara.current_th2);
+  }
 }
 
 void test_Push(void){
@@ -145,27 +154,28 @@ void test_Graber(void){
 
 void test_Raspi(void){
   Init_All();
-  Grab_Off();
   osDelay(500);
-  Raspi_Finish_Task(TASK_DETECT_BOX);
-  // osDelay(50);
-  // Raspi_Send_Task(TASK_DETECT_BOX);
-  // while(raspi.box_id[0]==0)
-  // {
-  //   for(int i=0;i<5;i++){
-  //     printf("%d ",raspi.box_id[i]);
-  //   }
-  //   printf("\r\n");
-  // }
-  // Raspi_Finish_Task(TASK_DETECT_BOX);
-  Raspi_Send_Task(TASK_MOVE_BY_BEAN);
-  while(true){
+  while(raspi.vision_x==0){
     printf("%f,%f\r\n",raspi.vision_x,raspi.vision_y);
     printf("%f,%f\r\n",raspi.real_x[1],raspi.real_y[1]);
+    printf("%d\r\n",raspi.bean_order[0]);
+    Raspi_Finish_Task(TASK_MOVE_BY_BEAN);
+    Raspi_Send_Task(TASK_MOVE_BY_BEAN);
+    osDelay(200);
+  }
+  osDelay(50);
+  Grab_Off();
+  Move_By_Vision_NonBlocking(2,osWaitForever);
+  osDelay(200);
+  while(true){
+    printf("%f,%f\r\n",raspi.vision_x,raspi.vision_y);
+    printf("%f,%f\r\n",raspi.real_x[3],raspi.real_y[3]);
     printf("%d\r\n",raspi.bean_order[0]);
     osDelay(200);
   }
   Raspi_Finish_Task(TASK_MOVE_BY_BEAN);
+
+  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
 }
 
 

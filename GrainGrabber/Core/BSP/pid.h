@@ -28,7 +28,7 @@ typedef struct {
     float prev_filtered ;
     float prev_position ;
     bool first_call ;
-
+    float prev_current;
   } PIDController;
 
 extern PIDController *rough_X_PID;
@@ -47,6 +47,7 @@ extern PIDController *Translation_Z_PID;
 void Init_PID(void);
 void Reset_PID(PIDController *pid);
 float PID_Calc_XY(PIDController *pid, float target, float current);
+float PID_Calc_XY_Vision(PIDController *pid, float target, float current);
 float PID_Calc_Z(PIDController *pid, float target, float current);
 
 #endif

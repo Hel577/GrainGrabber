@@ -192,6 +192,7 @@ void Init_Scara_Motor(void)
     }
     Change_Scara_Motor_Mode(MODE_POS);
 
+
 }
 /**
   * @brief  切换SCARA机械臂电机模式

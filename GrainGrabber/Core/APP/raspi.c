@@ -18,15 +18,15 @@ void Init_Raspi(void)
     raspi.vision_x = 0;
     raspi.vision_y = 0;
     raspi.real_x[0] = 285; 
-    raspi.real_y[0] = 210;
+    raspi.real_y[0] = 220;
 
     raspi.real_x[1] = 285; 
-    raspi.real_y[1] = 215;
+    raspi.real_y[1] = 225;
 
-    raspi.real_x[2] = 285;  
-    raspi.real_y[2] = 215;
+    raspi.real_x[2] = 320;  
+    raspi.real_y[2] = 240;
 
-    raspi.real_x[3] = 285;
+    raspi.real_x[3] = 275;
     raspi.real_y[3] = 215;
 
     raspi.cmd = 0;
@@ -60,7 +60,6 @@ void Raspi_Send_Task(uint8_t task_type)
     HAL_UART_Transmit(&huart3, tx_data, 4, 10);
     osDelay(5); 
     
-    
 }
 
 void Raspi_Finish_Task(uint8_t task_type)
@@ -88,16 +87,18 @@ void Raspi_Finish_Task(uint8_t task_type)
  * @param rx_data 接收到的数据
  * @param size 数据大小
  */
+// uint32_t T=0;
 void Raspi_Process_Data(uint8_t *rx_data, uint16_t size)
 {
 
     
     // 检查数据帧格式: STX + CMD + DATA... + ETX
-    if (size == 9 && rx_data[0] == 0xEE && rx_data[size-2] == 0xFF)
+    if (size == 8 && rx_data[0] == 0xEE && rx_data[size-1] == 0xFF)
     {
 
 
-
+        // printf("Time: %d\r\n",HAL_GetTick()-T);
+        // T = HAL_GetTick();
         // 将数据帧复制到raspi.buffer
         memcpy(raspi.buffer, rx_data, size);
         raspi.cmd = rx_data[1];

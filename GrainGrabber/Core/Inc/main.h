@@ -73,7 +73,7 @@ void Error_Handler(void);
 /* USER CODE BEGIN Private defines */
 
 #define RXCMD6_DMA_SIZE 33
-#define RXCMD3_DMA_SIZE 9
+#define RXCMD3_DMA_SIZE 8
 #define RXCMD8_DMA_SIZE 9
 // 全局变量声明
 extern uint8_t rxcmd6_dma[RXCMD6_DMA_SIZE];

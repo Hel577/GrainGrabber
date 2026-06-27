@@ -78,7 +78,6 @@ uint8_t rxcmd8_dma[RXCMD8_DMA_SIZE];
 // 用于检测跳变的omega
 volatile float omega_1 = 0;
 volatile float omega = 0;                      // 陀螺仪反馈的角度，单位：°
-float last_omega = 0;
 volatile float current_angle_speed = 0;        // 陀螺仪反馈的角速度，单位：°/s
 uint32_t last_receive_hwt_time = 0;   // 上一次接收陀螺仪数据的时间
 
@@ -310,11 +309,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
               omega = omega_1 + wrap_count * 360.0f;
               prev_omega = omega_1;
 
-
-              if(last_omega-omega>0.05||omega-last_omega>0.05){
-                last_omega = omega;
-                // printf("omega: %f\r\n", omega);
-              }
             }
           }
 
