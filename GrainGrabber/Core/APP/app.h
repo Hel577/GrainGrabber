@@ -15,7 +15,8 @@ typedef enum {
     MOVE_TYPE_POSITION_XYZ,    // 闭环位置控制
     MOVE_TYPE_VISION,          // 视觉闭环
     MOVE_TYPE_EASY,            // 简易闭环
-    MOVE_TYPE_TRANSLATION      // 平移控制
+    MOVE_TYPE_TRANSLATION,     // 平移控制
+    MOVE_OPEN_LOOP             // 开环控制
 } ChassisMove_Type_e;
 
 // 底盘状态结构体
@@ -53,7 +54,7 @@ void Start_Scara(void);
 void Get_Box(uint8_t box_id);
 void Put_Box(uint8_t box_id ,uint8_t dir, bool maduo);
 void Ready_To_Put_Box(uint8_t box_id);
-void Move_To_Target(uint8_t target_id);
+void Move_To_Target(uint8_t target_id, uint32_t timeout_value);
 void Move_To_Placing_Box(uint8_t* box_ids,uint8_t* bean_ids);
 
 // 添加非阻塞版本的函数
@@ -65,11 +66,13 @@ void Move_To_Position_XYZ_NonBlocking(float target_x, float target_y, float targ
 void Move_By_Vision_NonBlocking(uint8_t paper_id, uint32_t timeout);
 void Move_By_Easy_NonBlocking(float target_x, float target_y, float target_z, uint32_t timeout);
 void Move_Translation_NonBlocking(float target_x, float target_y, float target_z, uint32_t timeout);
+void Move_Open_Loop_NonBlocking(float speed_x, float speed_y, float target_z, uint32_t timeout);
 uint8_t Near_Box(uint8_t box_id ,uint8_t dir, bool maduo);
 void Try_Grab_Beans(uint8_t bean_id);
 void Choose_Plate(uint8_t plate_id);
-void Grab_Bean(uint8_t bean_id);
+void Grab_Bean(uint8_t bean_id,uint8_t bean);
 void Match_Box(int* target_box,uint8_t* target_ids,uint8_t* bean_ids);
 void Release_Bean(uint8_t bean_id);
+void Set_Target_Index(uint8_t target_id);
 
 #endif

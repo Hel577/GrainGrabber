@@ -21,7 +21,7 @@ void Init_push(void)
     push->target_position = 0.0f;
     push->current_angle = 0.0f;
     push->target_angle = 0.0f;
-    push->step_angle = 0.3f;       // 设置步进角度（单位为rad）
+    push->step_angle = 0.9f;       // 设置步进角度（单位为rad）
     push->is_moving = false;
     push->is_initialized = true;
 

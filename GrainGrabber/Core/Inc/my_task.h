@@ -18,6 +18,7 @@ extern "C" {
 #include "door.h"
 #include "scara.h"
 #include "raspi.h"
+#include "MI_motor_dev.h"
 
 
 /* 函数声明 */
@@ -38,6 +39,7 @@ void my_task(void);
 void test_Raspi(void);
 void test_omega(void);
 void test_sss(void);
+void test_can(void);
 
 #ifdef __cplusplus
 }

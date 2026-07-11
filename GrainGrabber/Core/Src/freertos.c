@@ -181,7 +181,10 @@ void StartChassisTask(void *argument)
           // 执行平移控制
           Move_Translation(chassisState.target_x, chassisState.target_y, chassisState.target_z, chassisState.timeout);
           break;
-          
+
+        case MOVE_OPEN_LOOP:
+          // 执行开环控制
+          Move_Open_Loop(chassisState.target_x, chassisState.target_y, chassisState.target_z, chassisState.timeout);
         default:
           break;
       }
@@ -222,16 +225,17 @@ void StartMainTask(void *argument)
 
 //第一次启动
 //************************************************************************** */
-
   Init_All();  
   // CAN_Send_Test();
   // test_Raspi();
-  // test_motor();
+  // test_chassis();
   // test_omega();
   // test_sss();
-  // test_chassis();
-  // test_Grab();
-  test_lift();
+  // test_motor();
+  // test_can();
+  test_Grab();
+  // test_lift();
+  // test_graber_resend();
 
 
 //************************************************************************** */  

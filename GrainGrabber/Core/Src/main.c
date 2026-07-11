@@ -243,9 +243,25 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
         /* 判断是哪个CAN接口接收到数据 */
         if (hcan->Instance == CAN1)
         {
+          uint32_t ext_id = RxHeader.ExtId;
             /* 处理CAN1接收到的数据 */
             if (RxHeader.IDE == CAN_ID_EXT) /* 扩展帧 */
             {
+              // printf("CAN ID: 0x%08lX [PRI:%ld, PGN:0x%06lX, SA:0x%02lX]\r\n",
+              // ext_id,
+              // (ext_id >> 26) & 0x07,    // 优先级
+              // (ext_id >> 8) & 0x3FFFF,  // PGN (18-bit)
+              // ext_id & 0xFF);           // 源地址
+              //   printf("ID=0x%08lX\r\n", RxHeader.ExtId);
+
+              //   printf("DATA:");
+
+              //   for(int i=0;i<RxHeader.DLC;i++)
+              //   {
+              //       printf("%02X \r\n", RxData[i]);
+              //   }
+
+              //   printf("\r\n");
                 MIMotor_MotorDataDecode(RxHeader.ExtId, RxData);
             }
         }
@@ -320,6 +336,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
           }
         }
 
+        // printf("omega: %.2f, current_angle_speed: %.2f\r\n", omega, current_angle_speed);
         // 重新启动DMA接收
         HAL_UART_Receive_DMA(&huart6, rxcmd6_dma, RXCMD6_DMA_SIZE);
     }
@@ -395,18 +412,20 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
               uint16_t target_angle = hand.grab_target_angle;
               int speed = 3400;
               int a = 200; 
-              // osDelay(20);
               if(hand.grab_target_angle==GRAB_REALEASE && hand.grab_current_angle>GRAB_REALEASE){
-                osDelay(20);
-                if(hand.grab_current_angle>2150+2){
-                  Filter_Servo_PosCtrl(GRAB_SERVO,2150,2000,200);
-                  osDelay(50);
+                if(hand.grab_current_angle>2050+10){
+                  Filter_Servo_PosCtrl(GRAB_SERVO,2050,3400,200);
                 }
                 // target_angle = hand.grab_current_angle-10;
-                speed = 2;
-                a = 1;
+                else{
+                  speed = 80;
+                  a = 20;
+                  Filter_Servo_PosCtrl(GRAB_SERVO,target_angle,speed, a);
+                }
               }
-              Filter_Servo_PosCtrl(GRAB_SERVO,target_angle,speed, a);
+              else{
+                Filter_Servo_PosCtrl(GRAB_SERVO,target_angle,speed, a);
+              }
               state = 1;
               break;
            case 1:

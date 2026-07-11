@@ -43,4 +43,5 @@ build/Debug/.obj/Core/Src/my_task.o: Core/Src/my_task.c \
  Core/BSP/MI_motor_dev.h Core/Inc/usart.h Core/Inc/can.h Core/Inc/main.h \
  Core/BSP/filter.h Core/BSP/pid.h Core/Inc/tim.h Core/APP/raspi.h \
  Core/APP/app.h Core/APP/push.h Core/APP/scara.h Core/BSP/door.h \
- Core/Inc/gpio.h Core/APP/scara.h Core/APP/raspi.h
+ Core/Inc/gpio.h Core/APP/scara.h Core/APP/raspi.h \
+ Core/BSP/MI_motor_dev.h

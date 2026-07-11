@@ -43,7 +43,8 @@ void SendMultiFloat2Vofa(float *values, uint8_t num)
 	motors[4] = &chassis_motor[3];
     for (uint8_t id = 1; id < 5; id++)
 	{
-		MI_motor_init(motors[id],&hcan1,id);
+		MI_motor_init(motors[id],&hcan2,id);
+        osDelay(10);
 	}
     Reset_Chassis_Motor_MechPosition();
     //设置位置模式限速和速度模式电流限制
@@ -51,6 +52,7 @@ void SendMultiFloat2Vofa(float *values, uint8_t num)
 	{
 		MI_motor_SetSpdLim(motors[id], 8);//位置模式限速
         MI_motor_SetCurrLim(motors[id], 23);//速度模式电流限制
+        osDelay(10);
 	}
     Change_Chassis_Motor_Mode(MODE_SPD);
  }
@@ -142,6 +144,8 @@ void Publish_Chassis_Motor_Speed(float Vel1, float Vel2, float Vel3, float Vel4,
     Vel2 = Vel2 / WHEEL_RADIUS ;
     Vel3 = -Vel3 / WHEEL_RADIUS ;
     Vel4 = Vel4 / WHEEL_RADIUS ;
+
+    // printf("Vel1: %f, Vel2: %f, Vel3: %f, Vel4: %f\r\n", Vel1, Vel2, Vel3, Vel4);
     //发布电机速度
     MI_motor_SpdCtrl(motors[1], Vel1);
     // HAL_Delay(delay_ms);
@@ -180,15 +184,18 @@ void Init_Scara_Motor(void)
     motors[6] = &scara_motor[1];
     for (uint8_t id = 5; id < 7; id++)
     {
+        osDelay(10);
         MI_motor_init(motors[id],&hcan1,id);
+        osDelay(10);
     }
     // Reset_Scara_Motor_MechPosition();
 
     //设置位置模式限速和速度模式电流限制
     for (uint8_t id = 5; id < 7; id++)
     {
-        MI_motor_SetSpdLim(motors[id], 10);//位置模式限速
+        MI_motor_SetSpdLim(motors[id], 15);//位置模式限速
         MI_motor_SetCurrLim(motors[id], 20);//速度模式电流限制
+        osDelay(10);
     }
     Change_Scara_Motor_Mode(MODE_POS);
 
@@ -251,6 +258,7 @@ void En_Scara_Motor(void)
     for (uint8_t id = 5; id < 7; id++)
     {
         MI_motor_enable(motors[id]);
+        osDelay(10);
     }
 }   
 /**
@@ -271,7 +279,7 @@ void Init_pushing_Motor(void)
     MI_motor_init(motors[7],&hcan1,7);
     // Reset_pushing_Motor_MechPosition();
     //设置位置模式限速和速度模式电流限制
-    MI_motor_SetSpdLim(motors[7], 8);//位置模式限速
+    MI_motor_SetSpdLim(motors[7], 14);//位置模式限速
     MI_motor_SetCurrLim(motors[7], 20);//速度模式电流限制
     Change_pushing_Motor_Mode(MODE_POS);
 }

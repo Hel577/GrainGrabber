@@ -2,6 +2,10 @@
 
 PIDController *rough_X_PID = NULL;
 PIDController *rough_Y_PID = NULL;
+PIDController *rough_X_long_PID = NULL;
+PIDController *rough_Y_long_PID = NULL;
+PIDController *rough_X_super_long_PID = NULL;
+PIDController *rough_Y_super_long_PID = NULL;
 PIDController *rough_Z_PID = NULL;
 PIDController *fine_X_PID = NULL;
 PIDController *fine_Y_PID = NULL;
@@ -20,6 +24,10 @@ void Init_PID(void)
 {
     rough_X_PID = (PIDController *)malloc(sizeof(PIDController)); 
     rough_Y_PID = (PIDController *)malloc(sizeof(PIDController));
+    rough_X_long_PID = (PIDController *)malloc(sizeof(PIDController)); 
+    rough_Y_long_PID = (PIDController *)malloc(sizeof(PIDController));
+    rough_X_super_long_PID = (PIDController *)malloc(sizeof(PIDController)); 
+    rough_Y_super_long_PID = (PIDController *)malloc(sizeof(PIDController));
     rough_Z_PID = (PIDController *)malloc(sizeof(PIDController));
     fine_X_PID = (PIDController *)malloc(sizeof(PIDController));
     fine_Y_PID = (PIDController *)malloc(sizeof(PIDController));
@@ -32,11 +40,48 @@ void Init_PID(void)
     Translation_Z_PID = (PIDController *)malloc(sizeof(PIDController));
 
     //粗调X轴
+    // if(rough_X_PID !=NULL)
+    // {
+    //     rough_X_PID->kp = 5.1f;
+    //     rough_X_PID->ki = 0.01f;
+    //     rough_X_PID->kd = 1.53f;
+    //     rough_X_PID->dt = 0.018f;
+    //     rough_X_PID->integral = 0.0f;
+    //     rough_X_PID->prev_error = 0.0f;
+    //     rough_X_PID->max_output = 1200.0f;
+    //     rough_X_PID->max_accel = 1200.0f;
+    //     rough_X_PID->last_call_time = HAL_GetTick();
+    //     memset(rough_X_PID->deriv_buf, 0, sizeof(rough_X_PID->deriv_buf));
+    //     rough_X_PID->last_output = 0.0f;
+    //     rough_X_PID->prev_filtered = 0.0f;
+    //     rough_X_PID->prev_position = 0.0f;
+    //     rough_X_PID->first_call = true;          
+    // }
+
+    // //粗调Y轴
+    // if(rough_Y_PID !=NULL)
+    // {
+    //     rough_Y_PID->kp = 5.18f;
+    //     rough_Y_PID->ki = 0.01f;
+    //     rough_Y_PID->kd = 1.71f;
+    //     rough_Y_PID->dt = 0.018f;
+    //     rough_Y_PID->integral = 0.0f;
+    //     rough_Y_PID->prev_error = 0.0f;
+    //     rough_Y_PID->max_output = 1200.0f;
+    //     rough_Y_PID->max_accel = 1200.0f;
+    //     rough_Y_PID->last_call_time = HAL_GetTick();
+    //     memset(rough_Y_PID->deriv_buf, 0, sizeof(rough_Y_PID->deriv_buf));
+    //     rough_Y_PID->last_output = 0.0f;
+    //     rough_Y_PID->prev_filtered = 0.0f;    
+    //     rough_Y_PID->prev_position = 0.0f;
+    //     rough_Y_PID->first_call = true;
+    // }
+
     if(rough_X_PID !=NULL)
     {
-        rough_X_PID->kp = 5.1f;
-        rough_X_PID->ki = 0.01f;
-        rough_X_PID->kd = 1.53f;
+        rough_X_PID->kp = 4.1f;
+        rough_X_PID->ki = 0.001f;
+        rough_X_PID->kd = 1.23f;
         rough_X_PID->dt = 0.018f;
         rough_X_PID->integral = 0.0f;
         rough_X_PID->prev_error = 0.0f;
@@ -53,9 +98,9 @@ void Init_PID(void)
     //粗调Y轴
     if(rough_Y_PID !=NULL)
     {
-        rough_Y_PID->kp = 5.18f;
-        rough_Y_PID->ki = 0.01f;
-        rough_Y_PID->kd = 1.71f;
+        rough_Y_PID->kp = 4.18f;
+        rough_Y_PID->ki = 0.001f;
+        rough_Y_PID->kd = 1.41f;
         rough_Y_PID->dt = 0.018f;
         rough_Y_PID->integral = 0.0f;
         rough_Y_PID->prev_error = 0.0f;
@@ -69,16 +114,90 @@ void Init_PID(void)
         rough_Y_PID->first_call = true;
     }
 
+    if(rough_X_long_PID !=NULL)
+    {
+        rough_X_long_PID->kp = 4.1f;
+        rough_X_long_PID->ki = 0.001f;
+        rough_X_long_PID->kd = 1.73f;
+        rough_X_long_PID->dt = 0.018f;
+        rough_X_long_PID->integral = 0.0f;
+        rough_X_long_PID->prev_error = 0.0f;
+        rough_X_long_PID->max_output = 1200.0f;
+        rough_X_long_PID->max_accel = 1200.0f;
+        rough_X_long_PID->last_call_time = HAL_GetTick();
+        memset(rough_X_long_PID->deriv_buf, 0, sizeof(rough_X_long_PID->deriv_buf));
+        rough_X_long_PID->last_output = 0.0f;
+        rough_X_long_PID->prev_filtered = 0.0f;
+        rough_X_long_PID->prev_position = 0.0f;
+        rough_X_long_PID->first_call = true;          
+    }
+
+    //粗调Y轴
+    if(rough_Y_long_PID !=NULL)
+    {
+        rough_Y_long_PID->kp = 4.18f;
+        rough_Y_long_PID->ki = 0.001f;
+        rough_Y_long_PID->kd = 1.41f;
+        rough_Y_long_PID->dt = 0.018f;
+        rough_Y_long_PID->integral = 0.0f;
+        rough_Y_long_PID->prev_error = 0.0f;
+        rough_Y_long_PID->max_output = 1200.0f;
+        rough_Y_long_PID->max_accel = 1200.0f;
+        rough_Y_long_PID->last_call_time = HAL_GetTick();
+        memset(rough_Y_long_PID->deriv_buf, 0, sizeof(rough_Y_long_PID->deriv_buf));
+        rough_Y_long_PID->last_output = 0.0f;
+        rough_Y_long_PID->prev_filtered = 0.0f;    
+        rough_Y_long_PID->prev_position = 0.0f;
+        rough_Y_long_PID->first_call = true;
+    }
+
+    if(rough_X_super_long_PID !=NULL)
+    {
+        rough_X_super_long_PID->kp = 4.5f;
+        rough_X_super_long_PID->ki = 0.01f;
+        rough_X_super_long_PID->kd = 1.43f;
+        rough_X_super_long_PID->dt = 0.018f;
+        rough_X_super_long_PID->integral = 0.0f;
+        rough_X_super_long_PID->prev_error = 0.0f;
+        rough_X_super_long_PID->max_output = 1200.0f;
+        rough_X_super_long_PID->max_accel = 1200.0f;
+        rough_X_super_long_PID->last_call_time = HAL_GetTick();
+        memset(rough_X_super_long_PID->deriv_buf, 0, sizeof(rough_X_super_long_PID->deriv_buf));
+        rough_X_super_long_PID->last_output = 0.0f;
+        rough_X_super_long_PID->prev_filtered = 0.0f;
+        rough_X_super_long_PID->prev_position = 0.0f;
+        rough_X_super_long_PID->first_call = true;          
+    }
+
+    //粗调Y轴
+    if(rough_Y_super_long_PID !=NULL)
+    {
+        rough_Y_super_long_PID->kp = 4.9f;
+        rough_Y_super_long_PID->ki = 0.01f;
+        rough_Y_super_long_PID->kd = 1.71f;
+        rough_Y_super_long_PID->dt = 0.018f;
+        rough_Y_super_long_PID->integral = 0.0f;
+        rough_Y_super_long_PID->prev_error = 0.0f;
+        rough_Y_super_long_PID->max_output = 1200.0f;
+        rough_Y_super_long_PID->max_accel = 1200.0f;
+        rough_Y_super_long_PID->last_call_time = HAL_GetTick();
+        memset(rough_Y_super_long_PID->deriv_buf, 0, sizeof(rough_Y_super_long_PID->deriv_buf));
+        rough_Y_super_long_PID->last_output = 0.0f;
+        rough_Y_super_long_PID->prev_filtered = 0.0f;    
+        rough_Y_super_long_PID->prev_position = 0.0f;
+        rough_Y_super_long_PID->first_call = true;
+    }
+
     //粗调Z轴
     if(rough_Z_PID !=NULL)    
     {
-        rough_Z_PID->kp = 7.3f;
+        rough_Z_PID->kp =3.6f;
         rough_Z_PID->ki = 0.001f;
-        rough_Z_PID->kd = 0.646f;
+        rough_Z_PID->kd = 0.6f;
         rough_Z_PID->dt = 0.018f;
         rough_Z_PID->integral = 0.0f;
         rough_Z_PID->prev_error = 0.0f;
-        rough_Z_PID->max_output = 65.0f;
+        rough_Z_PID->max_output = 200.0f;
         rough_Z_PID->max_accel = 220.0f;
         rough_Z_PID->last_call_time = HAL_GetTick();
         memset(rough_Z_PID->deriv_buf, 0, sizeof(rough_Z_PID->deriv_buf));
@@ -91,14 +210,14 @@ void Init_PID(void)
     //精调X轴
     if(fine_X_PID !=NULL)
     {   
-        fine_X_PID->kp = 2.5f;
-        fine_X_PID->ki = 0.001f;
-        fine_X_PID->kd = 2.43f;
+        fine_X_PID->kp = 1.3f;
+        fine_X_PID->ki = 0.02f;
+        fine_X_PID->kd = 0.3f;
         fine_X_PID->dt = 0.018f;
         fine_X_PID->integral = 0.0f;
         fine_X_PID->prev_error = 0.0f;
         fine_X_PID->max_output = 160.0f; 
-        fine_X_PID->max_accel = 520.0f;
+        fine_X_PID->max_accel = 780.0f;
         fine_X_PID->last_call_time = HAL_GetTick();
         fine_X_PID->prev_current = HAL_GetTick();
         memset(fine_X_PID->deriv_buf, 0, sizeof(fine_X_PID->deriv_buf));
@@ -111,13 +230,13 @@ void Init_PID(void)
     //精调Y轴
     if(fine_Y_PID !=NULL)
     {
-        fine_Y_PID->kp = 2.9f;
+        fine_Y_PID->kp = 1.35f;
         fine_Y_PID->ki = 0.02f;
-        fine_Y_PID->kd = 4.4f;
+        fine_Y_PID->kd = 0.35f;
         fine_Y_PID->dt = 0.018f;
         fine_Y_PID->integral = 0.0f;
         fine_Y_PID->prev_error = 0.0f;
-        fine_Y_PID->max_output = 200.0f;  
+        fine_Y_PID->max_output = 160.0f;  
         fine_Y_PID->max_accel = 780.0f;
         fine_Y_PID->last_call_time = HAL_GetTick();
         fine_Y_PID->prev_current = HAL_GetTick();
@@ -131,7 +250,7 @@ void Init_PID(void)
     //精调Z轴
     if(fine_Z_PID !=NULL)
     {
-        fine_Z_PID->kp = 6.1f;
+        fine_Z_PID->kp = 1.1f;
         fine_Z_PID->ki = 0.001f;
         fine_Z_PID->kd = 0.47f;      
         fine_Z_PID->dt = 0.018f;

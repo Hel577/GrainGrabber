@@ -43,4 +43,4 @@ build/Debug/.obj/Core/Src/freertos.o: Core/Src/freertos.c \
  Core/APP/app.h Core/APP/car.h Core/BSP/bsp.h Core/BSP/MI_motor_dev.h \
  Core/BSP/filter.h Core/BSP/pid.h Core/APP/raspi.h Core/APP/app.h \
  Core/APP/push.h Core/APP/scara.h Core/BSP/door.h Core/APP/scara.h \
- Core/APP/raspi.h
+ Core/APP/raspi.h Core/BSP/MI_motor_dev.h

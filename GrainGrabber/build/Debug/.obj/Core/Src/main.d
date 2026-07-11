@@ -43,4 +43,4 @@ build/Debug/.obj/Core/Src/main.o: Core/Src/main.c Core/Inc/main.h \
  Core/BSP/pid.h Core/APP/raspi.h Core/APP/app.h Core/APP/push.h \
  Core/APP/scara.h Core/BSP/door.h Core/APP/scara.h Core/Inc/my_task.h \
  Core/Inc/can.h Core/Inc/dma.h Core/Inc/usart.h Core/Inc/gpio.h \
- Core/APP/raspi.h
+ Core/APP/raspi.h Core/BSP/MI_motor_dev.h

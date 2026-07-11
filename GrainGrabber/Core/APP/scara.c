@@ -29,7 +29,7 @@ void Init_Scara(void)
     scara.current_th2 = 0.0f;
     scara.target_th1 = 0.0f;
     scara.target_th2 = 0.0f;
-    scara.step_angle = 20.5f;// 增量控制步进角度（°）//空爪可以切换大的
+    scara.step_angle = 70.5f;// 增量控制步进角度（°）//空爪可以切换大的
     scara.is_moving = 0;
 
     //初始化末端爪子结构体
@@ -195,7 +195,7 @@ void Control_End_Rotation(float angle)
 {
     // 角度转舵机位置
     int16_t target_position = 2048 + (int16_t)(angle / END_ANGLE_RATE + 0.5f); // 四舍五入
-    uint16_t speed = 2100;
+    uint16_t speed = 1400;
     uint8_t acceleration = 130;
     // 调用已有的舵机控制函数
     Filter_Servo_PosCtrl(SPIN_SERVO, target_position, speed, acceleration);

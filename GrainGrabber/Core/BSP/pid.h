@@ -33,6 +33,10 @@ typedef struct {
 
 extern PIDController *rough_X_PID;
 extern PIDController *rough_Y_PID;
+extern PIDController *rough_X_long_PID;
+extern PIDController *rough_Y_long_PID;
+extern PIDController *rough_X_super_long_PID;
+extern PIDController *rough_Y_super_long_PID;
 extern PIDController *rough_Z_PID;
 extern PIDController *fine_X_PID;
 extern PIDController *fine_Y_PID;

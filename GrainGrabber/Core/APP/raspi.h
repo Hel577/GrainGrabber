@@ -40,8 +40,8 @@ typedef struct {
     volatile uint8_t cmd;//树莓派命令类型
     volatile float vision_x;//视觉检测坐标(横向，0-640)    使用后要清零
     volatile float vision_y;//视觉检测坐标(纵向，0-480)
-    float real_x[4];//实际中心坐标(横向，0-640)
-    float real_y[4];//实际中心坐标(纵向，0-480)
+    float real_x[10];//实际中心坐标(横向，0-640)
+    float real_y[10];//实际中心坐标(纵向，0-480)
     uint8_t box_id[5];//顺序为从上到下的盒子的id
     uint8_t bean_order[3];//绿豆=1，黄豆=2，白芸豆=3
 } Raspi_Date;
@@ -56,5 +56,6 @@ void Start_Raspi_Detect(void);
 /* 全局变量声明 */
 extern Raspi_Date raspi;
 extern volatile uint8_t raspi_detect_ok;
+extern uint8_t recognize; // 用于存储识别到的豆子类型，1=绿豆，2=黄豆，3=白芸豆
 
 #endif /* __RASPI_H */

@@ -63,16 +63,16 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define DoorControl_Pin GPIO_PIN_0
-#define DoorControl_GPIO_Port GPIOI
-#define DoorControl2_Pin GPIO_PIN_12
-#define DoorControl2_GPIO_Port GPIOH
-#define DoorControl1_Pin GPIO_PIN_11
-#define DoorControl1_GPIO_Port GPIOH
+#define DoorControl2_Pin GPIO_PIN_14
+#define DoorControl2_GPIO_Port GPIOD
+#define DoorControl1_Pin GPIO_PIN_13
+#define DoorControl1_GPIO_Port GPIOD
+#define DoorControl_Pin GPIO_PIN_12
+#define DoorControl_GPIO_Port GPIOD
 
 /* USER CODE BEGIN Private defines */
 
-#define RXCMD6_DMA_SIZE 33
+#define RXCMD6_DMA_SIZE 44
 #define RXCMD3_DMA_SIZE 8
 #define RXCMD8_DMA_SIZE 9
 // 全局变量声明

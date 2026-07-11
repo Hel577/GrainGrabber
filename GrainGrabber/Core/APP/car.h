@@ -105,5 +105,6 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
 void Move_By_Vision(uint8_t paper_id, uint32_t timeout);
 void Move_By_Easy(float target_x, float target_y, float target_z, uint32_t timeout);
 void Move_Translation(float target_x, float target_y, float target_z, uint32_t timeout);
+void Move_Open_Loop(float speed_x, float speed_y, float target_z, uint32_t timeout);
 #endif
 

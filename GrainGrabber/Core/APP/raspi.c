@@ -17,17 +17,35 @@ void Init_Raspi(void)
 {
     raspi.vision_x = 0;
     raspi.vision_y = 0;
-    raspi.real_x[0] = 285; 
-    raspi.real_y[0] = 220;
+    raspi.real_x[0] = 300; 
+    raspi.real_y[0] = 190;
 
-    raspi.real_x[1] = 285; 
-    raspi.real_y[1] = 225;
+    raspi.real_x[1] = 300; 
+    raspi.real_y[1] = 188;
 
     raspi.real_x[2] = 320;  
-    raspi.real_y[2] = 240;
+    raspi.real_y[2] = 208;
 
-    raspi.real_x[3] = 275;
-    raspi.real_y[3] = 215;
+    raspi.real_x[3] = 305;
+    raspi.real_y[3] = 180;
+
+    raspi.real_x[4] = 300;
+    raspi.real_y[4] = 190;//移动到对面时的视觉坐标，后续需要根据实际情况调整
+
+    raspi.real_x[5] = 300;
+    raspi.real_y[5] = 185;
+
+    raspi.real_x[6] = 160;
+    raspi.real_y[6] = 180;
+    
+    raspi.real_x[7] = 160;
+    raspi.real_y[7] = 190;
+    
+    raspi.real_x[8] = 1030;
+    raspi.real_y[8] = 200;
+
+    raspi.real_x[9] = 930;
+    raspi.real_y[9] = 220;
 
     raspi.cmd = 0;
     
@@ -50,6 +68,8 @@ void Init_Raspi(void)
  */
 void Raspi_Send_Task(uint8_t task_type)
 {
+    raspi.vision_x = 0;
+    raspi.vision_y = 0;
     uint8_t tx_data[4];
     tx_data[0] = 0xEE;  // STX
     tx_data[1] = task_type;
@@ -88,6 +108,7 @@ void Raspi_Finish_Task(uint8_t task_type)
  * @param size 数据大小
  */
 // uint32_t T=0;
+uint8_t recognize = 0;
 void Raspi_Process_Data(uint8_t *rx_data, uint16_t size)
 {
 
@@ -118,13 +139,13 @@ void Raspi_Process_Data(uint8_t *rx_data, uint16_t size)
                 float y = (float)((uint16_t)((rx_data[4] << 8) | rx_data[5])) ;
                 uint8_t type = rx_data[6];
 
-                if(type<1 || type>3)
+                if(type<1 || type>5)
                 {
                     break;
                 }
 
                 //处理异常值
-                if(x >= 640 || y >= 480 || x<0 || y<0)
+                if(x >= 1280 || y >= 720 || x<0 || y<0)
                 {
                     break;
                 }
@@ -135,6 +156,8 @@ void Raspi_Process_Data(uint8_t *rx_data, uint16_t size)
                 {
                     raspi.bean_order[bean_id_index] = type;
                 }
+
+                recognize = type;
             
                 // 调试输出
                 // printf("Plan_Move: ");
