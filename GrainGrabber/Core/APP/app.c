@@ -568,7 +568,7 @@ float target_positions[22][3] = {
     {425*OFFSET_x,1000*OFFSET_y,  180},//18
     {425*OFFSET_x,1400*OFFSET_y,  180},//19//初始临点，将微调和初始点分开
     {785*OFFSET_x, 500*OFFSET_y, 180},//20
-    {2795*OFFSET_x, 500 *OFFSET_y, 0},//21//对应3的位置
+    {3525*OFFSET_x, 500 *OFFSET_y, 0},//21//对应3的位置
 };
 
 int timeout[17][17] = {
@@ -748,7 +748,7 @@ void Grab_Bean(uint8_t bean_id,uint8_t bean){
   }
   Scara_To_Height(SCARA_HEIGHT_BEAN[bean_id-1]-error);
   osDelay(SCARA_TIME_BEAN[bean_id-1]);
-  Grab_On();
+  // Grab_On();
   osDelay(150);
   Scara_To_Height(SCARA_HEIGHT_MAX);
   osDelay(SCARA_TIME_BEAN[bean_id-1]);

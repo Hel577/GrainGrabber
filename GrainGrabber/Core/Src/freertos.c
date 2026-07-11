@@ -228,12 +228,12 @@ void StartMainTask(void *argument)
   Init_All();  
   // CAN_Send_Test();
   // test_Raspi();
-  // test_chassis();
+  test_chassis();
   // test_omega();
   // test_sss();
   // test_motor();
   // test_can();
-  test_Grab();
+  // test_Grab();
   // test_lift();
   // test_graber_resend();
 

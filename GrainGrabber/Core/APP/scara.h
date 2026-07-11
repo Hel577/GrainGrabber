@@ -22,7 +22,7 @@ extern "C"
 #define SCARA_HEIGHT_MAX 3.0f
 #define SCARA_HEIGHT_MIN 275.0f
 static float SCARA_HEIGHT_BEAN[3] = {SCARA_HEIGHT_MIN-100, SCARA_HEIGHT_MIN-150, SCARA_HEIGHT_MIN-50}; //对应第一，第二，第三次抓取的高度
-static uint32_t SCARA_TIME_BEAN[3] = {500,900,900};
+static uint32_t SCARA_TIME_BEAN[3] = {500,500,600};
 
 /* 末端爪子参数定义 */
 #define GRAB_OPEN    1462  //爪子完全张开

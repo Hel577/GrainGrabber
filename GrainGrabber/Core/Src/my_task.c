@@ -86,12 +86,14 @@ void test_chassis(void){
   // Move_To_Target(2);
   // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   Move_To_Target(3,osWaitForever);
-  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
-  Set_Target_Index(21);
   Raspi_Send_Task(TASK_MOVE_BY_BEAN);
-  Move_By_Vision_NonBlocking(1, 3000);
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+    // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  Beep_On();
+  Set_Target_Index(21);
+  Move_By_Vision_NonBlocking(1, 1500);
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   Raspi_Finish_Task(TASK_MOVE_BY_BEAN);
   Choose_Plate(raspi.bean_order[0]);
   Grab_Bean(1,raspi.bean_order[0]);
@@ -100,9 +102,9 @@ void test_chassis(void){
   Move_To_Target(4, osWaitForever);
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   Move_To_Target(5, osWaitForever);
-  osSemaphoreAcquire(ChassisMoveDoneHandle, 1050);
   Raspi_Send_Task(TASK_MOVE_BY_BEAN);
-  Move_By_Vision_NonBlocking(2,3000);
+  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  Move_By_Vision_NonBlocking(2,1000);
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   Raspi_Finish_Task(TASK_MOVE_BY_BEAN);
   Choose_Plate(raspi.bean_order[1]);
@@ -110,12 +112,12 @@ void test_chassis(void){
   push_Move_To_Position(MAX_POSITION);
 
   Move_To_Target(6, osWaitForever);
-  osSemaphoreAcquire(ChassisMoveDoneHandle, 1750);
+  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   Move_To_Target(7, osWaitForever);
   Scara_To_Height(50);
-  osSemaphoreAcquire(ChassisMoveDoneHandle, 1500);
   Raspi_Send_Task(TASK_MOVE_BY_BEAN);
-  Move_By_Vision_NonBlocking(3,3000);
+  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  Move_By_Vision_NonBlocking(3,2000);
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   Raspi_Finish_Task(TASK_MOVE_BY_BEAN);
   
@@ -205,7 +207,8 @@ void test_Raspi(void){
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   Move_To_Position_XYZ_NonBlocking(500,0,0,osWaitForever);
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
-  Move_By_Vision_NonBlocking(8,osWaitForever);
+  Beep_On();
+  Move_By_Vision_NonBlocking(1,osWaitForever);
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   // Grab_Bean(3);
   // Scara_Return_Home();

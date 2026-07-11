@@ -244,3 +244,448 @@ These source files will be recompiled
 [2026-07-10 23:44:22]	[done]
 	build successfully !
 
+[2026-07-11 19:27:53]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-11 19:27:59]	[done]
+	build successfully !
+
+[2026-07-11 19:41:25]	[info] incremental build: 7 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-11 19:41:27]	[done]
+	build successfully !
+
+[2026-07-11 19:41:54]	[done]
+	build successfully !
+
+[2026-07-11 19:45:19]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-11 19:45:20]	[done]
+	build successfully !
+
+[2026-07-11 19:48:59]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-11 19:48:59]	[done]
+	build successfully !
+
+[2026-07-11 19:52:55]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-11 19:52:55]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/APP/car.o -MMD ./Core/APP/car.c
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/APP/car.c: In function 'Move_To_Position_XYZ':
+./Core/APP/car.c:668:38: error: 'math' undeclared (first use in this function)
+  668 |             car->target_map_Vx = 1.5*math.max(PID_Calc_XY(rough_X_long_PID, target_x, car->current_map_pos_x),300);
+      |                                      ^~~~
+./Core/APP/car.c:668:38: note: each undeclared identifier is reported only once for each function it appears in
+./Core/APP/car.c: In function 'Move_By_Vision':
+./Core/APP/car.c:712:11: warning: variable 'last_speed_y' set but not used [-Wunused-but-set-variable]
+  712 |     float last_speed_y = 0.0f;
+      |           ^~~~~~~~~~~~
+./Core/APP/car.c:711:11: warning: variable 'last_speed_x' set but not used [-Wunused-but-set-variable]
+  711 |     float last_speed_x = 0.0f;
+      |           ^~~~~~~~~~~~
+./Core/APP/car.c: In function 'Move_Open_Loop':
+./Core/APP/car.c:1112:11: warning: unused variable 'omega_error_ref' [-Wunused-variable]
+ 1112 |     float omega_error_ref = 0.2f;
+      |           ^~~~~~~~~~~~~~~
+In file included from ./Core/APP/app.h:6,
+                 from ./Core/APP/car.h:15,
+                 from ./Core/APP/car.c:1:
+./Core/APP/scara.h: At top level:
+./Core/APP/scara.h:25:17: warning: 'SCARA_TIME_BEAN' defined but not used [-Wunused-variable]
+   25 | static uint32_t SCARA_TIME_BEAN[3] = {500,500,600};
+      |                 ^~~~~~~~~~~~~~~
+./Core/APP/scara.h:24:14: warning: 'SCARA_HEIGHT_BEAN' defined but not used [-Wunused-variable]
+   24 | static float SCARA_HEIGHT_BEAN[3] = {SCARA_HEIGHT_MIN-100, SCARA_HEIGHT_MIN-150, SCARA_HEIGHT_MIN-50}; //对应第一，第二，第三次抓取的高度
+      |              ^~~~~~~~~~~~~~~~~
+
+[2026-07-11 19:53:26]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-11 19:53:26]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/APP/car.o -MMD ./Core/APP/car.c
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/APP/car.c: In function 'Move_To_Position_XYZ':
+./Core/APP/car.c:668:38: error: implicit declaration of function 'max'; did you mean 'fmax'? [-Wimplicit-function-declaration]
+  668 |             car->target_map_Vx = 1.5*max(PID_Calc_XY(rough_X_long_PID, target_x, car->current_map_pos_x),300);
+      |                                      ^~~
+      |                                      fmax
+./Core/APP/car.c: In function 'Move_By_Vision':
+./Core/APP/car.c:712:11: warning: variable 'last_speed_y' set but not used [-Wunused-but-set-variable]
+  712 |     float last_speed_y = 0.0f;
+      |           ^~~~~~~~~~~~
+./Core/APP/car.c:711:11: warning: variable 'last_speed_x' set but not used [-Wunused-but-set-variable]
+  711 |     float last_speed_x = 0.0f;
+      |           ^~~~~~~~~~~~
+./Core/APP/car.c: In function 'Move_Open_Loop':
+./Core/APP/car.c:1112:11: warning: unused variable 'omega_error_ref' [-Wunused-variable]
+ 1112 |     float omega_error_ref = 0.2f;
+      |           ^~~~~~~~~~~~~~~
+In file included from ./Core/APP/app.h:6,
+                 from ./Core/APP/car.h:15,
+                 from ./Core/APP/car.c:1:
+./Core/APP/scara.h: At top level:
+./Core/APP/scara.h:25:17: warning: 'SCARA_TIME_BEAN' defined but not used [-Wunused-variable]
+   25 | static uint32_t SCARA_TIME_BEAN[3] = {500,500,600};
+      |                 ^~~~~~~~~~~~~~~
+./Core/APP/scara.h:24:14: warning: 'SCARA_HEIGHT_BEAN' defined but not used [-Wunused-variable]
+   24 | static float SCARA_HEIGHT_BEAN[3] = {SCARA_HEIGHT_MIN-100, SCARA_HEIGHT_MIN-150, SCARA_HEIGHT_MIN-50}; //对应第一，第二，第三次抓取的高度
+      |              ^~~~~~~~~~~~~~~~~
+
+[2026-07-11 19:53:44]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-11 19:53:45]	[done]
+	build successfully !
+
+[2026-07-11 19:55:47]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-11 19:55:48]	[done]
+	build successfully !
+
+[2026-07-11 19:59:00]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-11 19:59:01]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/APP/car.o -MMD ./Core/APP/car.c
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/APP/car.c: In function 'Move_To_Position_XYZ':
+./Core/APP/car.c:668:38: error: 'math' undeclared (first use in this function)
+  668 |             car->target_map_Vx = 1.5*math.max(PID_Calc_XY(rough_X_long_PID, target_x, car->current_map_pos_x),10);
+      |                                      ^~~~
+./Core/APP/car.c:668:38: note: each undeclared identifier is reported only once for each function it appears in
+./Core/APP/car.c: In function 'Move_By_Vision':
+./Core/APP/car.c:712:11: warning: variable 'last_speed_y' set but not used [-Wunused-but-set-variable]
+  712 |     float last_speed_y = 0.0f;
+      |           ^~~~~~~~~~~~
+./Core/APP/car.c:711:11: warning: variable 'last_speed_x' set but not used [-Wunused-but-set-variable]
+  711 |     float last_speed_x = 0.0f;
+      |           ^~~~~~~~~~~~
+./Core/APP/car.c: In function 'Move_Open_Loop':
+./Core/APP/car.c:1112:11: warning: unused variable 'omega_error_ref' [-Wunused-variable]
+ 1112 |     float omega_error_ref = 0.2f;
+      |           ^~~~~~~~~~~~~~~
+In file included from ./Core/APP/app.h:6,
+                 from ./Core/APP/car.h:15,
+                 from ./Core/APP/car.c:1:
+./Core/APP/scara.h: At top level:
+./Core/APP/scara.h:25:17: warning: 'SCARA_TIME_BEAN' defined but not used [-Wunused-variable]
+   25 | static uint32_t SCARA_TIME_BEAN[3] = {500,500,600};
+      |                 ^~~~~~~~~~~~~~~
+./Core/APP/scara.h:24:14: warning: 'SCARA_HEIGHT_BEAN' defined but not used [-Wunused-variable]
+   24 | static float SCARA_HEIGHT_BEAN[3] = {SCARA_HEIGHT_MIN-100, SCARA_HEIGHT_MIN-150, SCARA_HEIGHT_MIN-50}; //对应第一，第二，第三次抓取的高度
+      |              ^~~~~~~~~~~~~~~~~
+
+[2026-07-11 19:59:10]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-11 19:59:11]	[done]
+	build successfully !
+
+[2026-07-11 19:59:33]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-11 19:59:33]	[done]
+	build successfully !
+
+[2026-07-11 20:01:48]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-11 20:01:49]	[done]
+	build successfully !
+
+[2026-07-11 20:03:10]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-11 20:03:10]	[done]
+	build successfully !
+
+[2026-07-11 20:04:24]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-11 20:04:25]	[done]
+	build successfully !
+
+[2026-07-11 20:05:57]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-11 20:05:58]	[done]
+	build successfully !
+
+[2026-07-11 20:07:33]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-11 20:07:34]	[done]
+	build successfully !
+
+[2026-07-11 20:10:25]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-11 20:10:26]	[done]
+	build successfully !
+
+[2026-07-11 20:13:53]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+
+[2026-07-11 20:13:53]	[done]
+	build successfully !
+
+[2026-07-11 20:14:18]	[done]
+	build successfully !
+
+[2026-07-11 20:24:20]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-11 20:24:21]	[done]
+	build successfully !
+
+[2026-07-11 20:24:34]	[done]
+	build successfully !
+
+[2026-07-11 20:26:25]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-11 20:26:25]	[done]
+	build successfully !
+
+[2026-07-11 20:26:37]	[done]
+	build successfully !
+
+[2026-07-11 20:29:56]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-11 20:29:57]	[done]
+	build successfully !
+
+[2026-07-11 20:36:37]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-11 20:36:37]	[done]
+	build successfully !
+
+[2026-07-11 20:43:01]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-11 20:43:01]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/APP/car.o -MMD ./Core/APP/car.c
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/APP/car.c: In function 'Move_To_Position_XYZ':
+./Core/APP/car.c:665:17: error: expected ',' or ';' before 'car'
+  665 |                 car->target_map_Vx = 1.5*fmax(fabs(speed),25)*speed/fabs(speed);
+      |                 ^~~
+./Core/APP/car.c:664:23: warning: unused variable 'speed' [-Wunused-variable]
+  664 |                 float speed = PID_Calc_XY(rough_X_PID, target_x, car->current_map_pos_x)
+      |                       ^~~~~
+./Core/APP/car.c: In function 'Move_By_Vision':
+./Core/APP/car.c:718:11: warning: variable 'last_speed_y' set but not used [-Wunused-but-set-variable]
+  718 |     float last_speed_y = 0.0f;
+      |           ^~~~~~~~~~~~
+./Core/APP/car.c:717:11: warning: variable 'last_speed_x' set but not used [-Wunused-but-set-variable]
+  717 |     float last_speed_x = 0.0f;
+      |           ^~~~~~~~~~~~
+./Core/APP/car.c: In function 'Move_Open_Loop':
+./Core/APP/car.c:1118:11: warning: unused variable 'omega_error_ref' [-Wunused-variable]
+ 1118 |     float omega_error_ref = 0.2f;
+      |           ^~~~~~~~~~~~~~~
+In file included from ./Core/APP/app.h:6,
+                 from ./Core/APP/car.h:15,
+                 from ./Core/APP/car.c:1:
+./Core/APP/scara.h: At top level:
+./Core/APP/scara.h:25:17: warning: 'SCARA_TIME_BEAN' defined but not used [-Wunused-variable]
+   25 | static uint32_t SCARA_TIME_BEAN[3] = {500,500,600};
+      |                 ^~~~~~~~~~~~~~~
+./Core/APP/scara.h:24:14: warning: 'SCARA_HEIGHT_BEAN' defined but not used [-Wunused-variable]
+   24 | static float SCARA_HEIGHT_BEAN[3] = {SCARA_HEIGHT_MIN-100, SCARA_HEIGHT_MIN-150, SCARA_HEIGHT_MIN-50}; //对应第一，第二，第三次抓取的高度
+      |              ^~~~~~~~~~~~~~~~~
+
+[2026-07-11 20:43:47]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-11 20:43:47]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/APP/car.o -MMD ./Core/APP/car.c
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/APP/car.c: In function 'Move_To_Position_XYZ':
+./Core/APP/car.c:601:5: error: expected ',' or ';' before 'if'
+  601 |     if(target_x<-1500)
+      |     ^~
+./Core/APP/car.c:609:5: error: 'else' without a previous 'if'
+  609 |     else if(target_x>=1500)
+      |     ^~~~
+./Core/APP/car.c:665:83: error: expected ';' before 'car'
+  665 |                 speed = PID_Calc_XY(rough_X_PID, target_x, car->current_map_pos_x)
+      |                                                                                   ^
+      |                                                                                   ;
+  666 |                 car->target_map_Vx = 1.5*fmax(fabs(speed),25)*speed/fabs(speed);
+      |                 ~~~                                                                
+./Core/APP/car.c:600:11: warning: variable 'speed' set but not used [-Wunused-but-set-variable]
+  600 |     float speed = 0
+      |           ^~~~~
+./Core/APP/car.c: In function 'Move_By_Vision':
+./Core/APP/car.c:719:11: warning: variable 'last_speed_y' set but not used [-Wunused-but-set-variable]
+  719 |     float last_speed_y = 0.0f;
+      |           ^~~~~~~~~~~~
+./Core/APP/car.c:718:11: warning: variable 'last_speed_x' set but not used [-Wunused-but-set-variable]
+  718 |     float last_speed_x = 0.0f;
+      |           ^~~~~~~~~~~~
+./Core/APP/car.c: In function 'Move_Open_Loop':
+./Core/APP/car.c:1119:11: warning: unused variable 'omega_error_ref' [-Wunused-variable]
+ 1119 |     float omega_error_ref = 0.2f;
+      |           ^~~~~~~~~~~~~~~
+In file included from ./Core/APP/app.h:6,
+                 from ./Core/APP/car.h:15,
+                 from ./Core/APP/car.c:1:
+./Core/APP/scara.h: At top level:
+./Core/APP/scara.h:25:17: warning: 'SCARA_TIME_BEAN' defined but not used [-Wunused-variable]
+   25 | static uint32_t SCARA_TIME_BEAN[3] = {500,500,600};
+      |                 ^~~~~~~~~~~~~~~
+./Core/APP/scara.h:24:14: warning: 'SCARA_HEIGHT_BEAN' defined but not used [-Wunused-variable]
+   24 | static float SCARA_HEIGHT_BEAN[3] = {SCARA_HEIGHT_MIN-100, SCARA_HEIGHT_MIN-150, SCARA_HEIGHT_MIN-50}; //对应第一，第二，第三次抓取的高度
+      |              ^~~~~~~~~~~~~~~~~
+
+[2026-07-11 20:43:55]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-11 20:43:55]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/APP/car.o -MMD ./Core/APP/car.c
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/APP/car.c: In function 'Move_To_Position_XYZ':
+./Core/APP/car.c:665:83: error: expected ';' before 'car'
+  665 |                 speed = PID_Calc_XY(rough_X_PID, target_x, car->current_map_pos_x)
+      |                                                                                   ^
+      |                                                                                   ;
+  666 |                 car->target_map_Vx = 1.5*fmax(fabs(speed),25)*speed/fabs(speed);
+      |                 ~~~                                                                
+./Core/APP/car.c:600:11: warning: variable 'speed' set but not used [-Wunused-but-set-variable]
+  600 |     float speed = 0;
+      |           ^~~~~
+./Core/APP/car.c: In function 'Move_By_Vision':
+./Core/APP/car.c:719:11: warning: variable 'last_speed_y' set but not used [-Wunused-but-set-variable]
+  719 |     float last_speed_y = 0.0f;
+      |           ^~~~~~~~~~~~
+./Core/APP/car.c:718:11: warning: variable 'last_speed_x' set but not used [-Wunused-but-set-variable]
+  718 |     float last_speed_x = 0.0f;
+      |           ^~~~~~~~~~~~
+./Core/APP/car.c: In function 'Move_Open_Loop':
+./Core/APP/car.c:1119:11: warning: unused variable 'omega_error_ref' [-Wunused-variable]
+ 1119 |     float omega_error_ref = 0.2f;
+      |           ^~~~~~~~~~~~~~~
+In file included from ./Core/APP/app.h:6,
+                 from ./Core/APP/car.h:15,
+                 from ./Core/APP/car.c:1:
+./Core/APP/scara.h: At top level:
+./Core/APP/scara.h:25:17: warning: 'SCARA_TIME_BEAN' defined but not used [-Wunused-variable]
+   25 | static uint32_t SCARA_TIME_BEAN[3] = {500,500,600};
+      |                 ^~~~~~~~~~~~~~~
+./Core/APP/scara.h:24:14: warning: 'SCARA_HEIGHT_BEAN' defined but not used [-Wunused-variable]
+   24 | static float SCARA_HEIGHT_BEAN[3] = {SCARA_HEIGHT_MIN-100, SCARA_HEIGHT_MIN-150, SCARA_HEIGHT_MIN-50}; //对应第一，第二，第三次抓取的高度
+      |              ^~~~~~~~~~~~~~~~~
+
+[2026-07-11 20:44:03]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-11 20:44:03]	[done]
+	build successfully !
+
+[2026-07-11 20:51:08]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-11 20:51:08]	[done]
+	build successfully !
+
+[2026-07-11 20:53:17]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-11 20:53:18]	[done]
+	build successfully !
+

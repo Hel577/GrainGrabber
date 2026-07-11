@@ -596,28 +596,35 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
     // 误差阈值
     float x_error_ref = 5.0f;
     float y_error_ref = 5.0f;
-    float omega_error_ref = 0.2f;
+    float omega_error_ref = 0.3f;
+    float speed = 0;
     if(target_x<-1500)
     {
         x_error_ref = 20.0f;
         y_error_ref = 3.0f;
-        omega_error_ref = 0.2f;
-        stability_counter_threshold =4;     
+        omega_error_ref = 0.3f;
+        stability_counter_threshold =2;     
 
     }
     else if(target_x>=1500)
     {
         x_error_ref = 15.0f;
         y_error_ref = 3.0f;
-        omega_error_ref = 0.2f;  
-        stability_counter_threshold =2;     
+        omega_error_ref = 0.3f;  
+        stability_counter_threshold =1;     
+    }
+    else if(target_y == 40){
+        x_error_ref = 1.0f;
+        y_error_ref = 5.0f;
+        omega_error_ref = 0.3f;
+        stability_counter_threshold = 3;
     }
     else if(fabs(target_y)<1100 && fabs(target_x)<1100)
     {
         x_error_ref = 3.0f;
         y_error_ref = 5.0f;
-        omega_error_ref = 0.2f;
-        stability_counter_threshold = 3;
+        omega_error_ref = 0.3f;
+        stability_counter_threshold = 1;
     }
 
     uint32_t start_time = HAL_GetTick();
@@ -654,18 +661,29 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
         Update_Car_Status();
         //pid计算目标速度
         if(fabs(target_x)<1500){
-            car->target_map_Vx = PID_Calc_XY(rough_X_PID, target_x, car->current_map_pos_x);
-            car->target_map_Vy = PID_Calc_XY(rough_Y_PID, target_y, car->current_map_pos_y);
+            if(fabs(target_x)>100&&target_y!=40){
+                speed = PID_Calc_XY(rough_X_PID, target_x, car->current_map_pos_x);
+                if(speed>0){
+                    car->target_map_Vx = 1.5*fmax(fabs(speed),25);
+                }
+                else{
+                    car->target_map_Vx = -1.5*fmax(fabs(speed),25);
+                }
+            }
+            else{
+                car->target_map_Vx = 1.5*PID_Calc_XY(rough_X_PID, target_x, car->current_map_pos_x);
+            }
+            car->target_map_Vy = 1.0*PID_Calc_XY(rough_Y_PID, target_y, car->current_map_pos_y);
             car->target_angle_speed = PID_Calc_Z(rough_Z_PID, target_z, car->current_angle);
         }
         else if(target_x>=1500 && target_x<2200){
-            car->target_map_Vx = PID_Calc_XY(rough_X_long_PID, target_x, car->current_map_pos_x);
+            car->target_map_Vx = 1.8*fmax(PID_Calc_XY(rough_X_long_PID, target_x, car->current_map_pos_x),20);
             car->target_map_Vy = PID_Calc_XY(rough_Y_long_PID, target_y, car->current_map_pos_y);
             car->target_angle_speed = PID_Calc_Z(rough_Z_PID, target_z, car->current_angle);
         }
         else if(target_x<-1500){
-            car->target_map_Vx = PID_Calc_XY(rough_X_super_long_PID, target_x, car->current_map_pos_x);
-            car->target_map_Vy = PID_Calc_XY(rough_Y_super_long_PID, target_y, car->current_map_pos_y);
+            car->target_map_Vx = 1.0*PID_Calc_XY(rough_X_super_long_PID, target_x, car->current_map_pos_x);
+            car->target_map_Vy = 1.0*PID_Calc_XY(rough_Y_super_long_PID, target_y, car->current_map_pos_y);
             car->target_angle_speed = PID_Calc_Z(rough_Z_PID, target_z, car->current_angle);
         }
 
