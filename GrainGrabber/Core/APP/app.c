@@ -546,16 +546,16 @@ void Move_Open_Loop_NonBlocking(float speed_x, float speed_y, float target_z, ui
 float const OFFSET_x = 1.0f;
 float const OFFSET_y = 1.0f;
 
-float target_positions[22][3] = {
+float target_positions[23][3] = {
     {1785*OFFSET_x, 1010*OFFSET_y, 0},//1
     {2795*OFFSET_x, 500 *OFFSET_y, 0},//2
-    {3525*OFFSET_x, 460 *OFFSET_y, 0},//3
+    {3535*OFFSET_x, 460 *OFFSET_y, 0},//3
     {3260*OFFSET_x, 500 *OFFSET_y, 0},//4
-    {3260*OFFSET_x, 1000*OFFSET_y, 0},//5
-    {3260*OFFSET_x, 1500*OFFSET_y, 0},//6
+    {3260*OFFSET_x, 1020*OFFSET_y, 0},//5
+    {3260*OFFSET_x, 1520*OFFSET_y, 0},//6
     {3535*OFFSET_x, 1500*OFFSET_y, 0},//7
     {2500*OFFSET_x, 1500*OFFSET_y, 90},//8
-    {785*OFFSET_x, 1500*OFFSET_y, 180},//9//这里是缝缝补补这一块
+    {635*OFFSET_x, 1500*OFFSET_y, 180},//9//这里是缝缝补补这一块
     {440*OFFSET_x, 445*OFFSET_y, 270},//10
     {455*OFFSET_x, 600*OFFSET_y, 180},//11
     {455*OFFSET_x,1000*OFFSET_y,  180},//12
@@ -568,7 +568,9 @@ float target_positions[22][3] = {
     {425*OFFSET_x,1000*OFFSET_y,  180},//18
     {425*OFFSET_x,1400*OFFSET_y,  180},//19//初始临点，将微调和初始点分开
     {785*OFFSET_x, 500*OFFSET_y, 180},//20
-    {3525*OFFSET_x, 500 *OFFSET_y, 0},//21//对应3的位置
+    {3535*OFFSET_x, 500 *OFFSET_y, 0},//21//对应3的位置
+    {3260*OFFSET_x, 1000*OFFSET_y, 0},//22//对应5的位置
+    {3260*OFFSET_x, 1500*OFFSET_y, 0},//23//对应6号位置
 };
 
 int timeout[17][17] = {
@@ -618,8 +620,8 @@ void Set_Target_Index(uint8_t target_id){
 void Release_Bean(uint8_t bean_id){
     //bean_id和plate_id完全相等s
     Door_Set_State(doors[bean_id-1],DOOR_OPEN);
-    osDelay(1500);
-    Door_Set_State(doors[bean_id-1],DOOR_CLOSE);
+    osDelay(DOOR_OPEN_TIME[bean_id-1]);
+    // Door_Set_State(doors[bean_id-1],DOOR_CLOSE);
 }
 
 
@@ -631,7 +633,6 @@ void Move_To_Placing_Box(uint8_t* box_ids,uint8_t* bean_ids){
   Move_To_Target(box_ids[0]+9,osWaitForever);//box_id+9为箱子放置位置的id
   Choose_Plate(bean_ids[0]);
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
-  osDelay(500);
   Move_By_Vision_NonBlocking(box_ids[0]+4, 3000);
   if(box_ids[0]==2||box_ids[0]==3||box_ids[0]==4){
     Set_Target_Index(box_ids[0]+15);
@@ -681,8 +682,8 @@ void Move_To_Placing_Box(uint8_t* box_ids,uint8_t* bean_ids){
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   Move_By_Vision_NonBlocking(box_ids[2]+4, 3000);
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
-  Raspi_Finish_Task(TASK_MOVE_BY_BOX);
   Release_Bean(bean_ids[2]);
+  Raspi_Finish_Task(TASK_MOVE_BY_BOX);
 }
 
 
@@ -748,14 +749,14 @@ void Grab_Bean(uint8_t bean_id,uint8_t bean){
   }
   Scara_To_Height(SCARA_HEIGHT_BEAN[bean_id-1]-error);
   osDelay(SCARA_TIME_BEAN[bean_id-1]);
-  // Grab_On();
+  Grab_On();
   osDelay(150);
   Scara_To_Height(SCARA_HEIGHT_MAX);
   osDelay(SCARA_TIME_BEAN[bean_id-1]);
   push_Move_To_Position(MIN_POSITION);
   osDelay(300);
   Grab_Release();
-  osDelay(1500);
+  osDelay(450);
   Grab_Off();
 }
 

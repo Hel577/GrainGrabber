@@ -13,35 +13,15 @@ The amount of Asm files: 0
 
 >>> cc
 
-./Core/APP/car.c: In function 'Move_By_Vision':
-./Core/APP/car.c:724:11: warning: variable 'last_speed_y' set but not used [-Wunused-but-set-variable]
-  724 |     float last_speed_y = 0.0f;
-      |           ^~~~~~~~~~~~
-./Core/APP/car.c:723:11: warning: variable 'last_speed_x' set but not used [-Wunused-but-set-variable]
-  723 |     float last_speed_x = 0.0f;
-      |           ^~~~~~~~~~~~
-./Core/APP/car.c: In function 'Move_Open_Loop':
-./Core/APP/car.c:1124:11: warning: unused variable 'omega_error_ref' [-Wunused-variable]
- 1124 |     float omega_error_ref = 0.2f;
-      |           ^~~~~~~~~~~~~~~
-In file included from ./Core/APP/app.h:6,
-                 from ./Core/APP/car.h:15,
-                 from ./Core/APP/car.c:1:
-./Core/APP/scara.h: At top level:
-./Core/APP/scara.h:25:17: warning: 'SCARA_TIME_BEAN' defined but not used [-Wunused-variable]
-   25 | static uint32_t SCARA_TIME_BEAN[3] = {500,500,600};
-      |                 ^~~~~~~~~~~~~~~
-./Core/APP/scara.h:24:14: warning: 'SCARA_HEIGHT_BEAN' defined but not used [-Wunused-variable]
-   24 | static float SCARA_HEIGHT_BEAN[3] = {SCARA_HEIGHT_MIN-100, SCARA_HEIGHT_MIN-150, SCARA_HEIGHT_MIN-50}; //对应第一，第二，第三次抓取的高度
-      |              ^~~~~~~~~~~~~~~~~
+
 
 >>> ld
 
 C:/Users/Ganbo/.eide/tools/gcc_arm/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/bin/ld.exe: warning: ./build/Debug/lifting.elf has a LOAD segment with RWX permissions
 Memory region         Used Size  Region Size  %age Used
-             RAM:       23544 B       192 KB     11.98%
+             RAM:       23280 B       192 KB     11.84%
           CCMRAM:           0 B        64 KB      0.00%
-           FLASH:       59244 B         2 MB      2.82%
+           FLASH:       56420 B         2 MB      2.69%
 
 
 >>> postbuild

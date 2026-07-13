@@ -8,6 +8,8 @@
 #define DOOR_OPEN 1
 #define DOOR_CLOSE 0
 
+static uint32_t DOOR_OPEN_TIME[3] = {6000, 1800, 2500};
+
 typedef struct{
     uint16_t pin;
     GPIO_TypeDef* port;

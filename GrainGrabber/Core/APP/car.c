@@ -608,7 +608,7 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
     }
     else if(target_x>=1500)
     {
-        x_error_ref = 15.0f;
+        x_error_ref = 20.0f;
         y_error_ref = 3.0f;
         omega_error_ref = 0.3f;  
         stability_counter_threshold =1;     
@@ -633,19 +633,18 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
     {
         // HAL_TIM_Base_Stop_IT(&htim5);
 
-        
+        if (stability_counter >= stability_counter_threshold) // 假设连续10次检测都满足条件
+        {
+
+            Car_Stop(0);
+            break;
+        }
         if ((fabs(car->current_map_pos_x - target_x) < x_error_ref) && (fabs(car->current_map_pos_y - target_y) < y_error_ref) && (fabs(car->current_angle - target_z) < omega_error_ref))
         {
             // 使用静态计数器记录连续满足条件的次数
             stability_counter++;
 
             // 当连续满足精度要求的次数达到阈值后，才认为真正到达目标位置
-            if (stability_counter >= stability_counter_threshold) // 假设连续10次检测都满足条件
-            {
-
-                Car_Stop(0);
-                break;
-            }
         }
         else
         {
@@ -655,29 +654,35 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
 
         if(target_x<-2500 && fabs(car->current_map_pos_x - target_x) > 1500 && fabs(car->current_map_pos_x - target_x) < 2500)
         {
-            target_y = -1140;
+            target_y = -1135;
         }//针对超长路径的中间路径规划变化，确保走出抽象的S字形路径
 
         Update_Car_Status();
         //pid计算目标速度
         if(fabs(target_x)<1500){
             if(fabs(target_x)>100&&target_y!=40){
+                if(fabs(car->current_map_pos_x)>fabs(target_x)&&(fabs(car->current_map_pos_y - target_y) < y_error_ref) && (fabs(car->current_angle - target_z) < omega_error_ref)){
+                    stability_counter++;
+                }
                 speed = PID_Calc_XY(rough_X_PID, target_x, car->current_map_pos_x);
                 if(speed>0){
-                    car->target_map_Vx = 1.5*fmax(fabs(speed),25);
+                    car->target_map_Vx = 1.0*fmax(fabs(speed),25);
                 }
                 else{
-                    car->target_map_Vx = -1.5*fmax(fabs(speed),25);
+                    car->target_map_Vx = -1.0*fmax(fabs(speed),25);
                 }
             }
             else{
-                car->target_map_Vx = 1.5*PID_Calc_XY(rough_X_PID, target_x, car->current_map_pos_x);
+                car->target_map_Vx = 1.0*PID_Calc_XY(rough_X_PID, target_x, car->current_map_pos_x);
             }
             car->target_map_Vy = 1.0*PID_Calc_XY(rough_Y_PID, target_y, car->current_map_pos_y);
             car->target_angle_speed = PID_Calc_Z(rough_Z_PID, target_z, car->current_angle);
         }
         else if(target_x>=1500 && target_x<2200){
-            car->target_map_Vx = 1.8*fmax(PID_Calc_XY(rough_X_long_PID, target_x, car->current_map_pos_x),20);
+            if(fabs(car->current_map_pos_x)>fabs(target_x)){
+                stability_counter++;
+            }
+            car->target_map_Vx = 1.0*fmax(PID_Calc_XY(rough_X_long_PID, target_x, car->current_map_pos_x),25);
             car->target_map_Vy = PID_Calc_XY(rough_Y_long_PID, target_y, car->current_map_pos_y);
             car->target_angle_speed = PID_Calc_Z(rough_Z_PID, target_z, car->current_angle);
         }
@@ -724,7 +729,7 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
     float last_speed_y = 0.0f;
         // 稳定性计数器
     uint8_t stability_counter = 0;
-    uint8_t stability_counter_threshold = 7;
+    uint8_t stability_counter_threshold = 3;
 
     if(box_place == 1 )
     {
@@ -743,13 +748,13 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
         {
             timeout += 0;
             real_y += 1; // 视觉识别偏差
-            stability_counter_threshold = 10;
+            stability_counter_threshold = 3;
 
         }
         else if(put_round>=2)
         {
             timeout += 0;
-            stability_counter_threshold = 10;
+            stability_counter_threshold = 3;
         }
     }
     else if(box_place == 3)
@@ -765,11 +770,11 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
         // }
         if(put_round == 1)
             {
-                stability_counter_threshold = 7;
+                stability_counter_threshold = 3;
              }
         else if(put_round>=2)
         {
-            stability_counter_threshold = 7;
+            stability_counter_threshold = 3;
         }
     }
     else if(box_place != 0 )

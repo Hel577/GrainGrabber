@@ -32,17 +32,17 @@ void Init_Raspi(void)
     raspi.real_x[4] = 300;
     raspi.real_y[4] = 190;//移动到对面时的视觉坐标，后续需要根据实际情况调整
 
-    raspi.real_x[5] = 300;
-    raspi.real_y[5] = 185;
+    raspi.real_x[5] = 315;
+    raspi.real_y[5] = 375;
 
-    raspi.real_x[6] = 160;
-    raspi.real_y[6] = 180;
+    raspi.real_x[6] = 171;
+    raspi.real_y[6] = 390;
     
-    raspi.real_x[7] = 160;
-    raspi.real_y[7] = 190;
+    raspi.real_x[7] = 144;
+    raspi.real_y[7] = 380;
     
-    raspi.real_x[8] = 1030;
-    raspi.real_y[8] = 200;
+    raspi.real_x[8] = 1035;
+    raspi.real_y[8] = 385;
 
     raspi.real_x[9] = 930;
     raspi.real_y[9] = 220;

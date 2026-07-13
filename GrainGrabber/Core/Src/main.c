@@ -413,13 +413,13 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
               int speed = 3400;
               int a = 200; 
               if(hand.grab_target_angle==GRAB_REALEASE && hand.grab_current_angle>GRAB_REALEASE){
-                if(hand.grab_current_angle>2050+10){
-                  Filter_Servo_PosCtrl(GRAB_SERVO,2050,3400,200);
+                if(hand.grab_current_angle>1950+10){
+                  Filter_Servo_PosCtrl(GRAB_SERVO,1950,3900,250);
                 }
                 // target_angle = hand.grab_current_angle-10;
                 else{
-                  speed = 80;
-                  a = 20;
+                  speed = 220;
+                  a = 200;
                   Filter_Servo_PosCtrl(GRAB_SERVO,target_angle,speed, a);
                 }
               }

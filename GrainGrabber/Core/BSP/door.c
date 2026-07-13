@@ -20,8 +20,8 @@ void Door_Set_State(door_t door,uint8_t state)
 
 void Door_Init(void){
     /*从右到左为绿豆黄豆白芸豆*/
-    doors[0].port = DoorControl1_GPIO_Port;
-    doors[0].pin = DoorControl1_Pin;
+    doors[0].port = DoorControl_GPIO_Port;
+    doors[0].pin = DoorControl_Pin;
     doors[0].bean_id = 1;
     doors[0].plate_id = 1;
 
@@ -30,8 +30,8 @@ void Door_Init(void){
     doors[1].bean_id = 2;
     doors[1].plate_id = 2;
 
-    doors[2].port = DoorControl_GPIO_Port;
-    doors[2].pin = DoorControl_Pin;
+    doors[2].port = DoorControl1_GPIO_Port;
+    doors[2].pin = DoorControl1_Pin;
     doors[2].bean_id = 3;
     doors[2].plate_id = 3;
 }

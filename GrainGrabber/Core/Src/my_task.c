@@ -19,10 +19,13 @@ void test_motor(void){
   //   En_Chassis_Motor();
   // }
   Set_Target_Index(7);
-  // Move_To_Target(8,osWaitForever);
-  // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  Move_To_Target(9,osWaitForever);
+  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  Set_Target_Index(20);
+  Move_To_Target(10,osWaitForever);
+  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   
-  Move_Open_Loop_NonBlocking(0,1000,0,500);
+  // Move_Open_Loop_NonBlocking(0,1000,0,500);
 
   // Move_To_Position_XYZ_NonBlocking(1000,0,0,osWaitForever);
   // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
@@ -89,7 +92,7 @@ void test_chassis(void){
   Raspi_Send_Task(TASK_MOVE_BY_BEAN);
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
     // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
-  Beep_On();
+  // Beep_On();
   Set_Target_Index(21);
   Move_By_Vision_NonBlocking(1, 1500);
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
@@ -102,9 +105,11 @@ void test_chassis(void){
   Move_To_Target(4, osWaitForever);
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   Move_To_Target(5, osWaitForever);
+  // osDelay(osWaitForever);
   Raspi_Send_Task(TASK_MOVE_BY_BEAN);
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   Move_By_Vision_NonBlocking(2,1000);
+  Set_Target_Index(22);
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   Raspi_Finish_Task(TASK_MOVE_BY_BEAN);
   Choose_Plate(raspi.bean_order[1]);
@@ -113,6 +118,7 @@ void test_chassis(void){
 
   Move_To_Target(6, osWaitForever);
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  Set_Target_Index(23);
   Move_To_Target(7, osWaitForever);
   Scara_To_Height(50);
   Raspi_Send_Task(TASK_MOVE_BY_BEAN);
@@ -201,15 +207,15 @@ void test_Raspi(void){
   osDelay(500);
   osDelay(50);
   // osDelay(5000);
-  Choose_Plate(2);
-  osDelay(50);
-  Move_To_Position_XYZ_NonBlocking(-500,0,0,osWaitForever);
-  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
-  Move_To_Position_XYZ_NonBlocking(500,0,0,osWaitForever);
-  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
-  Beep_On();
-  Move_By_Vision_NonBlocking(1,osWaitForever);
-  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  // Choose_Plate(2);
+  // osDelay(50);
+  // Move_To_Position_XYZ_NonBlocking(-500,0,0,osWaitForever);
+  // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  // Move_To_Position_XYZ_NonBlocking(500,0,0,osWaitForever);
+  // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  // Beep_On();
+  // Move_By_Vision_NonBlocking(1,osWaitForever);
+  // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   // Grab_Bean(3);
   // Scara_Return_Home();
   osDelay(200);
@@ -242,7 +248,7 @@ void test_Grab(void){
   // // Move_To_Position_XYZ_NonBlocking(500,0,90,osWaitForever);
   // Raspi_Finish_Task(TASK_MOVE_BY_BEAN);
   Choose_Plate(1);
-  Grab_Bean(1,1);
+  Grab_Bean(2,3);
   osDelay(500);
   Grab_Off();
   push_Move_To_Position(MAX_POSITION);
