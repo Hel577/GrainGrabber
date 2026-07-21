@@ -179,7 +179,7 @@ void StartChassisTask(void *argument)
           
         case MOVE_TYPE_TRANSLATION:
           // 执行平移控制
-          Move_Translation(chassisState.target_x, chassisState.target_y, chassisState.target_z, chassisState.timeout);
+          Move_Translation(chassisState.last_target_index,chassisState.target_index, chassisState.timeout);
           break;
 
         case MOVE_OPEN_LOOP:
@@ -190,11 +190,8 @@ void StartChassisTask(void *argument)
       }
       
       // 移动完成，更新状态
-      chassisState.moving = false;
-      chassisState.done = true;
       
       // 释放信号量，通知主任务底盘移动已完成
-      osSemaphoreRelease(ChassisMoveDoneHandle);
       // printf("Chassis move done, move type: %d\r\n", chassisState.move_type);
     }
     
@@ -220,7 +217,7 @@ void StartMainTask(void *argument)
 
   osDelay(60);
   Beep_On();
-  osDelay(2000);
+  // osDelay(2000);
   
 
 //第一次启动
@@ -228,15 +225,17 @@ void StartMainTask(void *argument)
   Init_All();  
   // CAN_Send_Test();
   // test_Raspi();
-  // test_chassis();
+  test_chassis();
   // test_omega();
   // test_sss();
   // test_motor();
   // test_can();
-  test_Grab();
+  // test_Grab();
   // test_lift();
   // test_graber_resend();
-
+  // test_door();
+  // test_Spin();
+  // test_Push();
 
 //************************************************************************** */  
 

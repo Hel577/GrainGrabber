@@ -81,6 +81,7 @@ typedef struct {
 
 //**********************************全局变量声明*******************************************//
 extern Car_Status *car;
+extern float y_error;
 
 
 
@@ -104,7 +105,7 @@ void Move_TransformZ(float angle, float Vz);
 void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32_t timeout);
 void Move_By_Vision(uint8_t paper_id, uint32_t timeout);
 void Move_By_Easy(float target_x, float target_y, float target_z, uint32_t timeout);
-void Move_Translation(float target_x, float target_y, float target_z, uint32_t timeout);
+void Move_Translation(uint8_t last_target_index, uint8_t target_index, uint32_t timeout);
 void Move_Open_Loop(float speed_x, float speed_y, float target_z, uint32_t timeout);
 #endif
 

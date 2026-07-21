@@ -13,15 +13,21 @@ The amount of Asm files: 0
 
 >>> cc
 
-
+./Core/APP/app.c: In function 'Grab_Bean':
+./Core/APP/app.c:828:3: warning: 'release_time' may be used uninitialized [-Wmaybe-uninitialized]
+  828 |   osDelay(release_time);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+./Core/APP/app.c:801:12: note: 'release_time' was declared here
+  801 |   uint32_t release_time;
+      |            ^~~~~~~~~~~~
 
 >>> ld
 
 C:/Users/Ganbo/.eide/tools/gcc_arm/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/bin/ld.exe: warning: ./build/Debug/lifting.elf has a LOAD segment with RWX permissions
 Memory region         Used Size  Region Size  %age Used
-             RAM:       23280 B       192 KB     11.84%
+             RAM:       23664 B       192 KB     12.04%
           CCMRAM:           0 B        64 KB      0.00%
-           FLASH:       56420 B         2 MB      2.69%
+           FLASH:       61244 B         2 MB      2.92%
 
 
 >>> postbuild

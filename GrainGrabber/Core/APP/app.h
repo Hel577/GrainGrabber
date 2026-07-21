@@ -24,6 +24,8 @@ typedef struct {
     float target_x;
     float target_y;
     float target_z;
+    uint8_t last_target_index;
+    uint8_t target_index;
     uint32_t timeout;
     uint8_t paper_id;          // 用于视觉闭环
     ChassisMove_Type_e move_type;
@@ -49,12 +51,16 @@ extern osSemaphoreId_t ScaraMoveDoneHandle;
 extern bool car_box[7]; // 用于判断车仓是否有箱子（1为有，0为无）
 extern uint8_t paper_box[7]; // 用于判断纸箱是否有箱子（2为有两层，1为有一层，0为无）
 extern uint8_t put_round;
+extern uint8_t last_target_index;
+extern float target_positions[30][3]; 
+
 void app_init(void);
 void Start_Scara(void);
 void Get_Box(uint8_t box_id);
 void Put_Box(uint8_t box_id ,uint8_t dir, bool maduo);
 void Ready_To_Put_Box(uint8_t box_id);
 void Move_To_Target(uint8_t target_id, uint32_t timeout_value);
+void Move_To_Target_Direct(uint8_t target_id, uint32_t timeout_value);
 void Move_To_Placing_Box(uint8_t* box_ids,uint8_t* bean_ids);
 
 // 添加非阻塞版本的函数
@@ -65,7 +71,7 @@ void Put_Box_NonBlocking(uint8_t box_id, uint8_t dir, bool maduo);
 void Move_To_Position_XYZ_NonBlocking(float target_x, float target_y, float target_z, uint32_t timeout);
 void Move_By_Vision_NonBlocking(uint8_t paper_id, uint32_t timeout);
 void Move_By_Easy_NonBlocking(float target_x, float target_y, float target_z, uint32_t timeout);
-void Move_Translation_NonBlocking(float target_x, float target_y, float target_z, uint32_t timeout);
+void Move_Translation_NonBlocking(uint8_t last_target_index, uint8_t target_index, uint32_t timeout);
 void Move_Open_Loop_NonBlocking(float speed_x, float speed_y, float target_z, uint32_t timeout);
 uint8_t Near_Box(uint8_t box_id ,uint8_t dir, bool maduo);
 void Try_Grab_Beans(uint8_t bean_id);
@@ -74,5 +80,6 @@ void Grab_Bean(uint8_t bean_id,uint8_t bean);
 void Match_Box(int* target_box,uint8_t* target_ids,uint8_t* bean_ids);
 void Release_Bean(uint8_t bean_id);
 void Set_Target_Index(uint8_t target_id);
+void Move_To_Placing_Box_NoCamera(uint8_t* box_ids,uint8_t* bean_ids);
 
 #endif

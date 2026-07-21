@@ -17,6 +17,9 @@
 //
 
 // 角度校准为0
+
+float early_error = 6;//应对因为没有超调造成的急停不生效
+
 void omega_zero()
 {
     osDelay(200);
@@ -552,6 +555,9 @@ void Move_TransformZ(float angle, float Vz) // angle单位：°，Vz单位：rad
 //#########################################################################闭环位置控制################################################################
 //闭环位置控制
 //单位：mm,mm,°
+
+float y_error = 0;
+
 void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32_t timeout)
 {
     /*适合长距离移动的场景，这里应该也是相对于地图坐标系而言的坐标，
@@ -588,6 +594,9 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
     Reset_PID(rough_Y_long_PID);
     Reset_PID(rough_X_super_long_PID);
     Reset_PID(rough_Y_super_long_PID);
+    Reset_PID(rough_Z_super_long_PID);
+
+    int my_target_z = target_z;
  
     // 稳定性计数器
     uint8_t stability_counter = 0;
@@ -603,7 +612,7 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
         x_error_ref = 20.0f;
         y_error_ref = 3.0f;
         omega_error_ref = 0.3f;
-        stability_counter_threshold =2;     
+        stability_counter_threshold =1;     
 
     }
     else if(target_x>=1500)
@@ -635,9 +644,18 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
 
         if (stability_counter >= stability_counter_threshold) // 假设连续10次检测都满足条件
         {
-
+            osSemaphoreRelease(ChassisMoveDoneHandle);
+            chassisState.moving = false;
+            chassisState.done = true;
             Car_Stop(0);
-            break;
+            if(target_x<-1500){
+                y_error = (-1135 - car->current_map_pos_y)*0.8;
+            }
+            else{
+                y_error = 0;
+            }
+            Beep_On();
+            return;
         }
         if ((fabs(car->current_map_pos_x - target_x) < x_error_ref) && (fabs(car->current_map_pos_y - target_y) < y_error_ref) && (fabs(car->current_angle - target_z) < omega_error_ref))
         {
@@ -655,41 +673,88 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
         if(target_x<-2500 && fabs(car->current_map_pos_x - target_x) > 1500 && fabs(car->current_map_pos_x - target_x) < 2500)
         {
             target_y = -1135;
+            if(my_target_z==270){
+                target_z = 270;
+            }
         }//针对超长路径的中间路径规划变化，确保走出抽象的S字形路径
+        else if(target_x<-2500 &&my_target_z==270){
+            target_z = 180;
+        }
+
+
+        
+
+        if(target_y==526 && fabs(car->current_map_pos_y - target_y) < 200){
+            target_x = 265;
+        }//针对5号点到7号点的一步到位移动，走L字形
+
+        if(target_x==-265&&fabs(car->current_map_pos_x - target_x) < 50){
+            target_y = 520;
+        }
 
         Update_Car_Status();
         //pid计算目标速度
         if(fabs(target_x)<1500){
-            if(fabs(target_x)>100&&target_y!=40){
-                if(fabs(car->current_map_pos_x)>fabs(target_x)&&(fabs(car->current_map_pos_y - target_y) < y_error_ref) && (fabs(car->current_angle - target_z) < omega_error_ref)){
+            //针对短程移动进行处理
+            if(fabs(target_x)>100&&target_x!=-265&&(target_y!=1&&target_y!=520)){
+                //x方向为主要移动方向
+                if(fabs(car->current_map_pos_x)>fabs(target_x)-early_error){
                     stability_counter++;
                 }
                 speed = PID_Calc_XY(rough_X_PID, target_x, car->current_map_pos_x);
                 if(speed>0){
-                    car->target_map_Vx = 1.0*fmax(fabs(speed),25);
+                    car->target_map_Vx = 1.0*fmax(fabs(speed),35);
                 }
                 else{
-                    car->target_map_Vx = -1.0*fmax(fabs(speed),25);
+                    car->target_map_Vx = -1.0*fmax(fabs(speed),35);
                 }
+                car->target_map_Vy = 1.0*PID_Calc_XY(rough_Y_PID, target_y, car->current_map_pos_y);
             }
-            else{
+            else if((fabs(target_x)<51||target_x==-265)&&fabs(target_y)>51){
+                //y为主要移动方向
+                if(fabs(car->current_map_pos_y)>fabs(target_y)-early_error){
+                    stability_counter++;
+                }
+                speed = PID_Calc_XY(rough_Y_PID, target_y, car->current_map_pos_y);
+                if(speed>0){
+                    car->target_map_Vy = 1.0*fmax(fabs(speed),35);
+                }
+                else{
+                    car->target_map_Vy = -1.0*fmax(fabs(speed),35);
+                }
                 car->target_map_Vx = 1.0*PID_Calc_XY(rough_X_PID, target_x, car->current_map_pos_x);
             }
-            car->target_map_Vy = 1.0*PID_Calc_XY(rough_Y_PID, target_y, car->current_map_pos_y);
+            else{
+                //其他情况
+                car->target_map_Vx = 1.0*PID_Calc_XY(rough_X_PID, target_x, car->current_map_pos_x);
+                car->target_map_Vy = 1.0*PID_Calc_XY(rough_Y_PID, target_y, car->current_map_pos_y);
+            }
             car->target_angle_speed = PID_Calc_Z(rough_Z_PID, target_z, car->current_angle);
         }
         else if(target_x>=1500 && target_x<2200){
             if(fabs(car->current_map_pos_x)>fabs(target_x)){
                 stability_counter++;
             }
-            car->target_map_Vx = 1.0*fmax(PID_Calc_XY(rough_X_long_PID, target_x, car->current_map_pos_x),25);
-            car->target_map_Vy = PID_Calc_XY(rough_Y_long_PID, target_y, car->current_map_pos_y);
+            car->target_map_Vx = 1.0*fmax(PID_Calc_XY(rough_X_long_PID, target_x, car->current_map_pos_x),35);
+            car->target_map_Vy = 1.0*PID_Calc_XY(rough_Y_long_PID, target_y, car->current_map_pos_y);
             car->target_angle_speed = PID_Calc_Z(rough_Z_PID, target_z, car->current_angle);
         }
         else if(target_x<-1500){
-            car->target_map_Vx = 1.0*PID_Calc_XY(rough_X_super_long_PID, target_x, car->current_map_pos_x);
+            float alpha = 1.0;
+            if(fabs(car->current_map_pos_x)>fabs(target_x)-5){
+                stability_counter++;
+            }
+            else if(fabs(car->current_map_pos_x)>fabs(target_x)-250){
+                alpha = fmax(-(fabs(car->current_map_pos_x)-fabs(target_x))/250,0.1);
+            }
+            car->target_map_Vx = alpha*PID_Calc_XY(rough_X_super_long_PID, target_x, car->current_map_pos_x);
             car->target_map_Vy = 1.0*PID_Calc_XY(rough_Y_super_long_PID, target_y, car->current_map_pos_y);
-            car->target_angle_speed = PID_Calc_Z(rough_Z_PID, target_z, car->current_angle);
+            if(my_target_z==270){
+                car->target_angle_speed = PID_Calc_Z(rough_Z_super_long_PID, target_z, car->current_angle);
+            }
+            else{
+                car->target_angle_speed = PID_Calc_Z(rough_Z_PID, target_z, car->current_angle);
+            }
         }
 
 
@@ -701,6 +766,9 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
         // printf("%f,%f,%f\n", motors[4]->motor_fdb.speed, motors[4]->motor_fdb.torque, motors[4]->motor_fdb.temprature);
     }
     // 停止电机
+    osSemaphoreRelease(ChassisMoveDoneHandle);
+    chassisState.moving = false;
+    chassisState.done = true;
     Car_Stop(0);
     // printf("current_map_pos_x: %f, current_map_pos_y: %f, current_angle: %f\n", car->current_map_pos_x, car->current_map_pos_y, car->current_angle);
 
@@ -724,12 +792,12 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
     float real_y = 0;
     float x_error_ref = 7.1f;
     float y_error_ref = 7.1f;
-    float omega_error_ref = 0.1f;
+    float omega_error_ref = 0.3f;
     float last_speed_x = 0.0f;
     float last_speed_y = 0.0f;
         // 稳定性计数器
     uint8_t stability_counter = 0;
-    uint8_t stability_counter_threshold = 3;
+    uint8_t stability_counter_threshold = 1;
 
     if(box_place == 1 )
     {
@@ -739,8 +807,8 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
     }
     else if(box_place == 2)
     {
-        x_error_ref = 7.1f;
-        y_error_ref = 7.1f;
+        x_error_ref = 9.1f;
+        y_error_ref = 5.1f;
         target_z = 0;
         real_x = raspi.real_x[2];
         real_y = raspi.real_y[2];
@@ -748,13 +816,13 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
         {
             timeout += 0;
             real_y += 1; // 视觉识别偏差
-            stability_counter_threshold = 3;
+            stability_counter_threshold = 1;
 
         }
         else if(put_round>=2)
         {
             timeout += 0;
-            stability_counter_threshold = 3;
+            stability_counter_threshold = 1;
         }
     }
     else if(box_place == 3)
@@ -770,18 +838,18 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
         // }
         if(put_round == 1)
             {
-                stability_counter_threshold = 3;
+                stability_counter_threshold = 1;
              }
         else if(put_round>=2)
         {
-            stability_counter_threshold = 3;
+            stability_counter_threshold = 1;
         }
     }
     else if(box_place != 0 )
     {
         real_x = raspi.real_x[box_place];
         real_y = raspi.real_y[box_place];
-        x_error_ref = 5.1f;
+        x_error_ref = 9.1f;
         y_error_ref = 3.1f;
         switch(box_place)
         {
@@ -795,13 +863,19 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
             case 6:
                 target_z = 180;
                 // target_z = 0;
+                x_error_ref = 100.1f;
+                y_error_ref = 3.1f;
                 break;
             case 7:
                 target_z = 180;
+                x_error_ref = 100.1f;
+                y_error_ref = 3.1f;
                 break;
             case 8:
                 target_z = 180;
                 // target_z = 0;
+                x_error_ref = 100.1f;
+                y_error_ref = 3.1f;
                 break;
             case 9:
                 target_z = 90;
@@ -857,10 +931,12 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
             // 当连续满足精度要求的次数达到阈值后，才认为真正到达目标位置
             if (stability_counter >= stability_counter_threshold) // 假设连续10次检测都满足条件
             {
+                osSemaphoreRelease(ChassisMoveDoneHandle);
+                chassisState.moving = false;
+                chassisState.done = true;
                 Car_Stop(0);
-                osDelay(8);
-                Car_Stop(1);
-                break;
+                Beep_On();
+                return;
             }
         }
         else
@@ -934,12 +1010,16 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
             // printf("%f\r\n",omega);
             // printf("%f, %f,%f ,%f,%f ,%f\r\n", raspi.vision_x-raspi.real_x[type], raspi.vision_y-raspi.real_y[type], target_z-omega, car->current_map_Vx, car->current_map_Vy, car->current_hwt_angle_speed);
         }
+        if(box_place==2){
+            car->target_map_Vx *= 0.8;
+        }
         Publish_Car_Speed();
         osDelay(5);
     }
+    osSemaphoreRelease(ChassisMoveDoneHandle);
+    chassisState.moving = false;
+    chassisState.done = true;
     Car_Stop(0);
-    osDelay(8);
-    Car_Stop(1); // 停止电机
 }
 
 
@@ -1018,11 +1098,8 @@ void Move_By_Easy(float target_x, float target_y, float target_z, uint32_t timeo
 }
 
 
-void Move_Translation(float target_x, float target_y, float target_z, uint32_t timeout)
+void Move_Translation(uint8_t last_target_index, uint8_t target_index, uint32_t timeout)
 {
-    /*用于微调移动*/
-    // HAL_TIM_Base_Stop_IT(&htim5);
-
 //*********************************************** */
 
         //将电机改为速度模式
@@ -1031,66 +1108,174 @@ void Move_Translation(float target_x, float target_y, float target_z, uint32_t t
     En_Chassis_Motor();
 
 //******************************************* */
-    //将电机改为速度模式
-    // for (int i = 1; i < 5; i++)
-    // {
-    //     if (motors[i]->Control_mode != MODE_SPD)
-    //     {
-    //         MI_motor_setMode(motors[i], MODE_SPD);
-    //     }
-    // }
-    osDelay(20);
-
     //重置车辆状态
     Reset_Car_Status();
     //更新车辆状态
     Update_Car_Status();
     //重置PID
-    Reset_PID(Translation_X_PID);
-    Reset_PID(Translation_Y_PID);
-    Reset_PID(Translation_Z_PID);
+    Reset_PID(rough_X_PID);
+    Reset_PID(rough_Y_PID);
+    Reset_PID(rough_Z_PID);
+    Reset_PID(rough_X_long_PID);
+    Reset_PID(rough_Y_long_PID);
+    Reset_PID(rough_X_super_long_PID);
+    Reset_PID(rough_Y_super_long_PID);
  
     // 稳定性计数器
     uint8_t stability_counter = 0;
-    uint8_t stability_counter_threshold = 3;
+    uint8_t stability_counter_threshold = 1;
 
     // 误差阈值
-    float x_error_ref = 2.4f;
-    float y_error_ref = 2.0f;
-    float omega_error_ref = 0.1f;
-
+    float x_error_ref = 20.0f;
+    float y_error_ref = 3.0f;
+    float omega_error_ref = 0.3f;
+    float speed = 0;
 
     uint32_t start_time = HAL_GetTick();
 
+    float target_x0[2]={0,0};
+    float target_y0[2]={0,0};
+    float target_z0;
+    float threshold;
+    uint8_t mid_target_index;
+
+
+
+    if(last_target_index==10){
+        switch(target_index){
+            case 28:{
+                mid_target_index = 15;
+                target_z0 = 180;
+                threshold = 50;
+                break;
+            }
+            case 29:{
+                mid_target_index = 15;
+                target_z0 = 180;
+                threshold = 50;
+                break;
+            }
+            case 30:{
+                mid_target_index = 27;
+                target_z0 = 180;
+                threshold = 50;
+                break;
+            }
+        }
+    }
+    else if(target_index==14){
+        mid_target_index = 16;
+        target_z0 = 90;
+        switch(last_target_index){
+            case 17:{
+                threshold = 70;
+                mid_target_index = 27;
+                break;
+            }
+            case 18:{
+                threshold = 50;
+                break;
+            }
+            case 19:{
+                threshold = 70;
+                break;
+            }
+        }
+    }
+
+    target_x0[0] = target_positions[mid_target_index-1][0]-target_positions[last_target_index-1][0];
+    target_x0[1] = target_positions[target_index-1][0]-target_positions[last_target_index-1][0];
+    target_y0[0] = target_positions[mid_target_index-1][1]-target_positions[last_target_index-1][1];
+    target_y0[1] = target_positions[target_index-1][1]-target_positions[last_target_index-1][1];
+
+    float target_x=target_x0[0];
+    float target_y=target_y0[0];
+    float target_z=target_z0;
+    bool use_stop_early = false;
+
     while(HAL_GetTick() - start_time < timeout)
     {
+        // HAL_TIM_Base_Stop_IT(&htim5);
+
+        if (stability_counter >= stability_counter_threshold) // 假设连续10次检测都满足条件
+        {
+            osSemaphoreRelease(ChassisMoveDoneHandle);
+            chassisState.moving = false;
+            chassisState.done = true;
+            Car_Stop(0);
+            Beep_On();
+            return;
+        }
         if ((fabs(car->current_map_pos_x - target_x) < x_error_ref) && (fabs(car->current_map_pos_y - target_y) < y_error_ref) && (fabs(car->current_angle - target_z) < omega_error_ref))
         {
             // 使用静态计数器记录连续满足条件的次数
             stability_counter++;
 
             // 当连续满足精度要求的次数达到阈值后，才认为真正到达目标位置
-            if (stability_counter >= stability_counter_threshold) // 
-            {
-                Car_Stop(0);
-                break;
-            }
         }
         else
         {
             // 一旦不满足条件，立即重置计数器
             stability_counter = 0;
         }
+
+        if(fabs(car->current_map_pos_x - target_x) <threshold &&fabs(car->current_map_pos_y - target_y) <threshold )
+        {
+            // Reset_PID(rough_X_PID);
+            // Reset_PID(rough_Y_PID);
+            // Reset_PID(rough_Z_PID);
+            target_x = target_x0[1];
+            target_y = target_y0[1];
+            use_stop_early = true;
+
+        }
+
         Update_Car_Status();
         //pid计算目标速度
-        car->target_map_Vx = PID_Calc_XY(Translation_X_PID, target_x, car->current_map_pos_x);
-        car->target_map_Vy = PID_Calc_XY(Translation_Y_PID, target_y, car->current_map_pos_y);
-        car->target_angle_speed = PID_Calc_Z(Translation_Z_PID, target_z, car->current_angle);
+        if(fabs(target_x)<1500){
+            //针对短程移动进行处理
+            if((target_x0[1]==425)&&(target_y!=1&&target_y!=520)){
+                //x方向为主要移动方向
+                if(car->current_map_pos_x<target_x+early_error&&use_stop_early){
+                    stability_counter++;
+                }
+                speed = PID_Calc_XY(rough_X_PID, target_x, car->current_map_pos_x);
+                if(speed>0){
+                    car->target_map_Vx = 1.0*fmax(fabs(speed),35);
+                }
+                else{
+                    car->target_map_Vx = -1.0*fmax(fabs(speed),35);
+                }
+                car->target_map_Vy = 1.0*PID_Calc_XY(rough_Y_PID, target_y, car->current_map_pos_y);
+            }
+            else if(target_x0[1]==440){
+                //y为主要移动方向
+                if(fabs(car->current_map_pos_y)>fabs(target_y)-early_error&&use_stop_early){
+                    stability_counter++;
+                }
+                speed = PID_Calc_XY(rough_Y_PID, target_y, car->current_map_pos_y);
+                if(speed>0){
+                    car->target_map_Vy = 1.0*fmax(fabs(speed),35);
+                }
+                else{
+                    car->target_map_Vy = -1.0*fmax(fabs(speed),35);
+                }
+                car->target_map_Vx = 1.0*PID_Calc_XY(rough_X_PID, target_x, car->current_map_pos_x);
+            }
+            else{
+                //其他情况
+                car->target_map_Vx = 1.0*PID_Calc_XY(rough_X_PID, target_x, car->current_map_pos_x);
+                car->target_map_Vy = 1.0*PID_Calc_XY(rough_Y_PID, target_y, car->current_map_pos_y);
+            }
+            car->target_angle_speed = PID_Calc_Z(rough_Z_PID, target_z, car->current_angle);
+        }
+
         Publish_Car_Speed();
-        // printf("%f\n", omega);
-        // printf("%f,%f,%f,%f,%f,%f\n", target_x-car->current_map_pos_x, target_y-car->current_map_pos_y, target_z-car->current_angle, car->current_map_Vx, car->current_map_Vy, car->current_hwt_angle_speed);
     }
     // 停止电机
+    osSemaphoreRelease(ChassisMoveDoneHandle);
+    chassisState.moving = false;
+    chassisState.done = true;
     Car_Stop(0);
 }
 

@@ -15,7 +15,7 @@ void app_init(void)
 bool car_box[7] = {1, 1, 1, 1, 1, 1, 1};
 uint8_t paper_box[7] = {0, 0, 0, 0, 0, 0, 0}; //用于判断纸箱是否有箱子（2为有两层，1为有一层，0为无）
 uint8_t put_round = 0; //放置箱子的次数
-uint8_t last_target_index = 0; // 用于记录上一个目标点的位置，用初始点进行初始化
+uint8_t last_target_index = 1; // 用于记录上一个目标点的位置，用初始点进行初始化
 
 //**************************机械臂动作组**********************************************/
 //非阻塞机械臂动作组
@@ -505,15 +505,14 @@ void Move_By_Easy_NonBlocking(float target_x, float target_y, float target_z, ui
   osSemaphoreAcquire(ChassisMoveDoneHandle, 0);
 }
 
-void Move_Translation_NonBlocking(float target_x, float target_y, float target_z, uint32_t timeout)
+void Move_Translation_NonBlocking(uint8_t last_target_index,uint8_t target_index,uint32_t timeout)
 {
   while(chassisState.moving == 1&& chassisState.done == 0) // 等待底盘移动完成
   {
     osDelay(10);
   }
-  chassisState.target_x = target_x;
-  chassisState.target_y = target_y;
-  chassisState.target_z = target_z;
+  chassisState.last_target_index = last_target_index;
+  chassisState.target_index = target_index;
   chassisState.move_type = MOVE_TYPE_TRANSLATION;
   chassisState.timeout = timeout;
   chassisState.moving = 1;
@@ -546,31 +545,39 @@ void Move_Open_Loop_NonBlocking(float speed_x, float speed_y, float target_z, ui
 float const OFFSET_x = 1.0f;
 float const OFFSET_y = 1.0f;
 
-float target_positions[23][3] = {
-    {1785*OFFSET_x, 1010*OFFSET_y, 0},//1
+float target_positions[30][3] = {
+    {1545*OFFSET_x, 1000*OFFSET_y, 0},//1
     {2795*OFFSET_x, 500 *OFFSET_y, 0},//2
     {3535*OFFSET_x, 460 *OFFSET_y, 0},//3
-    {3260*OFFSET_x, 500 *OFFSET_y, 0},//4
+    {3270*OFFSET_x, 501 *OFFSET_y, 0},//4
     {3260*OFFSET_x, 1020*OFFSET_y, 0},//5
     {3260*OFFSET_x, 1520*OFFSET_y, 0},//6
-    {3535*OFFSET_x, 1500*OFFSET_y, 0},//7
+    {3250*OFFSET_x, 1526*OFFSET_y, 0},//7
     {2500*OFFSET_x, 1500*OFFSET_y, 90},//8
     {635*OFFSET_x, 1500*OFFSET_y, 180},//9//这里是缝缝补补这一块
     {440*OFFSET_x, 445*OFFSET_y, 270},//10
-    {455*OFFSET_x, 600*OFFSET_y, 180},//11
-    {455*OFFSET_x,1000*OFFSET_y,  180},//12
+    {455*OFFSET_x, 580*OFFSET_y, 180},//11
+    {455*OFFSET_x,980*OFFSET_y,  180},//12
     {455*OFFSET_x,1420*OFFSET_y,  180},//13
-    {440*OFFSET_x,1555*OFFSET_y,  90},//14
-    {785*OFFSET_x,500 *OFFSET_y,  180},//15
-    {785*OFFSET_x,1500*OFFSET_y,  180},//16 初始生成的随机点
+    {440*OFFSET_x,1535*OFFSET_y,  90},//14
+    {630*OFFSET_x,500 *OFFSET_y,  180},//15
+    {630*OFFSET_x,1500*OFFSET_y,  180},//16
 
-    {425*OFFSET_x, 600*OFFSET_y, 180},//17
-    {425*OFFSET_x,1000*OFFSET_y,  180},//18
-    {425*OFFSET_x,1400*OFFSET_y,  180},//19//初始临点，将微调和初始点分开
+    {405*OFFSET_x, 600*OFFSET_y, 180},//17
+    {405*OFFSET_x,1000*OFFSET_y,  180},//18
+    {405*OFFSET_x,1400*OFFSET_y,  180},//19//初始临点，将微调和初始点分开
     {785*OFFSET_x, 500*OFFSET_y, 180},//20
     {3535*OFFSET_x, 500 *OFFSET_y, 0},//21//对应3的位置
     {3260*OFFSET_x, 1000*OFFSET_y, 0},//22//对应5的位置
     {3260*OFFSET_x, 1500*OFFSET_y, 0},//23//对应6号位置
+    {3535*OFFSET_x, 1500*OFFSET_y, 0},//24//对应7号位置
+    {635*OFFSET_x, 1500*OFFSET_y, 270},//25//对应9号点位，但是可以避免多换一次朝向
+    {785*OFFSET_x,1500*OFFSET_y,  90},//26//对应16号点位，不用多次旋转
+    {600*OFFSET_x, 1000*OFFSET_y, 180},//27//中心中转点，应用于2->5和1->4两种情况
+
+    {435*OFFSET_x, 580*OFFSET_y, 180},//28//对应11，12，13号点，为初次抵达时的点位
+    {435*OFFSET_x,980*OFFSET_y,  180},//29
+    {435*OFFSET_x,1420*OFFSET_y,  180},//30
 };
 
 int timeout[17][17] = {
@@ -600,28 +607,34 @@ void Move_To_Target(uint8_t target_id, uint32_t timeout_value){
   target_y = target_positions[target_id-1][1];
   target_z = target_positions[target_id-1][2];
 
-  float begin_x = target_positions[last_target_index][0];
-  float begin_y = target_positions[last_target_index][1];
+  float begin_x = target_positions[last_target_index-1][0];
+  float begin_y = target_positions[last_target_index-1][1];
 
   float dis_x = target_x - begin_x;
-  float dis_y = target_y - begin_y;
+  float dis_y = target_y - begin_y + y_error;
 
 
 
   // Move_To_Position_XYZ_NonBlocking(dis_x, dis_y, target_z, timeout[last_target_index][target_id-1]);
   Move_To_Position_XYZ_NonBlocking(dis_x, dis_y, target_z, timeout_value);
-  last_target_index = target_id-1;
+  last_target_index = target_id;
+}
+
+void Move_To_Target_Direct(uint8_t target_id, uint32_t timeout_value){
+  //后半场非直线连续移动
+  Move_Translation_NonBlocking(last_target_index,target_id,timeout_value);
+  last_target_index = target_id;
 }
 
 void Set_Target_Index(uint8_t target_id){
-  last_target_index = target_id-1;
+  last_target_index = target_id;
 }
 
 void Release_Bean(uint8_t bean_id){
     //bean_id和plate_id完全相等s
-    Door_Set_State(doors[bean_id-1],DOOR_OPEN);
+    // Door_Set_State(doors[bean_id-1],DOOR_OPEN);
     osDelay(DOOR_OPEN_TIME[bean_id-1]);
-    // Door_Set_State(doors[bean_id-1],DOOR_CLOSE);
+    Door_Set_State(doors[bean_id-1],DOOR_CLOSE);
 }
 
 
@@ -630,17 +643,69 @@ void Release_Bean(uint8_t bean_id){
 void Move_To_Placing_Box(uint8_t* box_ids,uint8_t* bean_ids){
   //定义放置盒子从上向下分别为1，2，3, 4, 5
   Raspi_Send_Task(TASK_MOVE_BY_BOX);
-  Move_To_Target(box_ids[0]+9,osWaitForever);//box_id+9为箱子放置位置的id
+  if(box_ids[0]==1){
+    Move_To_Target(box_ids[0]+9,osWaitForever);//box_id+9为箱子放置位置的id
+  }
+  else{
+    Move_To_Target(box_ids[0]+26,osWaitForever);
+  }
   Choose_Plate(bean_ids[0]);
-  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   Move_By_Vision_NonBlocking(box_ids[0]+4, 3000);
   if(box_ids[0]==2||box_ids[0]==3||box_ids[0]==4){
     Set_Target_Index(box_ids[0]+15);
   }
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
-
-
   Release_Bean(bean_ids[0]);
+
+  if(box_ids[0]==1){
+    Move_To_Target_Direct(box_ids[1]+26,osWaitForever);
+    // osSemaphoreAcquire(ChassisMoveDoneHandle, 550);
+  }
+  else{
+    Move_To_Target(box_ids[1]+9,osWaitForever);//前往第二个箱子的位置
+  }
+  Choose_Plate(bean_ids[1]);
+  // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  Raspi_Send_Task(TASK_MOVE_BY_BOX);
+  Move_By_Vision_NonBlocking(box_ids[1]+4, 3000);
+  if(box_ids[1]==2||box_ids[1]==3||box_ids[1]==4){
+    Set_Target_Index(box_ids[1]+15);
+  }
+  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  Release_Bean(bean_ids[1]);
+
+  if(box_ids[2]==5){
+    Move_To_Target_Direct(box_ids[2]+9,osWaitForever);
+    // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+    //如果最后一个盒子是5号位，也需要进入中转点
+  }
+  else{
+    Move_To_Target(box_ids[2]+9,osWaitForever);//前往第三个箱子的位置
+  }
+  Choose_Plate(bean_ids[2]);
+  // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  Raspi_Send_Task(TASK_MOVE_BY_BOX);
+  Move_By_Vision_NonBlocking(box_ids[2]+4, 3000);
+  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  Release_Bean(bean_ids[2]);
+  Raspi_Finish_Task(TASK_MOVE_BY_BOX);
+}
+
+void Move_To_Placing_Box_NoCamera(uint8_t* box_ids,uint8_t* bean_ids){
+  //定义放置盒子从上向下分别为1，2，3, 4, 5
+  // Raspi_Send_Task(TASK_MOVE_BY_BOX);
+  Move_To_Target(box_ids[0]+9,osWaitForever);//box_id+9为箱子放置位置的id
+  // Choose_Plate(bean_ids[0]);
+  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  // Move_By_Vision_NonBlocking(box_ids[0]+4, 3000);
+  if(box_ids[0]==2||box_ids[0]==3||box_ids[0]==4){
+    Set_Target_Index(box_ids[0]+15);
+  }
+  // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+
+
+  // Release_Bean(bean_ids[0]);
 
   if(box_ids[0]==1){
     switch(box_ids[1]){
@@ -659,31 +724,31 @@ void Move_To_Placing_Box(uint8_t* box_ids,uint8_t* bean_ids){
     osSemaphoreAcquire(ChassisMoveDoneHandle, 550);
   }
 
-  Raspi_Send_Task(TASK_MOVE_BY_BOX);
+  // Raspi_Send_Task(TASK_MOVE_BY_BOX);
   Move_To_Target(box_ids[1]+9,osWaitForever);//前往第二个箱子的位置
-  Choose_Plate(bean_ids[1]);
+  // Choose_Plate(bean_ids[1]);
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
-  Move_By_Vision_NonBlocking(box_ids[1]+4, 3000);
+  // Move_By_Vision_NonBlocking(box_ids[1]+4, 3000);
   if(box_ids[1]==2||box_ids[1]==3||box_ids[1]==4){
     Set_Target_Index(box_ids[1]+15);
   }
-  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
-  Release_Bean(bean_ids[1]);
+  // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  // Release_Bean(bean_ids[1]);
 
   if(box_ids[2]==5){
-    Move_To_Target(16,osWaitForever);
+    Move_To_Target(26,osWaitForever);
     osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
     //如果最后一个盒子是5号位，也需要进入中转点
   }
 
-  Raspi_Send_Task(TASK_MOVE_BY_BOX);
+  // Raspi_Send_Task(TASK_MOVE_BY_BOX);
   Move_To_Target(box_ids[2]+9,osWaitForever);//前往第三个箱子的位置
-  Choose_Plate(bean_ids[2]);
+  // Choose_Plate(bean_ids[2]);
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
-  Move_By_Vision_NonBlocking(box_ids[2]+4, 3000);
-  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
-  Release_Bean(bean_ids[2]);
-  Raspi_Finish_Task(TASK_MOVE_BY_BOX);
+  // Move_By_Vision_NonBlocking(box_ids[2]+4, 3000);
+  // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  // Release_Bean(bean_ids[2]);
+  // Raspi_Finish_Task(TASK_MOVE_BY_BOX);
 }
 
 
@@ -733,17 +798,21 @@ void Choose_Plate(uint8_t plate_id){
 
 void Grab_Bean(uint8_t bean_id,uint8_t bean){
   float error = 0;
+  uint32_t release_time;
   switch(bean){
     case 1:{
-      error = 5;//绿豆
+      error = 7;//绿豆
+      release_time = 450;
       break;
     }
     case 2:{
-      error = 10;
+      error = 12;
+      release_time = 450;
       break;
     }
     case 3:{
-      error = 12;
+      error = 15;
+      release_time = 20;
       break;
     }
   }
@@ -756,8 +825,9 @@ void Grab_Bean(uint8_t bean_id,uint8_t bean){
   push_Move_To_Position(MIN_POSITION);
   osDelay(300);
   Grab_Release();
-  osDelay(450);
+  osDelay(release_time);
   Grab_Off();
+  osDelay(150);
 }
 
 void Match_Box(int* target_box,uint8_t* target_ids,uint8_t* bean_ids){
