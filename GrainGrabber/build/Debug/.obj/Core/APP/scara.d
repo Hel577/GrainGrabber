@@ -39,4 +39,5 @@ build/Debug/.obj/Core/APP/scara.o: Core/APP/scara.c Core/APP/scara.h \
  Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
  Middlewares/Third_Party/FreeRTOS/Source/include/list.h \
  Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
- Core/Inc/main.h Core/BSP/filter.h Core/BSP/pid.h Core/Inc/tim.h
+ Core/Inc/main.h Core/BSP/filter.h Core/BSP/pid.h Core/Inc/tim.h \
+ Core/APP/push.h

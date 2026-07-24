@@ -8,7 +8,7 @@
 #define DOOR_OPEN 1
 #define DOOR_CLOSE 0
 
-static uint32_t DOOR_OPEN_TIME[3] = {2056, 1112, 1667};//单位为1.8s
+static uint32_t DOOR_OPEN_TIME[3] = {2056*1.8, 1112*1.8, 1667*1.8};//单位为1.8s
 
 typedef struct{
     uint16_t pin;

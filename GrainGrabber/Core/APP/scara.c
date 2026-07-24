@@ -1,4 +1,5 @@
 #include "scara.h"
+#include "push.h"
 
 
 
@@ -216,7 +217,7 @@ void End_Rotation_Ctrl(float maintain_angle)
 {
    hand.target_angle = maintain_angle;
   HAL_TIM_Base_Start_IT(&htim5);
-
+  Maintain_End_Rotation();
 }
 
 void Read_Spin_Angle(void){
@@ -230,6 +231,9 @@ void Grab_On(void)
   hand.grab_target_angle = GRAB_ClOSE_All;
   osDelay(10);
   HAL_TIM_Base_Start_IT(&htim5);
+  int speed = 3400;
+  int a = 200; 
+  Filter_Servo_PosCtrl(GRAB_SERVO,hand.grab_target_angle,speed, a);
 
 }
 
@@ -240,6 +244,9 @@ void Grab_Off(void)
   hand.grab_target_angle = GRAB_OPEN;
   osDelay(10);
   HAL_TIM_Base_Start_IT(&htim5);
+  int speed = 3400;
+  int a = 200; 
+  Filter_Servo_PosCtrl(GRAB_SERVO,hand.grab_target_angle,speed, a);
 }
 
 void Grab_Pos_Ctrl(uint16_t angle){
@@ -283,6 +290,9 @@ void Filter_Process_Data(uint8_t* data)
           }
           if(id==SPIN_SERVO){
               hand.current_angle = angle;
+          }
+          if(id==PUSH_SERVO){
+              push->current_angle = angle;
           }
       }
     }

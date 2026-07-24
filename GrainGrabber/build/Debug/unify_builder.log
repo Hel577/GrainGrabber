@@ -801,3 +801,1082 @@ These source files will be recompiled
 [2026-07-21 20:11:54]	[done]
 	build successfully !
 
+[2026-07-22 19:57:15]	[info] incremental build: 11 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\raspi.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\bsp.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\filter.h' has been changed.
+
+[2026-07-22 19:57:21]	[done]
+	build successfully !
+
+[2026-07-22 20:08:14]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+
+[2026-07-22 20:08:15]	[done]
+	build successfully !
+
+[2026-07-22 20:35:31]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+
+[2026-07-22 20:35:31]	[done]
+	build successfully !
+
+[2026-07-22 20:45:06]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+
+[2026-07-22 20:45:07]	[done]
+	build successfully !
+
+[2026-07-23 20:17:55]	[info] incremental build: 10 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\bsp.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\bsp.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\raspi.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\bsp.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\bsp.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\bsp.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\bsp.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\bsp.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\bsp.h' has been changed.
+
+[2026-07-23 20:17:58]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/Src/my_task.o -MMD ./Core/Src/my_task.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/Src/my_task.c: In function 'Init_All':
+./Core/Src/my_task.c:9:3: error: implicit declaration of function 'Reset_pushing_Motor_MechPosition'; did you mean 'Reset_Chassis_Motor_MechPosition'? [-Wimplicit-function-declaration]
+    9 |   Reset_pushing_Motor_MechPosition();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |   Reset_Chassis_Motor_MechPosition
+./Core/Src/my_task.c: In function 'test_lift':
+./Core/Src/my_task.c:213:14: warning: format '%d' expects argument of type 'int', but argument 2 has type 'double' [-Wformat=]
+  213 |     printf("%d,%d\r\n",scara.current_th1,scara.current_th2);
+      |             ~^         ~~~~~~~~~~~~~~~~~
+      |              |              |
+      |              int            double
+      |             %f
+./Core/Src/my_task.c:213:17: warning: format '%d' expects argument of type 'int', but argument 3 has type 'double' [-Wformat=]
+  213 |     printf("%d,%d\r\n",scara.current_th1,scara.current_th2);
+      |                ~^                        ~~~~~~~~~~~~~~~~~
+      |                 |                             |
+      |                 int                           double
+      |                %f
+In file included from Core/APP/app.h:11,
+                 from Core/Inc/my_task.h:16,
+                 from ./Core/Src/my_task.c:1:
+Core/BSP/door.h: At top level:
+Core/BSP/door.h:11:17: warning: 'DOOR_OPEN_TIME' defined but not used [-Wunused-variable]
+   11 | static uint32_t DOOR_OPEN_TIME[3] = {2056, 1112, 1667};//单位�?.8s
+      |                 ^~~~~~~~~~~~~~
+In file included from Core/APP/app.h:6:
+Core/APP/scara.h:27:17: warning: 'SCARA_TIME_BEAN' defined but not used [-Wunused-variable]
+   27 | static uint32_t SCARA_TIME_BEAN[3] = {500,500,500};
+      |                 ^~~~~~~~~~~~~~~
+Core/APP/scara.h:26:14: warning: 'SCARA_HEIGHT_BEAN' defined but not used [-Wunused-variable]
+   26 | static float SCARA_HEIGHT_BEAN[3] = {SCARA_HEIGHT_MIN-100, SCARA_HEIGHT_MIN-150, SCARA_HEIGHT_MIN-50}; //对应第一，第二，第三次抓取的高度
+      |              ^~~~~~~~~~~~~~~~~
+
+[2026-07-23 20:18:42]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-23 20:18:45]	[done]
+	build successfully !
+
+[2026-07-23 20:20:12]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': source file has been changed.
+
+[2026-07-23 20:20:12]	[done]
+	build successfully !
+
+[2026-07-23 20:21:08]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': source file has been changed.
+
+[2026-07-23 20:21:08]	[done]
+	build successfully !
+
+[2026-07-23 20:22:17]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': source file has been changed.
+
+[2026-07-23 20:22:17]	[done]
+	build successfully !
+
+[2026-07-23 20:22:58]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': source file has been changed.
+
+[2026-07-23 20:22:59]	[done]
+	build successfully !
+
+[2026-07-23 20:23:37]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': source file has been changed.
+
+[2026-07-23 20:23:38]	[done]
+	build successfully !
+
+[2026-07-23 20:23:46]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': source file has been changed.
+
+[2026-07-23 20:23:46]	[done]
+	build successfully !
+
+[2026-07-23 20:26:10]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': source file has been changed.
+
+[2026-07-23 20:26:10]	[done]
+	build successfully !
+
+[2026-07-23 20:26:59]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': source file has been changed.
+
+[2026-07-23 20:27:00]	[done]
+	build successfully !
+
+[2026-07-23 21:18:05]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+
+[2026-07-23 21:18:05]	[done]
+	build successfully !
+
+[2026-07-23 21:20:35]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.c': source file has been changed.
+
+[2026-07-23 21:20:36]	[done]
+	build successfully !
+
+[2026-07-23 21:20:41]	[done]
+	build successfully !
+
+[2026-07-23 21:23:12]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+
+[2026-07-23 21:23:12]	[done]
+	build successfully !
+
+[2026-07-23 21:55:45]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': source file has been changed.
+
+[2026-07-23 21:55:45]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/APP/push.o -MMD ./Core/APP/push.c
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/APP/push.c: In function 'add_push_ctrl':
+./Core/APP/push.c:151:38: error: 'target_position' undeclared (first use in this function)
+  151 |     Filter_Servo_PosCtrl(PUSH_SERVO, target_position, speed, acceleration);
+      |                                      ^~~~~~~~~~~~~~~
+./Core/APP/push.c:151:38: note: each undeclared identifier is reported only once for each function it appears in
+./Core/APP/push.c:147:9: warning: unused variable 'angle' [-Wunused-variable]
+  147 |   float angle = push->target_angle;
+      |         ^~~~~
+
+[2026-07-23 21:56:18]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': source file has been changed.
+
+[2026-07-23 21:56:18]	[done]
+	build successfully !
+
+[2026-07-23 21:57:24]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+
+[2026-07-23 21:57:25]	[done]
+	build successfully !
+
+[2026-07-23 21:59:04]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': source file has been changed.
+
+[2026-07-23 21:59:04]	[done]
+	build successfully !
+
+[2026-07-23 22:00:06]	[done]
+	build successfully !
+
+[2026-07-23 22:05:08]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+
+[2026-07-23 22:05:08]	[done]
+	build successfully !
+
+[2026-07-23 22:20:59]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+
+[2026-07-23 22:21:00]	[done]
+	build successfully !
+
+[2026-07-23 22:31:55]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-23 22:31:55]	[done]
+	build successfully !
+
+[2026-07-23 22:43:41]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': source file has been changed.
+
+[2026-07-23 22:43:41]	[done]
+	build successfully !
+
+[2026-07-23 22:43:51]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+
+[2026-07-23 22:43:52]	[done]
+	build successfully !
+
+[2026-07-23 23:23:12]	[done]
+	build successfully !
+
+[2026-07-23 23:25:32]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-23 23:25:33]	[done]
+	build successfully !
+
+[2026-07-23 23:26:38]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': source file has been changed.
+
+[2026-07-23 23:26:39]	[done]
+	build successfully !
+
+[2026-07-23 23:33:32]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-23 23:33:33]	[done]
+	build successfully !
+
+[2026-07-23 23:47:12]	[info] incremental build: 4 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\bsp.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-23 23:47:13]	[done]
+	build successfully !
+
+[2026-07-23 23:49:42]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-23 23:49:42]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/Src/my_task.o -MMD ./Core/Src/my_task.c
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/Src/my_task.c: In function 'test_motor':
+./Core/Src/my_task.c:20:38: error: expected ';' before 'Move_To_Position_XYZ_NonBlocking'
+   20 |   push_Move_To_Position(MAX_POSITION)
+      |                                      ^
+      |                                      ;
+   21 |   Move_To_Position_XYZ_NonBlocking(500,500,0,osWaitForever);
+      |   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~    
+./Core/Src/my_task.c: In function 'test_lift':
+./Core/Src/my_task.c:218:14: warning: format '%d' expects argument of type 'int', but argument 2 has type 'double' [-Wformat=]
+  218 |     printf("%d,%d\r\n",scara.current_th1,scara.current_th2);
+      |             ~^         ~~~~~~~~~~~~~~~~~
+      |              |              |
+      |              int            double
+      |             %f
+./Core/Src/my_task.c:218:17: warning: format '%d' expects argument of type 'int', but argument 3 has type 'double' [-Wformat=]
+  218 |     printf("%d,%d\r\n",scara.current_th1,scara.current_th2);
+      |                ~^                        ~~~~~~~~~~~~~~~~~
+      |                 |                             |
+      |                 int                           double
+      |                %f
+In file included from Core/APP/app.h:11,
+                 from Core/Inc/my_task.h:16,
+                 from ./Core/Src/my_task.c:1:
+Core/BSP/door.h: At top level:
+Core/BSP/door.h:11:17: warning: 'DOOR_OPEN_TIME' defined but not used [-Wunused-variable]
+   11 | static uint32_t DOOR_OPEN_TIME[3] = {2056, 1112, 1667};//单位�?.8s
+      |                 ^~~~~~~~~~~~~~
+In file included from Core/APP/app.h:6:
+Core/APP/scara.h:27:17: warning: 'SCARA_TIME_BEAN' defined but not used [-Wunused-variable]
+   27 | static uint32_t SCARA_TIME_BEAN[3] = {500,500,500};
+      |                 ^~~~~~~~~~~~~~~
+Core/APP/scara.h:26:14: warning: 'SCARA_HEIGHT_BEAN' defined but not used [-Wunused-variable]
+   26 | static float SCARA_HEIGHT_BEAN[3] = {SCARA_HEIGHT_MIN-100, SCARA_HEIGHT_MIN-150, SCARA_HEIGHT_MIN-50}; //对应第一，第二，第三次抓取的高度
+      |              ^~~~~~~~~~~~~~~~~
+
+[2026-07-23 23:49:53]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-23 23:49:54]	[done]
+	build successfully !
+
+[2026-07-23 23:50:12]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-23 23:50:12]	[done]
+	build successfully !
+
+[2026-07-23 23:50:26]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-23 23:50:26]	[done]
+	build successfully !
+
+[2026-07-23 23:53:16]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-23 23:53:17]	[done]
+	build successfully !
+
+[2026-07-23 23:54:29]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': source file has been changed.
+
+[2026-07-23 23:54:29]	[done]
+	build successfully !
+
+[2026-07-23 23:56:25]	[done]
+	build successfully !
+
+[2026-07-23 23:59:04]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': source file has been changed.
+
+[2026-07-23 23:59:05]	[done]
+	build successfully !
+
+[2026-07-24 00:00:00]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': source file has been changed.
+
+[2026-07-24 00:00:01]	[done]
+	build successfully !
+
+[2026-07-24 00:05:48]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': source file has been changed.
+
+[2026-07-24 00:05:48]	[done]
+	build successfully !
+
+[2026-07-24 00:06:18]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+
+[2026-07-24 00:06:19]	[done]
+	build successfully !
+
+[2026-07-24 00:06:40]	[done]
+	build successfully !
+
+[2026-07-24 00:16:10]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+
+[2026-07-24 00:16:10]	[done]
+	build successfully !
+
+[2026-07-24 00:30:31]	[info] incremental build: 4 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\pid.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': source file has been changed.
+
+[2026-07-24 00:30:32]	[done]
+	build successfully !
+
+[2026-07-24 00:32:58]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+
+[2026-07-24 00:32:58]	[done]
+	build successfully !
+
+[2026-07-24 18:33:38]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+
+[2026-07-24 18:33:43]	[done]
+	build successfully !
+
+[2026-07-24 18:35:45]	[done]
+	build successfully !
+
+[2026-07-24 18:55:03]	[info] incremental build: 7 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\BSP\door.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\main.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': dependence 'd:\Programs\GrainGrabber\GrainGrabber\Core\APP\scara.h' has been changed.
+
+[2026-07-24 18:55:04]	[done]
+	build successfully !
+
+[2026-07-24 18:57:09]	[done]
+	build successfully !
+
+[2026-07-24 18:57:17]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+
+[2026-07-24 18:57:17]	[done]
+	build successfully !
+
+[2026-07-24 19:01:53]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-24 19:01:54]	compilation failed at : "d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c", exit code: 1
+command: 
+  "C:\Users\Ganbo\.eide\tools\gcc_arm\bin\arm-none-eabi-gcc.exe" -c -xc -std=c11 -I. -ICore -ICore/Inc -IDrivers -IDrivers/CMSIS -IDrivers/STM32F4xx_HAL_Driver -IDrivers/CMSIS/Device -IDrivers/CMSIS/Include -IDrivers/CMSIS/Device/ST -IDrivers/CMSIS/Device/ST/STM32F4xx -IDrivers/CMSIS/Device/ST/STM32F4xx/Include -IDrivers/CMSIS/Device/ST/STM32F4xx/Source -IDrivers/CMSIS/Device/ST/STM32F4xx/Source/Templates -IDrivers/STM32F4xx_HAL_Driver/Inc -IDrivers/STM32F4xx_HAL_Driver/Src -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy -IMiddlewares -IMiddlewares/Third_Party -IMiddlewares/Third_Party/FreeRTOS -IMiddlewares/Third_Party/FreeRTOS/Source -IMiddlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -IMiddlewares/Third_Party/FreeRTOS/Source/include -IMiddlewares/Third_Party/FreeRTOS/Source/portable -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC -IMiddlewares/Third_Party/FreeRTOS/Source/portable/MemMang -IMiddlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -ICore/BSP -ICore/APP -ICore/Src -D"USE_HAL_DRIVER" -D"STM32F427xx" -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb -Og -Wall -g -ffunction-sections -fdata-sections -funsigned-char --specs=nosys.specs --specs=nano.specs -o ./build/Debug/.obj/Core/Src/my_task.o -MMD ./Core/Src/my_task.c
+   at unify_builder.Program.Main(String[] args_)
+---
+./Core/Src/my_task.c: In function 'test_motor':
+./Core/Src/my_task.c:21:3: error: too few arguments to function 'Move_To_Target'
+   21 |   Move_To_Target(9);
+      |   ^~~~~~~~~~~~~~
+In file included from Core/Inc/my_task.h:16,
+                 from ./Core/Src/my_task.c:1:
+Core/APP/app.h:62:6: note: declared here
+   62 | void Move_To_Target(uint8_t target_id, uint32_t timeout_value);
+      |      ^~~~~~~~~~~~~~
+./Core/Src/my_task.c: In function 'test_lift':
+./Core/Src/my_task.c:217:14: warning: format '%d' expects argument of type 'int', but argument 2 has type 'double' [-Wformat=]
+  217 |     printf("%d,%d\r\n",scara.current_th1,scara.current_th2);
+      |             ~^         ~~~~~~~~~~~~~~~~~
+      |              |              |
+      |              int            double
+      |             %f
+./Core/Src/my_task.c:217:17: warning: format '%d' expects argument of type 'int', but argument 3 has type 'double' [-Wformat=]
+  217 |     printf("%d,%d\r\n",scara.current_th1,scara.current_th2);
+      |                ~^                        ~~~~~~~~~~~~~~~~~
+      |                 |                             |
+      |                 int                           double
+      |                %f
+In file included from Core/APP/app.h:11:
+Core/BSP/door.h: At top level:
+Core/BSP/door.h:11:17: warning: 'DOOR_OPEN_TIME' defined but not used [-Wunused-variable]
+   11 | static uint32_t DOOR_OPEN_TIME[3] = {2056*1.8, 1112*1.8, 1667*1.8};//单位�?.8s
+      |                 ^~~~~~~~~~~~~~
+In file included from Core/APP/app.h:6:
+Core/APP/scara.h:27:17: warning: 'SCARA_TIME_BEAN' defined but not used [-Wunused-variable]
+   27 | static uint32_t SCARA_TIME_BEAN[3] = {500*1.8,500*1.8,500*1.8};
+      |                 ^~~~~~~~~~~~~~~
+Core/APP/scara.h:26:14: warning: 'SCARA_HEIGHT_BEAN' defined but not used [-Wunused-variable]
+   26 | static float SCARA_HEIGHT_BEAN[3] = {SCARA_HEIGHT_MIN-100, SCARA_HEIGHT_MIN-150, SCARA_HEIGHT_MIN-50}; //对应第一，第二，第三次抓取的高度
+      |              ^~~~~~~~~~~~~~~~~
+
+[2026-07-24 19:02:27]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-24 19:02:28]	[done]
+	build successfully !
+
+[2026-07-24 19:04:08]	[done]
+	build successfully !
+
+[2026-07-24 19:05:27]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-24 19:05:28]	[done]
+	build successfully !
+
+[2026-07-24 19:08:09]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+
+[2026-07-24 19:08:10]	[done]
+	build successfully !
+
+[2026-07-24 19:10:02]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-24 19:10:02]	[done]
+	build successfully !
+
+[2026-07-24 19:10:49]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-24 19:10:49]	[done]
+	build successfully !
+
+[2026-07-24 19:12:18]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-24 19:12:18]	[done]
+	build successfully !
+
+[2026-07-24 19:12:59]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-24 19:12:59]	[done]
+	build successfully !
+
+[2026-07-24 19:13:46]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-24 19:13:46]	[done]
+	build successfully !
+
+[2026-07-24 19:15:10]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+
+[2026-07-24 19:15:10]	[done]
+	build successfully !
+
+[2026-07-24 19:16:06]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\pid.c': source file has been changed.
+
+[2026-07-24 19:16:07]	[done]
+	build successfully !
+
+[2026-07-24 19:17:36]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\pid.c': source file has been changed.
+
+[2026-07-24 19:17:37]	[done]
+	build successfully !
+
+[2026-07-24 19:18:42]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-24 19:18:42]	[done]
+	build successfully !
+
+[2026-07-24 19:18:48]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-24 19:18:48]	[done]
+	build successfully !
+
+[2026-07-24 19:20:11]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-24 19:20:12]	[done]
+	build successfully !
+
+[2026-07-24 19:20:51]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-24 19:20:51]	[done]
+	build successfully !
+
+[2026-07-24 19:23:38]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-24 19:23:39]	[done]
+	build successfully !
+
+[2026-07-24 19:24:33]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\pid.c': source file has been changed.
+
+[2026-07-24 19:24:33]	[done]
+	build successfully !
+
+[2026-07-24 19:25:28]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\pid.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-24 19:25:28]	[done]
+	build successfully !
+
+[2026-07-24 19:27:59]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+
+[2026-07-24 19:27:59]	[done]
+	build successfully !
+
+[2026-07-24 19:29:57]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-24 19:29:58]	[done]
+	build successfully !
+
+[2026-07-24 19:30:06]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+
+[2026-07-24 19:30:06]	[done]
+	build successfully !
+
+[2026-07-24 19:31:46]	[done]
+	build successfully !
+
+[2026-07-24 19:40:02]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-24 19:40:03]	[done]
+	build successfully !
+
+[2026-07-24 20:05:26]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\pid.c': source file has been changed.
+
+[2026-07-24 20:05:27]	[done]
+	build successfully !
+
+[2026-07-24 20:09:19]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': source file has been changed.
+
+[2026-07-24 20:09:19]	[done]
+	build successfully !
+
+[2026-07-24 20:16:16]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\push.c': source file has been changed.
+
+[2026-07-24 20:16:16]	[done]
+	build successfully !
+
+[2026-07-24 20:16:51]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-24 20:16:52]	[done]
+	build successfully !
+
+[2026-07-24 20:18:00]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-24 20:18:00]	[done]
+	build successfully !
+
+[2026-07-24 20:20:19]	[done]
+	build successfully !
+
+[2026-07-24 20:20:49]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-24 20:20:49]	[done]
+	build successfully !
+
+[2026-07-24 20:21:04]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-24 20:21:05]	[done]
+	build successfully !
+
+[2026-07-24 20:21:53]	[done]
+	build successfully !
+
+[2026-07-24 20:22:43]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+
+[2026-07-24 20:22:44]	[done]
+	build successfully !
+
+[2026-07-24 20:23:25]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+
+[2026-07-24 20:23:26]	[done]
+	build successfully !
+
+[2026-07-24 20:24:30]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+
+[2026-07-24 20:24:30]	[done]
+	build successfully !
+
+[2026-07-24 20:26:40]	[done]
+	build successfully !
+
+[2026-07-24 20:29:57]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+
+[2026-07-24 20:29:58]	[done]
+	build successfully !
+
+[2026-07-24 20:30:35]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+
+[2026-07-24 20:30:35]	[done]
+	build successfully !
+
+[2026-07-24 20:35:32]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+
+[2026-07-24 20:35:32]	[done]
+	build successfully !
+
+[2026-07-24 20:35:46]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+
+[2026-07-24 20:35:47]	[done]
+	build successfully !
+
+[2026-07-24 20:37:32]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+
+[2026-07-24 20:37:33]	[done]
+	build successfully !
+
+[2026-07-24 20:41:35]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-24 20:41:36]	[done]
+	build successfully !
+
+[2026-07-24 20:41:47]	[done]
+	build successfully !
+
+[2026-07-24 20:46:35]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-24 20:46:36]	[done]
+	build successfully !
+
+[2026-07-24 20:46:57]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-24 20:46:58]	[done]
+	build successfully !
+
+[2026-07-24 20:53:02]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\pid.c': source file has been changed.
+
+[2026-07-24 20:53:02]	[done]
+	build successfully !
+
+[2026-07-24 20:55:15]	[done]
+	build successfully !
+
+[2026-07-24 20:59:32]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-24 20:59:32]	[done]
+	build successfully !
+
+[2026-07-24 21:00:24]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\pid.c': source file has been changed.
+
+[2026-07-24 21:00:25]	[done]
+	build successfully !
+
+[2026-07-24 21:10:11]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-24 21:10:12]	[done]
+	build successfully !
+
+[2026-07-24 21:12:03]	[done]
+	build successfully !
+
+[2026-07-24 21:22:44]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-24 21:22:45]	[done]
+	build successfully !
+
+[2026-07-24 21:29:40]	[info] incremental build: 3 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\pid.c': source file has been changed.
+
+[2026-07-24 21:29:41]	[done]
+	build successfully !
+
+[2026-07-24 21:38:43]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-24 21:38:44]	[done]
+	build successfully !
+
+[2026-07-24 21:40:46]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\raspi.c': source file has been changed.
+
+[2026-07-24 21:40:46]	[done]
+	build successfully !
+
+[2026-07-24 21:40:55]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\freertos.c': source file has been changed.
+
+[2026-07-24 21:40:55]	[done]
+	build successfully !
+
+[2026-07-24 21:48:23]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\pid.c': source file has been changed.
+
+[2026-07-24 21:48:23]	[done]
+	build successfully !
+
+[2026-07-24 21:50:09]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-24 21:50:10]	[done]
+	build successfully !
+
+[2026-07-24 21:51:02]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+
+[2026-07-24 21:51:03]	[done]
+	build successfully !
+
+[2026-07-24 21:52:32]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-24 21:52:33]	[done]
+	build successfully !
+
+[2026-07-24 21:57:20]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-24 21:57:20]	[done]
+	build successfully !
+
+[2026-07-24 22:01:09]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\BSP\pid.c': source file has been changed.
+
+[2026-07-24 22:01:10]	[done]
+	build successfully !
+
+[2026-07-24 22:06:46]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-24 22:06:47]	[done]
+	build successfully !
+
+[2026-07-24 22:11:51]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\car.c': source file has been changed.
+
+[2026-07-24 22:11:52]	[done]
+	build successfully !
+
+[2026-07-24 22:14:27]	[info] incremental build: 1 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-24 22:14:28]	[done]
+	build successfully !
+
+[2026-07-24 22:16:41]	[done]
+	build successfully !
+
+[2026-07-24 22:20:43]	[info] incremental build: 2 source files changed
+These source files will be recompiled
+---
+'d:\Programs\GrainGrabber\GrainGrabber\Core\APP\app.c': source file has been changed.
+'d:\Programs\GrainGrabber\GrainGrabber\Core\Src\my_task.c': source file has been changed.
+
+[2026-07-24 22:20:43]	[done]
+	build successfully !
+

@@ -18,7 +18,7 @@
 
 // 角度校准为0
 
-float early_error = 6;//应对因为没有超调造成的急停不生效
+float early_error = 8;//应对因为没有超调造成的急停不生效
 
 void omega_zero()
 {
@@ -649,7 +649,7 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
             chassisState.done = true;
             Car_Stop(0);
             if(target_x<-1500){
-                y_error = (-1135 - car->current_map_pos_y)*0.8;
+                y_error = (-980 - car->current_map_pos_y)*0;
             }
             else{
                 y_error = 0;
@@ -670,26 +670,26 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
             stability_counter = 0;
         }
 
-        if(target_x<-2500 && fabs(car->current_map_pos_x - target_x) > 1500 && fabs(car->current_map_pos_x - target_x) < 2500)
+        if(target_x<-2500 &&  fabs(car->current_map_pos_x - target_x) < 2500)
         {
-            target_y = -1135;
-            if(my_target_z==270){
-                target_z = 270;
+            target_y = -1000;
+            if(my_target_z==225){
+                target_z = 225;
             }
         }//针对超长路径的中间路径规划变化，确保走出抽象的S字形路径
-        else if(target_x<-2500 &&my_target_z==270){
+        else if(target_x<-2500 &&my_target_z==225){
             target_z = 180;
         }
 
 
         
 
-        if(target_y==526 && fabs(car->current_map_pos_y - target_y) < 200){
+        if(target_y==506 && fabs(car->current_map_pos_y - target_y) < 200){
             target_x = 265;
         }//针对5号点到7号点的一步到位移动，走L字形
 
         if(target_x==-265&&fabs(car->current_map_pos_x - target_x) < 50){
-            target_y = 520;
+            target_y = 500;
         }
 
         Update_Car_Status();
@@ -703,24 +703,24 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
                 }
                 speed = PID_Calc_XY(rough_X_PID, target_x, car->current_map_pos_x);
                 if(speed>0){
-                    car->target_map_Vx = 1.0*fmax(fabs(speed),35);
+                    car->target_map_Vx = 1.0*fmax(fabs(speed),55);
                 }
                 else{
-                    car->target_map_Vx = -1.0*fmax(fabs(speed),35);
+                    car->target_map_Vx = -1.0*fmax(fabs(speed),55);
                 }
                 car->target_map_Vy = 1.0*PID_Calc_XY(rough_Y_PID, target_y, car->current_map_pos_y);
             }
-            else if((fabs(target_x)<51||target_x==-265)&&fabs(target_y)>51){
+            else if((fabs(target_x)<100||target_x==-265)&&fabs(target_y)>100){
                 //y为主要移动方向
                 if(fabs(car->current_map_pos_y)>fabs(target_y)-early_error){
                     stability_counter++;
                 }
                 speed = PID_Calc_XY(rough_Y_PID, target_y, car->current_map_pos_y);
                 if(speed>0){
-                    car->target_map_Vy = 1.0*fmax(fabs(speed),35);
+                    car->target_map_Vy = 1.0*fmax(fabs(speed),55);
                 }
                 else{
-                    car->target_map_Vy = -1.0*fmax(fabs(speed),35);
+                    car->target_map_Vy = -1.0*fmax(fabs(speed),55);
                 }
                 car->target_map_Vx = 1.0*PID_Calc_XY(rough_X_PID, target_x, car->current_map_pos_x);
             }
@@ -735,13 +735,13 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
             if(fabs(car->current_map_pos_x)>fabs(target_x)){
                 stability_counter++;
             }
-            car->target_map_Vx = 1.0*fmax(PID_Calc_XY(rough_X_long_PID, target_x, car->current_map_pos_x),35);
+            car->target_map_Vx = 1.0*fmax(PID_Calc_XY(rough_X_long_PID, target_x, car->current_map_pos_x),55);
             car->target_map_Vy = 1.0*PID_Calc_XY(rough_Y_long_PID, target_y, car->current_map_pos_y);
             car->target_angle_speed = PID_Calc_Z(rough_Z_PID, target_z, car->current_angle);
         }
         else if(target_x<-1500){
             float alpha = 1.0;
-            if(fabs(car->current_map_pos_x)>fabs(target_x)-5){
+            if(fabs(car->current_map_pos_x)>fabs(target_x)-35){
                 stability_counter++;
             }
             else if(fabs(car->current_map_pos_x)>fabs(target_x)-250){
@@ -749,7 +749,7 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
             }
             car->target_map_Vx = alpha*PID_Calc_XY(rough_X_super_long_PID, target_x, car->current_map_pos_x);
             car->target_map_Vy = 1.0*PID_Calc_XY(rough_Y_super_long_PID, target_y, car->current_map_pos_y);
-            if(my_target_z==270){
+            if(my_target_z==225){
                 car->target_angle_speed = PID_Calc_Z(rough_Z_super_long_PID, target_z, car->current_angle);
             }
             else{
@@ -1158,7 +1158,7 @@ void Move_Translation(uint8_t last_target_index, uint8_t target_index, uint32_t 
             case 30:{
                 mid_target_index = 27;
                 target_z0 = 180;
-                threshold = 50;
+                threshold = 90;
                 break;
             }
         }
@@ -1168,7 +1168,7 @@ void Move_Translation(uint8_t last_target_index, uint8_t target_index, uint32_t 
         target_z0 = 90;
         switch(last_target_index){
             case 17:{
-                threshold = 70;
+                threshold =90;
                 mid_target_index = 27;
                 break;
             }
@@ -1234,31 +1234,31 @@ void Move_Translation(uint8_t last_target_index, uint8_t target_index, uint32_t 
         //pid计算目标速度
         if(fabs(target_x)<1500){
             //针对短程移动进行处理
-            if((target_x0[1]==425)&&(target_y!=1&&target_y!=520)){
+            if((last_target_index!=10)){
                 //x方向为主要移动方向
                 if(car->current_map_pos_x<target_x+early_error&&use_stop_early){
                     stability_counter++;
                 }
                 speed = PID_Calc_XY(rough_X_PID, target_x, car->current_map_pos_x);
                 if(speed>0){
-                    car->target_map_Vx = 1.0*fmax(fabs(speed),35);
+                    car->target_map_Vx = 1.0*fmax(fabs(speed),55);
                 }
                 else{
-                    car->target_map_Vx = -1.0*fmax(fabs(speed),35);
+                    car->target_map_Vx = -1.0*fmax(fabs(speed),55);
                 }
                 car->target_map_Vy = 1.0*PID_Calc_XY(rough_Y_PID, target_y, car->current_map_pos_y);
             }
-            else if(target_x0[1]==440){
+            else if(true){
                 //y为主要移动方向
                 if(fabs(car->current_map_pos_y)>fabs(target_y)-early_error&&use_stop_early){
                     stability_counter++;
                 }
                 speed = PID_Calc_XY(rough_Y_PID, target_y, car->current_map_pos_y);
                 if(speed>0){
-                    car->target_map_Vy = 1.0*fmax(fabs(speed),35);
+                    car->target_map_Vy = 1.0*fmax(fabs(speed),55);
                 }
                 else{
-                    car->target_map_Vy = -1.0*fmax(fabs(speed),35);
+                    car->target_map_Vy = -1.0*fmax(fabs(speed),55);
                 }
                 car->target_map_Vx = 1.0*PID_Calc_XY(rough_X_PID, target_x, car->current_map_pos_x);
             }

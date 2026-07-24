@@ -62,8 +62,11 @@ void push_Move_To_Position(float position)
     // 使用位置模式控制电机
     float target_angle;
     Calculate_Angles_From_Position(target_position, &target_angle);
-    push->target_angle = target_angle;
+    float angle = target_angle*180/PI;
+    push->target_angle = 2048 + (int16_t)(angle / END_ANGLE_RATE + 0.5f);
     HAL_TIM_Base_Start_IT(&htim5);
+
+    add_push_ctrl();
 }
 
 
@@ -74,7 +77,7 @@ void push_Move_To_Position(float position)
  */
 void push_Update(void)
 {
-    push->current_angle = motors[7]->motor_fdb.angle;
+    push->current_angle = push->target_angle;
 }
 
    /**
@@ -104,32 +107,45 @@ void push_Update(void)
   * @brief 增量控制(定时器中使用)
   * @retval 无
   */
+// void add_push_ctrl(void)
+// {
+//   // 使用静态变量记录当前控制的是哪个电机
+//   // static uint8_t motor_index = 0;
+  
+//   // 计算左臂电机步进
+//   float diff1 = push->target_angle - push->current_angle;
+//   float step1 = 0.0f;
+//   if(fabsf(diff1) < push->step_angle) {
+//       step1 = diff1;
+//       push->is_moving = 0;
+//   } else {
+//       // 接近目标位置时减小步进角度
+//       if(fabsf(diff1) < 9.5f) {
+//           float reduced_step = push->step_angle * 0.4f; // 减小为原来的一半
+//           step1 = (diff1 > 0) ? reduced_step : -reduced_step;
+//       } else {
+//           step1 = (diff1 > 0) ? push->step_angle : -push->step_angle;
+//       }
+//   }
+
+//   // 计算目标角度（rad）
+//   float target_angle1 = push->current_angle + step1;
+  
+
+//     float angle1 = target_angle1;
+//     float angle1_rad = angle1;
+//     MI_motor_PosCtrl(motors[7], angle1_rad);
+// }
+
 void add_push_ctrl(void)
 {
   // 使用静态变量记录当前控制的是哪个电机
   // static uint8_t motor_index = 0;
   
   // 计算左臂电机步进
-  float diff1 = push->target_angle - push->current_angle;
-  float step1 = 0.0f;
-  if(fabsf(diff1) < push->step_angle) {
-      step1 = diff1;
-      push->is_moving = 0;
-  } else {
-      // 接近目标位置时减小步进角度
-      if(fabsf(diff1) < 9.5f) {
-          float reduced_step = push->step_angle * 0.4f; // 减小为原来的一半
-          step1 = (diff1 > 0) ? reduced_step : -reduced_step;
-      } else {
-          step1 = (diff1 > 0) ? push->step_angle : -push->step_angle;
-      }
-  }
-
-  // 计算目标角度（rad）
-  float target_angle1 = push->current_angle + step1;
-  
-
-    float angle1 = target_angle1;
-    float angle1_rad = angle1;
-    MI_motor_PosCtrl(motors[7], angle1_rad);
+  float angle = push->target_angle;
+    uint16_t speed = 4200;
+    uint8_t acceleration = 250;
+    // 调用已有的舵机控制函数
+    Filter_Servo_PosCtrl(PUSH_SERVO, angle, speed, acceleration);
 }

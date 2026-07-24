@@ -6,7 +6,7 @@
 void Init_All(void)
 {
   Reset_Scara_Motor_MechPosition();
-  Reset_pushing_Motor_MechPosition();
+  // Reset_pushing_Motor_MechPosition();
   // Filter_Calibrate_Center_Position(GRAB_SERVO);
   // Filter_Calibrate_Center_Position(SPIN_SERVO);
   
@@ -15,13 +15,17 @@ void Init_All(void)
 void test_motor(void){
   printf("test_motor\r\n");
   Init_All();
+  Grab_Off();
+  osDelay(500);
+  Set_Target_Index(24);
+  Move_To_Target(25,osWaitForever);
+  Set_Target_Index(20);
+  Move_To_Target(10,osWaitForever);
   // while(true){
   //   En_Chassis_Motor();
   // }
   osDelay(5000);
 
-  Set_Target_Index(24);
-  Move_To_Target(9,osWaitForever);
 }
 
 
@@ -182,6 +186,8 @@ void test_chassis(void){
   uint8_t bean_ids[3] = {0,0,0};
 
   Match_Box(target_box,target_ids,bean_ids);
+  printf("target_ids: %d,%d,%d\r\n",target_ids[0],target_ids[1],target_ids[2]);
+
   if(target_ids[0]==1){
     Move_To_Target(25,osWaitForever);
   }
@@ -217,6 +223,8 @@ void test_lift(void){
 void test_Push(void){
   printf("test push\r\n");
   Init_All();
+  Grab_Off();
+  osDelay(500);
   push_Move_To_Position(MIN_POSITION);
   osDelay(5000);
   push_Move_To_Position(MAX_POSITION);
@@ -253,11 +261,11 @@ void test_Raspi(void){
     printf("%f,%f\r\n",raspi.real_x[5],raspi.real_y[5]);
     printf("%d\r\n",raspi.bean_order[0]);
     // Raspi_Finish_Task(TASK_MOVE_BY_BOX);
-    Raspi_Send_Task(TASK_MOVE_BY_BEAN);
+    Raspi_Send_Task(TASK_MOVE_BY_BOX);
     osDelay(200);
   }
   // Scara_To_Height(50);
-  Raspi_Send_Task(TASK_MOVE_BY_BEAN);
+  Raspi_Send_Task(TASK_MOVE_BY_BOX);
   osDelay(500);
   osDelay(50);
   // osDelay(5000);
@@ -313,8 +321,8 @@ void test_Grab(void){
 }
 
 void test_door(void){
-  Choose_Plate(3);
-  Release_Bean(3);
+  Choose_Plate(1);
+  Release_Bean(1);
 }
 
 void test_graber_resend(void){
@@ -413,7 +421,7 @@ void my_task(void){
 
   Match_Box(target_box,target_ids,bean_ids);
   if(bean_ids[0]==1){
-    Move_To_Target(16,osWaitForever);
+    Move_To_Target(9,osWaitForever);
   }
   else{
     Move_To_Target(9,osWaitForever);

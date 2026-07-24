@@ -5,7 +5,7 @@ void bsp_init(void)
     // osDelay(3000);
     Init_Chassis_Motor();
     Init_Scara_Motor();
-    Init_pushing_Motor();
+    // Init_pushing_Motor();
     Init_PID();
 }
 
@@ -273,67 +273,67 @@ void Dis_Scara_Motor(void)
     }
 }   
 //******************************************************升降电机******************************************************
-void Init_pushing_Motor(void)
-{
-    motors[7] = &pushing_motor[0];
-    MI_motor_init(motors[7],&hcan1,7);
-    // Reset_pushing_Motor_MechPosition();
-    //设置位置模式限速和速度模式电流限制
-    MI_motor_SetSpdLim(motors[7], 14);//位置模式限速
-    MI_motor_SetCurrLim(motors[7], 20);//速度模式电流限制
-    Change_pushing_Motor_Mode(MODE_POS);
-}
-/**
-  * @brief  切换升降电机模式
-  * @param1  mode 模式
-  * @retval null
-  */
-void Change_pushing_Motor_Mode(uint8_t mode)
-{
-    MI_motor_setMode(motors[7], mode);
-}
-/**
-  * @brief  设置升降电机位置模式限速
-  * @param1  spd_lim 限速
-  * @retval null
-  */
-void Set_pushing_Motor_SpdLim(uint8_t spd_lim)
-{
-    MI_motor_SetSpdLim(motors[7], spd_lim);
-}
-/**
-  * @brief  设置升降电机速度模式电流限制
-  * @param1  current_lim 电流限制
-  * @retval null
-  */
-void Set_pushing_Motor_CurrLim(uint8_t current_lim)
-{
-    MI_motor_SetCurrLim(motors[7], current_lim);
-}
+// void Init_pushing_Motor(void)
+// {
+//     motors[7] = &pushing_motor[0];
+//     MI_motor_init(motors[7],&hcan1,7);
+//     // Reset_pushing_Motor_MechPosition();
+//     //设置位置模式限速和速度模式电流限制
+//     MI_motor_SetSpdLim(motors[7], 14);//位置模式限速
+//     MI_motor_SetCurrLim(motors[7], 20);//速度模式电流限制
+//     Change_pushing_Motor_Mode(MODE_POS);
+// }
+// /**
+//   * @brief  切换升降电机模式
+//   * @param1  mode 模式
+//   * @retval null
+//   */
+// void Change_pushing_Motor_Mode(uint8_t mode)
+// {
+//     MI_motor_setMode(motors[7], mode);
+// }
+// /**
+//   * @brief  设置升降电机位置模式限速
+//   * @param1  spd_lim 限速
+//   * @retval null
+//   */
+// void Set_pushing_Motor_SpdLim(uint8_t spd_lim)
+// {
+//     MI_motor_SetSpdLim(motors[7], spd_lim);
+// }
+// /**
+//   * @brief  设置升降电机速度模式电流限制
+//   * @param1  current_lim 电流限制
+//   * @retval null
+//   */
+// void Set_pushing_Motor_CurrLim(uint8_t current_lim)
+// {
+//     MI_motor_SetCurrLim(motors[7], current_lim);
+// }
 
-/**
-  * @brief  重置升降电机机械零位
-  * @retval null
-  */
-void Reset_pushing_Motor_MechPosition(void)
-{
-    Dis_pushing_Motor();
-    MI_motor_setMechPosition2Zero(motors[7]);
-    En_pushing_Motor();
-}
-/**
-  * @brief  使能升降电机
-  * @retval null
-  */
-void En_pushing_Motor(void)
-{
-    MI_motor_enable(motors[7]);
-}
-/**
-  * @brief  失能升降电机
-  * @retval null
-  */
-void Dis_pushing_Motor(void)
-{
-    MI_motor_stop(motors[7]);
-}
+// /**
+//   * @brief  重置升降电机机械零位
+//   * @retval null
+//   */
+// void Reset_pushing_Motor_MechPosition(void)
+// {
+//     Dis_pushing_Motor();
+//     MI_motor_setMechPosition2Zero(motors[7]);
+//     En_pushing_Motor();
+// }
+// /**
+//   * @brief  使能升降电机
+//   * @retval null
+//   */
+// void En_pushing_Motor(void)
+// {
+//     MI_motor_enable(motors[7]);
+// }
+// /**
+//   * @brief  失能升降电机
+//   * @retval null
+//   */
+// void Dis_pushing_Motor(void)
+// {
+//     MI_motor_stop(motors[7]);
+// }

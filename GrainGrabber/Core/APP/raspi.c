@@ -44,8 +44,8 @@ void Init_Raspi(void)
     raspi.real_x[8] = 1098;
     raspi.real_y[8] = 467;
 
-    raspi.real_x[9] = 968;
-    raspi.real_y[9] = 280;
+    raspi.real_x[9] = 940;
+    raspi.real_y[9] = 450;
 
     raspi.cmd = 0;
     

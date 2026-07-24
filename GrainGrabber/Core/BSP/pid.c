@@ -81,9 +81,9 @@ void Init_PID(void)
 
     if(rough_X_PID !=NULL)
     {
-        rough_X_PID->kp = 4.186f;
+        rough_X_PID->kp = 4.786f;
         rough_X_PID->ki = 0.000f;
-        rough_X_PID->kd = 0.611f;
+        rough_X_PID->kd = 0.411f;
         rough_X_PID->dt = 0.018f;
         rough_X_PID->integral = 0.0f;
         rough_X_PID->prev_error = 0.0f;
@@ -100,9 +100,9 @@ void Init_PID(void)
     //粗调Y轴
     if(rough_Y_PID !=NULL)
     {
-        rough_Y_PID->kp = 4.171f;
+        rough_Y_PID->kp = 4.371f;
         rough_Y_PID->ki = 0.000f;
-        rough_Y_PID->kd = 0.706f;
+        rough_Y_PID->kd = 0.513f;
         rough_Y_PID->dt = 0.018f;
         rough_Y_PID->integral = 0.0f;
         rough_Y_PID->prev_error = 0.0f;
@@ -118,7 +118,7 @@ void Init_PID(void)
 
     if(rough_X_long_PID !=NULL)
     {
-        rough_X_long_PID->kp = 4.2f;
+        rough_X_long_PID->kp = 5.2f;
         rough_X_long_PID->ki = 0.001f;
         rough_X_long_PID->kd = 1.53f;
         rough_X_long_PID->dt = 0.018f;
@@ -137,7 +137,7 @@ void Init_PID(void)
     //粗调Y轴
     if(rough_Y_long_PID !=NULL)
     {
-        rough_Y_long_PID->kp = 4.18f;
+        rough_Y_long_PID->kp = 4.88f;
         rough_Y_long_PID->ki = 0.001f;
         rough_Y_long_PID->kd = 1.41f;
         rough_Y_long_PID->dt = 0.018f;
@@ -155,7 +155,7 @@ void Init_PID(void)
 
     if(rough_X_super_long_PID !=NULL)
     {
-        rough_X_super_long_PID->kp = 4.2f;
+        rough_X_super_long_PID->kp = 5.5f;
         rough_X_super_long_PID->ki = 0.001f;
         rough_X_super_long_PID->kd = 1.52f;
         rough_X_super_long_PID->dt = 0.018f;
@@ -174,7 +174,7 @@ void Init_PID(void)
     //粗调Y轴
     if(rough_Y_super_long_PID !=NULL)
     {
-        rough_Y_super_long_PID->kp = 4.9f;
+        rough_Y_super_long_PID->kp = 5.4f;
         rough_Y_super_long_PID->ki = 0.001f;
         rough_Y_super_long_PID->kd = 1.71f;
         rough_Y_super_long_PID->dt = 0.018f;
@@ -192,7 +192,7 @@ void Init_PID(void)
 
     if(rough_Z_super_long_PID !=NULL)
     {
-        rough_Z_super_long_PID->kp =3.0f;
+        rough_Z_super_long_PID->kp =4.3f;
         rough_Z_super_long_PID->ki = 0.001f;
         rough_Z_super_long_PID->kd = 1.2f;
         rough_Z_super_long_PID->dt = 0.018f;
@@ -232,7 +232,7 @@ void Init_PID(void)
     {   
         fine_X_PID->kp = 2.55f;
         fine_X_PID->ki = 0.02f;
-        fine_X_PID->kd = 0.3f;
+        fine_X_PID->kd = 0.31f;
         fine_X_PID->dt = 0.018f;
         fine_X_PID->integral = 0.0f;
         fine_X_PID->prev_error = 0.0f;

@@ -13,8 +13,9 @@
 #define END_ANGLE_RATE 0.087890625
 
 /* Filter舵机ID定义 */
+#define PUSH_SERVO    3    //曲柄摇杆舵机ID
 #define SPIN_SERVO    2   // 旋转舵机ID
-#define GRAB_SERVO     1   // 夹爪舵机ID
+#define GRAB_SERVO    1   // 夹爪舵机ID
 
 /* Filter舵机位置范围 */
 #define SPIN_MIN_POS    0  //对应末端0.1528421053度

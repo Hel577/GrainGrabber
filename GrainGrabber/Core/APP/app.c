@@ -546,33 +546,33 @@ float const OFFSET_x = 1.0f;
 float const OFFSET_y = 1.0f;
 
 float target_positions[30][3] = {
-    {1545*OFFSET_x, 1000*OFFSET_y, 0},//1
+    {1525*OFFSET_x, 1000*OFFSET_y, 0},//1
     {2795*OFFSET_x, 500 *OFFSET_y, 0},//2
-    {3535*OFFSET_x, 460 *OFFSET_y, 0},//3
+    {3545*OFFSET_x, 460 *OFFSET_y, 0},//3
     {3270*OFFSET_x, 501 *OFFSET_y, 0},//4
-    {3260*OFFSET_x, 1020*OFFSET_y, 0},//5
-    {3260*OFFSET_x, 1520*OFFSET_y, 0},//6
-    {3250*OFFSET_x, 1526*OFFSET_y, 0},//7
+    {3260*OFFSET_x, 1000*OFFSET_y, 0},//5
+    {3260*OFFSET_x, 1500*OFFSET_y, 0},//6
+    {3250*OFFSET_x, 1506*OFFSET_y, 0},//7
     {2500*OFFSET_x, 1500*OFFSET_y, 90},//8
-    {635*OFFSET_x, 1500*OFFSET_y, 180},//9//这里是缝缝补补这一块
-    {440*OFFSET_x, 445*OFFSET_y, 270},//10
-    {455*OFFSET_x, 580*OFFSET_y, 180},//11
-    {455*OFFSET_x,980*OFFSET_y,  180},//12
-    {455*OFFSET_x,1420*OFFSET_y,  180},//13
-    {440*OFFSET_x,1535*OFFSET_y,  90},//14
+    {605*OFFSET_x, 1500*OFFSET_y, 180},//9//这里是缝缝补补这一块
+    {340*OFFSET_x, 445*OFFSET_y, 270},//10
+    {445*OFFSET_x, 580*OFFSET_y, 180},//11
+    {445*OFFSET_x,980*OFFSET_y,  180},//12
+    {445*OFFSET_x,1440*OFFSET_y,  180},//13
+    {430*OFFSET_x,1535*OFFSET_y,  90},//14
     {630*OFFSET_x,500 *OFFSET_y,  180},//15
     {630*OFFSET_x,1500*OFFSET_y,  180},//16
 
-    {405*OFFSET_x, 600*OFFSET_y, 180},//17
-    {405*OFFSET_x,1000*OFFSET_y,  180},//18
-    {405*OFFSET_x,1400*OFFSET_y,  180},//19//初始临点，将微调和初始点分开
+    {385*OFFSET_x, 600*OFFSET_y, 180},//17
+    {385*OFFSET_x,1000*OFFSET_y,  180},//18
+    {385*OFFSET_x,1400*OFFSET_y,  180},//19//初始临点，将微调和初始点分开
     {785*OFFSET_x, 500*OFFSET_y, 180},//20
     {3535*OFFSET_x, 500 *OFFSET_y, 0},//21//对应3的位置
     {3260*OFFSET_x, 1000*OFFSET_y, 0},//22//对应5的位置
     {3260*OFFSET_x, 1500*OFFSET_y, 0},//23//对应6号位置
     {3535*OFFSET_x, 1500*OFFSET_y, 0},//24//对应7号位置
-    {635*OFFSET_x, 1500*OFFSET_y, 270},//25//对应9号点位，但是可以避免多换一次朝向
-    {785*OFFSET_x,1500*OFFSET_y,  90},//26//对应16号点位，不用多次旋转
+    {605*OFFSET_x, 1500*OFFSET_y, 180},//25//对应9号点位，但是可以避免多换一次朝向
+    {630*OFFSET_x,1500*OFFSET_y,  90},//26//对应16号点位，不用多次旋转
     {600*OFFSET_x, 1000*OFFSET_y, 180},//27//中心中转点，应用于2->5和1->4两种情况
 
     {435*OFFSET_x, 580*OFFSET_y, 180},//28//对应11，12，13号点，为初次抵达时的点位
@@ -632,7 +632,7 @@ void Set_Target_Index(uint8_t target_id){
 
 void Release_Bean(uint8_t bean_id){
     //bean_id和plate_id完全相等s
-    // Door_Set_State(doors[bean_id-1],DOOR_OPEN);
+    Door_Set_State(doors[bean_id-1],DOOR_OPEN);
     osDelay(DOOR_OPEN_TIME[bean_id-1]);
     Door_Set_State(doors[bean_id-1],DOOR_CLOSE);
 }
@@ -818,16 +818,16 @@ void Grab_Bean(uint8_t bean_id,uint8_t bean){
   }
   Scara_To_Height(SCARA_HEIGHT_BEAN[bean_id-1]-error);
   osDelay(SCARA_TIME_BEAN[bean_id-1]);
-  Grab_On();
-  osDelay(150);
+  // Grab_On();
+  osDelay(150*1.8);
   Scara_To_Height(SCARA_HEIGHT_MAX);
   osDelay(SCARA_TIME_BEAN[bean_id-1]);
   push_Move_To_Position(MIN_POSITION);
-  osDelay(300);
+  osDelay(300*1.8);
   Grab_Release();
   osDelay(release_time);
   Grab_Off();
-  osDelay(150);
+  osDelay(150*1.8);
 }
 
 void Match_Box(int* target_box,uint8_t* target_ids,uint8_t* bean_ids){
