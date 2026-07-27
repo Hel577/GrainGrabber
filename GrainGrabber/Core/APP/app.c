@@ -548,14 +548,14 @@ float const OFFSET_y = 1.0f;
 float target_positions[30][3] = {
     {1525*OFFSET_x, 1000*OFFSET_y, 0},//1
     {2795*OFFSET_x, 500 *OFFSET_y, 0},//2
-    {3545*OFFSET_x, 460 *OFFSET_y, 0},//3
-    {3270*OFFSET_x, 501 *OFFSET_y, 0},//4
+    {3545*OFFSET_x, 500 *OFFSET_y, 0},//3
+    {3275*OFFSET_x, 501 *OFFSET_y, 0},//4
     {3260*OFFSET_x, 1000*OFFSET_y, 0},//5
     {3260*OFFSET_x, 1500*OFFSET_y, 0},//6
-    {3250*OFFSET_x, 1506*OFFSET_y, 0},//7
+    {3250*OFFSET_x, 1501*OFFSET_y, 0},//7
     {2500*OFFSET_x, 1500*OFFSET_y, 90},//8
     {605*OFFSET_x, 1500*OFFSET_y, 180},//9//这里是缝缝补补这一块
-    {340*OFFSET_x, 445*OFFSET_y, 270},//10
+    {380*OFFSET_x, 445*OFFSET_y, 270},//10
     {445*OFFSET_x, 580*OFFSET_y, 180},//11
     {445*OFFSET_x,980*OFFSET_y,  180},//12
     {445*OFFSET_x,1440*OFFSET_y,  180},//13
@@ -563,9 +563,9 @@ float target_positions[30][3] = {
     {630*OFFSET_x,500 *OFFSET_y,  180},//15
     {630*OFFSET_x,1500*OFFSET_y,  180},//16
 
-    {385*OFFSET_x, 600*OFFSET_y, 180},//17
-    {385*OFFSET_x,1000*OFFSET_y,  180},//18
-    {385*OFFSET_x,1400*OFFSET_y,  180},//19//初始临点，将微调和初始点分开
+    {375*OFFSET_x, 600*OFFSET_y, 180},//17
+    {375*OFFSET_x,1000*OFFSET_y,  180},//18
+    {375*OFFSET_x,1400*OFFSET_y,  180},//19//初始临点，将微调和初始点分开
     {785*OFFSET_x, 500*OFFSET_y, 180},//20
     {3535*OFFSET_x, 500 *OFFSET_y, 0},//21//对应3的位置
     {3260*OFFSET_x, 1000*OFFSET_y, 0},//22//对应5的位置
@@ -575,9 +575,9 @@ float target_positions[30][3] = {
     {630*OFFSET_x,1500*OFFSET_y,  90},//26//对应16号点位，不用多次旋转
     {600*OFFSET_x, 1000*OFFSET_y, 180},//27//中心中转点，应用于2->5和1->4两种情况
 
-    {435*OFFSET_x, 580*OFFSET_y, 180},//28//对应11，12，13号点，为初次抵达时的点位
-    {435*OFFSET_x,980*OFFSET_y,  180},//29
-    {435*OFFSET_x,1420*OFFSET_y,  180},//30
+    {425*OFFSET_x, 570*OFFSET_y, 180},//28//对应11，12，13号点，为初次抵达时的点位
+    {425*OFFSET_x,970*OFFSET_y,  180},//29
+    {425*OFFSET_x,1420*OFFSET_y,  180},//30
 };
 
 int timeout[17][17] = {
@@ -632,7 +632,7 @@ void Set_Target_Index(uint8_t target_id){
 
 void Release_Bean(uint8_t bean_id){
     //bean_id和plate_id完全相等s
-    Door_Set_State(doors[bean_id-1],DOOR_OPEN);
+    // Door_Set_State(doors[bean_id-1],DOOR_OPEN);
     osDelay(DOOR_OPEN_TIME[bean_id-1]);
     Door_Set_State(doors[bean_id-1],DOOR_CLOSE);
 }
@@ -799,32 +799,35 @@ void Choose_Plate(uint8_t plate_id){
 void Grab_Bean(uint8_t bean_id,uint8_t bean){
   float error = 0;
   uint32_t release_time;
+  int value = 1460;
   switch(bean){
     case 1:{
-      error = 7;//绿豆
-      release_time = 450;
+      error = 3;//绿豆
+      release_time = 500*1.8;
+      value = GRAB_RELEASE_GREEN;
       break;
     }
     case 2:{
-      error = 12;
-      release_time = 450;
+      error = 3;
+      release_time = 350*1.8;
+      value = GRAB_RELEASE_YELLOW;
       break;
     }
     case 3:{
-      error = 15;
-      release_time = 20;
+      error = 10;
+      release_time = 0;
       break;
     }
   }
   Scara_To_Height(SCARA_HEIGHT_BEAN[bean_id-1]-error);
   osDelay(SCARA_TIME_BEAN[bean_id-1]);
   // Grab_On();
-  osDelay(150*1.8);
+  osDelay(180*1.8);
   Scara_To_Height(SCARA_HEIGHT_MAX);
   osDelay(SCARA_TIME_BEAN[bean_id-1]);
   push_Move_To_Position(MIN_POSITION);
   osDelay(300*1.8);
-  Grab_Release();
+  Grab_Release(value);
   osDelay(release_time);
   Grab_Off();
   osDelay(150*1.8);

@@ -30,7 +30,7 @@ void Init_Scara(void)
     scara.current_th2 = 0.0f;
     scara.target_th1 = 0.0f;
     scara.target_th2 = 0.0f;
-    scara.step_angle = 70.5f;// 增量控制步进角度（°）//空爪可以切换大的
+    scara.step_angle = 90.5f;// 增量控制步进角度（°）//空爪可以切换大的
     scara.is_moving = 0;
 
     //初始化末端爪子结构体
@@ -266,13 +266,16 @@ void Grab_Open_Slitly(void){
   HAL_TIM_Base_Start_IT(&htim5);
 }
 
-void Grab_Release(void){
+void Grab_Release(int value){
   /*释放豆子*/
   HAL_TIM_Base_Stop_IT(&htim5);
   hand.grab_state = 0;
-  hand.grab_target_angle = GRAB_REALEASE;
+  hand.grab_target_angle = value;
   osDelay(10);
   HAL_TIM_Base_Start_IT(&htim5);
+  int speed = 4800;
+  int a = 300; 
+  Filter_Servo_PosCtrl(GRAB_SERVO,hand.grab_target_angle,speed, a);
 }
 
 void Read_Grab_Angle(void){

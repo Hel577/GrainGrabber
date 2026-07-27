@@ -684,11 +684,11 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
 
         
 
-        if(target_y==506 && fabs(car->current_map_pos_y - target_y) < 200){
-            target_x = 265;
+        if(target_y==501 && fabs(car->current_map_pos_y - target_y) < 200){
+            target_x = 275;
         }//针对5号点到7号点的一步到位移动，走L字形
 
-        if(target_x==-265&&fabs(car->current_map_pos_x - target_x) < 50){
+        if(target_x==-260&&fabs(car->current_map_pos_x - target_x) < 70){
             target_y = 500;
         }
 
@@ -696,10 +696,15 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
         //pid计算目标速度
         if(fabs(target_x)<1500){
             //针对短程移动进行处理
-            if(fabs(target_x)>100&&target_x!=-265&&(target_y!=1&&target_y!=520)){
+            if(fabs(target_x)>100&&target_x!=-260&&(target_y!=1&&target_y!=520)){
                 //x方向为主要移动方向
                 if(fabs(car->current_map_pos_x)>fabs(target_x)-early_error){
-                    stability_counter++;
+                    if(target_z!=270){
+                        stability_counter++;
+                    }
+                    else if(car->current_angle>target_z-0.5){
+                        stability_counter++;
+                    }
                 }
                 speed = PID_Calc_XY(rough_X_PID, target_x, car->current_map_pos_x);
                 if(speed>0){
@@ -710,7 +715,7 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
                 }
                 car->target_map_Vy = 1.0*PID_Calc_XY(rough_Y_PID, target_y, car->current_map_pos_y);
             }
-            else if((fabs(target_x)<100||target_x==-265)&&fabs(target_y)>100){
+            else if((fabs(target_x)<100||target_x==-260)&&fabs(target_y)>100){
                 //y为主要移动方向
                 if(fabs(car->current_map_pos_y)>fabs(target_y)-early_error){
                     stability_counter++;
@@ -830,7 +835,7 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
         target_z = 0;
         real_x = raspi.real_x[3];
         real_y = raspi.real_y[3];
-        x_error_ref = 7.1f;
+        x_error_ref = 3.1f;
         y_error_ref = 7.1f;
         // if(put_round == 1)
         // {
@@ -838,18 +843,18 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
         // }
         if(put_round == 1)
             {
-                stability_counter_threshold = 1;
+                stability_counter_threshold = 3;
              }
         else if(put_round>=2)
         {
-            stability_counter_threshold = 1;
+            stability_counter_threshold = 3;
         }
     }
     else if(box_place != 0 )
     {
         real_x = raspi.real_x[box_place];
         real_y = raspi.real_y[box_place];
-        x_error_ref = 9.1f;
+        x_error_ref = 5.1f;
         y_error_ref = 3.1f;
         switch(box_place)
         {
@@ -868,7 +873,7 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
                 break;
             case 7:
                 target_z = 180;
-                x_error_ref = 100.1f;
+                x_error_ref = 25.1f;
                 y_error_ref = 3.1f;
                 break;
             case 8:
@@ -1011,7 +1016,7 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
             // printf("%f, %f,%f ,%f,%f ,%f\r\n", raspi.vision_x-raspi.real_x[type], raspi.vision_y-raspi.real_y[type], target_z-omega, car->current_map_Vx, car->current_map_Vy, car->current_hwt_angle_speed);
         }
         if(box_place==2){
-            car->target_map_Vx *= 0.8;
+            car->target_map_Vx *= 0.9;
         }
         Publish_Car_Speed();
         osDelay(5);

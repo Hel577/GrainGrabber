@@ -81,7 +81,7 @@ void Init_PID(void)
 
     if(rough_X_PID !=NULL)
     {
-        rough_X_PID->kp = 4.786f;
+        rough_X_PID->kp = 5.086f;
         rough_X_PID->ki = 0.000f;
         rough_X_PID->kd = 0.411f;
         rough_X_PID->dt = 0.018f;
@@ -100,7 +100,7 @@ void Init_PID(void)
     //粗调Y轴
     if(rough_Y_PID !=NULL)
     {
-        rough_Y_PID->kp = 4.371f;
+        rough_Y_PID->kp = 4.671f;
         rough_Y_PID->ki = 0.000f;
         rough_Y_PID->kd = 0.513f;
         rough_Y_PID->dt = 0.018f;
@@ -192,7 +192,7 @@ void Init_PID(void)
 
     if(rough_Z_super_long_PID !=NULL)
     {
-        rough_Z_super_long_PID->kp =4.3f;
+        rough_Z_super_long_PID->kp =3.3f;
         rough_Z_super_long_PID->ki = 0.001f;
         rough_Z_super_long_PID->kd = 1.2f;
         rough_Z_super_long_PID->dt = 0.018f;
