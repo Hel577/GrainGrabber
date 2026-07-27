@@ -1,1 +1,0 @@
-build/startup_stm32f427xxcopy.o: startup_stm32f427xxcopy.s
