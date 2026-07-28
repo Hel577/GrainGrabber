@@ -1,21 +1,19 @@
 version: "4.1"
-name: lifting
+name: GrainGrabber
 type: ARM
 deviceName: STM32F427IIHx
 packDir: .pack/Keil/STM32F4xx_DFP.2.14.0
 srcDirs:
   - Core
   - Drivers
+  - build
   - Middlewares
 virtualFolder:
   name: <virtual_root>
   files:
     - path: startup_stm32f427xx.s
+    - path: startup_stm32f427xxcopy.s
   folders:
-    - name: startup_stm32f427xx.s
-      files:
-        - path: startup_stm32f427xxcopy.s
-      folders: []
     - name: startup
       files:
         - path: startup_stm32f427xx.s
@@ -60,8 +58,7 @@ targets:
         - Core/BSP
         - Core/APP
       libList: []
-    excludeList:
-      - <virtual_root>/startup_stm32f427xx.s
+    excludeList: []
     settings:
       debugger: cortex-debug
     toolchain: GCC

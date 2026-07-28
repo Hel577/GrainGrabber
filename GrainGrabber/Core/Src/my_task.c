@@ -98,7 +98,7 @@ void test_sss(void){
 
   // Move_To_Target(8, osWaitForever);
   // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
-  uint8_t target_ids[3] = {1,3,5};//豆子放哪个箱子
+  uint8_t target_ids[3] = {1,3,5};    //豆子放哪个箱子
   uint8_t bean_ids[3] = {1,2,3};
 
   Match_Box(target_box,target_ids,bean_ids);
@@ -137,24 +137,24 @@ void test_chassis(void){
 
   // Move_To_Target(2);
   // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
-  Move_To_Target(3,osWaitForever);
+  Move_To_Target(3,osWaitForever);     //移动到一号抓取位置
   Raspi_Send_Task(TASK_MOVE_BY_BEAN);
   // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   // Beep_On();
   Set_Target_Index(21);
-  Move_By_Vision_NonBlocking(1, 2500);
+  Move_By_Vision_NonBlocking(1, 2500);  //视觉微调
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   Raspi_Finish_Task(TASK_MOVE_BY_BEAN);
   Choose_Plate(raspi.bean_order[0]);
   Grab_Bean(1,raspi.bean_order[0]);
   push_Move_To_Position(MAX_POSITION);
   
-  Move_To_Target(4, osWaitForever);
+  Move_To_Target(4, osWaitForever);  //移动到二号抓取位置
   // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   // osDelay(osWaitForever);
   Raspi_Send_Task(TASK_MOVE_BY_BEAN);
   // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
-  Move_By_Vision_NonBlocking(2,1000);
+  Move_By_Vision_NonBlocking(2,1000);  //视觉微调
   Set_Target_Index(22);
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   Raspi_Finish_Task(TASK_MOVE_BY_BEAN);
@@ -165,27 +165,26 @@ void test_chassis(void){
   // Move_To_Target(6, osWaitForever);
   // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   // Set_Target_Index(23);
-  Move_To_Target(7, osWaitForever);
+  Move_To_Target(7, osWaitForever);  //移动到三号抓取位置
   osDelay(800);
   Scara_To_Height(SCARA_HEIGHT_MAX+50);
   Raspi_Send_Task(TASK_MOVE_BY_BEAN);
   // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   Set_Target_Index(24);
-  Move_By_Vision_NonBlocking(3,2000);
+  Move_By_Vision_NonBlocking(3,2000);      //视觉微调
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   Raspi_Finish_Task(TASK_MOVE_BY_BEAN);
   Choose_Plate(raspi.bean_order[2]);
   Grab_Bean(3,raspi.bean_order[2]);
   push_Move_To_Position(MAX_POSITION);
 
-  // osDelay(osWaitForever);
 
   // Move_To_Target(8, osWaitForever);
   // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   uint8_t target_ids[3] = {0,0,0};//豆子放哪个箱子
   uint8_t bean_ids[3] = {0,0,0};
 
-  Match_Box(target_box,target_ids,bean_ids);
+  Match_Box(target_box,target_ids,bean_ids);   //判断倒豆子顺序
   printf("target_ids: %d,%d,%d\r\n",target_ids[0],target_ids[1],target_ids[2]);
 
   if(target_ids[0]==1){
@@ -198,6 +197,10 @@ void test_chassis(void){
   // osSemaphoreAcquire(ChassisMoveDoneHandle, 500);
   // Move_By_Vision_NonBlocking(4, 5000);
   // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  Beep_On();
+  while(true){
+    osDelay(200);
+  }
   Move_To_Placing_Box(target_ids,bean_ids);
   Beep_On();
 }
@@ -243,6 +246,22 @@ void test_Graber(void){
   Grab_Off();
   osDelay(5000);
 }
+
+void test_Raspi_num(void){
+  Init_All();
+  osDelay(500);
+  printf("test raspi num\r\n");
+  while(raspi.box_id[0]==0){
+    Raspi_Send_Task(TASK_DETECT_BOX);
+  }
+  Raspi_Finish_Task(TASK_DETECT_BOX);
+  Beep_On();
+  printf("box_id: %d,%d,%d,%d,%d\r\n",raspi.box_id[0],raspi.box_id[1],raspi.box_id[2],raspi.box_id[3],raspi.box_id[4]);
+  while(true){
+    osDelay(200);
+  }
+}
+
 
 void test_Raspi(void){
   // osDelay(40000);
@@ -298,7 +317,6 @@ void test_Raspi(void){
 
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
 }
-
 
 void test_Grab(void){
   printf("test grab\r\n");

@@ -213,8 +213,8 @@ void StartMainTask(void *argument)
   // 初始化
   bsp_init();
   app_init();
-  Beep_On();
 
+  Beep_On();
   osDelay(60);
   Beep_On();
   // osDelay(2000);
@@ -222,20 +222,22 @@ void StartMainTask(void *argument)
 
 //第一次启动
 //************************************************************************** */
-  Init_All();  
-  // CAN_Send_Test();
-  // test_Raspi();
-  test_chassis();
-  // test_omega();
+  Init_All();
+  // CAN_Send_Test();    //测试CAN通信发送
+  // test_Raspi_num();       //测试Raspi通信(数字)
+  // test_Raspi();          //测试Raspi通信(包括豆子和apriltag)
+
+  test_chassis();     //全程测试
+  // test_omega();       //测试陀螺仪零偏
   // test_sss();
   // test_motor();
-  // test_can();
-  // test_Grab();
-  // test_lift();
-  // test_graber_resend();
-  // test_door();
-  // test_Spin();
-  // test_Push();
+  // test_can();           //测试CAN2通信接收
+  // test_Grab();          //测试抓取
+  // test_lift();           //测试升降
+  // test_graber_resend();  //测试转盘&料仓倒料
+  // test_door();           //测试气门
+  // test_Spin();          //测试转盘
+  // test_Push();          //测试曲柄摇杆
 
 //************************************************************************** */  
 
