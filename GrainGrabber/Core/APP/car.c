@@ -609,7 +609,7 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
     float speed = 0;
     if(target_x<-1500)
     {
-        x_error_ref = 20.0f;
+        x_error_ref = 5.0f;
         y_error_ref = 3.0f;
         omega_error_ref = 0.3f;
         stability_counter_threshold =1;     
@@ -617,7 +617,7 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
     }
     else if(target_x>=1500)
     {
-        x_error_ref = 20.0f;
+        x_error_ref = 5.0f;
         y_error_ref = 3.0f;
         omega_error_ref = 0.3f;  
         stability_counter_threshold =1;     
@@ -672,23 +672,23 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
 
         if(target_x<-2500 &&  fabs(car->current_map_pos_x - target_x) < 2500)
         {
-            target_y = -1000;
-            if(my_target_z==225){
-                target_z = 225;
+            target_y = -1040;
+            if(my_target_z==180){
+                target_z = 180;
             }
         }//针对超长路径的中间路径规划变化，确保走出抽象的S字形路径
-        else if(target_x<-2500 &&my_target_z==225){
-            target_z = 180;
+        else if(target_x<-2500 &&my_target_z==180){
+            target_z = 90;
         }
 
 
         
 
         if(target_y==501 && fabs(car->current_map_pos_y - target_y) < 200){
-            target_x = 275;
+            target_x = 260;
         }//针对5号点到7号点的一步到位移动，走L字形
 
-        if(target_x==-260&&fabs(car->current_map_pos_x - target_x) < 70){
+        if(target_x==-257&&fabs(car->current_map_pos_x - target_x) < 70){
             target_y = 500;
         }
 
@@ -696,7 +696,7 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
         //pid计算目标速度
         if(fabs(target_x)<1500){
             //针对短程移动进行处理
-            if(fabs(target_x)>100&&target_x!=-260&&(target_y!=1&&target_y!=520)){
+            if(fabs(target_x)>100&&target_x!=-257&&(target_y!=1&&target_y!=520)){
                 //x方向为主要移动方向
                 if(fabs(car->current_map_pos_x)>fabs(target_x)-early_error){
                     if(target_z!=270){
@@ -715,7 +715,7 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
                 }
                 car->target_map_Vy = 1.0*PID_Calc_XY(rough_Y_PID, target_y, car->current_map_pos_y);
             }
-            else if((fabs(target_x)<100||target_x==-260)&&fabs(target_y)>100){
+            else if((fabs(target_x)<100||target_x==-257)&&fabs(target_y)>100){
                 //y为主要移动方向
                 if(fabs(car->current_map_pos_y)>fabs(target_y)-early_error){
                     stability_counter++;
@@ -746,7 +746,7 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
         }
         else if(target_x<-1500){
             float alpha = 1.0;
-            if(fabs(car->current_map_pos_x)>fabs(target_x)-35){
+            if(fabs(car->current_map_pos_x)>fabs(target_x)-10){
                 stability_counter++;
             }
             else if(fabs(car->current_map_pos_x)>fabs(target_x)-250){
@@ -762,7 +762,9 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
             }
         }
 
-
+        if(target_z==270){
+            car->target_map_Vx = 0.7*car->target_map_Vx;
+        }
         Publish_Car_Speed();
         // printf("%f,%f\r\n", car->current_map_pos_x, car->current_map_pos_y);
         // printf("%f,%f,%f\n", motors[1]->motor_fdb.speed, motors[1]->motor_fdb.torque, motors[1]->motor_fdb.temprature);
@@ -835,8 +837,8 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
         target_z = 0;
         real_x = raspi.real_x[3];
         real_y = raspi.real_y[3];
-        x_error_ref = 3.1f;
-        y_error_ref = 7.1f;
+        x_error_ref = 4.1f;
+        y_error_ref = 5.1f;
         // if(put_round == 1)
         // {
         //     timeout += 400;
@@ -854,7 +856,7 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
     {
         real_x = raspi.real_x[box_place];
         real_y = raspi.real_y[box_place];
-        x_error_ref = 5.1f;
+        x_error_ref = 3.1f;
         y_error_ref = 3.1f;
         switch(box_place)
         {
@@ -927,6 +929,9 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
 
     while(HAL_GetTick() - start_time < timeout)
     {
+        if(box_place>3&&raspi.vision_y>real_y){
+            stability_counter++;
+        }
 
         if ((fabs(raspi.vision_x - real_x) <= x_error_ref) && (fabs(raspi.vision_y - real_y) <= y_error_ref) && (fabs(omega - target_z) < omega_error_ref))
         {
@@ -1144,6 +1149,13 @@ void Move_Translation(uint8_t last_target_index, uint8_t target_index, uint32_t 
     float threshold;
     uint8_t mid_target_index;
 
+    if(last_target_index==20&&target_index==32){
+        mid_target_index = 28;
+        target_z0 = 180;
+        threshold = 100;
+        printf("1\r\n");
+    }
+
 
 
     if(last_target_index==10){
@@ -1198,6 +1210,7 @@ void Move_Translation(uint8_t last_target_index, uint8_t target_index, uint32_t 
     float target_z=target_z0;
     bool use_stop_early = false;
 
+
     while(HAL_GetTick() - start_time < timeout)
     {
         // HAL_TIM_Base_Stop_IT(&htim5);
@@ -1239,7 +1252,7 @@ void Move_Translation(uint8_t last_target_index, uint8_t target_index, uint32_t 
         //pid计算目标速度
         if(fabs(target_x)<1500){
             //针对短程移动进行处理
-            if((last_target_index!=10)){
+            if((last_target_index!=10&&last_target_index!=20)){
                 //x方向为主要移动方向
                 if(car->current_map_pos_x<target_x+early_error&&use_stop_early){
                     stability_counter++;

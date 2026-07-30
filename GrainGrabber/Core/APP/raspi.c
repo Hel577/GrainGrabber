@@ -32,7 +32,7 @@ void Init_Raspi(void)
     raspi.real_x[4] = 300;
     raspi.real_y[4] = 190;//移动到对面时的视觉坐标，后续需要根据实际情况调整
 
-    raspi.real_x[5] = 335;
+    raspi.real_x[5] = 325;
     raspi.real_y[5] = 448;
 
     raspi.real_x[6] = 192;
@@ -46,6 +46,9 @@ void Init_Raspi(void)
 
     raspi.real_x[9] = 940;
     raspi.real_y[9] = 450;
+
+    raspi.true_x = 0;
+    raspi.true_y = 0;
 
     raspi.cmd = 0;
     
@@ -182,6 +185,36 @@ void Raspi_Process_Data(uint8_t *rx_data, uint16_t size)
                 break;
 
 
+            }
+
+            case PLAN_APRILTAG_ID:  // 根据Apriltag微调命令
+            {
+                //单位为0.1mm
+                float x = (float)((int16_t)((rx_data[2] << 8) | rx_data[3])) ;
+                float y = (float)((int16_t)((rx_data[4] << 8) | rx_data[5])) ;
+                uint8_t type = rx_data[6];
+
+                if(type!=6)
+                {
+                    break;
+                }
+
+                // //处理异常值
+                // if(x >= 1280 || y >= 720 || x<0 || y<0)
+                // {
+                //     break;
+                // }
+                raspi.true_x = y/10+TRUE_X+CAR_TO_CAMERA;
+                raspi.true_y = -x/10+TRUE_Y;
+
+            
+                // 调试输出
+                // printf("Plan_Apriltag: ");
+                // for (int i = 0; i < 6; i++) {
+                //     printf("%f %f/r/n", raspi.true_x,raspi.true_y);
+                // }
+                // printf("\r\n");
+                break;
             }
             // case RASPI_DETECT_OK:  // 树莓派检测完成标志
             // {

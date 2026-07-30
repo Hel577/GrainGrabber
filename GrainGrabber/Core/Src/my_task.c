@@ -122,7 +122,7 @@ void test_chassis(void){
   Init_All();
   Raspi_Send_Task(TASK_DETECT_BOX);
   Scara_To_Height(SCARA_HEIGHT_MAX);
-
+  Grab_Off();
 
   // Move_To_Position_XYZ_NonBlocking(120,0,0,osWaitForever);
   while(raspi.box_id[0]==0){
@@ -149,12 +149,12 @@ void test_chassis(void){
   Grab_Bean(1,raspi.bean_order[0]);
   push_Move_To_Position(MAX_POSITION);
   
+  Raspi_Send_Task(TASK_MOVE_BY_BEAN);
   Move_To_Target(4, osWaitForever);  //移动到二号抓取位置
   // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   // osDelay(osWaitForever);
-  Raspi_Send_Task(TASK_MOVE_BY_BEAN);
   // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
-  Move_By_Vision_NonBlocking(2,1000);  //视觉微调
+  Move_By_Vision_NonBlocking(2,1500);  //视觉微调
   Set_Target_Index(22);
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   Raspi_Finish_Task(TASK_MOVE_BY_BEAN);
@@ -166,9 +166,9 @@ void test_chassis(void){
   // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   // Set_Target_Index(23);
   Move_To_Target(7, osWaitForever);  //移动到三号抓取位置
+  Raspi_Send_Task(TASK_MOVE_BY_BEAN);
   osDelay(800);
   Scara_To_Height(SCARA_HEIGHT_MAX+50);
-  Raspi_Send_Task(TASK_MOVE_BY_BEAN);
   // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   Set_Target_Index(24);
   Move_By_Vision_NonBlocking(3,2000);      //视觉微调
@@ -177,6 +177,7 @@ void test_chassis(void){
   Choose_Plate(raspi.bean_order[2]);
   Grab_Bean(3,raspi.bean_order[2]);
   push_Move_To_Position(MAX_POSITION);
+  Raspi_Send_Task(TASK_MOVE_BY_APRILTAG);
 
 
   // Move_To_Target(8, osWaitForever);
@@ -193,16 +194,33 @@ void test_chassis(void){
   else{
     Move_To_Target(9,osWaitForever);
   }
+
+  Choose_Plate(bean_ids[0]);
+
+  osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  // osDelay(200);
+  int start_time = HAL_GetTick();
+  while(raspi.true_x==0){
+    if(HAL_GetTick()-start_time>3000){
+      break;
+    }
+  }
+  Set_Target_Index_Direct(20,raspi.true_x,raspi.true_y);
+  printf("true_x:%f,true_y:%f\r\n",raspi.true_x,raspi.true_y);
+  printf("%d,%d,%d\r\n",raspi.bean_order[0],raspi.bean_order[1],raspi.bean_order[2]);
+  
+
+  // while(true){
+  //   printf("true_x:%f,true_y:%f\r\n",raspi.true_x,raspi.true_y);
+  //   osDelay(200);
+  // }
   Set_Target_Index(20);
+
+  Raspi_Finish_Task(TASK_MOVE_BY_APRILTAG);
   // osSemaphoreAcquire(ChassisMoveDoneHandle, 500);
   // Move_By_Vision_NonBlocking(4, 5000);
   // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
-  Beep_On();
-  while(true){
-    osDelay(200);
-  }
   Move_To_Placing_Box(target_ids,bean_ids);
-  Beep_On();
 }
 
 void test_lift(void){
@@ -260,6 +278,24 @@ void test_Raspi_num(void){
   while(true){
     osDelay(200);
   }
+}
+
+void test_apriltag_data(void){
+  Raspi_Send_Task(TASK_DETECT_BOX);
+  osDelay(1000);
+  Raspi_Finish_Task(TASK_DETECT_BOX);
+  osDelay(200);
+
+  // Scara_To_Height(SCARA_HEIGHT_MAX);
+  Grab_Off();
+
+  Raspi_Send_Task(TASK_MOVE_BY_APRILTAG);
+  while(true){
+    Raspi_Send_Task(TASK_MOVE_BY_APRILTAG);
+    printf("%f,%f\r\n",raspi.true_x,raspi.true_y);
+    osDelay(200);
+  }
+  Raspi_Finish_Task(TASK_MOVE_BY_APRILTAG);
 }
 
 
@@ -344,8 +380,15 @@ void test_Grab(void){
 }
 
 void test_door(void){
-  Choose_Plate(1);
+  // Choose_Plate(1);
   Release_Bean(1);
+  osDelay(700);
+  Release_Bean(2);
+  osDelay(700);
+  Release_Bean(3);
+  Beep_On();
+  osDelay(60);
+
 }
 
 void test_graber_resend(void){

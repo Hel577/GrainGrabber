@@ -218,6 +218,13 @@ void StartMainTask(void *argument)
   osDelay(60);
   Beep_On();
   // osDelay(2000);
+
+  // Beep_On();
+  // osDelay(20000);
+  // Beep_On();
+
+  // osDelay(osWaitForever);
+
   
 
 //第一次启动
@@ -238,7 +245,7 @@ void StartMainTask(void *argument)
   // test_door();           //测试气门
   // test_Spin();          //测试转盘
   // test_Push();          //测试曲柄摇杆
-
+  // test_apriltag_data();
 //************************************************************************** */  
 
 

@@ -545,17 +545,17 @@ void Move_Open_Loop_NonBlocking(float speed_x, float speed_y, float target_z, ui
 float const OFFSET_x = 1.0f;
 float const OFFSET_y = 1.0f;
 
-float target_positions[30][3] = {
+float target_positions[34][3] = {
     {1525*OFFSET_x, 1000*OFFSET_y, 0},//1
     {2795*OFFSET_x, 500 *OFFSET_y, 0},//2
     {3545*OFFSET_x, 500 *OFFSET_y, 0},//3
-    {3275*OFFSET_x, 501 *OFFSET_y, 0},//4
+    {3278*OFFSET_x, 501 *OFFSET_y, 0},//4
     {3260*OFFSET_x, 1000*OFFSET_y, 0},//5
     {3260*OFFSET_x, 1500*OFFSET_y, 0},//6
     {3250*OFFSET_x, 1501*OFFSET_y, 0},//7
     {2500*OFFSET_x, 1500*OFFSET_y, 90},//8
-    {605*OFFSET_x, 1500*OFFSET_y, 180},//9//这里是缝缝补补这一块
-    {380*OFFSET_x, 445*OFFSET_y, 270},//10
+    {575*OFFSET_x, 1500*OFFSET_y, 180},//9//这里是缝缝补补这一块
+    {445*OFFSET_x, 510*OFFSET_y, 270},//10
     {445*OFFSET_x, 580*OFFSET_y, 180},//11
     {445*OFFSET_x,980*OFFSET_y,  180},//12
     {445*OFFSET_x,1440*OFFSET_y,  180},//13
@@ -571,13 +571,19 @@ float target_positions[30][3] = {
     {3260*OFFSET_x, 1000*OFFSET_y, 0},//22//对应5的位置
     {3260*OFFSET_x, 1500*OFFSET_y, 0},//23//对应6号位置
     {3535*OFFSET_x, 1500*OFFSET_y, 0},//24//对应7号位置
-    {605*OFFSET_x, 1500*OFFSET_y, 180},//25//对应9号点位，但是可以避免多换一次朝向
+    {575*OFFSET_x, 1500*OFFSET_y, 180},//25//对应9号点位，但是可以避免多换一次朝向
     {630*OFFSET_x,1500*OFFSET_y,  90},//26//对应16号点位，不用多次旋转
     {600*OFFSET_x, 1000*OFFSET_y, 180},//27//中心中转点，应用于2->5和1->4两种情况
 
-    {425*OFFSET_x, 570*OFFSET_y, 180},//28//对应11，12，13号点，为初次抵达时的点位
-    {425*OFFSET_x,970*OFFSET_y,  180},//29
-    {425*OFFSET_x,1420*OFFSET_y,  180},//30
+    {455*OFFSET_x, 580*OFFSET_y, 180},//28//对应11，12，13号点，为初次抵达时的点位
+    {455*OFFSET_x,980*OFFSET_y,  180},//29
+    {455*OFFSET_x,1420*OFFSET_y,  180},//30
+
+    {425*OFFSET_x, 580*OFFSET_y, 180},//31//对应11，12，13号点，为初次抵达时的点位
+    {425*OFFSET_x,980*OFFSET_y,  180},//32
+    {425*OFFSET_x,1420*OFFSET_y,  180},//33
+
+    {590*OFFSET_x, 570*OFFSET_y, 180},//34//32号位中转点
 };
 
 int timeout[17][17] = {
@@ -630,6 +636,12 @@ void Set_Target_Index(uint8_t target_id){
   last_target_index = target_id;
 }
 
+void Set_Target_Index_Direct(uint8_t target_id,float target_x,float target_y){
+  //修改对应的id的坐标
+  target_positions[target_id-1][0] = target_x;
+  target_positions[target_id-1][1] = target_y;
+}
+
 void Release_Bean(uint8_t bean_id){
     //bean_id和plate_id完全相等s
     // Door_Set_State(doors[bean_id-1],DOOR_OPEN);
@@ -646,10 +658,12 @@ void Move_To_Placing_Box(uint8_t* box_ids,uint8_t* bean_ids){
   if(box_ids[0]==1){
     Move_To_Target(box_ids[0]+9,osWaitForever);//box_id+9为箱子放置位置的id
   }
-  else{
-    Move_To_Target(box_ids[0]+26,osWaitForever);
+  else if(box_ids[0]==3){
+    Move_To_Target_Direct(box_ids[0]+29,osWaitForever);
   }
-  Choose_Plate(bean_ids[0]);
+  else{
+    Move_To_Target(box_ids[0]+29,osWaitForever);
+  }
   // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   Move_By_Vision_NonBlocking(box_ids[0]+4, 3000);
   if(box_ids[0]==2||box_ids[0]==3||box_ids[0]==4){
@@ -688,6 +702,7 @@ void Move_To_Placing_Box(uint8_t* box_ids,uint8_t* bean_ids){
   Raspi_Send_Task(TASK_MOVE_BY_BOX);
   Move_By_Vision_NonBlocking(box_ids[2]+4, 3000);
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
+  Beep_On();
   Release_Bean(bean_ids[2]);
   Raspi_Finish_Task(TASK_MOVE_BY_BOX);
 }
@@ -802,14 +817,14 @@ void Grab_Bean(uint8_t bean_id,uint8_t bean){
   int value = 1460;
   switch(bean){
     case 1:{
-      error = 3;//绿豆
-      release_time = 500*1.8;
+      error = 7;//绿豆
+      release_time = 520*1.8;
       value = GRAB_RELEASE_GREEN;
       break;
     }
     case 2:{
-      error = 3;
-      release_time = 350*1.8;
+      error = 8;
+      release_time = 370*1.8;
       value = GRAB_RELEASE_YELLOW;
       break;
     }

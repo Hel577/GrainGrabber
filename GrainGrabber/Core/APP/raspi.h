@@ -10,6 +10,9 @@
 /* 宏定义 */
 #define RASPI_BUFFER_SIZE 8
 
+#define TRUE_X 580
+#define TRUE_Y 600//apriltag的理想坐标
+
 
 /* 命令类型定义(From Raspi)*/
 #define CMD_MOVE    0x01
@@ -17,16 +20,19 @@
 #define CMD_PLACE   0x03
 #define CMD_LOCATE  0x04
 
-/* 任务类型定义(Send to Raspi) */
+#define CAR_TO_CAMERA 325.0f//车中心到摄像头的距离，单位是mm，在x轴方向上
+/* 任务类型定义(Send to Raspi) */  //send to raspi
 #define TASK_DETECT_BOX    0x05//识别箱子任务
 #define TASK_MOVE_BY_BEAN     0x07//根据豆子位置微调任务
-#define TASK_MOVE_BY_BOX   0x08//根据AprilTag位置微调任务
+#define TASK_MOVE_BY_BOX   0x08//根据箱子旁边的AprilTag进行位置微调任务
+#define TASK_MOVE_BY_APRILTAG   0x09//根据AprilTag位置微调任务
 
 
-/*树莓派数据类型*/
+/*树莓派数据类型*/   //receive from raspi
 #define PLAN_MOVE_BY_BEAN 0x10      // 根据豆子位置微调计划
 #define PLAN_MOVE_BY_BOX 0x11      // 根据箱子位置微调计划
 #define PLAN_BOX_ID 0x12    // 货箱ID计划
+#define PLAN_APRILTAG_ID 0x13    // apriltag调整
 
 #define RASPI_DETECT_OK 0x14 //树莓派检测完成标志
 
@@ -42,6 +48,8 @@ typedef struct {
     volatile float vision_y;//视觉检测坐标(纵向，0-480)
     float real_x[10];//实际中心坐标(横向，0-640)
     float real_y[10];//实际中心坐标(纵向，0-480)
+    volatile float true_x;
+    volatile float true_y;//检测到的apriltag的相对位置（单位0.1mm)
     uint8_t box_id[5];//顺序为从上到下的盒子的id
     uint8_t bean_order[3];//绿豆=1，黄豆=2，白芸豆=3
 } Raspi_Date;

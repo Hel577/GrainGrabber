@@ -40,6 +40,7 @@ void test_Raspi(void);
 void test_omega(void);
 void test_sss(void);
 void test_can(void);
+void test_apriltag_data(void);
 
 #ifdef __cplusplus
 }

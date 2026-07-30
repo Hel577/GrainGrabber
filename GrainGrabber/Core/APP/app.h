@@ -52,7 +52,7 @@ extern bool car_box[7]; // 用于判断车仓是否有箱子（1为有，0为无
 extern uint8_t paper_box[7]; // 用于判断纸箱是否有箱子（2为有两层，1为有一层，0为无）
 extern uint8_t put_round;
 extern uint8_t last_target_index;
-extern float target_positions[30][3]; 
+extern float target_positions[34][3]; 
 
 void app_init(void);
 void Start_Scara(void);
@@ -81,5 +81,6 @@ void Match_Box(int* target_box,uint8_t* target_ids,uint8_t* bean_ids);
 void Release_Bean(uint8_t bean_id);
 void Set_Target_Index(uint8_t target_id);
 void Move_To_Placing_Box_NoCamera(uint8_t* box_ids,uint8_t* bean_ids);
+void Set_Target_Index_Direct(uint8_t target_id,float target_x,float target_y);
 
 #endif
