@@ -763,7 +763,7 @@ void Move_To_Position_XYZ(float target_x, float target_y, float target_z, uint32
         }
 
         if(target_z==270){
-            car->target_map_Vx = 0.7*car->target_map_Vx;
+            car->target_map_Vx = fmax(0.65*car->target_map_Vx, -400);
         }
         Publish_Car_Speed();
         // printf("%f,%f\r\n", car->current_map_pos_x, car->current_map_pos_y);
@@ -797,7 +797,7 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
     float target_z = 0;
     float real_x = 0;
     float real_y = 0;
-    float x_error_ref = 7.1f;
+    float x_error_ref = 6.1f;
     float y_error_ref = 7.1f;
     float omega_error_ref = 0.3f;
     float last_speed_x = 0.0f;
@@ -811,6 +811,7 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
         target_z = 0;
         real_x = raspi.real_x[1];
         real_y = raspi.real_y[1];
+        stability_counter_threshold = 1;
     }
     else if(box_place == 2)
     {
@@ -856,6 +857,7 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
     {
         real_x = raspi.real_x[box_place];
         real_y = raspi.real_y[box_place];
+        stability_counter_threshold = 1;
         x_error_ref = 3.1f;
         y_error_ref = 3.1f;
         switch(box_place)
@@ -875,7 +877,7 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
                 break;
             case 7:
                 target_z = 180;
-                x_error_ref = 25.1f;
+                x_error_ref = 50.1f;
                 y_error_ref = 3.1f;
                 break;
             case 8:
@@ -929,9 +931,6 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
 
     while(HAL_GetTick() - start_time < timeout)
     {
-        if(box_place>3&&raspi.vision_y>real_y){
-            stability_counter++;
-        }
 
         if ((fabs(raspi.vision_x - real_x) <= x_error_ref) && (fabs(raspi.vision_y - real_y) <= y_error_ref) && (fabs(omega - target_z) < omega_error_ref))
         {
@@ -953,6 +952,18 @@ void Move_By_Vision(uint8_t box_place, uint32_t timeout)
         {
             // 一旦不满足条件，立即重置计数器
             stability_counter = 0;
+        }
+        if(box_place>3&&raspi.vision_y>real_y-y_error_ref&&fabs(raspi.vision_x - real_x) <= x_error_ref){
+            stability_counter++;
+        }
+        if (stability_counter >= stability_counter_threshold) // 假设连续10次检测都满足条件
+        {
+            osSemaphoreRelease(ChassisMoveDoneHandle);
+            chassisState.moving = false;
+            chassisState.done = true;
+            Car_Stop(0);
+            Beep_On();
+            return;
         }
         last_speed_x = car->target_map_Vx;
         last_speed_y = car->target_map_Vy;
@@ -1134,6 +1145,7 @@ void Move_Translation(uint8_t last_target_index, uint8_t target_index, uint32_t 
     // 稳定性计数器
     uint8_t stability_counter = 0;
     uint8_t stability_counter_threshold = 1;
+    float alpha = 1;
 
     // 误差阈值
     float x_error_ref = 20.0f;
@@ -1150,15 +1162,15 @@ void Move_Translation(uint8_t last_target_index, uint8_t target_index, uint32_t 
     uint8_t mid_target_index;
 
     if(last_target_index==20&&target_index==32){
-        mid_target_index = 28;
+        mid_target_index = 34;
         target_z0 = 180;
-        threshold = 100;
+        threshold = 70;
         printf("1\r\n");
     }
 
 
 
-    if(last_target_index==10){
+    if(last_target_index==35){
         switch(target_index){
             case 28:{
                 mid_target_index = 15;
@@ -1173,6 +1185,7 @@ void Move_Translation(uint8_t last_target_index, uint8_t target_index, uint32_t 
                 break;
             }
             case 30:{
+                alpha = 0.9f;
                 mid_target_index = 27;
                 target_z0 = 180;
                 threshold = 90;
@@ -1252,7 +1265,7 @@ void Move_Translation(uint8_t last_target_index, uint8_t target_index, uint32_t 
         //pid计算目标速度
         if(fabs(target_x)<1500){
             //针对短程移动进行处理
-            if((last_target_index!=10&&last_target_index!=20)){
+            if((last_target_index!=35&&last_target_index!=20)){
                 //x方向为主要移动方向
                 if(car->current_map_pos_x<target_x+early_error&&use_stop_early){
                     stability_counter++;
@@ -1287,6 +1300,9 @@ void Move_Translation(uint8_t last_target_index, uint8_t target_index, uint32_t 
             }
             car->target_angle_speed = PID_Calc_Z(rough_Z_PID, target_z, car->current_angle);
         }
+
+        car->target_map_Vx = alpha*car->target_map_Vx;
+        car->target_map_Vy = 1*car->target_map_Vy;
 
         Publish_Car_Speed();
     }

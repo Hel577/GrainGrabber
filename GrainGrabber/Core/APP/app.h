@@ -52,7 +52,7 @@ extern bool car_box[7]; // 用于判断车仓是否有箱子（1为有，0为无
 extern uint8_t paper_box[7]; // 用于判断纸箱是否有箱子（2为有两层，1为有一层，0为无）
 extern uint8_t put_round;
 extern uint8_t last_target_index;
-extern float target_positions[34][3]; 
+extern float target_positions[35][3]; 
 
 void app_init(void);
 void Start_Scara(void);

@@ -14,6 +14,7 @@
 #include "raspi.h"
 #include "app.h"
 #include "main.h"
+#include "math.h"
 //**********************************结构体声明*******************************************//
 //车辆模式
 enum Car_Mode

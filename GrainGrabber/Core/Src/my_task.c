@@ -117,7 +117,7 @@ void test_sss(void){
 
 
 void test_chassis(void){
-  int target_box[3] = {1,2,3};
+  int target_box[3] = {2,1,3};
   printf("test chassis\r\n");
   Init_All();
   Raspi_Send_Task(TASK_DETECT_BOX);
@@ -130,7 +130,6 @@ void test_chassis(void){
   }
   Raspi_Finish_Task(TASK_DETECT_BOX);
   printf("box_id: %d,%d,%d,%d,%d\r\n",raspi.box_id[0],raspi.box_id[1],raspi.box_id[2],raspi.box_id[3],raspi.box_id[4]);
-  Grab_Off();
   Choose_Plate(2);
   // osDelay(50);
   // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
@@ -148,8 +147,8 @@ void test_chassis(void){
   Choose_Plate(raspi.bean_order[0]);
   Grab_Bean(1,raspi.bean_order[0]);
   push_Move_To_Position(MAX_POSITION);
-  
   Raspi_Send_Task(TASK_MOVE_BY_BEAN);
+  
   Move_To_Target(4, osWaitForever);  //移动到二号抓取位置
   // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   // osDelay(osWaitForever);
@@ -161,23 +160,23 @@ void test_chassis(void){
   Choose_Plate(raspi.bean_order[1]);
   Grab_Bean(2,raspi.bean_order[1]);
   push_Move_To_Position(MAX_POSITION);
+  Raspi_Send_Task(TASK_MOVE_BY_BEAN);
 
   // Move_To_Target(6, osWaitForever);
   // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   // Set_Target_Index(23);
   Move_To_Target(7, osWaitForever);  //移动到三号抓取位置
-  Raspi_Send_Task(TASK_MOVE_BY_BEAN);
   osDelay(800);
   Scara_To_Height(SCARA_HEIGHT_MAX+50);
   // osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   Set_Target_Index(24);
-  Move_By_Vision_NonBlocking(3,2000);      //视觉微调
+  Move_By_Vision_NonBlocking(3,2200);      //视觉微调
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   Raspi_Finish_Task(TASK_MOVE_BY_BEAN);
   Choose_Plate(raspi.bean_order[2]);
+  Raspi_Send_Task(TASK_MOVE_BY_APRILTAG);
   Grab_Bean(3,raspi.bean_order[2]);
   push_Move_To_Position(MAX_POSITION);
-  Raspi_Send_Task(TASK_MOVE_BY_APRILTAG);
 
 
   // Move_To_Target(8, osWaitForever);
@@ -200,12 +199,15 @@ void test_chassis(void){
   osSemaphoreAcquire(ChassisMoveDoneHandle, osWaitForever);
   // osDelay(200);
   int start_time = HAL_GetTick();
-  while(raspi.true_x==0){
+  while(raspi.true_x==0&&raspi.true_y==0){
     if(HAL_GetTick()-start_time>3000){
       break;
     }
   }
-  Set_Target_Index_Direct(20,raspi.true_x,raspi.true_y);
+  if(raspi.true_x!=0&&raspi.true_y!=0){
+    Beep_On();
+    Set_Target_Index_Direct(20,raspi.true_x,raspi.true_y);
+  }
   printf("true_x:%f,true_y:%f\r\n",raspi.true_x,raspi.true_y);
   printf("%d,%d,%d\r\n",raspi.bean_order[0],raspi.bean_order[1],raspi.bean_order[2]);
   
@@ -304,9 +306,9 @@ void test_Raspi(void){
     // push_Move_To_Position(MAX_POSITION);
   Init_All();
   osDelay(500);
-  // Scara_To_Height(-50);
+  // Scara_To_Height(SCARA_HEIGHT_MAX);
   // osDelay(500);
-  // Grab_Off();
+  Grab_Off();
 
   // Move_To_Position_XYZ_NonBlocking(0,0,180,osWaitForever);
   printf("test raspi");
@@ -318,14 +320,14 @@ void test_Raspi(void){
   printf("box_id: %d,%d,%d,%d,%d\r\n",raspi.box_id[0],raspi.box_id[1],raspi.box_id[2],raspi.box_id[3],raspi.box_id[4]);
 
   // osDelay(osWaitForever);
-  // while(raspi.vision_x==0){
-  //   printf("%f,%f\r\n",raspi.vision_x,raspi.vision_y);
-  //   printf("%f,%f\r\n",raspi.real_x[5],raspi.real_y[5]);
-  //   printf("%d\r\n",raspi.bean_order[0]);
-  //   // Raspi_Finish_Task(TASK_MOVE_BY_BOX);
-  //   Raspi_Send_Task(TASK_DETECT_BOX);
-  //   osDelay(200);
-  // }
+  while(raspi.vision_x==0){
+    printf("%f,%f\r\n",raspi.vision_x,raspi.vision_y);
+    printf("%f,%f\r\n",raspi.real_x[5],raspi.real_y[5]);
+    printf("%d\r\n",raspi.bean_order[0]);
+    Raspi_Send_Task(TASK_MOVE_BY_BEAN);
+    // Raspi_Send_Task(TASK_DETECT_BOX);
+    osDelay(200);
+  }
   // // Scara_To_Height(50);
   // Raspi_Send_Task(TASK_DETECT_BOX);
   osDelay(500);
@@ -344,9 +346,9 @@ void test_Raspi(void){
   // Scara_Return_Home();
   osDelay(200);
   while(true){
-    // printf("%f,%f\r\n",raspi.vision_x,raspi.vision_y);
-    // printf("%f,%f\r\n",raspi.real_x[8],raspi.real_y[8]);
-    // printf("%d\r\n",recognize);
+    printf("%f,%f\r\n",raspi.vision_x,raspi.vision_y);
+    printf("%f,%f\r\n",raspi.real_x[8],raspi.real_y[8]);
+    printf("%d\r\n",recognize);
     osDelay(200);
   }
   Raspi_Finish_Task(TASK_MOVE_BY_BOX);

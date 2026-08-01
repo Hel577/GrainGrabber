@@ -204,7 +204,7 @@ void Raspi_Process_Data(uint8_t *rx_data, uint16_t size)
                 // {
                 //     break;
                 // }
-                raspi.true_x = y/10+TRUE_X+CAR_TO_CAMERA;
+                raspi.true_x = -y/10+TRUE_X+CAR_TO_CAMERA;
                 raspi.true_y = -x/10+TRUE_Y;
 
             

@@ -545,17 +545,17 @@ void Move_Open_Loop_NonBlocking(float speed_x, float speed_y, float target_z, ui
 float const OFFSET_x = 1.0f;
 float const OFFSET_y = 1.0f;
 
-float target_positions[34][3] = {
+float target_positions[35][3] = {
     {1525*OFFSET_x, 1000*OFFSET_y, 0},//1
     {2795*OFFSET_x, 500 *OFFSET_y, 0},//2
     {3545*OFFSET_x, 500 *OFFSET_y, 0},//3
     {3278*OFFSET_x, 501 *OFFSET_y, 0},//4
-    {3260*OFFSET_x, 1000*OFFSET_y, 0},//5
-    {3260*OFFSET_x, 1500*OFFSET_y, 0},//6
-    {3250*OFFSET_x, 1501*OFFSET_y, 0},//7
+    {3260*OFFSET_x, 990*OFFSET_y, 0},//5      //3260  1000
+    {3260*OFFSET_x, 1490*OFFSET_y, 0},//6
+    {3250*OFFSET_x, 1501*OFFSET_y, 0},//7      3250 1501
     {2500*OFFSET_x, 1500*OFFSET_y, 90},//8
     {575*OFFSET_x, 1500*OFFSET_y, 180},//9//这里是缝缝补补这一块
-    {445*OFFSET_x, 510*OFFSET_y, 270},//10
+    {545*OFFSET_x, 510*OFFSET_y, 270},//10
     {445*OFFSET_x, 580*OFFSET_y, 180},//11
     {445*OFFSET_x,980*OFFSET_y,  180},//12
     {445*OFFSET_x,1440*OFFSET_y,  180},//13
@@ -575,15 +575,16 @@ float target_positions[34][3] = {
     {630*OFFSET_x,1500*OFFSET_y,  90},//26//对应16号点位，不用多次旋转
     {600*OFFSET_x, 1000*OFFSET_y, 180},//27//中心中转点，应用于2->5和1->4两种情况
 
-    {455*OFFSET_x, 580*OFFSET_y, 180},//28//对应11，12，13号点，为初次抵达时的点位
-    {455*OFFSET_x,980*OFFSET_y,  180},//29
-    {455*OFFSET_x,1420*OFFSET_y,  180},//30
+    {465*OFFSET_x, 580*OFFSET_y, 180},//28//对应11，12，13号点，为初次抵达时的点位???
+    {470*OFFSET_x,980*OFFSET_y,  180},//29
+    {470*OFFSET_x,1430*OFFSET_y,  180},//30
 
-    {425*OFFSET_x, 580*OFFSET_y, 180},//31//对应11，12，13号点，为初次抵达时的点位
-    {425*OFFSET_x,980*OFFSET_y,  180},//32
-    {425*OFFSET_x,1420*OFFSET_y,  180},//33
+    {590*OFFSET_x, 580*OFFSET_y, 180},//31//对应11，12，13号点，为初次抵达时的点位
+    {570*OFFSET_x,980*OFFSET_y,  180},//32
+    {570*OFFSET_x,1420*OFFSET_y,  180},//33
 
-    {590*OFFSET_x, 570*OFFSET_y, 180},//34//32号位中转点
+    {700*OFFSET_x, 580*OFFSET_y, 180},//34//32号位中转点
+    {445*OFFSET_x, 490*OFFSET_y, 270},//35//对应10号点位10
 };
 
 int timeout[17][17] = {
@@ -644,7 +645,7 @@ void Set_Target_Index_Direct(uint8_t target_id,float target_x,float target_y){
 
 void Release_Bean(uint8_t bean_id){
     //bean_id和plate_id完全相等s
-    // Door_Set_State(doors[bean_id-1],DOOR_OPEN);
+    Door_Set_State(doors[bean_id-1],DOOR_OPEN);
     osDelay(DOOR_OPEN_TIME[bean_id-1]);
     Door_Set_State(doors[bean_id-1],DOOR_CLOSE);
 }
@@ -657,6 +658,7 @@ void Move_To_Placing_Box(uint8_t* box_ids,uint8_t* bean_ids){
   Raspi_Send_Task(TASK_MOVE_BY_BOX);
   if(box_ids[0]==1){
     Move_To_Target(box_ids[0]+9,osWaitForever);//box_id+9为箱子放置位置的id
+    Set_Target_Index(35);
   }
   else if(box_ids[0]==3){
     Move_To_Target_Direct(box_ids[0]+29,osWaitForever);
@@ -836,7 +838,7 @@ void Grab_Bean(uint8_t bean_id,uint8_t bean){
   }
   Scara_To_Height(SCARA_HEIGHT_BEAN[bean_id-1]-error);
   osDelay(SCARA_TIME_BEAN[bean_id-1]);
-  // Grab_On();
+  Grab_On();
   osDelay(180*1.8);
   Scara_To_Height(SCARA_HEIGHT_MAX);
   osDelay(SCARA_TIME_BEAN[bean_id-1]);
